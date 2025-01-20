@@ -11,8 +11,8 @@
   <groupId>com.quantumcare</groupId>
   <artifactId>server</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>server</name>
-  <description>server</description>
+  <name>quantumcare</name>
+  <description>a healthcare appointment management system built with next.js &amp; spring boot.</description>
   <url/>
   <licenses>
     <license/>
@@ -53,6 +53,15 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
   </dependencies>
   
