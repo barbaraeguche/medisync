@@ -5,5 +5,5 @@ import jakarta.persistence.*;
 @Embeddable
 public class Address {
 	
-	private String street, city, state, postalCode, country;
+	private String street, city, state, zipCode, country;
 }

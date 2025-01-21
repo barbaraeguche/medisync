@@ -9,11 +9,15 @@
 ## features 👾
 - **title:** description
 
+## what I learned 💭
+- **title:** description
+
 ## limitations 🚨
 - **title:** description
 
-## what I learned 💭
+## improvements 🌱
 - **title:** description
+  - add reviews for each doctor
 
 ## .env file & application.properties 📄
 
