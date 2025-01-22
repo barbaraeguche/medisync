@@ -4,7 +4,7 @@ import com.quantumcare.server.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/patient")
+@RestController("/api/patient")
 public class PatientController {
 	
 	PatientService patientService;
