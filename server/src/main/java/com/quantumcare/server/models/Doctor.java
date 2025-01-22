@@ -1,8 +1,7 @@
 package com.quantumcare.server.models;
 
+import com.quantumcare.server.models.helpers.MedicalProfessional;
 //import jakarta.persistence.*;
-
-import com.quantumcare.server.models.helpers.HealthcareProvider;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -14,7 +13,7 @@ import java.util.Set;
 public class Doctor extends User {
 	
 	// join on doctorId foreign key
-	HealthcareProvider healthcareProvider;
+	MedicalProfessional medicalProfessional;
 	
 //	@Embedded
 	Set<AvailableHours> availableHours;
@@ -24,7 +23,7 @@ public class Doctor extends User {
 	
 	
 	// ------------------------ HELPERS ------------------------ //
-	//inner class
+	// inner class
 	private static class AvailableHours {
 		private LocalDate day;
 		private LocalTime startTime, endTime;

@@ -5,7 +5,7 @@ import java.util.Set;
 
 //@Entity
 //@Table(name = "healthcare_provider")
-public class HealthcareProvider {
+public class MedicalProfessional {
 
 //	@Column(unique = true, nullable = false, updatable = false)
 	String licenseNumber;

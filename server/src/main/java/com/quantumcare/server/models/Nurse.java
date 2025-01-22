@@ -1,32 +1,54 @@
 package com.quantumcare.server.models;
 
-import com.quantumcare.server.models.helpers.delete.Education;
-import com.quantumcare.server.models.helpers.Shift;
+import com.quantumcare.server.models.helpers.MedicalProfessional;
 //import jakarta.persistence.*;
 
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.List;
 
 //@Entity
 //@Table(name = "nurse")
 public class Nurse extends User {
-
-//	@Column(nullable = false)
-	private String specialization, licenseNumber; // make specialization a string of arrays
 	
-//	@ElementCollection
-//	@CollectionTable(name = "education", joinColumns = @JoinColumn(name = "nurse_id"))
-	Set<Education> education; // if i find a way to not allow duplicates, change here to list
-	
-//	@Column(nullable = false)
-	private int yearsOfExperience;
-	
-//	@Column(nullable = false)
-	private String department;
+	// join on nurseId foreign key
+	MedicalProfessional medicalProfessional;
 	
 //	@Column(nullable = false)
 //	@Enumerated(EnumType.STRING)
 	Shift shift;
 	
-//	private String[] languages;
-// 	private UUID supervisingDoctor;
+//	@Embedded
+	private Certifications certifications;
+	
+//	@Column(nullable = false)
+	private List<String> languages;
+	
+	
+	// ------------------------ HELPERS ------------------------ //
+	// enum
+	private enum Shift {
+		morning, afternoon, evening
+  }
+	
+	// inner class
+	private static class Certifications {
+		private String name, issuingBody;
+		private LocalDate expirationDate;
+		
+		public String getName() { return this.name; }
+		public void setName(String name) {
+			this.name = name;
+		}
+		
+		public String getIssuingBody() { return this.issuingBody; }
+		public void setIssuingBody(String issuingBody) {
+			this.issuingBody = issuingBody;
+		}
+		
+		public LocalDate getExpirationDate() { return this.expirationDate; }
+		public void setExpirationDate(LocalDate expirationDate) {
+			this.expirationDate = expirationDate;
+		}
+	}
+	// ---------------------- END HELPERS ---------------------- //
 }
