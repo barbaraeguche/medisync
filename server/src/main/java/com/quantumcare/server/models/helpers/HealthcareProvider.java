@@ -1,28 +1,23 @@
 package com.quantumcare.server.models.helpers;
 
 import java.util.List;
+import java.util.Set;
 
 //@Entity
 //@Table(name = "healthcare_provider")
-//@NotNull
 public class HealthcareProvider {
 
-//	@Column(unique = true)
+//	@Column(unique = true, nullable = false, updatable = false)
 	String licenseNumber;
 	
+//	@Column(nullable = false)
 	List<String> specialization;
 	
-	//	@Column(nullable = false)
-//
-//	@ElementCollection
-//	@CollectionTable(name = "education", joinColumns = @JoinColumn(name = "doctor_id"))
-//	Set<Education> education;
-//
-//	@Column(nullable = false)
-//	private int yearsOfExperience;
-//
-//	@Column(nullable = false)
-//	private String department;
+//  @Embedded
+	Set<Education> education;
+	
+	int yearsOfExperience;
+	String department;
 	
 	
 	// ------------------------ HELPERS ------------------------ //

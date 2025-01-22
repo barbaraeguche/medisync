@@ -2,20 +2,25 @@ package com.quantumcare.server.models;
 
 //import jakarta.persistence.*;
 
+import com.quantumcare.server.models.helpers.HealthcareProvider;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 
 //@Entity
 //@Table(name = "doctor")
 public class Doctor extends User {
 	
-
+	// join on doctorId foreign key
+	HealthcareProvider healthcareProvider;
+	
 //	@Embedded
 	Set<AvailableHours> availableHours;
 	
-	
-//	private String[] languages;
+//	@Column(nullable = false)
+	private List<String> languages;
 	
 	
 	// ------------------------ HELPERS ------------------------ //
