@@ -1,8 +1,8 @@
 package com.quantumcare.server.models.helpers;
 
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 
-@Embeddable
+//@Embeddable
 public class HealthMetrics {
 	
 	private double height, weight;

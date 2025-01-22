@@ -1,10 +1,10 @@
-package com.quantumcare.server.models.helpers;
+package com.quantumcare.server.models.helpers.delete;
 
-import jakarta.persistence.Embeddable;
+//import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-@Embeddable
+//@Embeddable
 public class AvailableHours {
 	
 	private LocalDate date;

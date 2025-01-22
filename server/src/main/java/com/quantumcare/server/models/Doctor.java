@@ -1,31 +1,43 @@
 package com.quantumcare.server.models;
 
-import com.quantumcare.server.models.helpers.AvailableHours;
-import com.quantumcare.server.models.helpers.Education;
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Set;
 
-@Entity
-@Table(name = "doctor")
+//@Entity
+//@Table(name = "doctor")
 public class Doctor extends User {
 	
-	@Column(nullable = false)
-	private String specialization, licenseNumber; // make specialization a string of arrays
+
+//	@Embedded
+	Set<AvailableHours> availableHours;
 	
-	@ElementCollection
-	@CollectionTable(name = "education", joinColumns = @JoinColumn(name = "doctor_id"))
-	Set<Education> education; // if i find a way to not allow duplicates, change here to list
-	
-	@Column(nullable = false)
-	private int yearsOfExperience;
-	
-	@ElementCollection
-	@CollectionTable(name = "availability", joinColumns = @JoinColumn(name = "doctor_id"))
-	Set<AvailableHours> availableHours; // if i find a way to not allow duplicates, change here to list
-	
-	@Column(nullable = false)
-	private String department;
 	
 //	private String[] languages;
+	
+	
+	// ------------------------ HELPERS ------------------------ //
+	//inner class
+	private static class AvailableHours {
+		private LocalDate day;
+		private LocalTime startTime, endTime;
+		
+		public LocalDate getDay() { return this.day; }
+		public void setDay(LocalDate day) {
+			this.day = day;
+		}
+		
+		public LocalTime getStartTime() { return this.startTime; }
+		public void setStartTime(LocalTime startTime) {
+			this.startTime = startTime;
+		}
+		
+		public LocalTime getEndTime() { return this.endTime; }
+		public void setEndTime(LocalTime endTime) {
+			this.endTime = endTime;
+		}
+	}
+	// ---------------------- END HELPERS ---------------------- //
 }

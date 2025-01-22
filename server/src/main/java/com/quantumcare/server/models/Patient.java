@@ -2,21 +2,21 @@ package com.quantumcare.server.models;
 
 import com.quantumcare.server.models.helpers.BloodType;
 import com.quantumcare.server.models.helpers.MedicalHistory;
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity
-@Table(name = "patient")
+//@Entity
+//@Table(name = "patient")
 public class Patient extends User {
 	
-	@ElementCollection
-	@CollectionTable(name = "education", joinColumns = @JoinColumn(name = "doctor_id"))
+//	@ElementCollection
+//	@CollectionTable(name = "education", joinColumns = @JoinColumn(name = "doctor_id"))
   private List<MedicalHistory> medicalHistory; // if i find a way to not allow duplicates, change here to list
 	
 //	private String[] allergies;
 	
-	@Column(nullable = false)
+//	@Column(nullable = false)
 	BloodType bloodType;
 	
 	private String insuranceProvider, insurancePolicyNumber;

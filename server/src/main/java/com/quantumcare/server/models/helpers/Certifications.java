@@ -1,10 +1,10 @@
 package com.quantumcare.server.models.helpers;
 
-import jakarta.persistence.Embeddable;
+//import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-@Embeddable
+//@Embeddable
 public class Certifications {
 	
 	private String name, issuingBody;
