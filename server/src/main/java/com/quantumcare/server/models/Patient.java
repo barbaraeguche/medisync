@@ -1,5 +1,6 @@
 package com.quantumcare.server.models;
 
+import com.quantumcare.server.models.helpers.Appointments;
 import com.quantumcare.server.models.helpers.MedicalHistory;
 //import jakarta.persistence.*;
 
@@ -25,9 +26,10 @@ public class Patient {
 	
 	String insuranceProvider, insurancePolicyNumber;
 	
-//	Appointments appointments
+//	@OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, orphanRemoval = true)
+	Appointments appointments;
 
-//	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+//	@OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MedicalHistory> medicalHistory;
 	
 //	@Embedded
@@ -88,17 +90,17 @@ public class Patient {
 	}
 	
 	public static class HealthMetrics {
-		private long height, weight;
+		private double height, weight;
 		private String bloodPressure;
-		private long bloodSugar;
+		private double bloodSugar;
 		
-		public long getHeight() { return this.height; }
-		public void setHeight(long height) {
+		public double getHeight() { return this.height; }
+		public void setHeight(double height) {
 			this.height = height;
 		}
 		
-		public long getWeight() { return this.weight; }
-		public void setWeight(long weight) {
+		public double getWeight() { return this.weight; }
+		public void setWeight(double weight) {
 			this.weight = weight;
 		}
 		
@@ -107,8 +109,8 @@ public class Patient {
 			this.bloodPressure = bloodPressure;
 		}
 		
-		public long getBloodSugar() { return this.bloodSugar; }
-		public void setBloodSugar(long bloodSugar) {
+		public double getBloodSugar() { return this.bloodSugar; }
+		public void setBloodSugar(double bloodSugar) {
 			this.bloodSugar = bloodSugar;
 		}
 	}

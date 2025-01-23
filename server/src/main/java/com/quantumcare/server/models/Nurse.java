@@ -1,6 +1,6 @@
 package com.quantumcare.server.models;
 
-import com.quantumcare.server.models.helpers.PractitionerDetails;
+import com.quantumcare.server.models.helpers.Practitioner;
 //import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -20,7 +20,7 @@ public class Nurse {
 	
 //	@OneToOne
 //	@JoinColumn(name = "nursePractitionerId", nullable = false)
-	PractitionerDetails practitionerDetails;
+	Practitioner practitioner;
 	
 //	@Column(nullable = false)
 //	@Enumerated(EnumType.STRING)
@@ -44,9 +44,9 @@ public class Nurse {
 		this.user = user;
 	}
 	
-	public PractitionerDetails getPractitionerDetails() { return this.practitionerDetails; }
-	public void setPractitionerDetails(PractitionerDetails practitionerDetails) {
-		this.practitionerDetails = practitionerDetails;
+	public Practitioner getPractitionerDetails() { return this.practitioner; }
+	public void setPractitionerDetails(Practitioner practitioner) {
+		this.practitioner = practitioner;
 	}
 	
 	public Shift getShift() { return this.shift; }

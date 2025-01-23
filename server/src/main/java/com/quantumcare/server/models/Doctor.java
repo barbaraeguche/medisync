@@ -1,6 +1,7 @@
 package com.quantumcare.server.models;
 
-import com.quantumcare.server.models.helpers.PractitionerDetails;
+import com.quantumcare.server.models.helpers.Appointments;
+import com.quantumcare.server.models.helpers.Practitioner;
 //import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -21,10 +22,14 @@ public class Doctor {
 	
 //	@OneToOne
 //	@JoinColumn(name = "doctorPractitionerId", nullable = false)
-	PractitionerDetails practitionerDetails;
+	Practitioner practitioner;
 	
-//	@Embedded --- MAY CHANGE TO ELEMENT COLLECTION
-	List<Availability> availableHours;
+//	@ElementCollection
+//	@CollectionTable(name = "doctor_availabilities", joinColumns = @JoinColumn(name = "doctorId"))
+	List<DoctorAvailabilities> doctorAvailabilities;
+	
+//	@OneToMany(mappedBy = "doctorId", cascade = CascadeType.ALL, orphanRemoval = true)
+	Appointments appointments;
 	
 //	@Column(nullable = false)
 	private List<String> languages;
@@ -40,14 +45,14 @@ public class Doctor {
 		this.user = user;
 	}
 	
-	public PractitionerDetails getPractitionerDetails() { return this.practitionerDetails; }
-	public void setPractitionerDetails(PractitionerDetails practitionerDetails) {
-		this.practitionerDetails = practitionerDetails;
+	public Practitioner getPractitionerDetails() { return this.practitioner; }
+	public void setPractitionerDetails(Practitioner practitioner) {
+		this.practitioner = practitioner;
 	}
 	
-	public List<Availability> getAvailableHours() { return this.availableHours; }
-	public void setAvailableHours(List<Availability> availableHours) {
-		this.availableHours = availableHours;
+	public List<DoctorAvailabilities> getDoctorAvailabilities() { return this.doctorAvailabilities; }
+	public void setDoctorAvailabilities(List<DoctorAvailabilities> doctorAvailabilities) {
+		this.doctorAvailabilities = doctorAvailabilities;
 	}
 	
 	public List<String> getLanguages() { return this.languages; }
@@ -58,7 +63,7 @@ public class Doctor {
 	
 	// ------------------------ HELPERS ------------------------ //
 //	@Embeddable
-	public static class Availability {
+	public static class DoctorAvailabilities {
 		private LocalDate day;
 		private LocalTime startTime, endTime;
 		

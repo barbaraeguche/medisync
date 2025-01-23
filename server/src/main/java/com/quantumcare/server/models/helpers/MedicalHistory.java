@@ -17,22 +17,22 @@ public class MedicalHistory {
 	private List<Medications> medications;
 	
 	// getters and setters
-	public int getId() { return id; }
+	public int getId() { return this.id; }
 	public void setId(int id) {
 		this.id = id;
 	}
 	
-	public String getDiagnosis() { return diagnosis; }
+	public String getDiagnosis() { return this.diagnosis; }
 	public void setDiagnosis(String diagnosis) {
 		this.diagnosis = diagnosis;
 	}
 	
-	public LocalDate getDiagnosisDate() { return diagnosisDate; }
+	public LocalDate getDiagnosisDate() { return this.diagnosisDate; }
 	public void setDiagnosisDate(LocalDate diagnosisDate) {
 		this.diagnosisDate = diagnosisDate;
 	}
 	
-	public List<Medications> getMedications() { return medications; }
+	public List<Medications> getMedications() { return this.medications; }
 	public void setMedications(List<Medications> medications) {
 		this.medications = medications;
 	}

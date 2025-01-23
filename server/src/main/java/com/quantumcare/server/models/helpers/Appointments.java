@@ -8,15 +8,12 @@ public class Appointments {
 
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Column(updatable = false, nullable = false)
-	private long id;
+	private int id;
 	
-//	@ElementCollection
-	UUID doctorId, patientId;
-	
+//	@Column(nullable = false)
 	private LocalDate day;
-	private LocalTime startTime;
-	int duration;
+//	@Column(nullable = false)
+	private LocalTime startTime, endTime;
 	
 //	@Column(nullable = false)
 	Type type;
@@ -25,33 +22,46 @@ public class Appointments {
 	
 	String notes;
 	
+	// getters and setters
+	public int getId() { return this.id; }
+	public void setId(int id) {
+		this.id = id;
+	}
 	
+	public LocalDate getDay() { return this.day; }
+	public void setDay(LocalDate day) {
+		this.day = day;
+	}
 	
+	public LocalTime getStartTime() { return this.startTime; }
+	public void setStartTime(LocalTime startTime) {
+		this.startTime = startTime;
+	}
+	
+	public LocalTime getEndTime() { return this.endTime; }
+	public void setEndTime(LocalTime endTime) {
+		this.endTime = endTime;
+	}
+	
+	public Type getType() { return this.type; }
+	public void setType(Type type) {
+		this.type = type;
+	}
+	
+	public Status getStatus() { return this.status; }
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
+	public String getNotes() { return this.notes; }
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
 	
 	
 	// ------------------------ HELPERS ------------------------ //
-	// enums
-	private enum Type { // must have previous appointment for there to be a followUp
-		checkup, followUp, emergency, consultation
-	}
-	private enum Status { // if task becomes too much, might them give them the chance to cancel
-		scheduled, completed, cancelled
-	}
+	// must have previous appointment for there to be a followUp --- checkup + followUp + consultation(30min), emergency (1h)
+	public enum Type { checkup, followUp, emergency, consultation; }
+	public enum Status { scheduled, completed, cancelled }
 	// ---------------------- END HELPERS ---------------------- //
 }
-
-
-//APPOINTMENTS (NotNull)
-//
-//long id => auto
-//UUID patientId
-//UUID doctorId
-//LocalDate dateTime
-//int duration => mins
-//Type type => "checkup" | "followUp" | "emergency" | "consultation"
-//Status status => "scheduled" | "completed" | "cancelled"
-//String notes => nullable
-//String[] symptoms => nullable
-//String diagnosis => nullable
-//
-//Medications prescriptions => nullable
