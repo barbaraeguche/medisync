@@ -52,7 +52,7 @@ public class Patient {
 		this.allergies = allergies;
 	}
 	
-	public BloodType getBloodType() { return this.bloodType; }
+	public String getBloodType() { return this.bloodType.displayBloodType(); }
 	public void setBloodType(BloodType bloodType) {
 		this.bloodType = bloodType;
 	}

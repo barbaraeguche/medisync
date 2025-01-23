@@ -55,7 +55,6 @@ public class Practitioner {
 	
 	
 	// ------------------------ HELPERS ------------------------ //
-	//inner class
 //	@Embeddable
 	public static class Education {
 		private String degree, institution;
