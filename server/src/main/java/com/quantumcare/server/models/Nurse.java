@@ -19,7 +19,7 @@ public class Nurse {
 	User user;
 	
 //	@OneToOne
-//	@JoinColumn(name = "nursePractitionerId", nullable = false)
+//	@JoinColumn(name = "practitionerId", nullable = false)
 	Practitioner practitioner;
 	
 //	@Column(nullable = false)

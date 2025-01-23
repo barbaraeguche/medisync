@@ -7,6 +7,7 @@ import com.quantumcare.server.models.helpers.Practitioner;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 //@Entity
 //@Table(name = "doctor")
@@ -21,7 +22,7 @@ public class Doctor {
 	User user;
 	
 //	@OneToOne
-//	@JoinColumn(name = "doctorPractitionerId", nullable = false)
+//	@JoinColumn(name = "practitionerId", nullable = false)
 	Practitioner practitioner;
 	
 //	@ElementCollection
@@ -65,20 +66,21 @@ public class Doctor {
 //	@Embeddable
 	public static class DoctorAvailabilities {
 		private LocalDate day;
-		private LocalTime startTime, endTime;
+		
+		private Set<LocalTime> startTime, endTime;
 		
 		public LocalDate getDay() { return this.day; }
 		public void setDay(LocalDate day) {
 			this.day = day;
 		}
 		
-		public LocalTime getStartTime() { return this.startTime; }
-		public void setStartTime(LocalTime startTime) {
+		public Set<LocalTime> getStartTime() { return this.startTime; }
+		public void setStartTime(Set<LocalTime> startTime) {
 			this.startTime = startTime;
 		}
 		
-		public LocalTime getEndTime() { return this.endTime; }
-		public void setEndTime(LocalTime endTime) {
+		public Set<LocalTime> getEndTime() { return this.endTime; }
+		public void setEndTime(Set<LocalTime> endTime) {
 			this.endTime = endTime;
 		}
 	}
