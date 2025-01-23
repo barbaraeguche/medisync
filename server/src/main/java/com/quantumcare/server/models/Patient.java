@@ -1,35 +1,83 @@
 package com.quantumcare.server.models;
 
+import com.quantumcare.server.models.helpers.MedicalHistory;
 //import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 //@Entity
 //@Table(name = "patient")
-public class Patient extends User {
+public class Patient {
+
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 	
-	private List<MedicalHistory> medicalHistory;
+//	@OneToOne
+//	@JoinColumn(name = "userId", nullable = false)
+	User user;
+	
 	List<String> allergies;
 	
 //	@Column(nullable = false)
+//	@Enumerated(EnumType.STRING)
 	BloodType bloodType;
 	
 	String insuranceProvider, insurancePolicyNumber;
+	
+//	Appointments appointments
 
-//	Appointments pastAppointments => date < now
-//	Appointments upcomingAppointments => date > now
-
-//	Medications medications => nullable
-
-//	@Column(nullable = false)
+//	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MedicalHistory> medicalHistory;
+	
 //	@Embedded
+//	@Column(nullable = false)
 	HealthMetrics healthMetrics;
+	
+	//getters and setters
+	public int getId() { return this.id; }
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public User getUser() { return this.user; }
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public List<String> getAllergies() { return this.allergies; }
+	public void setAllergies(List<String> allergies) {
+		this.allergies = allergies;
+	}
+	
+	public BloodType getBloodType() { return this.bloodType; }
+	public void setBloodType(BloodType bloodType) {
+		this.bloodType = bloodType;
+	}
+	
+	public String getInsuranceProvider() { return this.insuranceProvider; }
+	public void setInsuranceProvider(String insuranceProvider) {
+		this.insuranceProvider = insuranceProvider;
+	}
+	
+	public String getInsurancePolicyNumber() { return this.insurancePolicyNumber; }
+	public void setInsurancePolicyNumber(String insurancePolicyNumber) {
+		this.insurancePolicyNumber = insurancePolicyNumber;
+	}
+	
+	public List<MedicalHistory> getMedicalHistory() { return this.medicalHistory; }
+	public void setMedicalHistory(List<MedicalHistory> medicalHistory) {
+		this.medicalHistory = medicalHistory;
+	}
+	
+	public HealthMetrics getHealthMetrics() { return this.healthMetrics; }
+	public void setHealthMetrics(HealthMetrics healthMetrics) {
+		this.healthMetrics = healthMetrics;
+	}
 	
 	
 	// ------------------------ HELPERS ------------------------ //
-	// enum
-	private enum BloodType {
+	public enum BloodType {
 		a_plus("A+"), a_minus("A-"), b_plus("B+"), b_minus("B-"),
 		ab_plus("AB+"), ab_minus("AB-"), o_plus("O+"), o_minus("O-");
 		
@@ -39,48 +87,27 @@ public class Patient extends User {
 		public String displayBloodType() { return this.bloodType; }
 	}
 	
-	// inner classes
-	private static class MedicalHistory {
-		private String condition;
-		private LocalDate diagnosisDate;
-		private List<String> medications;
-		
-		public String getCondition() { return this.condition; }
-		public void setCondition(String condition) {
-			this.condition = condition;
-		}
-		
-		public LocalDate getDiagnosisDate() { return this.diagnosisDate; }
-		public void setDiagnosisDate(LocalDate diagnosisDate) {
-			this.diagnosisDate = diagnosisDate;
-		}
-		
-		public List<String> getMedications() { return this.medications; }
-		public void setMedications(List<String> medications) {
-			this.medications = medications;
-		}
-	}
-	private static class HealthMetrics {
+	public static class HealthMetrics {
 		private long height, weight;
 		private String bloodPressure;
 		private long bloodSugar;
 		
-		public long getHeight() { return height; }
+		public long getHeight() { return this.height; }
 		public void setHeight(long height) {
 			this.height = height;
 		}
 		
-		public long getWeight() { return weight; }
+		public long getWeight() { return this.weight; }
 		public void setWeight(long weight) {
 			this.weight = weight;
 		}
 		
-		public String getBloodPressure() { return bloodPressure; }
+		public String getBloodPressure() { return this.bloodPressure; }
 		public void setBloodPressure(String bloodPressure) {
 			this.bloodPressure = bloodPressure;
 		}
 		
-		public long getBloodSugar() { return bloodSugar; }
+		public long getBloodSugar() { return this.bloodSugar; }
 		public void setBloodSugar(long bloodSugar) {
 			this.bloodSugar = bloodSugar;
 		}

@@ -1,6 +1,6 @@
 package com.quantumcare.server.models;
 
-import com.quantumcare.server.models.helpers.MedicalProfessional;
+import com.quantumcare.server.models.helpers.PractitionerDetails;
 //import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -8,30 +8,68 @@ import java.util.List;
 
 //@Entity
 //@Table(name = "nurse")
-public class Nurse extends User {
+public class Nurse {
+
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 	
-	// join on nurseId foreign key
-	MedicalProfessional medicalProfessional;
+//	@OneToOne
+//	@JoinColumn(name = "userId", nullable = false)
+	User user;
+	
+//	@OneToOne
+//	@JoinColumn(name = "nursePractitionerId", nullable = false)
+	PractitionerDetails practitionerDetails;
 	
 //	@Column(nullable = false)
 //	@Enumerated(EnumType.STRING)
 	Shift shift;
 	
-//	@Embedded
-	private Certifications certifications;
+//	@ElementCollection
+//	@CollectionTable(name = "certifications", joinColumns = @JoinColumn(name = "nurseId"))
+	private List<Certifications> certifications;
 	
 //	@Column(nullable = false)
 	private List<String> languages;
 	
+	// getters and setters
+	public int getId() { return this.id; }
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public User getUser() { return this.user; }
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public PractitionerDetails getPractitionerDetails() { return this.practitionerDetails; }
+	public void setPractitionerDetails(PractitionerDetails practitionerDetails) {
+		this.practitionerDetails = practitionerDetails;
+	}
+	
+	public Shift getShift() { return this.shift; }
+	public void setShift(Shift shift) {
+		this.shift = shift;
+	}
+	
+	public List<Certifications> getCertifications() { return this.certifications; }
+	public void setCertifications(List<Certifications> certifications) {
+		this.certifications = certifications;
+	}
+	
+	public List<String> getLanguages() { return this.languages; }
+	public void setLanguages(List<String> languages) {
+		this.languages = languages;
+	}
+	
 	
 	// ------------------------ HELPERS ------------------------ //
-	// enum
-	private enum Shift {
-		morning, afternoon, evening
-  }
+	public enum Shift { morning, afternoon, evening; }
 	
-	// inner class
-	private static class Certifications {
+//	@Embeddable
+	public static class Certifications {
 		private String name, issuingBody;
 		private LocalDate expirationDate;
 		
