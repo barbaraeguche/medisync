@@ -93,7 +93,7 @@ public class User {
 	
 	@Embeddable
 	public static class Address {
-		private String street, city, state, zipCode, country;
+		private String street, city, province, postalCode, country;
 		
 		public String getStreet() { return this.street; }
 		public void setStreet(String street) {
@@ -105,14 +105,14 @@ public class User {
 			this.city = city;
 		}
 		
-		public String getState() { return this.state; }
-		public void setState(String state) {
-			this.state = state;
+		public String getProvince() { return this.province; }
+		public void setProvince(String state) {
+			this.province = state;
 		}
 		
-		public String getZipCode() { return this.zipCode; }
-		public void setZipCode(String zipCode) {
-			this.zipCode = zipCode;
+		public String getPostalCode() { return this.postalCode; }
+		public void setPostalCode(String zipCode) {
+			this.postalCode = zipCode;
 		}
 		
 		public String getCountry() { return this.country; }

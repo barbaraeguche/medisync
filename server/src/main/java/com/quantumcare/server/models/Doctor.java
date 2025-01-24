@@ -69,6 +69,7 @@ public class Doctor {
 	@Embeddable
 	public static class DoctorAvailabilities {
 		private LocalDate day;
+		
 		@ElementCollection
 		@CollectionTable(name = "doctor_time_slots", joinColumns = @JoinColumn(name = "doctorId"))
 		@Column(name = "time_slots")
