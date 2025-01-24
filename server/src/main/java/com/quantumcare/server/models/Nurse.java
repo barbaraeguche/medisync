@@ -1,36 +1,36 @@
 package com.quantumcare.server.models;
 
 import com.quantumcare.server.models.helpers.Practitioner;
-//import jakarta.persistence.*;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
-//@Entity
-//@Table(name = "nurse")
+@Entity
+@Table(name = "nurse")
 public class Nurse {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-//	@OneToOne
-//	@JoinColumn(name = "userId", nullable = false)
+	@OneToOne
+	@JoinColumn(name = "userId", nullable = false)
 	User user;
 	
-//	@OneToOne
-//	@JoinColumn(name = "practitionerId", nullable = false)
+	@OneToOne
+	@JoinColumn(name = "practitionerId", nullable = false)
 	Practitioner practitioner;
 	
-//	@Column(nullable = false)
-//	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	Shift shift;
 	
-//	@ElementCollection
-//	@CollectionTable(name = "certifications", joinColumns = @JoinColumn(name = "nurseId"))
+	@ElementCollection
+	@CollectionTable(name = "certifications", joinColumns = @JoinColumn(name = "nurseId"))
 	private List<Certifications> certifications;
 	
-//	@Column(nullable = false)
+	@Column(nullable = false)
 	private List<String> languages;
 	
 	// getters and setters
@@ -68,7 +68,7 @@ public class Nurse {
 	// ------------------------ HELPERS ------------------------ //
 	public enum Shift { morning, afternoon, evening; }
 	
-//	@Embeddable
+	@Embeddable
 	public static class Certifications {
 		private String name, issuingBody;
 		private LocalDate expirationDate;

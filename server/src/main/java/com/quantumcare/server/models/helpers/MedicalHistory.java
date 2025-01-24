@@ -1,19 +1,23 @@
 package com.quantumcare.server.models.helpers;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.List;
 
+@Entity
+@Table(name = "medical_history")
 public class MedicalHistory {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	private String diagnosis;
 	private LocalDate diagnosisDate;
 	
-//	@ElementCollection
-//	@CollectionTable(name = "medications", joinColumns = @JoinColumn(name = "medicalHistoryId"))
+	@ElementCollection
+	@CollectionTable(name = "medications", joinColumns = @JoinColumn(name = "medicalHistoryId"))
 	private List<Medications> medications;
 	
 	// getters and setters
@@ -38,7 +42,7 @@ public class MedicalHistory {
 	}
 	
 	// ------------------------ HELPERS ------------------------ //
-//	@Embeddable
+	@Embeddable
 	public static class Medications {
 		private String drugName, dosage, frequency, duration;
 		

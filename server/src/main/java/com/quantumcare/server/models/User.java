@@ -1,38 +1,38 @@
 package com.quantumcare.server.models;
 
-//import jakarta.persistence.*;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-//@Entity
-//@Table(name = "user")
+@Entity
+@Table(name = "user")
 public class User {
 	
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.UUID)
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 	
-//	@Column(nullable = false)
+	@Column(nullable = false)
 	private String firstName, lastName;
 	
-//	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = false)
 	private String email, phoneNumber;
 	
-//	@Column(updatable = false, nullable = false)
+	@Column(updatable = false, nullable = false)
 	private LocalDate dateOfBirth;
 	
-// 	@Column(updatable = false, nullable = false)
-//	@Enumerated(EnumType.STRING)
+ 	@Column(updatable = false, nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	
-//	@Column(nullable = false)
-//	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-//	@Embedded
+	@Embedded
 	private Address address;
-//	@Embedded
+	@Embedded
 	private EmergencyContact emergencyContact;
 	
 	// getters and setters
@@ -91,7 +91,7 @@ public class User {
 	public enum Gender { male, female; }
 	public enum Role { doctor, nurse, patient; }
 	
-//	@Embeddable
+	@Embeddable
 	public static class Address {
 		private String street, city, state, zipCode, country;
 		
@@ -120,7 +120,7 @@ public class User {
 			this.country = country;
 		}
 	}
-//	@Embeddable
+	@Embeddable
 	public static class EmergencyContact {
 		private String emergencyName, relationshipToUser, emergencyEmail;
 		

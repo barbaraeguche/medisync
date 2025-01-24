@@ -2,37 +2,37 @@ package com.quantumcare.server.models;
 
 import com.quantumcare.server.models.helpers.Appointments;
 import com.quantumcare.server.models.helpers.Practitioner;
-//import jakarta.persistence.*;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
-//@Entity
-//@Table(name = "doctor")
+@Entity
+@Table(name = "doctor")
 public class Doctor {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-//	@OneToOne
-//	@JoinColumn(name = "userId", nullable = false)
+	@OneToOne
+	@JoinColumn(name = "userId", nullable = false)
 	User user;
 	
-//	@OneToOne
-//	@JoinColumn(name = "practitionerId", nullable = false)
+	@OneToOne
+	@JoinColumn(name = "practitionerId", nullable = false)
 	Practitioner practitioner;
 	
-//	@ElementCollection
-//	@CollectionTable(name = "doctor_availabilities", joinColumns = @JoinColumn(name = "doctorId"))
+	@ElementCollection
+	@CollectionTable(name = "doctor_availabilities", joinColumns = @JoinColumn(name = "doctorId"))
 	List<DoctorAvailabilities> doctorAvailabilities;
 	
-//	@OneToMany(mappedBy = "doctorId", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "doctorId", cascade = CascadeType.ALL, orphanRemoval = true)
 	Appointments appointments;
 	
-//	@Column(nullable = false)
+	@Column(nullable = false)
 	private List<String> languages;
 	
 	// getters and setters
@@ -63,7 +63,7 @@ public class Doctor {
 	
 	
 	// ------------------------ HELPERS ------------------------ //
-//	@Embeddable
+	@Embeddable
 	public static class DoctorAvailabilities {
 		private LocalDate day;
 		

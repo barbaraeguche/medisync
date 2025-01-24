@@ -1,23 +1,26 @@
 package com.quantumcare.server.models.helpers;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.UUID;
 
+@Entity
+@Table(name = "appointments")
 public class Appointments {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-//	@Column(nullable = false)
+	@Column(nullable = false)
 	private LocalDate day;
-//	@Column(nullable = false)
+	@Column(nullable = false)
 	private LocalTime startTime, endTime;
 	
-//	@Column(nullable = false)
+	@Column(nullable = false)
 	Type type;
-//	@Column(nullable = false)
+	@Column(nullable = false)
 	Status status;
 	
 	String notes;

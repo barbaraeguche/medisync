@@ -2,38 +2,39 @@ package com.quantumcare.server.models;
 
 import com.quantumcare.server.models.helpers.Appointments;
 import com.quantumcare.server.models.helpers.MedicalHistory;
-//import jakarta.persistence.*;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 
 import java.util.List;
 
-//@Entity
-//@Table(name = "patient")
+@Entity
+@Table(name = "patient")
 public class Patient {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-//	@OneToOne
-//	@JoinColumn(name = "userId", nullable = false)
+	@OneToOne
+	@JoinColumn(name = "userId", nullable = false)
 	User user;
 	
 	List<String> allergies;
 	
-//	@Column(nullable = false)
-//	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	BloodType bloodType;
 	
 	String insuranceProvider, insurancePolicyNumber;
 	
-//	@OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, orphanRemoval = true)
 	Appointments appointments;
 
-//	@OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MedicalHistory> medicalHistory;
 	
-//	@Embedded
-//	@Column(nullable = false)
+	@Embedded
+	@Column(nullable = false)
 	HealthMetrics healthMetrics;
 	
 	//getters and setters
@@ -89,6 +90,7 @@ public class Patient {
 		public String displayBloodType() { return this.bloodType; }
 	}
 	
+	@Embeddable
 	public static class HealthMetrics {
 		private double height, weight;
 		private String bloodPressure;

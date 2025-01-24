@@ -1,23 +1,25 @@
 package com.quantumcare.server.models.helpers;
 
+import jakarta.persistence.*;
+
 import java.util.Set;
 
-//@Entity
-//@Table(name = "practitioner_details")
+@Entity
+@Table(name = "practitioner")
 public class Practitioner {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-//	@Column(updatable = false, unique = true, nullable = false)
+	@Column(updatable = false, unique = true, nullable = false)
 	String licenseNumber;
 	
-//	@Column(nullable = false)
+	@Column(nullable = false)
 	Set<String> department, specialization;
 	
-//	@ElementCollection
-//	@CollectionTable(name = "education", joinColumns = @JoinColumn(name = "practitionerId"))
+	@ElementCollection
+	@CollectionTable(name = "education", joinColumns = @JoinColumn(name = "practitionerId"))
 	Set<Education> education;
 	
 	int yearsOfExperience;
@@ -55,7 +57,7 @@ public class Practitioner {
 	
 	
 	// ------------------------ HELPERS ------------------------ //
-//	@Embeddable
+	@Embeddable
 	public static class Education {
 		private String degree, institution;
 		private int yearOfGraduation;
