@@ -11,7 +11,7 @@ public class Appointments {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	
 	@Column(nullable = false)
 	private LocalDate day;
@@ -26,8 +26,8 @@ public class Appointments {
 	String notes;
 	
 	// getters and setters
-	public int getId() { return this.id; }
-	public void setId(int id) {
+	public Integer getId() { return this.id; }
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	

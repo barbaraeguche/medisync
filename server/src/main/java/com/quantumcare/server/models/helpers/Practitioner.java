@@ -10,7 +10,7 @@ public class Practitioner {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	
 	@Column(updatable = false, unique = true, nullable = false)
 	String licenseNumber;
@@ -33,8 +33,8 @@ public class Practitioner {
 	int yearsOfExperience;
 	
 	//getters and setters
-	public int getId() { return this.id; }
-	public void setId(int id) {
+	public Integer getId() { return this.id; }
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
