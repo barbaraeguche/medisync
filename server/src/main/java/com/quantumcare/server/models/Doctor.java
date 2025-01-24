@@ -27,12 +27,15 @@ public class Doctor {
 	
 	@ElementCollection
 	@CollectionTable(name = "doctor_availabilities", joinColumns = @JoinColumn(name = "doctorId"))
+	@Column(name = "availabilities")
 	List<DoctorAvailabilities> doctorAvailabilities;
 	
 	@OneToMany(mappedBy = "doctorId", cascade = CascadeType.ALL, orphanRemoval = true)
-	Appointments appointments;
+	List<Appointments> appointments;
 	
-	@Column(nullable = false)
+	@ElementCollection
+	@CollectionTable(name = "doctor_languages", joinColumns = @JoinColumn(name = "doctorId"))
+	@Column(name = "languages", nullable = false)
 	private List<String> languages;
 	
 	// getters and setters
@@ -66,7 +69,9 @@ public class Doctor {
 	@Embeddable
 	public static class DoctorAvailabilities {
 		private LocalDate day;
-		
+		@ElementCollection
+		@CollectionTable(name = "doctor_time_slots", joinColumns = @JoinColumn(name = "doctorId"))
+		@Column(name = "time_slots")
 		private Set<LocalTime> startTime, endTime;
 		
 		public LocalDate getDay() { return this.day; }

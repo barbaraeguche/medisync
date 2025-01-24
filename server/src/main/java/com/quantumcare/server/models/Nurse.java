@@ -27,10 +27,13 @@ public class Nurse {
 	Shift shift;
 	
 	@ElementCollection
-	@CollectionTable(name = "certifications", joinColumns = @JoinColumn(name = "nurseId"))
+	@CollectionTable(name = "nurse_certifications", joinColumns = @JoinColumn(name = "nurseId"))
+	@Column(name = "certifications", nullable = false)
 	private List<Certifications> certifications;
 	
-	@Column(nullable = false)
+	@ElementCollection
+	@CollectionTable(name = "nurse_languages", joinColumns = @JoinColumn(name = "nurseId"))
+	@Column(name = "languages", nullable = false)
 	private List<String> languages;
 	
 	// getters and setters

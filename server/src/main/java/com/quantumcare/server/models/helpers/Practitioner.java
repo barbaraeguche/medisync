@@ -15,11 +15,19 @@ public class Practitioner {
 	@Column(updatable = false, unique = true, nullable = false)
 	String licenseNumber;
 	
-	@Column(nullable = false)
-	Set<String> department, specialization;
+	@ElementCollection
+	@CollectionTable(name = "practitioner_department", joinColumns = @JoinColumn(name = "practitionerId"))
+	@Column(name = "department", nullable = false)
+	Set<String> department;
 	
 	@ElementCollection
-	@CollectionTable(name = "education", joinColumns = @JoinColumn(name = "practitionerId"))
+	@CollectionTable(name = "practitioner_specialization", joinColumns = @JoinColumn(name = "practitionerId"))
+	@Column(name = "specialization", nullable = false)
+	Set<String> specialization;
+	
+	@ElementCollection
+	@CollectionTable(name = "practitioner_education", joinColumns = @JoinColumn(name = "practitionerId"))
+	@Column(name = "education", nullable = false)
 	Set<Education> education;
 	
 	int yearsOfExperience;

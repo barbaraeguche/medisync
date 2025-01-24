@@ -19,6 +19,9 @@ public class Patient {
 	@JoinColumn(name = "userId", nullable = false)
 	User user;
 	
+	@ElementCollection
+	@CollectionTable(name = "patient_allergies", joinColumns = @JoinColumn(name = "patientId"))
+	@Column(name = "allergies", nullable = false)
 	List<String> allergies;
 	
 	@Column(nullable = false)
@@ -28,7 +31,7 @@ public class Patient {
 	String insuranceProvider, insurancePolicyNumber;
 	
 	@OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, orphanRemoval = true)
-	Appointments appointments;
+	List<Appointments> appointments;
 
 	@OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MedicalHistory> medicalHistory;

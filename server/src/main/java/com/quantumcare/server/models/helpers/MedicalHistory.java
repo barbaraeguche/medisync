@@ -17,7 +17,8 @@ public class MedicalHistory {
 	private LocalDate diagnosisDate;
 	
 	@ElementCollection
-	@CollectionTable(name = "medications", joinColumns = @JoinColumn(name = "medicalHistoryId"))
+	@CollectionTable(name = "patient_medications", joinColumns = @JoinColumn(name = "medicalHistoryId"))
+	@Column(name = "medications")
 	private List<Medications> medications;
 	
 	// getters and setters
