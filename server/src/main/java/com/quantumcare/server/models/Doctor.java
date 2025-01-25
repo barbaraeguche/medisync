@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "doctor")
@@ -18,23 +17,22 @@ public class Doctor {
 	private Integer id;
 	
 	@OneToOne
-	@JoinColumn(name = "userId", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false)
 	User user;
 	
 	@OneToOne
-	@JoinColumn(name = "practitionerId", nullable = false)
+	@JoinColumn(name = "practitioner_id", nullable = false)
 	Practitioner practitioner;
 	
 	@ElementCollection
-	@CollectionTable(name = "doctor_availabilities", joinColumns = @JoinColumn(name = "doctorId"))
-	@Column(name = "availabilities")
+	@CollectionTable(name = "doctor_availabilities", joinColumns = @JoinColumn(name = "doctor_id"))
 	List<DoctorAvailabilities> doctorAvailabilities;
 	
 	@OneToMany(mappedBy = "doctorId", cascade = CascadeType.ALL, orphanRemoval = true)
 	List<Appointments> appointments;
 	
 	@ElementCollection
-	@CollectionTable(name = "doctor_languages", joinColumns = @JoinColumn(name = "doctorId"))
+	@CollectionTable(name = "doctor_languages", joinColumns = @JoinColumn(name = "doctor_id"))
 	@Column(name = "languages", nullable = false)
 	private List<String> languages;
 	
@@ -55,9 +53,10 @@ public class Doctor {
 	}
 	
 	public List<DoctorAvailabilities> getDoctorAvailabilities() { return this.doctorAvailabilities; }
-	public void setDoctorAvailabilities(List<DoctorAvailabilities> doctorAvailabilities) {
-		this.doctorAvailabilities = doctorAvailabilities;
-	}
+	public void setDoctorAvailabilities(List<DoctorAvailabilities> doctorAvailabilities) { this.doctorAvailabilities = doctorAvailabilities; }
+	
+	public List<Appointments> getAppointments() { return appointments; }
+	public void setAppointments(List<Appointments> appointments) { this.appointments = appointments; }
 	
 	public List<String> getLanguages() { return this.languages; }
 	public void setLanguages(List<String> languages) {
@@ -69,24 +68,20 @@ public class Doctor {
 	@Embeddable
 	public static class DoctorAvailabilities {
 		private LocalDate day;
-		
-		@ElementCollection
-		@CollectionTable(name = "doctor_time_slots", joinColumns = @JoinColumn(name = "doctorId"))
-		@Column(name = "time_slots")
-		private Set<LocalTime> startTime, endTime;
+		private LocalTime startTime, endTime;
 		
 		public LocalDate getDay() { return this.day; }
 		public void setDay(LocalDate day) {
 			this.day = day;
 		}
 		
-		public Set<LocalTime> getStartTime() { return this.startTime; }
-		public void setStartTime(Set<LocalTime> startTime) {
+		public LocalTime getStartTime() { return this.startTime; }
+		public void setStartTime(LocalTime startTime) {
 			this.startTime = startTime;
 		}
 		
-		public Set<LocalTime> getEndTime() { return this.endTime; }
-		public void setEndTime(Set<LocalTime> endTime) {
+		public LocalTime getEndTime() { return this.endTime; }
+		public void setEndTime(LocalTime endTime) {
 			this.endTime = endTime;
 		}
 	}

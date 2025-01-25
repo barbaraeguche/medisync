@@ -16,18 +16,18 @@ public class Practitioner {
 	String licenseNumber;
 	
 	@ElementCollection
-	@CollectionTable(name = "practitioner_department", joinColumns = @JoinColumn(name = "practitionerId"))
+	@CollectionTable(name = "practitioner_department", joinColumns = @JoinColumn(name = "practitioner_id"))
 	@Column(name = "department", nullable = false)
 	Set<String> department;
 	
 	@ElementCollection
-	@CollectionTable(name = "practitioner_specialization", joinColumns = @JoinColumn(name = "practitionerId"))
+	@CollectionTable(name = "practitioner_specialization", joinColumns = @JoinColumn(name = "practitioner_id"))
 	@Column(name = "specialization", nullable = false)
 	Set<String> specialization;
 	
 	@ElementCollection
-	@CollectionTable(name = "practitioner_education", joinColumns = @JoinColumn(name = "practitionerId"))
-	@Column(name = "education", nullable = false)
+	@CollectionTable(name = "practitioner_education", joinColumns = @JoinColumn(name = "practitioner_id"))
+	@Column(nullable = false)
 	Set<Education> education;
 	
 	int yearsOfExperience;

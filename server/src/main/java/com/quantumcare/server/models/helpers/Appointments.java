@@ -1,5 +1,7 @@
 package com.quantumcare.server.models.helpers;
 
+import com.quantumcare.server.models.Doctor;
+import com.quantumcare.server.models.Patient;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -24,6 +26,14 @@ public class Appointments {
 	Status status;
 	
 	String notes;
+	
+	@ManyToOne
+  @JoinColumn(name = "doctor_id", nullable = false)
+	Doctor doctorId;
+	
+	@ManyToOne
+	@JoinColumn(name = "patient_id", nullable = false)
+	Patient patientId;
 	
 	// getters and setters
 	public Integer getId() { return this.id; }

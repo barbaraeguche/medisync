@@ -1,5 +1,6 @@
 package com.quantumcare.server.models.helpers;
 
+import com.quantumcare.server.models.Patient;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -17,9 +18,12 @@ public class MedicalHistory {
 	private LocalDate diagnosisDate;
 	
 	@ElementCollection
-	@CollectionTable(name = "patient_medications", joinColumns = @JoinColumn(name = "medicalHistoryId"))
-	@Column(name = "medications")
+	@CollectionTable(name = "patient_medications", joinColumns = @JoinColumn(name = "medical_history_id"))
 	private List<Medications> medications;
+	
+	@ManyToOne
+	@JoinColumn(name = "patient_id", nullable = false)
+	Patient patientId;
 	
 	// getters and setters
 	public Integer getId() { return this.id; }

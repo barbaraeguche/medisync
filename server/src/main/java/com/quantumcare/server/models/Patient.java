@@ -16,11 +16,11 @@ public class Patient {
 	private Integer id;
 	
 	@OneToOne
-	@JoinColumn(name = "userId", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false)
 	User user;
 	
 	@ElementCollection
-	@CollectionTable(name = "patient_allergies", joinColumns = @JoinColumn(name = "patientId"))
+	@CollectionTable(name = "patient_allergies", joinColumns = @JoinColumn(name = "patient_id"))
 	@Column(name = "allergies", nullable = false)
 	List<String> allergies;
 	
@@ -67,9 +67,10 @@ public class Patient {
 	}
 	
 	public String getInsurancePolicyNumber() { return this.insurancePolicyNumber; }
-	public void setInsurancePolicyNumber(String insurancePolicyNumber) {
-		this.insurancePolicyNumber = insurancePolicyNumber;
-	}
+	public void setInsurancePolicyNumber(String insurancePolicyNumber) { this.insurancePolicyNumber = insurancePolicyNumber; }
+	
+	public List<Appointments> getAppointments() { return appointments; }
+	public void setAppointments(List<Appointments> appointments) { this.appointments = appointments; }
 	
 	public List<MedicalHistory> getMedicalHistory() { return this.medicalHistory; }
 	public void setMedicalHistory(List<MedicalHistory> medicalHistory) {

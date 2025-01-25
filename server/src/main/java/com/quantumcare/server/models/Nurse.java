@@ -15,11 +15,11 @@ public class Nurse {
 	private Integer id;
 	
 	@OneToOne
-	@JoinColumn(name = "userId", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false)
 	User user;
 	
 	@OneToOne
-	@JoinColumn(name = "practitionerId", nullable = false)
+	@JoinColumn(name = "practitioner_id", nullable = false)
 	Practitioner practitioner;
 	
 	@Column(nullable = false)
@@ -27,12 +27,11 @@ public class Nurse {
 	Shift shift;
 	
 	@ElementCollection
-	@CollectionTable(name = "nurse_certifications", joinColumns = @JoinColumn(name = "nurseId"))
-	@Column(name = "certifications", nullable = false)
+	@CollectionTable(name = "nurse_certifications", joinColumns = @JoinColumn(name = "nurse_id"))
 	private List<Certifications> certifications;
 	
 	@ElementCollection
-	@CollectionTable(name = "nurse_languages", joinColumns = @JoinColumn(name = "nurseId"))
+	@CollectionTable(name = "nurse_languages", joinColumns = @JoinColumn(name = "nurse_id"))
 	@Column(name = "languages", nullable = false)
 	private List<String> languages;
 	

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "user")
+@Table(name = "\"user\"")
 public class User {
 	
 	@Id
@@ -26,7 +26,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	
-	@Column(nullable = false)
+	@Column(updatable = false, nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
