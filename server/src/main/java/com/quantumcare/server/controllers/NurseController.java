@@ -2,9 +2,11 @@ package com.quantumcare.server.controllers;
 
 import com.quantumcare.server.services.NurseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/api/nurse")
+@RestController
+@RequestMapping("/api/nurse")
 public class NurseController {
 	
 	NurseService nurseService;
