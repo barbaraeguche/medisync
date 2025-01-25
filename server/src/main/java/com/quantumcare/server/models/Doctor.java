@@ -13,7 +13,8 @@ import java.util.List;
 public class Doctor {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "doctor_seq", sequenceName = "doctor_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "doctor_seq")
 	private Integer id;
 	
 	@OneToOne
@@ -31,10 +32,16 @@ public class Doctor {
 	@OneToMany(mappedBy = "doctorId", cascade = CascadeType.ALL, orphanRemoval = true)
 	List<Appointments> appointments;
 	
-	@ElementCollection
-	@CollectionTable(name = "doctor_languages", joinColumns = @JoinColumn(name = "doctor_id"))
-	@Column(name = "languages", nullable = false)
-	private List<String> languages;
+	// constructors
+	public Doctor() {}
+	public Doctor(User user, Practitioner practitioner, List<DoctorAvailabilities> doctorAvailabilities,
+								List<Appointments> appointments
+	) {
+		this.user = user;
+		this.practitioner = practitioner;
+		this.doctorAvailabilities = doctorAvailabilities;
+		this.appointments = appointments;
+	}
 	
 	// getters and setters
 	public Integer getId() { return this.id; }
@@ -58,11 +65,6 @@ public class Doctor {
 	public List<Appointments> getAppointments() { return appointments; }
 	public void setAppointments(List<Appointments> appointments) { this.appointments = appointments; }
 	
-	public List<String> getLanguages() { return this.languages; }
-	public void setLanguages(List<String> languages) {
-		this.languages = languages;
-	}
-	
 	
 	// ------------------------ HELPERS ------------------------ //
 	@Embeddable
@@ -70,20 +72,23 @@ public class Doctor {
 		private LocalDate day;
 		private LocalTime startTime, endTime;
 		
-		public LocalDate getDay() { return this.day; }
-		public void setDay(LocalDate day) {
+		// constructors
+		public DoctorAvailabilities() {}
+		public DoctorAvailabilities(LocalDate day, LocalTime startTime, LocalTime endTime) {
 			this.day = day;
-		}
-		
-		public LocalTime getStartTime() { return this.startTime; }
-		public void setStartTime(LocalTime startTime) {
 			this.startTime = startTime;
-		}
-		
-		public LocalTime getEndTime() { return this.endTime; }
-		public void setEndTime(LocalTime endTime) {
 			this.endTime = endTime;
 		}
+		
+		// getters and setters
+		public LocalDate getDay() { return this.day; }
+		public void setDay(LocalDate day) { this.day = day; }
+		
+		public LocalTime getStartTime() { return this.startTime; }
+		public void setStartTime(LocalTime startTime) { this.startTime = startTime; }
+		
+		public LocalTime getEndTime() { return this.endTime; }
+		public void setEndTime(LocalTime endTime) { this.endTime = endTime; }
 	}
 	// ---------------------- END HELPERS ---------------------- //
 }

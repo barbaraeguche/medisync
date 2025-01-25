@@ -2,6 +2,7 @@ package com.quantumcare.server.models.helpers;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -9,7 +10,8 @@ import java.util.Set;
 public class Practitioner {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "practitioner_seq", sequenceName = "practitioner_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "practitioner_seq")
 	private Integer id;
 	
 	@Column(updatable = false, unique = true, nullable = false)
@@ -32,7 +34,25 @@ public class Practitioner {
 	
 	int yearsOfExperience;
 	
-	//getters and setters
+	@ElementCollection
+	@CollectionTable(name = "practitioner_languages", joinColumns = @JoinColumn(name = "practitioner_id"))
+	@Column(name = "languages", nullable = false)
+	private List<String> languages;
+	
+	// constructors
+	public Practitioner() {}
+	public Practitioner(String licenseNumber, Set<String> department, Set<String> specialization,
+											Set<Education> education, int yearsOfExperience, List<String> languages
+	) {
+		this.licenseNumber = licenseNumber;
+		this.department = department;
+		this.specialization = specialization;
+		this.education = education;
+		this.yearsOfExperience = yearsOfExperience;
+		this.languages = languages;
+	}
+	
+	// getters and setters
 	public Integer getId() { return this.id; }
 	public void setId(Integer id) {
 		this.id = id;
@@ -63,13 +83,25 @@ public class Practitioner {
 		this.yearsOfExperience = yearsOfExperience;
 	}
 	
+	public List<String> getLanguages() { return this.languages; }
+	public void setLanguages(List<String> languages) { this.languages = languages; }
+	
 	
 	// ------------------------ HELPERS ------------------------ //
 	@Embeddable
 	public static class Education {
 		private String degree, institution;
-		private int yearOfGraduation;
+		private int graduationYear;
 		
+		// constructors
+		public Education() {}
+		public Education(String degree, String institution, int graduationYear) {
+      this.degree = degree;
+      this.institution = institution;
+      this.graduationYear = graduationYear;
+    }
+		
+		// getters and setters
 		public String getDegree() { return this.degree; }
 		public void setDegree(String degree) {
 			this.degree = degree;
@@ -80,9 +112,9 @@ public class Practitioner {
 			this.institution = institution;
 		}
 		
-		public int getYearOfGraduation() { return this.yearOfGraduation; }
-		public void setYearOfGraduation(int yearOfGraduation) {
-			this.yearOfGraduation = yearOfGraduation;
+		public int getGraduationYear() { return this.graduationYear; }
+		public void setGraduationYear(int graduationYear) {
+			this.graduationYear = graduationYear;
 		}
 	}
 	// ---------------------- END HELPERS ---------------------- //

@@ -12,7 +12,8 @@ import java.time.LocalTime;
 public class Appointments {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "appointments_seq", sequenceName = "appointments_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "appointments_seq")
 	private Integer id;
 	
 	@Column(nullable = false)
@@ -34,6 +35,21 @@ public class Appointments {
 	@ManyToOne
 	@JoinColumn(name = "patient_id", nullable = false)
 	Patient patientId;
+	
+	// constructors
+	public Appointments() {}
+	public Appointments(LocalDate day, LocalTime startTime, LocalTime endTime, Type type, Status status,
+											String notes, Doctor doctorId, Patient patientId
+	) {
+    this.day = day;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.type = type;
+    this.status = status;
+    this.notes = notes;
+    this.doctorId = doctorId;
+    this.patientId = patientId;
+	}
 	
 	// getters and setters
 	public Integer getId() { return this.id; }
@@ -70,6 +86,12 @@ public class Appointments {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
+	
+	public Doctor getDoctorId() { return doctorId; }
+	public void setDoctorId(Doctor doctorId) { this.doctorId = doctorId; }
+	
+	public Patient getPatientId() { return patientId; }
+	public void setPatientId(Patient patientId) { this.patientId = patientId; }
 	
 	
 	// ------------------------ HELPERS ------------------------ //

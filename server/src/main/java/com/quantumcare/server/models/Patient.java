@@ -12,7 +12,8 @@ import java.util.List;
 public class Patient {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "patient_seq", sequenceName = "patient_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_seq")
 	private Integer id;
 	
 	@OneToOne
@@ -40,31 +41,37 @@ public class Patient {
 	@Column(nullable = false)
 	HealthMetrics healthMetrics;
 	
-	//getters and setters
-	public Integer getId() { return this.id; }
-	public void setId(Integer id) {
-		this.id = id;
+	// constructors
+	public Patient() {}
+	public Patient(User user, List<String> allergies, BloodType bloodType, String insuranceProvider,
+								 String insurancePolicyNumber, List<Appointments> appointments, List<MedicalHistory> medicalHistory,
+								 HealthMetrics healthMetrics
+  ) {
+		this.user = user;
+		this.allergies = allergies;
+		this.bloodType = bloodType;
+		this.insuranceProvider = insuranceProvider;
+		this.insurancePolicyNumber = insurancePolicyNumber;
+		this.appointments = appointments;
+		this.medicalHistory = medicalHistory;
+		this.healthMetrics = healthMetrics;
 	}
+	
+	// getters and setters
+	public Integer getId() { return this.id; }
+	public void setId(Integer id) { this.id = id; }
 	
 	public User getUser() { return this.user; }
-	public void setUser(User user) {
-		this.user = user;
-	}
+	public void setUser(User user) { this.user = user; }
 	
 	public List<String> getAllergies() { return this.allergies; }
-	public void setAllergies(List<String> allergies) {
-		this.allergies = allergies;
-	}
+	public void setAllergies(List<String> allergies) { this.allergies = allergies; }
 	
 	public String getBloodType() { return this.bloodType.displayBloodType(); }
-	public void setBloodType(BloodType bloodType) {
-		this.bloodType = bloodType;
-	}
+	public void setBloodType(BloodType bloodType) { this.bloodType = bloodType; }
 	
 	public String getInsuranceProvider() { return this.insuranceProvider; }
-	public void setInsuranceProvider(String insuranceProvider) {
-		this.insuranceProvider = insuranceProvider;
-	}
+	public void setInsuranceProvider(String insuranceProvider) { this.insuranceProvider = insuranceProvider; }
 	
 	public String getInsurancePolicyNumber() { return this.insurancePolicyNumber; }
 	public void setInsurancePolicyNumber(String insurancePolicyNumber) { this.insurancePolicyNumber = insurancePolicyNumber; }
@@ -73,14 +80,10 @@ public class Patient {
 	public void setAppointments(List<Appointments> appointments) { this.appointments = appointments; }
 	
 	public List<MedicalHistory> getMedicalHistory() { return this.medicalHistory; }
-	public void setMedicalHistory(List<MedicalHistory> medicalHistory) {
-		this.medicalHistory = medicalHistory;
-	}
+	public void setMedicalHistory(List<MedicalHistory> medicalHistory) { this.medicalHistory = medicalHistory; }
 	
 	public HealthMetrics getHealthMetrics() { return this.healthMetrics; }
-	public void setHealthMetrics(HealthMetrics healthMetrics) {
-		this.healthMetrics = healthMetrics;
-	}
+	public void setHealthMetrics(HealthMetrics healthMetrics) { this.healthMetrics = healthMetrics; }
 	
 	
 	// ------------------------ HELPERS ------------------------ //
@@ -100,6 +103,16 @@ public class Patient {
 		private String bloodPressure;
 		private double bloodSugar;
 		
+		// constructors
+		public HealthMetrics() {}
+		public HealthMetrics(double height, double weight, String bloodPressure, double bloodSugar) {
+			this.height = height;
+      this.weight = weight;
+      this.bloodPressure = bloodPressure;
+      this.bloodSugar = bloodSugar;
+		}
+		
+		// getters and setters
 		public double getHeight() { return this.height; }
 		public void setHeight(double height) {
 			this.height = height;

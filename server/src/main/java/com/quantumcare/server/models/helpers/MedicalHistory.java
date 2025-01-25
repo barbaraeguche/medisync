@@ -11,7 +11,8 @@ import java.util.List;
 public class MedicalHistory {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "medical_history_seq", sequenceName = "medical_history_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "medical_history_seq")
 	private Integer id;
 	
 	private String diagnosis;
@@ -24,6 +25,15 @@ public class MedicalHistory {
 	@ManyToOne
 	@JoinColumn(name = "patient_id", nullable = false)
 	Patient patientId;
+	
+	// constructors
+	public MedicalHistory() {}
+  public MedicalHistory(String diagnosis, LocalDate diagnosisDate, List<Medications> medications, Patient patientId) {
+		this.diagnosis = diagnosis;
+		this.diagnosisDate = diagnosisDate;
+		this.medications = medications;
+		this.patientId = patientId;
+	}
 	
 	// getters and setters
 	public Integer getId() { return this.id; }
@@ -46,11 +56,25 @@ public class MedicalHistory {
 		this.medications = medications;
 	}
 	
+	public Patient getPatientId() { return patientId; }
+	public void setPatientId(Patient patientId) { this.patientId = patientId; }
+	
+	
 	// ------------------------ HELPERS ------------------------ //
 	@Embeddable
 	public static class Medications {
 		private String drugName, dosage, frequency, duration;
 		
+		// constructors
+		public Medications() {}
+		public Medications(String drugName, String dosage, String frequency, String duration) {
+			this.drugName = drugName;
+			this.dosage = dosage;
+			this.frequency = frequency;
+      this.duration = duration;
+		}
+		
+		// getters and setters
 		public String getDrugName() { return this.drugName; }
 		public void setDrugName(String drugName) {
 			this.drugName = drugName;

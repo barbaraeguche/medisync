@@ -35,6 +35,22 @@ public class User {
 	@Embedded
 	private EmergencyContact emergencyContact;
 	
+	// constructors
+	public User() {}
+	public User(String firstName, String lastName, String email, String phoneNumber, LocalDate dateOfBirth, Gender gender,
+							Role role, Address address, EmergencyContact emergencyContact
+	) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.dateOfBirth = dateOfBirth;
+		this.gender = gender;
+		this.role = role;
+		this.address = address;
+		this.emergencyContact = emergencyContact;
+	}
+	
 	// getters and setters
 	public UUID getId() { return this.id; }
 	public void setId(UUID id) {
@@ -95,35 +111,46 @@ public class User {
 	public static class Address {
 		private String street, city, province, postalCode, country;
 		
-		public String getStreet() { return this.street; }
-		public void setStreet(String street) {
+		// constructors
+		public Address() {}
+		public Address(String street, String city, String province, String postalCode, String country) {
 			this.street = street;
-		}
-		
-		public String getCity() { return this.city; }
-		public void setCity(String city) {
 			this.city = city;
-		}
-		
-		public String getProvince() { return this.province; }
-		public void setProvince(String state) {
-			this.province = state;
-		}
-		
-		public String getPostalCode() { return this.postalCode; }
-		public void setPostalCode(String zipCode) {
-			this.postalCode = zipCode;
-		}
-		
-		public String getCountry() { return this.country; }
-		public void setCountry(String country) {
+			this.province = province;
+			this.postalCode = postalCode;
 			this.country = country;
 		}
+		
+		// getters and setters
+		public String getStreet() { return this.street; }
+		public void setStreet(String street) { this.street = street; }
+		
+		public String getCity() { return this.city; }
+		public void setCity(String city) { this.city = city; }
+		
+		public String getProvince() { return this.province; }
+		public void setProvince(String state) { this.province = state; }
+		
+		public String getPostalCode() { return this.postalCode; }
+		public void setPostalCode(String zipCode) { this.postalCode = zipCode; }
+		
+		public String getCountry() { return this.country; }
+		public void setCountry(String country) { this.country = country; }
 	}
+	
 	@Embeddable
 	public static class EmergencyContact {
 		private String emergencyName, relationshipToUser, emergencyEmail;
 		
+		// constructors
+		public EmergencyContact() {}
+		public EmergencyContact(String emergencyName, String relationshipToUser, String emergencyEmail) {
+			this.emergencyName = emergencyName;
+			this.relationshipToUser = relationshipToUser;
+			this.emergencyEmail = emergencyEmail;
+		}
+		
+		// getters and setters
 		public String getEmergencyName() { return this.emergencyName; }
 		public void setEmergencyName(String emergencyName) {
 			this.emergencyName = emergencyName;
