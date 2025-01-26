@@ -2,88 +2,50 @@ package com.quantumcare.server.models;
 
 import com.quantumcare.server.models.helpers.Appointments;
 import com.quantumcare.server.models.helpers.MedicalHistory;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "patient")
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Patient {
 
 	@Id
-	@SequenceGenerator(name = "patient_seq", sequenceName = "patient_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_seq")
+	@SequenceGenerator(name = "patient_seq", sequenceName = "patient_seq", allocationSize = 1)
 	private Integer id;
 	
+	@NonNull
 	@OneToOne
 	@JoinColumn(name = "user_id", nullable = false)
-	User user;
+	private User user;
 	
-	@ElementCollection
-	@CollectionTable(name = "patient_allergies", joinColumns = @JoinColumn(name = "patient_id"))
-	@Column(name = "allergies", nullable = false)
-	List<String> allergies;
+	@NonNull
+	@Column(name = "allergies")
+	private String allergies;
 	
+	@NonNull
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	BloodType bloodType;
+	private BloodType bloodType;
 	
-	String insuranceProvider, insurancePolicyNumber;
+	@NonNull
+	private String insuranceProvider, insurancePolicyNumber;
 	
 	@OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, orphanRemoval = true)
-	List<Appointments> appointments;
+	private List<Appointments> appointments;
 
 	@OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MedicalHistory> medicalHistory;
 	
+	@NonNull
 	@Embedded
 	@Column(nullable = false)
-	HealthMetrics healthMetrics;
-	
-	// constructors
-	public Patient() {}
-	public Patient(User user, List<String> allergies, BloodType bloodType, String insuranceProvider,
-								 String insurancePolicyNumber, List<Appointments> appointments, List<MedicalHistory> medicalHistory,
-								 HealthMetrics healthMetrics
-  ) {
-		this.user = user;
-		this.allergies = allergies;
-		this.bloodType = bloodType;
-		this.insuranceProvider = insuranceProvider;
-		this.insurancePolicyNumber = insurancePolicyNumber;
-		this.appointments = appointments;
-		this.medicalHistory = medicalHistory;
-		this.healthMetrics = healthMetrics;
-	}
-	
-	// getters and setters
-	public Integer getId() { return this.id; }
-	public void setId(Integer id) { this.id = id; }
-	
-	public User getUser() { return this.user; }
-	public void setUser(User user) { this.user = user; }
-	
-	public List<String> getAllergies() { return this.allergies; }
-	public void setAllergies(List<String> allergies) { this.allergies = allergies; }
-	
-	public String getBloodType() { return this.bloodType.displayBloodType(); }
-	public void setBloodType(BloodType bloodType) { this.bloodType = bloodType; }
-	
-	public String getInsuranceProvider() { return this.insuranceProvider; }
-	public void setInsuranceProvider(String insuranceProvider) { this.insuranceProvider = insuranceProvider; }
-	
-	public String getInsurancePolicyNumber() { return this.insurancePolicyNumber; }
-	public void setInsurancePolicyNumber(String insurancePolicyNumber) { this.insurancePolicyNumber = insurancePolicyNumber; }
-	
-	public List<Appointments> getAppointments() { return appointments; }
-	public void setAppointments(List<Appointments> appointments) { this.appointments = appointments; }
-	
-	public List<MedicalHistory> getMedicalHistory() { return this.medicalHistory; }
-	public void setMedicalHistory(List<MedicalHistory> medicalHistory) { this.medicalHistory = medicalHistory; }
-	
-	public HealthMetrics getHealthMetrics() { return this.healthMetrics; }
-	public void setHealthMetrics(HealthMetrics healthMetrics) { this.healthMetrics = healthMetrics; }
+	private HealthMetrics healthMetrics;
 	
 	
 	// ------------------------ HELPERS ------------------------ //
@@ -97,41 +59,14 @@ public class Patient {
 		public String displayBloodType() { return this.bloodType; }
 	}
 	
+	@Data
 	@Embeddable
+	@NoArgsConstructor
+	@AllArgsConstructor
 	public static class HealthMetrics {
 		private double height, weight;
 		private String bloodPressure;
 		private double bloodSugar;
-		
-		// constructors
-		public HealthMetrics() {}
-		public HealthMetrics(double height, double weight, String bloodPressure, double bloodSugar) {
-			this.height = height;
-      this.weight = weight;
-      this.bloodPressure = bloodPressure;
-      this.bloodSugar = bloodSugar;
-		}
-		
-		// getters and setters
-		public double getHeight() { return this.height; }
-		public void setHeight(double height) {
-			this.height = height;
-		}
-		
-		public double getWeight() { return this.weight; }
-		public void setWeight(double weight) {
-			this.weight = weight;
-		}
-		
-		public String getBloodPressure() { return this.bloodPressure; }
-		public void setBloodPressure(String bloodPressure) {
-			this.bloodPressure = bloodPressure;
-		}
-		
-		public double getBloodSugar() { return this.bloodSugar; }
-		public void setBloodSugar(double bloodSugar) {
-			this.bloodSugar = bloodSugar;
-		}
 	}
 	// ---------------------- END HELPERS ---------------------- //
 }

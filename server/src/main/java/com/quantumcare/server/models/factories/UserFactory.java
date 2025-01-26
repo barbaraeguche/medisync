@@ -17,7 +17,7 @@ public class UserFactory {
 		return new User.Address(street, city, province, postalCode, country);
 	}
 	
-	public User.EmergencyContact createEmergencyContact(String emergencyName, String relationshipToUser, String emergencyEmail) {
-    return new User.EmergencyContact(emergencyName, relationshipToUser, emergencyEmail);
+	public User.EmergencyContact createEmergencyContact(String contactName, String relationshipToUser, String contactEmail) {
+    return new User.EmergencyContact(contactName, relationshipToUser, contactEmail);
   }
 }
