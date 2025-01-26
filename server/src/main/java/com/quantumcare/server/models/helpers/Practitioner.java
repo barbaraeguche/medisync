@@ -48,8 +48,7 @@ public class Practitioner {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class Education {
-		private String degree, institution;
-		private int graduationYear;
+		private String degree, institution, graduationYear;
 	}
 	// ---------------------- END HELPERS ---------------------- //
 }

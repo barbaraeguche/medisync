@@ -17,7 +17,7 @@ public class HelperFactory {
 		return new Practitioner(licenseNumber, department, specialization, yearsOfExperience, languages);
 	}
 	
-	public Practitioner.Education createEducation(String degree, String institution, int graduationYear) {
+	public Practitioner.Education createEducation(String degree, String institution, String graduationYear) {
 		return new Practitioner.Education(degree, institution, graduationYear);
 	}
 	

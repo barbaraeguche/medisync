@@ -64,9 +64,8 @@ public class Patient {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class HealthMetrics {
-		private double height, weight;
+		private double height, weight, bloodSugar;
 		private String bloodPressure;
-		private double bloodSugar;
 	}
 	// ---------------------- END HELPERS ---------------------- //
 }
