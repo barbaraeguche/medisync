@@ -67,7 +67,7 @@ export interface Practitioner {
 	licenseNumber: string
 	department: string
 	specialization: string
-	education: {
+	education?: {
 		degree: string
 		institution: string
 		graduationYear: string

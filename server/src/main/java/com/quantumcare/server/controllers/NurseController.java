@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/nurse")
 public class NurseController {
 	
-	NurseService nurseService;
+	private final NurseService nurseService;
 	
 	@Autowired
 	public NurseController(NurseService nurseService) {

@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/doctor")
+@RequestMapping("/api/patient")
 public class PatientController {
 	
-	PatientService patientService;
+	private final PatientService patientService;
 	
 	@Autowired
 	public PatientController(PatientService patientService) {

@@ -23,7 +23,7 @@ public class PatientFactory {
 		return new MedicalHistory.Medications(drugName, dosage, frequency, duration);
   }
 	
-	public Patient.HealthMetrics createHealthMetrics(double height, double weight, String bloodPressure, double bloodSugar) {
-    return new Patient.HealthMetrics(height, weight, bloodPressure, bloodSugar);
+	public Patient.HealthMetrics createHealthMetrics(double height, double weight, double bloodSugar, String bloodPressure) {
+    return new Patient.HealthMetrics(height, weight, bloodSugar, bloodPressure);
   }
 }
