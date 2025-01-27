@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -15,10 +16,10 @@ import java.util.List;
 public class Patient {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_seq")
-	@SequenceGenerator(name = "patient_seq", sequenceName = "patient_seq", allocationSize = 1)
-	private Integer id;
+	@Column(name = "user_id")
+	private UUID id;
 	
+	@MapsId
 	@NonNull
 	@OneToOne
 	@JoinColumn(name = "user_id", nullable = false)

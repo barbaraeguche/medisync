@@ -4,6 +4,7 @@ export interface User {
 	lastName: string
 	email: string
 	phoneNumber: string
+	password: string
 	dateOfBirth: Date
 	gender: 'male' | 'female'
 	role: 'doctor' | 'nurse' | 'patient'
@@ -22,7 +23,7 @@ export interface User {
 }
 
 export interface Doctor {
-	id: number
+	id: string
 	user: User
 	practitioner: Practitioner
 	doctorAvailabilities?: {
@@ -34,7 +35,7 @@ export interface Doctor {
 }
 
 export interface Nurse {
-	id: number
+	id: string
 	user: User
 	practitioner: Practitioner
 	shift: 'morning' | 'afternoon' | 'evening'
@@ -46,7 +47,7 @@ export interface Nurse {
 }
 
 export interface Patient {
-	id: number
+	id: string
 	user: User
 	allergies: string
 	bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-'

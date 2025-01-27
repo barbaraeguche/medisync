@@ -26,6 +26,10 @@ public class User {
 	private String email, phoneNumber;
 	
 	@NonNull
+	@Column(nullable = false)
+	private String password;
+	
+	@NonNull
 	@Column(updatable = false, nullable = false)
 	private LocalDate dateOfBirth;
 	
@@ -46,6 +50,15 @@ public class User {
 	@NonNull
 	@Embedded
 	private EmergencyContact emergencyContact;
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private Doctor doctor;
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private Nurse nurse;
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private Patient patient;
 	
 	
 	// ------------------------ HELPERS ------------------------ //

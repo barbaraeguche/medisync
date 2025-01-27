@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -15,10 +16,10 @@ import java.util.List;
 public class Nurse {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "nurse_seq")
-	@SequenceGenerator(name = "nurse_seq", sequenceName = "nurse_seq", allocationSize = 1)
-	private Integer id;
+	@Column(name = "user_id")
+	private UUID id;
 	
+	@MapsId
 	@NonNull
 	@OneToOne
 	@JoinColumn(name = "user_id", nullable = false)
