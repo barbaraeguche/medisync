@@ -1,6 +1,7 @@
 package com.quantumcare.server.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -19,27 +20,43 @@ public class User {
 	
 	@NonNull
 	@Column(nullable = false)
-	private String firstName, lastName;
-	
-	@NonNull
-	@Column(unique = true, nullable = false)
-	private String email, phoneNumber;
+	@NotEmpty(message = "First name cannot be empty")
+	private String firstName;
 	
 	@NonNull
 	@Column(nullable = false)
+	@NotEmpty(message = "Last name cannot be empty")
+	private String lastName;
+	
+	@NonNull
+	@Column(unique = true, nullable = false)
+	@NotEmpty(message = "Email cannot be empty")
+	private String email;
+	
+	@NonNull
+	@Column(nullable = false)
+	@NotEmpty(message = "Password cannot be empty")
 	private String password;
 	
 	@NonNull
+	@Column(unique = true, nullable = false)
+	@NotEmpty(message = "Phone number cannot be empty")
+	private String phoneNumber;
+	
+	@NonNull
 	@Column(updatable = false, nullable = false)
+	@NotEmpty(message = "Date of birth cannot be empty")
 	private LocalDate dateOfBirth;
 	
 	@NonNull
 	@Enumerated(EnumType.STRING)
  	@Column(updatable = false, nullable = false)
+	@NotEmpty(message = "Gender cannot be empty")
 	private Gender gender;
 	
 	@NonNull
 	@Enumerated(EnumType.STRING)
+	@NotEmpty(message = "Role cannot be empty")
 	@Column(updatable = false, nullable = false)
 	private Role role;
 	

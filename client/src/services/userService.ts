@@ -1,34 +1,24 @@
 import { apiClient } from '@/services/axiosConfig';
 import { User } from '@/lib/definitions';
 
-// get
 export const getUser = async (userId: string) => {
-	const response = await apiClient.get(`/user/${userId}`);
-	return response.data;
+	return await apiClient.get(`/user/${userId}`);
 };
 
-// post
 export const createUser = async (user: User) => {
-	const response = await apiClient.post('/user', user);
-	return response.data;
+	return await apiClient.post('/user', user);
 };
 
-// put
 export const replaceUser = async (user: User) => {
-	const response = await apiClient.put(`/user/${user.id}`, user);
-  return response.data;
+  return await apiClient.put(`/user/${user.id}`, user);
 };
 
-// patch
 export const updateUser = async (user: Partial<User>) => {
-	const response = await apiClient.patch(`/user/${user.id}`, user);
-  return response.data;
+  return await apiClient.patch(`/user/${user.id}`, user);
 };
 
-// delete
 export const deleteUser = async (userId: string) => {
-	const response = await apiClient.delete(`/user/${userId}`);
-	return response.data;
+	return await apiClient.delete(`/user/${userId}`);
 };
 
 // implement dispatch to update global state
