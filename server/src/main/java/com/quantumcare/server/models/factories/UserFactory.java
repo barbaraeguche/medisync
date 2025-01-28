@@ -3,8 +3,6 @@ package com.quantumcare.server.models.factories;
 import com.quantumcare.server.models.User;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-
 @Component
 public class UserFactory {
 	// create a new instance

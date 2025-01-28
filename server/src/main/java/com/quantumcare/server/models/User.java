@@ -2,6 +2,7 @@ package com.quantumcare.server.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -45,18 +46,18 @@ public class User {
 	
 	@NonNull
 	@Column(updatable = false, nullable = false)
-	@NotEmpty(message = "Date of birth cannot be empty")
+	@NotNull(message = "Date of birth cannot be empty")
 	private LocalDate dateOfBirth;
 	
 	@NonNull
 	@Enumerated(EnumType.STRING)
  	@Column(updatable = false, nullable = false)
-	@NotEmpty(message = "Gender cannot be empty")
+	@NotNull(message = "Gender cannot be empty")
 	private Gender gender;
 	
 	@NonNull
 	@Enumerated(EnumType.STRING)
-	@NotEmpty(message = "Role cannot be empty")
+	@NotNull(message = "Role cannot be empty")
 	@Column(updatable = false, nullable = false)
 	private Role role;
 	
@@ -68,14 +69,14 @@ public class User {
 	@Embedded
 	private EmergencyContact emergencyContact;
 	
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	private Doctor doctor;
-	
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	private Nurse nurse;
-	
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	private Patient patient;
+//	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+//	private Doctor doctor;
+//
+//	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+//	private Nurse nurse;
+//
+//	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+//	private Patient patient;
 	
 	
 	// ------------------------ HELPERS ------------------------ //
