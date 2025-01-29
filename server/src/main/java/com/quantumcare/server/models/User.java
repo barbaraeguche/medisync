@@ -21,43 +21,43 @@ public class User {
 	
 	@NonNull
 	@Column(nullable = false)
-	@NotEmpty(message = "First name cannot be empty")
+	@NotEmpty(message = "First name must be provided")
 	private String firstName;
 	
 	@NonNull
 	@Column(nullable = false)
-	@NotEmpty(message = "Last name cannot be empty")
+	@NotEmpty(message = "Last name must be provided")
 	private String lastName;
 	
 	@NonNull
 	@Column(unique = true, nullable = false)
-	@NotEmpty(message = "Email cannot be empty")
+	@NotEmpty(message = "Email must be provided")
 	private String email;
 	
 	@NonNull
 	@Column(nullable = false)
-	@NotEmpty(message = "Password cannot be empty")
+	@NotEmpty(message = "Password must be provided")
 	private String password;
 	
 	@NonNull
 	@Column(unique = true, nullable = false)
-	@NotEmpty(message = "Phone number cannot be empty")
+	@NotEmpty(message = "Phone number must be provided")
 	private String phoneNumber;
 	
 	@NonNull
 	@Column(updatable = false, nullable = false)
-	@NotNull(message = "Date of birth cannot be empty")
+	@NotNull(message = "Date of birth must be provided")
 	private LocalDate dateOfBirth;
 	
 	@NonNull
 	@Enumerated(EnumType.STRING)
  	@Column(updatable = false, nullable = false)
-	@NotNull(message = "Gender cannot be empty")
+	@NotNull(message = "Gender must be specified")
 	private Gender gender;
 	
 	@NonNull
 	@Enumerated(EnumType.STRING)
-	@NotNull(message = "Role cannot be empty")
+	@NotNull(message = "Role must be specified")
 	@Column(updatable = false, nullable = false)
 	private Role role;
 	
@@ -68,15 +68,6 @@ public class User {
 	@NonNull
 	@Embedded
 	private EmergencyContact emergencyContact;
-	
-//	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-//	private Doctor doctor;
-//
-//	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-//	private Nurse nurse;
-//
-//	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-//	private Patient patient;
 	
 	
 	// ------------------------ HELPERS ------------------------ //

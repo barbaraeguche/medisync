@@ -87,7 +87,7 @@ export interface MedicalHistory {
 		frequency: string
 		duration: string
 	}[]
-	patientId: Patient
+	patientId: string
 }
 
 export interface Appointments {
@@ -98,6 +98,6 @@ export interface Appointments {
 	type: 'checkup' | 'followUp' | 'emergency' | 'consultation'
 	status: 'scheduled' | 'completed' | 'cancelled'
 	notes: string
-	doctorId: Doctor
-	patientId: Patient
+	doctorId: string
+	patientId: string
 }

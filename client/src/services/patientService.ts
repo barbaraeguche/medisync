@@ -1,34 +1,24 @@
 import { apiClient } from '@/services/axiosConfig';
 import { Patient } from '@/lib/definitions';
 
-// get
 export const getPatient = async (patientId: number) => {
-	const response = await apiClient.get(`/patient/${patientId}`);
-	return response.data;
+	return await apiClient.get(`/patient/${patientId}`);
 };
 
-// post
 export const createPatient = async (patient: Patient) => {
-	const response = await apiClient.post('/patient', patient);
-	return response.data;
+	return await apiClient.post('/patient', patient);
 };
 
-// put
 export const replacePatient = async (patient: Patient) => {
-	const response = await apiClient.put(`/patient/${patient.id}`, patient);
-	return response.data;
+	return await apiClient.put(`/patient/${patient.id}`, patient);
 };
 
-// patch
 export const updatePatient = async (patient: Partial<Patient>) => {
-	const response = await apiClient.put(`/patient/${patient.id}`, patient);
-	return response.data;
+	return await apiClient.patch(`/patient/${patient.id}`, patient);
 };
 
-// delete
 export const deletePatient = async (patientId: number) => {
-	const response = await apiClient.delete(`/patient/${patientId}`);
-	return response.data;
+	return await apiClient.delete(`/patient/${patientId}`);
 };
 
 // implement dispatch to update global state

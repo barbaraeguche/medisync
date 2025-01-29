@@ -15,6 +15,7 @@ public class UserFactory {
 	
 	public User.Address createAddress(User reqUser) {
 		User.Address address = reqUser.getAddress();
+		
 		return new User.Address(
       address.getStreet(), address.getCity(), address.getProvince(), address.getPostalCode(), address.getCountry()
     );
@@ -22,6 +23,7 @@ public class UserFactory {
 	
 	public User.EmergencyContact createEmergencyContact(User reqUser) {
 		User.EmergencyContact emergencyContact = reqUser.getEmergencyContact();
+		
     return new User.EmergencyContact(
 			emergencyContact.getContactName(), emergencyContact.getRelationshipToUser(), emergencyContact.getContactEmail()
 		);

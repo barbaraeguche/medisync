@@ -1,8 +1,10 @@
 package com.quantumcare.server.models;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.quantumcare.server.models.helpers.Appointments;
 import com.quantumcare.server.models.helpers.MedicalHistory;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -21,7 +23,8 @@ public class Patient {
 	
 	@MapsId
 	@NonNull
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
+	@NotNull(message = "User must be provided")
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
@@ -32,6 +35,7 @@ public class Patient {
 	@NonNull
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
+	@NotNull(message = "BloodType must be specified")
 	private BloodType bloodType;
 	
 	@NonNull
@@ -46,6 +50,7 @@ public class Patient {
 	@NonNull
 	@Embedded
 	@Column(nullable = false)
+	@NotNull(message = "HealthMetrics must be specified")
 	private HealthMetrics healthMetrics;
 	
 	
@@ -57,6 +62,8 @@ public class Patient {
 		private final String bloodType;
 		
 		BloodType(String bloodType) { this.bloodType = bloodType; }
+		
+		@JsonValue
 		public String displayBloodType() { return this.bloodType; }
 	}
 	
