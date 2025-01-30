@@ -8,22 +8,48 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class HelperFactory {
-  public Practitioner createPractitioner(String licenseNumber, String department, String specialization,
-																				 int yearsOfExperience, String languages
-	) {
-		return new Practitioner(licenseNumber, department, specialization, yearsOfExperience, languages);
+	// create a new instance
+  public Practitioner createPractitioner(Practitioner reqPractitioner) {
+		return new Practitioner(
+			reqPractitioner.getLicenseNumber(), reqPractitioner.getSpecialization(), reqPractitioner.getLanguages()
+		);
 	}
 	
-	public Practitioner.Education createEducation(String degree, String institution, String graduationYear) {
-		return new Practitioner.Education(degree, institution, graduationYear);
+	public List<Practitioner.Education> createEducation(Practitioner reqPractitioner) {
+		List<Practitioner.Education> education = reqPractitioner.getEducation();
+		
+		return education.stream()
+			.map((educ) -> new Practitioner.Education(
+				educ.getDegree(), educ.getInstitution(), educ.getGraduationYear()
+				))
+			.collect(Collectors.toList());
 	}
 	
 	public Appointments createAppointment(LocalDate day, LocalTime startTime, LocalTime endTime, Appointments.Type type,
 																				Appointments.Status status, String notes, Doctor doctorId, Patient patientId
 	) {
     return new Appointments(day, startTime, endTime, type, status, notes, doctorId, patientId);
+  }
+	
+	// update instance
+	public void updatePractitioner(Practitioner prevPractitioner, Practitioner currPractitioner) {
+		prevPractitioner.setLicenseNumber(currPractitioner.getLicenseNumber());
+    prevPractitioner.setSpecialization(currPractitioner.getSpecialization());
+    prevPractitioner.setLanguages(currPractitioner.getLanguages());
+    
+    // update education
+    updateEducation(prevPractitioner, currPractitioner);
+	}
+	
+	public void updateEducation(Practitioner prevPractitioner, Practitioner currPractitioner) {
+//		List<Practitioner.Education> prevEducation = prevPractitioner.getEducation();
+//		List<Practitioner.Education> currEducation = currPractitioner.getEducation();
+		
+		prevPractitioner.setEducation(currPractitioner.getEducation());
   }
 }

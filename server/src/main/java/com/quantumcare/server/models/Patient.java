@@ -24,7 +24,7 @@ public class Patient {
 	@MapsId
 	@NonNull
 	@OneToOne(cascade = CascadeType.ALL)
-	@NotNull(message = "User must be provided")
+	@NotNull(message = "Basic details must be provided")
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	

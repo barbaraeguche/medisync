@@ -2,6 +2,7 @@ package com.quantumcare.server.models;
 
 import com.quantumcare.server.models.helpers.Practitioner;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -22,17 +23,20 @@ public class Nurse {
 	@MapsId
 	@NonNull
 	@OneToOne
+	@NotNull(message = "Basic details must be provided")
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
 	@NonNull
 	@OneToOne
+	@NotNull(message = "Practitioner details must be provided")
 	@JoinColumn(name = "practitioner_id", nullable = false)
 	private Practitioner practitioner;
 	
 	@NonNull
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
+	@NotNull(message = "Preferred shift must be specified")
 	private Shift shift;
 	
 	@ElementCollection

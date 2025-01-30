@@ -1,9 +1,10 @@
 package com.quantumcare.server.models.helpers;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Entity
@@ -19,26 +20,24 @@ public class Practitioner {
 	
 	@NonNull
 	@Column(updatable = false, unique = true, nullable = false)
+	@NotEmpty(message = "License number must be provided")
 	private String licenseNumber;
 	
 	@NonNull
-	@Column(name = "department", nullable = false)
-	private String department;
-	
-	@NonNull
 	@Column(name = "specialization", nullable = false)
+	@NotEmpty(message = "Specialization must be provided")
 	private String specialization;
 	
 	@ElementCollection
 	@Column(nullable = false)
 	@CollectionTable(name = "practitioner_education", joinColumns = @JoinColumn(name = "practitioner_id"))
-	private Set<Education> education;
+	private List<Education> education;
 	
-	@NonNull
 	private Integer yearsOfExperience;
 	
 	@NonNull
 	@Column(name = "languages", nullable = false)
+	@NotEmpty(message = "Spoken languages must be provided")
 	private String languages;
 	
 	

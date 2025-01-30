@@ -7,7 +7,7 @@ export interface User {
 	password: string
 	dateOfBirth: Date
 	gender: 'male' | 'female'
-	role: 'doctor' | 'nurse' | 'patient'
+	role: 'admin' | 'doctor' | 'nurse' | 'patient'
 	address: {
 		street: string
 		city: string
@@ -16,9 +16,9 @@ export interface User {
 		country: string
 	}
 	emergencyContact: {
-		contactName: string
-		relationshipToUser: string
-		contactEmail: string
+		name: string
+		relationship: string
+		email: string
 	}
 }
 
@@ -66,7 +66,6 @@ export interface Patient {
 export interface Practitioner {
 	id: number
 	licenseNumber: string
-	department: string
 	specialization: string
 	education?: {
 		degree: string

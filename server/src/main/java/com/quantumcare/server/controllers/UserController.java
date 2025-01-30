@@ -26,7 +26,7 @@ public class UserController {
 		// if not id is sent or id does not exist in database, send a 404 error
 		validateUserId(userId);
 		
-		// return found doctor
+		// return found user
 		return userService.getUserById(userId);
 	}
 	
@@ -41,7 +41,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/{userId}")
-	public ResponseEntity<String> replaceDoctor(@PathVariable UUID userId, @Valid @RequestBody User user) {
+	public ResponseEntity<String> replaceUser(@PathVariable UUID userId, @Valid @RequestBody User user) {
 		try {
 			User currUser = getUser(userId);
 			userService.putUser(currUser, user);
@@ -52,7 +52,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/{userId}")
-	public ResponseEntity<String> deleteDoctor(@PathVariable UUID userId) {
+	public ResponseEntity<String> deleteUser(@PathVariable UUID userId) {
 		try {
 			User currUser = getUser(userId);
 			userService.deleteUser(currUser);

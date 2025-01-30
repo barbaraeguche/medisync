@@ -2,7 +2,7 @@
 
 
 ## tech stack ✨
-- **frontend:** built with nextjs, tailwind css, framer motion, and redux for state management.
+- **frontend:** built with vite + react, tailwind css, framer motion, and redux for state management.
 - **backend:** powered by spring boot and postgresql for database management.
 - **deployment:** frontend hosted on vercel; backend deployed on render.
 
@@ -63,10 +63,10 @@ cd quantumcare
    ```
    3. **start the development server:**
    ```bash
-   next dev
+   vite dev
    # or
    pnpm run dev
    ```
-   4. open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   4. open [http://localhost:5173](http://localhost:5173/) with your browser to see the result.
 
 ## preview 📸
