@@ -5,7 +5,7 @@ export interface User {
 	email: string
 	password: string
 	dateOfBirth: Date
-	gender: 'male' | 'female'
+	gender: 'male' | 'female' | 'undisclosed'
 	role: 'admin' | 'doctor' | 'nurse' | 'patient'
 	address: {
 		street: string

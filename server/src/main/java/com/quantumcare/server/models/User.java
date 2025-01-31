@@ -1,6 +1,5 @@
 package com.quantumcare.server.models;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -40,10 +39,10 @@ public class User {
 	@NotEmpty(message = "Password must be provided")
 	private String password;
 	
-	private LocalDate dateOfBirth;
+	private LocalDate dateOfBirth = LocalDate.of(1900, 1, 1);
 	
 	@Enumerated(EnumType.STRING)
-	private Gender gender;
+	private Gender gender = Gender.undisclosed;
 	
 	@NonNull
 	@Enumerated(EnumType.STRING)
@@ -61,7 +60,7 @@ public class User {
 	
 	
 	// ------------------------ HELPERS ------------------------ //
-	public enum Gender { male, female }
+	public enum Gender { male, female, undisclosed }
 	public enum Role { doctor, nurse, patient }
 	
 	@Data
@@ -69,8 +68,7 @@ public class User {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class Address {
-		@Column(columnDefinition = "default \"\"")
-		private String street, city, province, postalCode, country;
+		private String street = "", city = "", province = "", postalCode = "", country = "";
 	}
 	
 	@Data
@@ -79,12 +77,12 @@ public class User {
 	@AllArgsConstructor
 	public static class EmergencyContact {
 		@Column(name = "contact_name")
-		private String name;
+		private String name = "";
 		
-		private String relationship;
+		private String relationship = "";
 		
 		@Column(name = "contact_email")
-		private String email;
+		private String email = "";
 	}
 	// ---------------------- END HELPERS ---------------------- //
 }
