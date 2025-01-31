@@ -3,41 +3,40 @@ package com.quantumcare.server.models.factories;
 import com.quantumcare.server.models.User;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class UserFactory {
-	// create a new instance
-  public User createUser(User reqUser) {
+	public User createUser(User reqUser) {
 		return new User(
-			reqUser.getFirstName(), reqUser.getLastName(), reqUser.getEmail(), reqUser.getPassword(), reqUser.getPhoneNumber(),
-			reqUser.getDateOfBirth(), reqUser.getGender(), reqUser.getRole(), createAddress(reqUser), createEmergencyContact(reqUser)
+			reqUser.getFirstName(), reqUser.getLastName(), reqUser.getEmail(), reqUser.getPassword(), reqUser.getRole(),
+			createAddress(reqUser), createEmergencyContact(reqUser)
 		);
 	}
 	
 	public User.Address createAddress(User reqUser) {
-		User.Address address = reqUser.getAddress();
-		
-		return new User.Address(
-      address.getStreet(), address.getCity(), address.getProvince(), address.getPostalCode(), address.getCountry()
-    );
+		return Optional.ofNullable(reqUser.getAddress())
+			.map((address) -> new User.Address(
+					address.getStreet(), address.getCity(), address.getProvince(), address.getPostalCode(), address.getCountry()
+				))
+			.orElse(new User.Address("", "", "", "", ""));
 	}
 	
 	public User.EmergencyContact createEmergencyContact(User reqUser) {
-		User.EmergencyContact emergencyContact = reqUser.getEmergencyContact();
-		
-    return new User.EmergencyContact(
-			emergencyContact.getContactName(), emergencyContact.getRelationshipToUser(), emergencyContact.getContactEmail()
-		);
+		return Optional.ofNullable(reqUser.getEmergencyContact())
+			.map((emergencyContact) -> new User.EmergencyContact(
+				emergencyContact.getName(), emergencyContact.getRelationship(), emergencyContact.getEmail()
+			))
+			.orElse(new User.EmergencyContact("", "", ""));
   }
 	
-	// update instance
+	// ---------------------------------------------------------------- //
+	
 	public void updateUser(User prevUser, User currUser) {
 		prevUser.setFirstName(currUser.getFirstName());
 		prevUser.setLastName(currUser.getLastName());
-		prevUser.setPhoneNumber(currUser.getPhoneNumber());
-		
-		// update address and emergency contact
-		updateAddress(prevUser, currUser);
-		updateEmergencyContact(prevUser, currUser);
+		prevUser.setDateOfBirth(currUser.getDateOfBirth());
+		prevUser.setGender(currUser.getGender());
 	}
 	
 	public void updateAddress(User prevUser, User currUser) {
@@ -55,8 +54,8 @@ public class UserFactory {
 		User.EmergencyContact prevEmergencyContact = prevUser.getEmergencyContact();
 		User.EmergencyContact currEmergencyContact = currUser.getEmergencyContact();
 		
-		prevEmergencyContact.setContactName(currEmergencyContact.getContactName());
-		prevEmergencyContact.setRelationshipToUser(currEmergencyContact.getRelationshipToUser());
-		prevEmergencyContact.setContactEmail(currEmergencyContact.getContactEmail());
+		prevEmergencyContact.setName(currEmergencyContact.getName());
+		prevEmergencyContact.setRelationship(currEmergencyContact.getRelationship());
+		prevEmergencyContact.setEmail(currEmergencyContact.getEmail());
 	}
 }

@@ -3,7 +3,6 @@ export interface User {
 	firstName: string
 	lastName: string
 	email: string
-	phoneNumber: string
 	password: string
 	dateOfBirth: Date
 	gender: 'male' | 'female'

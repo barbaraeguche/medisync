@@ -21,13 +21,11 @@ public class UserController {
     this.userService = userService;
 	}
 	
-	@GetMapping("/{userId}")
-	public User getUser(@PathVariable UUID userId) {
+	@GetMapping("/{id}")
+	public User getUser(@PathVariable UUID id) {
 		// if not id is sent or id does not exist in database, send a 404 error
-		validateUserId(userId);
-		
-		// return found user
-		return userService.getUserById(userId);
+		validateUserId(id);
+		return userService.getUserById(id);
 	}
 	
 	@PostMapping
@@ -40,10 +38,10 @@ public class UserController {
 		}
 	}
 	
-	@PutMapping("/{userId}")
-	public ResponseEntity<String> replaceUser(@PathVariable UUID userId, @Valid @RequestBody User user) {
+	@PutMapping("/{id}")
+	public ResponseEntity<String> replaceUser(@PathVariable UUID id, @Valid @RequestBody User user) {
 		try {
-			User currUser = getUser(userId);
+			User currUser = getUser(id);
 			userService.putUser(currUser, user);
 			return ResponseEntity.ok("User updated successfully");
 		} catch (Exception exp) {
@@ -51,10 +49,26 @@ public class UserController {
 		}
 	}
 	
-	@DeleteMapping("/{userId}")
-	public ResponseEntity<String> deleteUser(@PathVariable UUID userId) {
+	@PatchMapping("/{path}/{id}")
+	public ResponseEntity<String> updateUser(@PathVariable String path, @PathVariable UUID id, @RequestBody User user) {
 		try {
-			User currUser = getUser(userId);
+			User currUser = getUser(id);
+   
+			if (path.equalsIgnoreCase("address")) {
+				userService.patchAddress(currUser, user);
+			} else if (path.equalsIgnoreCase("emergency")) {
+				userService.patchEmergencyContact(currUser, user);
+			}
+			return ResponseEntity.ok("User updated successfully");
+		} catch (Exception exp) {
+			return ResponseEntity.internalServerError().body("Failed to update user: " + exp.getMessage());
+		}
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> deleteUser(@PathVariable UUID id) {
+		try {
+			User currUser = getUser(id);
 			userService.deleteUser(currUser);
 			return ResponseEntity.ok("User deleted successfully");
 		} catch (Exception exp) {
@@ -66,11 +80,11 @@ public class UserController {
 	// ------------------------ HELPERS ------------------------ //
 	/**
 	 * validates the given user ID to ensure it is not empty and exists in the system.
-	 * @param userId the unique identifier of the user to validate
+	 * @param id the unique identifier of the user to validate
 	 * @throws UserNotFound if the user ID is not valid
 	 */
-	private void validateUserId(UUID userId) {
-		if (String.valueOf(userId).isEmpty() || userService.getUserById(userId) == null) {
+	private void validateUserId(UUID id) {
+		if (String.valueOf(id).isEmpty() || userService.getUserById(id) == null) {
 			throw new UserNotFound("Invalid User ID");
 		}
 	}

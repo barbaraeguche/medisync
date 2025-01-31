@@ -26,13 +26,29 @@ public class UserService {
 	
 	public void postUser(User reqUser) {
 		User user = userFactory.createUser(reqUser);
-		
-		// save the user
+		userRepository.save(user);
+	}
+	
+	public void postAddress(User reqUser) {
+		User user = userFactory.createUser(reqUser);
+		userRepository.save(user);
+	}
+	public void postEmergencyContact(User reqUser) {
+		User user = userFactory.createUser(reqUser);
 		userRepository.save(user);
 	}
 	
 	public void putUser(User prevUser, User currUser) {
 		userFactory.updateUser(prevUser, currUser);
+		userRepository.save(prevUser);
+	}
+	
+	public void patchAddress(User prevUser, User currUser) {
+    userFactory.updateAddress(prevUser, currUser);
+    userRepository.save(prevUser);
+  }
+	public void patchEmergencyContact(User prevUser, User currUser) {
+		userFactory.updateEmergencyContact(prevUser, currUser);
 		userRepository.save(prevUser);
 	}
 	
