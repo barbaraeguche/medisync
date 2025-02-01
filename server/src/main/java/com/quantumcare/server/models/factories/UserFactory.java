@@ -19,7 +19,7 @@ public class UserFactory {
 			.map((address) -> new User.Address(
 					address.getStreet(), address.getCity(), address.getProvince(), address.getPostalCode(), address.getCountry()
 				))
-			.orElse(new User.Address("", "", "", "", ""));
+			.orElse(new User.Address());
 	}
 	
 	public User.EmergencyContact createEmergencyContact(User reqUser) {
@@ -27,7 +27,7 @@ public class UserFactory {
 			.map((emergencyContact) -> new User.EmergencyContact(
 				emergencyContact.getName(), emergencyContact.getRelationship(), emergencyContact.getEmail()
 			))
-			.orElse(new User.EmergencyContact("", "", ""));
+			.orElse(new User.EmergencyContact());
   }
 	
 	// ---------------------------------------------------------------- //

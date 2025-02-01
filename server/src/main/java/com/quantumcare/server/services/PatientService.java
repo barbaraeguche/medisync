@@ -35,12 +35,10 @@ public class PatientService {
 		User user = userFactory.createUser(reqPatient.getUser());
 		Patient patient = patientFactory.createPatient(user, reqPatient);
 		
-		// save the patient
 		patientRepository.save(patient);
 	}
 	
 	public void putPatient(Patient prevPatient, Patient currPatient) {
-		userFactory.updateUser(prevPatient.getUser(), currPatient.getUser());
 		patientFactory.updatePatient(prevPatient, currPatient);
 		patientRepository.save(prevPatient);
 	}

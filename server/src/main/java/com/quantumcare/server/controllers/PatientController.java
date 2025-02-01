@@ -1,6 +1,6 @@
 package com.quantumcare.server.controllers;
 
-import com.quantumcare.server.exceptions.PatientNotFound;
+import com.quantumcare.server.exceptions.EntityNotFound;
 import com.quantumcare.server.models.Patient;
 import com.quantumcare.server.services.PatientService;
 import jakarta.validation.Valid;
@@ -21,13 +21,11 @@ public class PatientController {
     this.patientService = patientService;
   }
 	
-	@GetMapping("/{patientId}")
-	public Patient getPatient(@PathVariable UUID patientId) {
+	@GetMapping("/{id}")
+	public Patient getPatient(@PathVariable UUID id) {
 		// if not id is sent or id does not exist in database, send a 404 error
-    validatePatientId(patientId);
-    
-    // return found patient
-    return patientService.getPatientById(patientId);
+    validatePatientId(id);
+		return patientService.getPatientById(id);
 	}
 	
 	@PostMapping
@@ -40,10 +38,10 @@ public class PatientController {
     }
 	}
 	
-	@PutMapping("/{patientId}")
-  public ResponseEntity<String> replacePatient(@PathVariable UUID patientId, @Valid @RequestBody Patient patient) {
+	@PutMapping("/{id}")
+  public ResponseEntity<String> replacePatient(@PathVariable UUID id, @Valid @RequestBody Patient patient) {
 		try {
-			Patient currPatient = getPatient(patientId);
+			Patient currPatient = getPatient(id);
       patientService.putPatient(currPatient, patient);
       return ResponseEntity.ok("Patient updated successfully");
 		} catch (Exception exp) {
@@ -51,10 +49,10 @@ public class PatientController {
 		}
 	}
 	
-	@DeleteMapping("/{patientId}")
-  public ResponseEntity<String> deletePatient(@PathVariable UUID patientId) {
+	@DeleteMapping("/{id}")
+  public ResponseEntity<String> deletePatient(@PathVariable UUID id) {
 		try {
-			Patient currPatient = getPatient(patientId);
+			Patient currPatient = getPatient(id);
 			patientService.deletePatient(currPatient);
 			return ResponseEntity.ok("Patient deleted successfully");
 		} catch (Exception exp) {
@@ -66,12 +64,12 @@ public class PatientController {
 	// ------------------------ HELPERS ------------------------ //
 	/**
 	 * validates the given patient ID to ensure it is not empty and exists in the system.
-	 * @param patientId the unique identifier of the patient to validate
-	 * @throws PatientNotFound if the patient ID is not valid
+	 * @param id the unique identifier of the patient to validate
+	 * @throws EntityNotFound if the patient ID is not valid
 	 */
-	private void validatePatientId(UUID patientId) {
-		if (String.valueOf(patientId).isEmpty() || patientService.getPatientById(patientId) == null) {
-			throw new PatientNotFound("Invalid Patient ID");
+	private void validatePatientId(UUID id) {
+		if (String.valueOf(id).isEmpty() || patientService.getPatientById(id) == null) {
+			throw new EntityNotFound("Invalid Patient ID");
 		}
 	}
 	// ---------------------- END HELPERS ---------------------- //

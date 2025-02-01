@@ -6,14 +6,13 @@ import com.quantumcare.server.models.helpers.MedicalHistory;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Component
 public class PatientFactory {
-	// create a new instance
 	public Patient createPatient(User user, Patient reqPatient) {
 		return new Patient(
-			user, reqPatient.getAllergies(), reqPatient.getBloodType(), reqPatient.getInsuranceProvider(),
-			reqPatient.getInsurancePolicyNumber(), createHealthMetrics(reqPatient)
+			user, reqPatient.getAllergies(), reqPatient.getBloodType(), createHealthMetrics(reqPatient)
 		);
 	}
 	
@@ -28,14 +27,15 @@ public class PatientFactory {
   }
 	
 	public Patient.HealthMetrics createHealthMetrics(Patient reqPatient) {
-		Patient.HealthMetrics healthMetrics = reqPatient.getHealthMetrics();
-		
-		return new Patient.HealthMetrics(
-			healthMetrics.getHeight(), healthMetrics.getWeight(), healthMetrics.getBloodSugar(), healthMetrics.getBloodPressure()
-		);
+		return Optional.ofNullable(reqPatient.getHealthMetrics())
+			.map((healthMetrics) -> new Patient.HealthMetrics(
+				healthMetrics.getHeight(), healthMetrics.getWeight(), healthMetrics.getBloodSugar(), healthMetrics.getBloodPressure()
+			))
+			.orElse(new Patient.HealthMetrics());
   }
 	
-	// update instance
+	// ---------------------------------------------------------------- //
+	
 	public void updatePatient(Patient prevPatient, Patient currPatient) {
 		prevPatient.setAllergies(currPatient.getAllergies());
     prevPatient.setInsuranceProvider(currPatient.getInsuranceProvider());

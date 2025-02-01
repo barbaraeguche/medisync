@@ -1,6 +1,6 @@
 package com.quantumcare.server.controllers;
 
-import com.quantumcare.server.exceptions.UserNotFound;
+import com.quantumcare.server.exceptions.EntityNotFound;
 import com.quantumcare.server.models.User;
 import com.quantumcare.server.services.UserService;
 import jakarta.validation.Valid;
@@ -81,11 +81,11 @@ public class UserController {
 	/**
 	 * validates the given user ID to ensure it is not empty and exists in the system.
 	 * @param id the unique identifier of the user to validate
-	 * @throws UserNotFound if the user ID is not valid
+	 * @throws EntityNotFound if the user ID is not valid
 	 */
 	private void validateUserId(UUID id) {
 		if (String.valueOf(id).isEmpty() || userService.getUserById(id) == null) {
-			throw new UserNotFound("Invalid User ID");
+			throw new EntityNotFound("Invalid User ID");
 		}
 	}
 	// ---------------------- END HELPERS ---------------------- //

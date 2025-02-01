@@ -38,8 +38,7 @@ public class Patient {
 	@NotNull(message = "BloodType must be specified")
 	private BloodType bloodType;
 	
-	@NonNull
-	private String insuranceProvider, insurancePolicyNumber;
+	private String insuranceProvider = "", insurancePolicyNumber = "";
 	
 	@OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Appointments> appointments;
@@ -72,8 +71,8 @@ public class Patient {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class HealthMetrics {
-		private double height, weight, bloodSugar;
-		private String bloodPressure;
+		private double height = 0.0, weight = 0.0, bloodSugar = 0.0;
+		private String bloodPressure = "";
 	}
 	// ---------------------- END HELPERS ---------------------- //
 }
