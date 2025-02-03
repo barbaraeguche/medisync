@@ -1,5 +1,5 @@
 export interface User {
-	id: string
+	_id: string
 	firstName: string
 	lastName: string
 	email: string
@@ -22,7 +22,7 @@ export interface User {
 }
 
 export interface Doctor {
-	id: string
+	_id: string
 	user: User
 	practitioner: Practitioner
 	doctorAvailabilities?: {
@@ -33,50 +33,38 @@ export interface Doctor {
 	appointments?: Appointments[]
 }
 
-export interface Nurse {
-	id: string
-	user: User
-	practitioner: Practitioner
-	shift: 'morning' | 'afternoon' | 'evening'
-	certifications?: {
-		name: string
-		issuingBody: string
-		expirationDate: Date
-	}[]
-}
-
 export interface Patient {
-	id: string
+	_id: string
 	user: User
 	allergies: string
 	bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-'
-	insuranceProvider: string
-	insurancePolicyNumber: string
+	insuranceProvider?: string
+	insurancePolicyNumber?: string
 	appointments?: Appointments[]
 	medicalHistory?: MedicalHistory[]
 	healthMetrics: {
 		height: number
 		weight: number
-		bloodPressure: string
 		bloodSugar: number
+		bloodPressure: string
 	}
 }
 
 export interface Practitioner {
-	id: number
+	_id: number
 	licenseNumber: string
 	specialization: string
+	yearsOfExperience: number
+	languages: string
 	education?: {
 		degree: string
 		institution: string
 		graduationYear: string
 	}[]
-	yearsOfExperience: number
-	languages: string
 }
 
 export interface MedicalHistory {
-	id: number
+	_id: number
 	diagnosis: string
 	diagnosisDate: Date
 	medications?: {
@@ -89,7 +77,7 @@ export interface MedicalHistory {
 }
 
 export interface Appointments {
-	id: number
+	_id: number
 	day: Date
 	startTime: Date
 	endTime: Date
