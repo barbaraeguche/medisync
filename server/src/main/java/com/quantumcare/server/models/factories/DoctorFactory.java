@@ -11,7 +11,9 @@ import java.time.LocalTime;
 @Component
 public class DoctorFactory {
   public Doctor createDoctor(User user, Practitioner practitioner) {
-		return new Doctor(user, practitioner);
+		return new Doctor(
+			user, practitioner
+		);
 	}
 	
 	public Doctor.DoctorAvailabilities createDoctorAvailabilities(LocalDate day, LocalTime startTime, LocalTime endTime) {

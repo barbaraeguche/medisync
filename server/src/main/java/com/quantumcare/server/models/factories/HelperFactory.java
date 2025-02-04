@@ -13,33 +13,29 @@ import java.util.stream.Collectors;
 
 @Component
 public class HelperFactory {
-	// create a new instance
   public Practitioner createPractitioner(Practitioner reqPractitioner) {
 		return new Practitioner(
 			reqPractitioner.getLicenseNumber(), reqPractitioner.getSpecialization(), reqPractitioner.getLanguages()
 		);
 	}
 	
-	public List<Practitioner.Education> createEducation(Practitioner reqPractitioner) {
-		List<Practitioner.Education> education = reqPractitioner.getEducation();
-		
-		return education.stream()
-			.map((educ) -> new Practitioner.Education(
-				educ.getDegree(), educ.getInstitution(), educ.getGraduationYear()
-				))
-			.collect(Collectors.toList());
+	public Practitioner.Education createEducation(String degree, String institution, String graduationYear) {
+		return new Practitioner.Education(
+			degree, institution, graduationYear
+		);
 	}
 	
-	public Appointments createAppointment(LocalDate day, LocalTime startTime, LocalTime endTime, Appointments.Type type,
-																				Appointments.Status status, String notes, Doctor doctorId, Patient patientId
-	) {
-    return new Appointments(day, startTime, endTime, type, status, notes, doctorId, patientId);
-  }
+//	public Appointments createAppointment(LocalDate day, LocalTime startTime, LocalTime endTime, Appointments.Type type,
+//																				Appointments.Status status, String notes, Doctor doctorId, Patient patientId
+//	) {
+//    return new Appointments(day, startTime, endTime, type, status, notes, doctorId, patientId);
+//  }
 	
-	// update instance
+	// ---------------------------------------------------------------- //
+	
 	public void updatePractitioner(Practitioner prevPractitioner, Practitioner currPractitioner) {
-		prevPractitioner.setLicenseNumber(currPractitioner.getLicenseNumber());
     prevPractitioner.setSpecialization(currPractitioner.getSpecialization());
+		prevPractitioner.setYearsOfExperience(currPractitioner.getYearsOfExperience());
     prevPractitioner.setLanguages(currPractitioner.getLanguages());
     
     // update education
@@ -47,9 +43,19 @@ public class HelperFactory {
 	}
 	
 	public void updateEducation(Practitioner prevPractitioner, Practitioner currPractitioner) {
-//		List<Practitioner.Education> prevEducation = prevPractitioner.getEducation();
-//		List<Practitioner.Education> currEducation = currPractitioner.getEducation();
+		List<Practitioner.Education> prevEducation = prevPractitioner.getEducation();
+		List<Practitioner.Education> currEducation = currPractitioner.getEducation();
 		
 		prevPractitioner.setEducation(currPractitioner.getEducation());
   }
+	
+	// ---------------------------------------------------------------- //
+	
+	public void deleteEducation(Practitioner reqPractitioner, String degree, String institution, String graduationYear) {
+		reqPractitioner.getEducation().removeIf(educ ->
+			educ.getDegree().equalsIgnoreCase(degree) &&
+				educ.getInstitution().equalsIgnoreCase(institution) &&
+				educ.getGraduationYear().equalsIgnoreCase(graduationYear)
+		);
+	}
 }

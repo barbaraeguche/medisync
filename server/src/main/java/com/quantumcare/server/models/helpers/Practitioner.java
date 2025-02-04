@@ -16,7 +16,7 @@ public class Practitioner {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "practitioner_seq")
 	@SequenceGenerator(name = "practitioner_seq", sequenceName = "practitioner_seq", allocationSize = 1)
-	private Integer id;
+	private Long id;
 	
 	@NonNull
 	@Column(updatable = false, unique = true, nullable = false)
@@ -24,21 +24,20 @@ public class Practitioner {
 	private String licenseNumber;
 	
 	@NonNull
-	@Column(name = "specialization", nullable = false)
+	@Column(nullable = false)
 	@NotEmpty(message = "Specialization must be provided")
 	private String specialization;
 	
-	@ElementCollection
-	@Column(nullable = false)
-	@CollectionTable(name = "practitioner_education", joinColumns = @JoinColumn(name = "practitioner_id"))
-	private List<Education> education;
-	
-	private Integer yearsOfExperience;
+	private Integer yearsOfExperience = 0;
 	
 	@NonNull
-	@Column(name = "languages", nullable = false)
+	@Column(nullable = false)
 	@NotEmpty(message = "Spoken languages must be provided")
 	private String languages;
+	
+	@ElementCollection
+	@CollectionTable(name = "practitioner_education", joinColumns = @JoinColumn(name = "practitioner_id"))
+	private List<Education> education;
 	
 	
 	// ------------------------ HELPERS ------------------------ //
@@ -47,7 +46,7 @@ public class Practitioner {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class Education {
-		private String degree, institution, graduationYear;
+		private String degree = "", institution = "", graduationYear = "";
 	}
 	// ---------------------- END HELPERS ---------------------- //
 }

@@ -3,6 +3,7 @@ package com.quantumcare.server.models;
 import com.quantumcare.server.models.helpers.Appointments;
 import com.quantumcare.server.models.helpers.Practitioner;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -23,12 +24,14 @@ public class Doctor {
 	
 	@MapsId
 	@NonNull
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
+	@NotNull(message = "Basic details must be provided")
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
 	@NonNull
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
+	@NotNull(message = "Practitioner details must be provided")
 	@JoinColumn(name = "practitioner_id", nullable = false)
 	private Practitioner practitioner;
 	

@@ -5,16 +5,16 @@ export interface User {
 	email: string
 	password: string
 	dateOfBirth: Date
-	gender: 'male' | 'female' | 'undisclosed'
-	role: 'admin' | 'doctor' | 'nurse' | 'patient'
-	address: {
+	gender: 'male' | 'female' | ''
+	role: 'admin' | 'doctor' | 'patient' | ''
+	address?: {
 		street: string
 		city: string
 		province: string
 		postalCode: string
 		country: string
 	}
-	emergencyContact: {
+	emergencyContact?: {
 		name: string
 		relationship: string
 		email: string
@@ -27,8 +27,8 @@ export interface Doctor {
 	practitioner: Practitioner
 	doctorAvailabilities?: {
 		day: Date
-		startTime: Date
-		endTime: Date
+		startTime: string
+		endTime: string
 	}[]
 	appointments?: Appointments[]
 }
@@ -37,7 +37,7 @@ export interface Patient {
 	_id: string
 	user: User
 	allergies: string
-	bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-'
+	bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | ''
 	insuranceProvider?: string
 	insurancePolicyNumber?: string
 	appointments?: Appointments[]
@@ -79,8 +79,8 @@ export interface MedicalHistory {
 export interface Appointments {
 	_id: number
 	day: Date
-	startTime: Date
-	endTime: Date
+	startTime: string
+	endTime: string
 	type: 'checkup' | 'followUp' | 'emergency' | 'consultation'
 	status: 'scheduled' | 'completed' | 'cancelled'
 	notes: string

@@ -48,7 +48,6 @@ public class Patient {
 	
 	@NonNull
 	@Embedded
-	@Column(nullable = false)
 	@NotNull(message = "HealthMetrics must be specified")
 	private HealthMetrics healthMetrics;
 	
