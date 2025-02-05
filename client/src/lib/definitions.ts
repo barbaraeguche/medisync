@@ -4,7 +4,6 @@ export interface User {
 	lastName: string
 	email: string
 	password: string
-	dateOfBirth: Date
 	gender: 'male' | 'female' | ''
 	role: 'admin' | 'doctor' | 'patient' | ''
 	address?: {
@@ -36,6 +35,7 @@ export interface Doctor {
 export interface Patient {
 	_id: string
 	user: User
+	dateOfBirth: Date
 	allergies: string
 	bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | ''
 	insuranceProvider?: string
