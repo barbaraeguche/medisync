@@ -6,7 +6,6 @@ export const userInitState: User = {
 	lastName: '',
 	email: '',
 	password: '',
-	dateOfBirth: new Date('1900-01-01'),
 	gender: '',
 	role: '',
 	address: {
@@ -43,6 +42,7 @@ export const doctorInitState: Doctor = {
 export const patientInitState: Patient = {
 	_id: 'a1-b2-c3',
 	user: userInitState,
+	dateOfBirth: new Date('1900-01-01'),
   allergies: '',
   bloodType: '',
   insuranceProvider: '',
