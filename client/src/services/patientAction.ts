@@ -14,7 +14,7 @@ export const createPatient = async (patient: Patient) => {
 };
 
 export const replacePatient = async (patient: Patient) => {
-	const endpoint = `/patient/${patient.id}`;
+	const endpoint = `/patient/${patient._id}`;
 	
 	return await apiClient.put(endpoint, patient);
 };

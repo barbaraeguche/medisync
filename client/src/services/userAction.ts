@@ -14,13 +14,13 @@ export const createUser = async (user: User) => {
 };
 
 export const replaceUser = async (user: User) => {
-	const endpoint = `/user/${user.id}`;
+	const endpoint = `/user/${user._id}`;
 	
 	return await apiClient.put(endpoint, user);
 };
 
 export const updateUser = async (path: string, user: User) => {
-	const endpoint = `/user/${path}/${user.id}`;
+	const endpoint = `/user/${path}/${user._id}`;
 	
 	return await apiClient.patch(endpoint, user);
 };
