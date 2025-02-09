@@ -23,7 +23,7 @@ export default function Header() {
 							className={'text-sm font-medium relative group hover:text-teal-600'}
 						>
 							{item}
-							<span className={'absolute inset-x-0 bottom-1 h-0.5 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform'}/>
+							<span className={'absolute inset-x-0 -bottom-1 h-0.5 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform'}/>
 						</NavLink>
 					))}
 				</nav>

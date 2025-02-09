@@ -210,9 +210,9 @@ export default function HomePage() {
 								<Button
 									size={'lg'}
 									variant={'secondary'}
-									className={'bg-white text-teal-600 hover:bg-white/90'}
+									className={'bg-white text-teal-600 hover:bg-white/90 group'}
 								>
-									<Phone className={'mr-2 h-4 w-4 text-teal-600'}/>
+									<Phone className={'mr-2 h-4 w-4 text-teal-600 group-hover:rotate-6'}/>
 									Schedule a Call
 								</Button>
 								<Button
