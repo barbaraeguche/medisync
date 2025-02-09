@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import 'tailwindcss/utilities';
+@config '../../tailwind.config.ts';
 
 @layer base {
 	:root {
@@ -12,7 +13,7 @@
 		--popover: 0 0% 100%;
 		--popover-foreground: 222.2 84% 4.9%;
 		
-		--primary: 174 75% 35%;
+		--primary: 174 75% 2%;
 		--primary-foreground: 210 40% 98%;
 		
 		--secondary: 180 40% 96.1%;
