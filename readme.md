@@ -11,6 +11,8 @@
 
 ## what I learned 💭
 - **title:** description
+- react hook forms
+- custom input wrapper to display label, input field and error
 
 ## limitations 🚨
 - **title:** description

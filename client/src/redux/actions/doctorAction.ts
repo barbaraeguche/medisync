@@ -1,4 +1,4 @@
-import { apiClient } from '../../lib/axiosConfig.ts';
+import { apiClient } from '../../utils/axios-config.ts';
 import { Doctor } from '../../lib/definitions.ts';
 
 export const getDoctor = async (id: string) => {

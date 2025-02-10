@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Calendar, Check, Phone } from 'lucide-react';
-import { stats, services, whyChooseUs, checkUpReasons } from '../utils/data.ts';
+import { stats, services, whyChooseUs, checkUpReasons } from '../lib/data.ts';
 import Header from '../components/header.tsx';
 import Footer from '../components/footer.tsx';
 import Button from '../ui/button.tsx';

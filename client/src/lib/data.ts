@@ -1,5 +1,5 @@
 import {
-	Eye, Ear, Brain, Heart, Stethoscope, Clock, Smartphone, Users, Zap, Shield, TrendingUp
+	Eye, Ear, Brain, Trees, Stethoscope, Clock, Smartphone, Users, Zap, Shield, TrendingUp
 } from 'lucide-react';
 
 export const stats = [
@@ -12,7 +12,7 @@ export const services = [
 	{ title: "Eye Care", description: "Expert ophthalmology consultations with state-of-the-art virtual diagnostics.", icon: Eye, link: "/services/eye-care" },
 	{ title: "ENT Care", description: "Specialized ear, nose, and throat care from leading specialists.", icon: Ear, link: "/services/ent-care" },
 	{ title: "Neurology", description: "Advanced neurological consultations and follow-ups.", icon: Brain, link: "/services/neurology" },
-	{ title: "Mental Health", description: "Professional counseling and mental wellness support.", icon: Heart, link: "/services/mental-health" },
+	{ title: "Pulmonology", description: "Comprehensive respiratory care and treatment plans.", icon: Trees, link: "/services/pulmonology" },
 	{ title: "General Medicine", description: "Primary care consultations for various health concerns.", icon: Stethoscope, link: "/services/general-medicine" },
 	{ title: "24/7 Support", description: "Round-the-clock medical assistance and emergency consultations.", icon: Clock, link: "/services/support" },
 ];

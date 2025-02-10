@@ -4,6 +4,7 @@ export interface User {
 	lastName: string
 	email: string
 	password: string
+	phoneNumber: string
 	gender: 'male' | 'female' | ''
 	role: 'admin' | 'doctor' | 'patient' | ''
 	address?: {
