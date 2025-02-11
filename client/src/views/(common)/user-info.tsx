@@ -1,30 +1,17 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Select from 'react-select';
-import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { BasicUserInfoSchema, BasicUserInfoType } from '../../schemas/user-schema.ts';
 import FormLayout from '../../layouts/forms.tsx';
 import InputWrapper from '../../components/input-wrapper.tsx';
 import { Button } from '../../ui/index.ts';
-import { zodResolver } from '@hookform/resolvers/zod';
 import TailwindSelect from '../../ui/select.tsx';
-
-const UserInfoSchema = z.object({
-	firstName: z.string().min(1, { message: 'Enter your first name' }),
-	lastName: z.string().min(1, { message: 'Enter your last name' }),
-	email: z.custom<string>((val) => {
-		return typeof val === 'string' && /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(val);
-	}, { message: 'Enter a valid email address' }),
-	phoneNumber: z.custom<string>((val) => {
-		return typeof val === 'string' && /^(\(\d{3}\) |\d{3}-?)\d{3}-?\d{4}$/.test(val);
-	}, { message: 'Enter a valid 10-digit Canadian phone number' }),
-	gender: z.enum(['male', 'female'], { message: 'Please select a gender' })
-});
-type UserInfoType = z.infer<typeof UserInfoSchema>;
 
 export default function UserInfo() {
 	const {
 		register, handleSubmit, formState: { errors }
-	} = useForm<UserInfoType>({
-		resolver: zodResolver(UserInfoSchema),
+	} = useForm<BasicUserInfoType>({
+		resolver: zodResolver(BasicUserInfoSchema),
 		reValidateMode: 'onChange',
 		defaultValues: {
 			firstName: 'barbara',
@@ -35,7 +22,7 @@ export default function UserInfo() {
 		}
 	});
 	
-	const onSubmit: SubmitHandler<UserInfoType> = (data) => {
+	const onSubmit: SubmitHandler<BasicUserInfoType> = (data) => {
     // submit data
     console.log(data);
   };
