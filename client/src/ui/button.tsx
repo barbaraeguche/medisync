@@ -29,16 +29,19 @@ const buttonVariants = cva(
 interface ButtonProps
 	extends ButtonHTMLAttributes<HTMLButtonElement>,
 		VariantProps<typeof buttonVariants> {
-	className?: string;
+	className?: string
 }
 
-export default forwardRef<HTMLButtonElement, ButtonProps>(function Button({ variant, size, className, children, ...rest }, ref) {
-	return (
-		<button {...rest}
-		        ref={ref}
-		        className={cn(buttonVariants({ variant, size }), className)}
-		>
-			{children}
-		</button>
-	);
-})
+export default forwardRef<HTMLButtonElement, ButtonProps>(
+	function Button(
+		{ variant, size, className, children, ...rest }, ref
+	) {
+		return (
+			<button {...rest}
+			        ref={ref}
+			        className={cn(buttonVariants({ variant, size }), className)}
+			>
+				{children}
+			</button>
+		);
+	});

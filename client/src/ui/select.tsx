@@ -1,44 +1,56 @@
-import Select from 'react-select';
+import { forwardRef, SelectHTMLAttributes } from 'react';
+import Select, { StylesConfig, SelectInstance } from 'react-select';
+import { useFormContext } from 'react-hook-form';
 
-const options = [
-	{ value: 'chocolate', label: 'Chocolate' },
-	{ value: 'strawberry', label: 'Strawberry' },
-	{ value: 'vanilla', label: 'Vanilla' }
-];
+type OptionType = {
+	value: string,
+	label: string
+}
 
-const TailwindSelect = () => {
-	const customStyles = {
-		control: (provided, state) => ({
-			...provided,
-			'@apply border rounded-md': true,
-			backgroundColor: state.isFocused ? '#FEF9C3' : 'white', // yellow-100 on focus
-			'&:hover': {
-				backgroundColor: 'pink',
-			},
-			color: 'rgba(114,168,101,0.9)', // text-red-500
-		}),
-		option: (provided, state) => ({
-			...provided,
-			backgroundColor: state.isFocused ? '#e7d51c' : 'white',
-			color: '#44e1ef',
-			'&:hover': {
-				backgroundColor: 'black',
-				color: 'white',
-			},
-		}),
-		singleValue: (provided) => ({
-			...provided,
-			color: '#8f39e0', // text-red-500
-		}),
-	};
-	
-	return (
-		<Select
-			options={options}
-			styles={customStyles}
-			className="w-full"
-		/>
-	);
-};
+type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
+	options?: OptionType[],
+	placeholder?: string
+}
 
-export default TailwindSelect;
+export default forwardRef<SelectInstance<OptionType>, SelectProps>(
+	function CustomSelect(
+		{ options = [], placeholder = '' },
+		ref
+	) {
+		const customStyles: StylesConfig<OptionType, false> = {
+			control: (provided, state) => ({
+				...provided,
+				boxShadow: 'none',
+				borderRadius: '5px',
+				transition: 'all 150ms',
+				backgroundColor: 'hsl(var(--background))',
+				border: state.isFocused ? '1px solid hsl(var(--ring))' : '',
+				
+				'&:hover': {
+					border: '1px solid hsl(var(--ring))',
+				}
+			}),
+			option: (provided, state) => ({
+				...provided,
+				cursor: 'pointer',
+				color: 'hsl(var(--foreground))',
+				backgroundColor: state.isFocused
+					? 'hsl(var(--accent))'
+					: 'hsl(var(--background))',
+				
+				'&:hover': {
+					backgroundColor: 'hsl(var(--accent-foreground))',
+				}
+			})
+		};
+		
+		return (
+			<Select
+				ref={ref}
+				options={options}
+				styles={customStyles}
+				placeholder={placeholder}
+				className={'w-full text-sm'}
+			/>
+		);
+	});
