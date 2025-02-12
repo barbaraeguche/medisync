@@ -19,7 +19,7 @@ function UserAddress() {
 		register, handleSubmit, formState: { errors }
 	} = useForm<UserAddressType>({
 		resolver: zodResolver(UserAddressSchema),
-		reValidateMode: 'onChange'
+		reValidateMode: 'onBlur'
 	});
 	
 	const onSubmit: SubmitHandler<UserAddressType> = (data) => {
@@ -90,7 +90,7 @@ function UserEmergencyContact() {
 		register, handleSubmit, formState: { errors }
 	} = useForm<UserEmergencyContactType>({
 		resolver: zodResolver(UserEmergencyContactSchema),
-		reValidateMode: 'onChange'
+		reValidateMode: 'onBlur'
 	});
 	
 	const onSubmit: SubmitHandler<UserEmergencyContactType> = (data) => {

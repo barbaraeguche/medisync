@@ -1,9 +1,9 @@
 import { forwardRef, ComponentProps } from 'react';
 import { FieldError } from 'react-hook-form';
+import { clsx } from 'clsx';
 import { cn } from '../utils/utils.ts';
 import { Input } from '../ui/index.ts';
 import FormError from './form-error.tsx';
-import { clsx } from 'clsx';
 
 type Configuration = {
 	type?: string
@@ -32,7 +32,7 @@ export default forwardRef<HTMLInputElement, InputWrapperProps>(function InputWra
 					htmlFor={keyfield}
 					className={clsx(
 						cn('mb-1 block text-xs', conf.labelStyle), {
-							'text-red-500 font-semibold': error
+							'text-red-500 font-medium': error
 						}
 					)}
 				>

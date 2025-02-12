@@ -10,7 +10,7 @@ export default function UserInfo() {
 		register, handleSubmit, formState: { errors }
 	} = useForm<BasicUserInfoType>({
 		resolver: zodResolver(BasicUserInfoSchema),
-		reValidateMode: 'onChange'
+		reValidateMode: 'onBlur'
 	});
 	
 	const onSubmit: SubmitHandler<BasicUserInfoType> = (data) => {
