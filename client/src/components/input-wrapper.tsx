@@ -1,8 +1,9 @@
 import { forwardRef, ComponentProps } from 'react';
 import { FieldError } from 'react-hook-form';
 import { cn } from '../utils/utils.ts';
-import { Input, Select } from '../ui/index.ts';
+import { Input } from '../ui/index.ts';
 import FormError from './form-error.tsx';
+import { clsx } from 'clsx';
 
 type Configuration = {
 	type?: string
@@ -19,7 +20,7 @@ type InputWrapperProps = {
 	className?: string
 } & Omit<ComponentProps<typeof Input>, 'ref'>
 
-export default forwardRef<HTMLSelectElement | HTMLInputElement, InputWrapperProps>(function InputWrapper(
+export default forwardRef<HTMLInputElement, InputWrapperProps>(function InputWrapper(
 	{ keyfield, conf, error, className, ...rest },
 	ref
 ) {
@@ -29,26 +30,28 @@ export default forwardRef<HTMLSelectElement | HTMLInputElement, InputWrapperProp
 			{conf.label && (
 				<label
 					htmlFor={keyfield}
-					className={cn('mb-1 block text-xs', conf.labelStyle)}
+					className={clsx(
+						cn('mb-1 block text-xs', conf.labelStyle), {
+							'text-red-500 font-semibold': error
+						}
+					)}
 				>
 					{conf.label}
 				</label>
 			)}
 			
 			{/* input */}
-			{conf.type === 'select' ? (
-				<Select ref={ref} options={conf.options}/>
-				) : (
-				<Input
-					{...rest}
-					ref={ref}
-					id={keyfield}
-					type={conf.type}
-					className={className}
-					placeholder={conf.placeholder}
-					aria-describedby={`${keyfield}-error`}
-				/>
-			)}
+			<Input
+				{...rest}
+				ref={ref}
+				id={keyfield}
+				type={conf.type}
+				className={clsx(className, {
+					'border-red-500': error
+				})}
+				placeholder={conf.placeholder}
+				aria-describedby={`${keyfield}-error`}
+			/>
 			
 			{/* error */}
 			{error && (

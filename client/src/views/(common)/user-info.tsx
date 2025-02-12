@@ -3,32 +3,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { BasicUserInfoSchema, BasicUserInfoType } from '../../schemas/user-schema.ts';
 import FormLayout from '../../layouts/forms.tsx';
 import InputWrapper from '../../components/input-wrapper.tsx';
-import { Button, Select } from '../../ui/index.ts';
+import { Button } from '../../ui/index.ts';
 
 export default function UserInfo() {
 	const {
 		register, handleSubmit, formState: { errors }
 	} = useForm<BasicUserInfoType>({
-		// resolver: zodResolver(BasicUserInfoSchema),
-		// reValidateMode: 'onChange',
-		defaultValues: {
-			firstName: 'barbara',
-      lastName: 'eguche',
-      email: 'barbara@gmail.com',
-			phoneNumber: '(123) 456-7890',
-      gender: 'male'
-		}
+		resolver: zodResolver(BasicUserInfoSchema),
+		reValidateMode: 'onChange'
 	});
 	
-	const onSubmit = (data) => {
-    // submit data
+	const onSubmit: SubmitHandler<BasicUserInfoType> = (data) => {
     console.log(data);
   };
-	
-	const options = [
-		{ value: 'male', label: 'Male' },
-		{ value: 'female', label: 'Female' }
-	];
 	
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
@@ -72,20 +59,6 @@ export default function UserInfo() {
           }}
 					error={errors.phoneNumber}
 				/>
-				
-				<InputWrapper
-					{...register('gender')}
-					keyfield={'gender'}
-					conf={{
-						type:'select',
-						label: 'Gender',
-						options: options
-					}}
-					error={errors.gender}
-				/>
-				
-				{/* gender */}
-				{/*<Select {...register('gender')} options={options}/>*/}
 				
 				<Button type="submit">Save Changes</Button>
 			</FormLayout>

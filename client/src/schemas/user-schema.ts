@@ -10,8 +10,8 @@ export const BasicUserInfoSchema = z.object({
 	phoneNumber: z.custom<string>((val) => {
 		return typeof val === 'string' && /^(\(\d{3}\) |\d{3}-?)\d{3}-?\d{4}$/.test(val);
 	}, { message: 'Enter a valid 10-digit Canadian phone number' }),
-	gender: z.enum(['male', 'female'], { message: 'Select a gender' }).optional(),
-	role: z.enum(['admin', 'doctor', 'patient'], { message: 'Select a role' }).optional()
+	// gender: z.enum(['male', 'female'], { message: 'Select a gender' }).optional(),
+	// role: z.enum(['admin', 'doctor', 'patient'], { message: 'Select a role' }).optional()
 });
 export type BasicUserInfoType = z.infer<typeof BasicUserInfoSchema>;
 
@@ -20,17 +20,17 @@ export const UserAddressSchema = z.object({
 	city: z.string().min(1, { message: 'Enter a valid city' }),
 	province: z.enum(canadianProvinces, { message: 'Select a province' }),
 	postalCode: z.custom<string>((val) => {
-		return typeof val === 'string' && /^[a-z][0-9][a-z]\s?[a-z][0-9][a-z]$/i.test(val)
-	},  { message: '' }),
+		return typeof val === 'string' && /^[a-z][0-9][a-z]\s?[0-9][a-z][0-9]$/i.test(val)
+	},  { message: 'Enter a valid canadian postal code' }),
 	country: z.custom<string>((val) => {
 		return typeof val === 'string' && val === 'Canada'
 	}, { message: 'Country must be Canada' })
-}).optional();
+});
 export type UserAddressType = z.infer<typeof UserAddressSchema>;
 
 export const UserEmergencyContactSchema = z.object({
 	name: z.string().min(1, { message: 'Enter a name' }),
-	relationship: z.string().min(1, { message: 'Enter a relationship type' }),
+	relationship: z.string().min(1, { message: 'Enter the relationship type' }),
 	email: z.custom<string>((val) => {
 		return typeof val === 'string' && emailRegex.test(val);
 	}, { message: 'Enter a valid email address' }),
