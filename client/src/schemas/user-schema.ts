@@ -1,5 +1,7 @@
 import { z } from 'zod';
-import { emailRegex, canadianProvinces } from '../utils/constants.ts';
+import {
+	emailRegex, phoneNumberRegex, canadianProvinces, postalCode
+} from '../utils/constants.ts';
 
 export const BasicUserInfoSchema = z.object({
 	firstName: z.string().min(1, { message: 'Enter your first name' }),
@@ -8,9 +10,9 @@ export const BasicUserInfoSchema = z.object({
 		return typeof val === 'string' && emailRegex.test(val);
 	}, { message: 'Enter a valid email address' }),
 	phoneNumber: z.custom<string>((val) => {
-		return typeof val === 'string' && /^(\(\d{3}\) |\d{3}-?)\d{3}-?\d{4}$/.test(val);
+		return typeof val === 'string' && phoneNumberRegex.test(val);
 	}, { message: 'Enter a valid 10-digit Canadian phone number' }),
-	// gender: z.enum(['male', 'female'], { message: 'Select a gender' }).optional(),
+	gender: z.enum(['male', 'female'], { message: 'Select a gender' }).optional(),
 	// role: z.enum(['admin', 'doctor', 'patient'], { message: 'Select a role' }).optional()
 });
 export type BasicUserInfoType = z.infer<typeof BasicUserInfoSchema>;
@@ -20,7 +22,7 @@ export const UserAddressSchema = z.object({
 	city: z.string().min(1, { message: 'Enter a valid city' }),
 	province: z.enum(canadianProvinces, { message: 'Select a province' }),
 	postalCode: z.custom<string>((val) => {
-		return typeof val === 'string' && /^[a-z][0-9][a-z]\s?[0-9][a-z][0-9]$/i.test(val)
+		return typeof val === 'string' && postalCode.test(val)
 	},  { message: 'Enter a valid canadian postal code' }),
 	country: z.custom<string>((val) => {
 		return typeof val === 'string' && val === 'Canada'
