@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import {
 	emailRegex, phoneNumberRegex, canadianProvinces, postalCodeRegex
-} from '../utils/constants.ts';
+} from '@/utils/constants.ts';
 
 export const BasicUserInfoSchema = z.object({
 	firstName: z.string().min(1, { message: 'Enter your first name' }),
@@ -12,7 +12,7 @@ export const BasicUserInfoSchema = z.object({
 	phoneNumber: z.custom<string>((val) => {
 		return typeof val === 'string' && phoneNumberRegex.test(val);
 	}, { message: 'Enter a valid 10-digit Canadian phone number' }),
-	gender: z.enum(['male', 'female'], { message: 'Select a gender' }).optional(),
+	gender: z.enum(['male', 'female'], { message: 'Select a gender' }),
 	// role: z.enum(['admin', 'doctor', 'patient'], { message: 'Select a role' }).optional()
 });
 export type BasicUserInfoType = z.infer<typeof BasicUserInfoSchema>;
