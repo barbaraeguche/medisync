@@ -1,16 +1,18 @@
 import { InputHTMLAttributes, forwardRef } from 'react';
-import clsx from 'clsx';
+import { cn } from '@/utils/utils.ts';
 
-type InputProps = InputHTMLAttributes<HTMLInputElement>
+type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
-export default forwardRef<HTMLInputElement, InputProps>(function Input({ className, ...rest }, ref) {
-	return (
-		<input {...rest}
-		       ref={ref}
-		       className={clsx(
-			       'w-full rounded-md p-2 border border-brown-80 text-sm placeholder:text-gray-500 focus:placeholder:text-gray-400 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-brown transition-colors',
-			       className
-		       )}
-		/>
-	);
-})
+export default forwardRef<HTMLInputElement, InputProps>(
+	function Input(props, ref) {
+		return (
+			<input
+				{...props}
+				ref={ref}
+				className={cn(
+					'w-full rounded-md p-2 border text-sm placeholder:text-gray-500 focus:placeholder:text-gray-400 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-foreground/40',
+					props.className
+				)}
+			/>
+		);
+	});
