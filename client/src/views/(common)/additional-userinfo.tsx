@@ -1,9 +1,10 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { UserAddressSchema, UserEmergencyContactSchema, UserAddressType, UserEmergencyContactType } from '@/schemas/user-schema.ts';
+import { canadianProvinces } from '@/utils/constants.ts';
 import FormLayout from '@/layouts/forms.tsx';
 import InputWrapper from '@/components/input-wrapper.tsx';
-import { Button } from '@/ui/index.ts';
+import { Button, Select } from '@/ui/index.ts';
 
 export default function AdditionalUserinfo() {
 	return (
@@ -16,7 +17,7 @@ export default function AdditionalUserinfo() {
 
 function UserAddress() {
 	const {
-		register, handleSubmit, formState: { errors }
+		register, handleSubmit, formState: { errors }, control
 	} = useForm<UserAddressType>({
 		resolver: zodResolver(UserAddressSchema),
 		reValidateMode: 'onBlur'
@@ -50,12 +51,13 @@ function UserAddress() {
 				/>
 				
 				{/* province */}
-				<InputWrapper
-					{...register('province')}
+				<Select
 					conf={{
 						label: 'Province'
 					}}
 					name={'province'}
+					control={control}
+					options={canadianProvinces}
 					error={errors.province}
 				/>
 				

@@ -35,10 +35,7 @@ export default function CustomSelect<T extends FieldValues>(props: CustomSelectP
 			)}
 			
 			{/* input */}
-			<div
-				className={'m-0 p-0'}
-				aria-describedby={`${props.name}-error`}
-			>
+			<div aria-describedby={`${props.name}-error`}>
 				<SelectInput {...props}/>
 			</div>
 			
@@ -60,7 +57,7 @@ function SelectInput<T extends FieldValues>(props: CustomSelectProps<T>) {
 					onValueChange={field.onChange}
 					value={field.value ?? ''}
 				>
-					<SelectTrigger className={`${props.error && 'border-red-500'}`}>
+					<SelectTrigger className={`${props.error && 'border-red-500 !ring-0'}`}>
 						<SelectValue placeholder={props.conf.placeholder ?? 'Select an option'}/>
 					</SelectTrigger>
 					<SelectContent>

@@ -1,28 +1,22 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { BasicUserInfoSchema, BasicUserInfoType } from '@/schemas/user-schema.ts';
-import FormLayout from '@/layouts/forms.tsx';
-import InputWrapper from '@/components/input-wrapper.tsx';
-import { Button, Select } from '@/ui/index.ts';
+import { ShownBasicInfoSchema, BasicUserInfoType } from '@/schemas/user-schema';
+import FormLayout from '@/layouts/forms';
+import InputWrapper from '@/components/input-wrapper';
+import { Button } from '@/ui/index';
 
 export default function UserInfo() {
 	const {
-		register, handleSubmit, formState: { errors }, control
+		register, handleSubmit, formState: { errors }
 	} = useForm<BasicUserInfoType>({
-		resolver: zodResolver(BasicUserInfoSchema),
-		reValidateMode: 'onBlur'
+		resolver: zodResolver(ShownBasicInfoSchema),
+		reValidateMode: 'onBlur',
 	});
 	
 	const onSubmit: SubmitHandler<BasicUserInfoType> = (data) => {
     console.log(data);
   };
-	
-	const options = [
-		{ value: 'hi', label: 'Lmfao' },
-		{ value: 'male', label: 'Male' },
-    { value: 'female', label: 'Female' },
-	];
-	
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<FormLayout>
@@ -48,33 +42,29 @@ export default function UserInfo() {
 				
 				{/* email */}
 				<InputWrapper
-					{...register('email')}
+					disabled
 					conf={{
 						label: 'Email'
 					}}
 					name={'email'}
-					error={errors.email}
 				/>
 				
 				{/* phone number */}
 				<InputWrapper
-					{...register('phoneNumber')}
+					disabled
 					conf={{
             label: 'Phone number'
           }}
 					name={'phoneNumber'}
-					error={errors.phoneNumber}
 				/>
 				
 				{/* gender */}
-				<Select
+				<InputWrapper
+					disabled
 					conf={{
 						label: 'Gender'
 					}}
 					name={'gender'}
-					control={control}
-					options={options}
-					error={errors.gender}
 				/>
 				
 				<Button type="submit">Save Changes</Button>
