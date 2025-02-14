@@ -3,14 +3,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ShownBasicInfoSchema, BasicUserInfoType } from '@/schemas/user-schema';
 import FormLayout from '@/layouts/forms';
 import InputWrapper from '@/components/input-wrapper';
-import { Button } from '@/ui/index';
+import FormButtons from '@/components/form-buttons.tsx';
+import FormHeader from '@/components/form-header.tsx';
 
 export default function UserInfo() {
 	const {
 		register, handleSubmit, formState: { errors }
 	} = useForm<BasicUserInfoType>({
 		resolver: zodResolver(ShownBasicInfoSchema),
-		reValidateMode: 'onBlur',
+		reValidateMode: 'onBlur'
 	});
 	
 	const onSubmit: SubmitHandler<BasicUserInfoType> = (data) => {
@@ -20,6 +21,8 @@ export default function UserInfo() {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<FormLayout>
+				<FormHeader title={'User Information'}/>
+				
 				{/* first name */}
 				<InputWrapper
 					{...register('firstName')}
@@ -67,7 +70,7 @@ export default function UserInfo() {
 					name={'gender'}
 				/>
 				
-				<Button type="submit">Save Changes</Button>
+				<FormButtons/>
 			</FormLayout>
 		</form>
 	);

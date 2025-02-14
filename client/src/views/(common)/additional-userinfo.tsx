@@ -1,10 +1,14 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { UserAddressSchema, UserEmergencyContactSchema, UserAddressType, UserEmergencyContactType } from '@/schemas/user-schema.ts';
+import {
+	UserAddressSchema, UserEmergencyContactSchema, UserAddressType, UserEmergencyContactType
+} from '@/schemas/user-schema.ts';
 import { canadianProvinces } from '@/utils/constants.ts';
 import FormLayout from '@/layouts/forms.tsx';
 import InputWrapper from '@/components/input-wrapper.tsx';
-import { Button, Select } from '@/ui/index.ts';
+import FormButtons from '@/components/form-buttons.tsx';
+import FormHeader from '@/components/form-header.tsx';
+import { Select } from '@/ui/index.ts';
 
 export default function AdditionalUserinfo() {
 	return (
@@ -30,6 +34,8 @@ function UserAddress() {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<FormLayout>
+				<FormHeader title={'Address'}/>
+				
 				{/* street */}
 				<InputWrapper
 					{...register('street')}
@@ -81,7 +87,7 @@ function UserAddress() {
 					error={errors.country}
 				/>
 				
-				<Button type="submit">Save Changes</Button>
+				<FormButtons/>
 			</FormLayout>
 		</form>
 	);
@@ -102,6 +108,8 @@ function UserEmergencyContact() {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<FormLayout>
+				<FormHeader title={'Emergency Contact'}/>
+				
 				{/* name */}
 				<InputWrapper
 					{...register('name')}
@@ -132,7 +140,7 @@ function UserEmergencyContact() {
 					error={errors.email}
 				/>
 				
-				<Button type="submit">Save Changes</Button>
+				<FormButtons/>
       </FormLayout>
 		</form>
 	);
