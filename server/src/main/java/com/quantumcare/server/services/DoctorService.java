@@ -2,9 +2,9 @@ package com.quantumcare.server.services;
 
 import com.quantumcare.server.models.Doctor;
 import com.quantumcare.server.models.User;
-import com.quantumcare.server.models.factories.DoctorFactory;
-import com.quantumcare.server.models.factories.HelperFactory;
-import com.quantumcare.server.models.factories.UserFactory;
+import com.quantumcare.server.factories.DoctorFactory;
+import com.quantumcare.server.factories.HelperFactory;
+import com.quantumcare.server.factories.UserFactory;
 import com.quantumcare.server.models.helpers.Practitioner;
 import com.quantumcare.server.repositories.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;

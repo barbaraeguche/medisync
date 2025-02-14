@@ -1,4 +1,4 @@
-package com.quantumcare.server.models.factories;
+package com.quantumcare.server.factories;
 
 import com.quantumcare.server.models.Doctor;
 import com.quantumcare.server.models.User;

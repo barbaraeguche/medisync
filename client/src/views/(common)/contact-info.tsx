@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-	UserAddressSchema, UserEmergencyContactSchema, UserAddressType, UserEmergencyContactType
+	AddressSchema, EmergencyContactSchema, AddressType, EmergencyContactType
 } from '@/schemas/user-schema';
 import { canadianProvinces } from '@/utils/constants';
 import FormLayout from '@/layouts/forms';
@@ -10,24 +10,24 @@ import FormButtons from '@/components/form-buttons';
 import FormHeader from '@/components/form-header';
 import { Select } from '@/ui/index';
 
-export default function AdditionalUserInfo() {
+export default function ContactInfo() {
 	return (
 		<div className={'space-y-12 md:space-y-24'}>
-			<UserAddress/>
-			<UserEmergencyContact/>
+			<Address/>
+			<EmergencyContact/>
 		</div>
 	);
 }
 
-function UserAddress() {
+function Address() {
 	const {
 		register, handleSubmit, formState: { errors }, control
-	} = useForm<UserAddressType>({
-		resolver: zodResolver(UserAddressSchema),
+	} = useForm<AddressType>({
+		resolver: zodResolver(AddressSchema),
 		reValidateMode: 'onBlur'
 	});
 	
-	const onSubmit: SubmitHandler<UserAddressType> = (data) => {
+	const onSubmit: SubmitHandler<AddressType> = (data) => {
 		console.log(data);
 	};
 	
@@ -93,15 +93,15 @@ function UserAddress() {
 	);
 }
 
-function UserEmergencyContact() {
+function EmergencyContact() {
 	const {
 		register, handleSubmit, formState: { errors }
-	} = useForm<UserEmergencyContactType>({
-		resolver: zodResolver(UserEmergencyContactSchema),
+	} = useForm<EmergencyContactType>({
+		resolver: zodResolver(EmergencyContactSchema),
 		reValidateMode: 'onBlur'
 	});
 	
-	const onSubmit: SubmitHandler<UserEmergencyContactType> = (data) => {
+	const onSubmit: SubmitHandler<EmergencyContactType> = (data) => {
 		console.log(data);
 	};
 	
