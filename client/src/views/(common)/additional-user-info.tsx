@@ -2,17 +2,17 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	UserAddressSchema, UserEmergencyContactSchema, UserAddressType, UserEmergencyContactType
-} from '@/schemas/user-schema.ts';
-import { canadianProvinces } from '@/utils/constants.ts';
-import FormLayout from '@/layouts/forms.tsx';
-import InputWrapper from '@/components/input-wrapper.tsx';
-import FormButtons from '@/components/form-buttons.tsx';
-import FormHeader from '@/components/form-header.tsx';
-import { Select } from '@/ui/index.ts';
+} from '@/schemas/user-schema';
+import { canadianProvinces } from '@/utils/constants';
+import FormLayout from '@/layouts/forms';
+import InputWrapper from '@/components/input-wrapper';
+import FormButtons from '@/components/form-buttons';
+import FormHeader from '@/components/form-header';
+import { Select } from '@/ui/index';
 
-export default function AdditionalUserinfo() {
+export default function AdditionalUserInfo() {
 	return (
-		<div>
+		<div className={'space-y-12 md:space-y-24'}>
 			<UserAddress/>
 			<UserEmergencyContact/>
 		</div>

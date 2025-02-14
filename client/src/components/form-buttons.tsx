@@ -1,8 +1,14 @@
 import { Button } from '@/ui/index';
+import { clsx } from 'clsx';
 
-export default function FormButtons() {
+export default function FormButtons({ isEditing }: {
+	isEditing?: boolean
+}) {
 	return (
-		<div className={'flex flex-col gap-2 sm:flex-row sm:justify-end'}>
+		<div className={clsx(
+			'flex flex-col gap-2 sm:flex-row sm:justify-end',
+			{ 'hidden': isEditing }
+		)}>
 			<Button
 				type={'submit'}
 				variant={'secondary'}
