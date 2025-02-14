@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Calendar, Check, Phone } from 'lucide-react';
-import { stats, services, whyChooseUs, checkUpReasons } from '../lib/data.ts';
-import Header from '../components/header.tsx';
-import Footer from '../components/footer.tsx';
-import Button from '../ui/button.tsx';
+import {
+	stats, services, whyChooseUs, checkUpReasons
+} from '@/lib/data.ts';
+import SiteLayout from '@/layouts/site';
+import Button from '@/ui/button';
 
 export default function HomePage() {
 	return (
-		<div className={'flex flex-col min-h-screen'}>
-			<Header/>
-			
+		<SiteLayout>
 			<main className={'flex-1'}>
 				{/* hero section */}
 				<section className={'relative overflow-hidden'}>
@@ -45,7 +44,7 @@ export default function HomePage() {
 									<Button
 										size={'lg'}
 										variant={'outline'}
-                    className={'border-primary hover:bg-primary/10'}
+										className={'border-primary hover:bg-primary/10'}
 									>
 										Learn More
 									</Button>
@@ -227,8 +226,6 @@ export default function HomePage() {
 					</div>
 				</section>
 			</main>
-			
-			<Footer/>
-		</div>
+		</SiteLayout>
 	);
 }

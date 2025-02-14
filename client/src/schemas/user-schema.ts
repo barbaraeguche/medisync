@@ -21,12 +21,10 @@ export const ShownBasicInfoSchema = BasicUserInfoSchema.omit(
 export type BasicUserInfoType = z.infer<typeof ShownBasicInfoSchema>;
 
 export const UserAddressSchema = z.object({
-	street: z.union(
-		[z.string().nullish(), z.string().min(1, { message: 'Enter a valid street' })]
-	),
-	city: z.union(
-		[z.string().nullish(), z.string().min(1, { message: 'Enter a valid city' })]
-	),
+	street: z.string().min(1, { message: 'Enter a valid street' })
+		.optional().or(z.literal('')),
+	city: z.string().min(1, { message: 'Enter a valid street' })
+		.optional().or(z.literal('')),
 	province: z.enum(validCanadianProvinces, { message: 'Select a province' }),
 	postalCode: z.custom<string>((val) => {
 		return typeof val === 'string' && postalCodeRegex.test(val)
@@ -38,19 +36,13 @@ export const UserAddressSchema = z.object({
 export type UserAddressType = z.infer<typeof UserAddressSchema>;
 
 export const UserEmergencyContactSchema = z.object({
-	name: z.union(
-		[z.string().nullish(), z.string().min(1, { message: 'Enter a name' })]
-	),
-	relationship: z.union(
-		[z.string().nullish(), z.string().min(2, { message: 'Enter the relationship type' })]
-	),
-	email: z.union(
-		[
-			z.string().nullish(),
-			z.custom<string>((val) => {
-				return typeof val === 'string' && emailRegex.test(val);
-			}, { message: 'Enter a valid email address' })
-		]
-	)
+	name: z.string().min(1, { message: 'Enter a name' })
+		.optional().or(z.literal('')),
+	relationship: z.string().min(2, { message: 'Enter the relationship type' })
+		.optional().or(z.literal('')),
+	email: z.custom<string>((val) => {
+		return typeof val === 'string' && emailRegex.test(val);
+	}, { message: 'Enter a valid email address' })
+		.optional().or(z.literal(''))
 });
 export type UserEmergencyContactType = z.infer<typeof UserEmergencyContactSchema>;

@@ -11,16 +11,16 @@ export const canadianProvinces = validCanadianProvinces.map((province) => ({
 	label: province
 }));
 
-export const genders = (['male', 'female'] as const)
+export const genders = (['Male', 'Female'] as const)
 	.map((gender) => ({
 		value: gender,
-		label: gender.slice(0, 1).toUpperCase() + gender.slice(1)
+		label: gender
 	}));
 
-export const roles = (['admin', 'doctor', 'patient'] as const)
+export const roles = (['Admin', 'Doctor', 'Patient'] as const)
 	.map((role) => ({
 		value: role,
-		label: role.slice(0, 1).toUpperCase() + role.slice(1)
+		label: role
 	}));
 
 export const bloodTypes = (['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as const)
@@ -29,8 +29,8 @@ export const bloodTypes = (['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as
 		label: bloodType
 	}));
 
-export const appointmentType = (['checkup', 'followUp', 'emergency', 'consultation'] as const)
+export const appointmentType = (['Checkup', 'Follow Up', 'Emergency', 'Consultation'] as const)
 	.map((appType) => ({
 		value: appType,
-		label: appType.slice(0, 1).toUpperCase() + appType.slice(1)
+		label: appType
 	}));

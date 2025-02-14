@@ -11,8 +11,8 @@ export interface User {
 	email: string;
 	password: string;
 	phoneNumber: string;
-	gender: 'male' | 'female' | '';
-	role: 'admin' | 'doctor' | 'patient' | '';
+	gender: 'Male' | 'Female' | '';
+	role: 'Admin' | 'Doctor' | 'Patient';
 	address?: {
 		street: string;
 		city: string;
@@ -88,8 +88,8 @@ export interface Appointments {
 	day: Date;
 	startTime: string;
 	endTime: string;
-	type: 'checkup' | 'followUp' | 'emergency' | 'consultation';
-	status: 'scheduled' | 'completed' | 'cancelled';
+	type: 'Checkup' | 'Follow Up' | 'Emergency' | 'Consultation';
+	status: 'Scheduled' | 'Completed' | 'Cancelled';
 	notes: string;
 	doctorId: string;
 	patientId: string;
