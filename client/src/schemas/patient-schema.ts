@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { dateOfBirthRegex } from '@/utils/regex.ts';
 import { validBloodTypes, numFieldConstraints } from '@/utils/constants.ts';
 
-export const PatientSchema = z.object({
+const PatientSchema = z.object({
 	dateOfBirth: z.string().refine((val) => dateOfBirthRegex.test(val), {
 		message: 'Birth date cannot be null'
 	}),
