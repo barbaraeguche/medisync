@@ -40,7 +40,8 @@ function Address() {
 				<InputWrapper
 					{...register('street')}
 					conf={{
-						label: 'Street'
+						label: 'Street',
+						placeholder: '123 Main St'
 					}}
 					name={'street'}
 					error={errors.street}
@@ -50,7 +51,8 @@ function Address() {
 				<InputWrapper
 					{...register('city')}
 					conf={{
-						label: 'City'
+						label: 'City',
+						placeholder: 'Vancouver'
 					}}
 					name={'city'}
 					error={errors.city}
@@ -59,7 +61,8 @@ function Address() {
 				{/* province */}
 				<Select
 					conf={{
-						label: 'Province'
+						label: 'Province',
+						placeholder: 'Select your province'
 					}}
 					name={'province'}
 					control={control}
@@ -71,7 +74,8 @@ function Address() {
 				<InputWrapper
 					{...register('postalCode')}
 					conf={{
-						label: 'Postal Code'
+						label: 'Postal Code',
+						placeholder: 'V6B 2K8'
 					}}
 					name={'postalCode'}
 					error={errors.postalCode}
@@ -81,7 +85,8 @@ function Address() {
 				<InputWrapper
 					{...register('country')}
 					conf={{
-						label: 'Country'
+						label: 'Country',
+						placeholder: 'Canada'
 					}}
 					name={'country'}
 					error={errors.country}
@@ -114,7 +119,8 @@ function EmergencyContact() {
 				<InputWrapper
 					{...register('name')}
 					conf={{
-						label: 'Contact Name'
+						label: 'Contact Name',
+						placeholder: 'Steve Dave'
 					}}
 					name={'name'}
 					error={errors.name}
@@ -124,7 +130,8 @@ function EmergencyContact() {
 				<InputWrapper
 					{...register('relationship')}
 					conf={{
-						label: 'Relationship to User'
+						label: 'Relationship to User',
+						placeholder: 'Spouse'
 					}}
 					name={'relationship'}
 					error={errors.relationship}
@@ -134,7 +141,8 @@ function EmergencyContact() {
 				<InputWrapper
 					{...register('email')}
 					conf={{
-						label: 'Contact Email'
+						label: 'Contact Email',
+						placeholder: 'steve.dave@example.com'
 					}}
 					name={'email'}
 					error={errors.email}

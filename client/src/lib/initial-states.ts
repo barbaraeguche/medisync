@@ -7,8 +7,8 @@ export const userInitState: User = {
 	email: '',
 	password: '',
 	phoneNumber: '',
-	gender: '',
-	role: '',
+	gender: 'Female',
+	role: 'Patient',
 	address: {
 		street: '',
 		city: '',
@@ -50,11 +50,11 @@ export const patientInitState: Patient = {
   insurancePolicyNumber: '',
 	appointments: [],
 	medicalHistory: [],
+	chronicConditions: '',
   healthMetrics: {
 		height: 0,
     weight: 0,
-    bloodSugar: 0,
-    bloodPressure: ''
+	  heartRate: 0
   }
 };
 
@@ -71,8 +71,8 @@ export const appointmentInitState: Appointments = {
   day: new Date('1900-01-01'),
   startTime: (new Date('1900-01-01T00:00:00')).toLocaleTimeString(),
   endTime: (new Date('1900-01-01T23:59:59')).toLocaleTimeString(),
-  type: 'checkup',
-  status:'scheduled',
+  type: 'Consultation',
+  status: 'Scheduled',
   notes: '',
   doctorId: '',
   patientId: ''

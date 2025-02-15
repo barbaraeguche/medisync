@@ -1,90 +1,103 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-	AddressSchema, EmergencyContactSchema, AddressType, EmergencyContactType
-} from '@/schemas/user-schema';
-import { canadianProvinces } from '@/utils/constants';
+	BasicPatientSchema, PatientType, HealthMetricsSchema, HealthMetricsType
+} from '@/schemas/patient-schema';
 import FormLayout from '@/layouts/forms';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons';
 import FormHeader from '@/components/form-header';
-import { Select } from '@/ui/index';
 
 export default function PatientInfo() {
 	return (
 		<div className={'space-y-12 md:space-y-24'}>
-			<Address/>
-			<EmergencyContact/>
+			<RoleInfo/>
+			<HealthMetrics/>
 		</div>
 	);
 }
 
-function Address() {
+function RoleInfo() {
 	const {
-		register, handleSubmit, formState: { errors }, control
-	} = useForm<AddressType>({
-		resolver: zodResolver(AddressSchema),
+		register, handleSubmit, formState: { errors }
+	} = useForm<PatientType>({
+		resolver: zodResolver(BasicPatientSchema),
 		reValidateMode: 'onBlur'
 	});
 	
-	const onSubmit: SubmitHandler<AddressType> = (data) => {
+	const onSubmit: SubmitHandler<PatientType> = (data) => {
+		console.log('hello');
 		console.log(data);
 	};
 	
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<FormLayout>
-				<FormHeader title={'Address'}/>
+				<FormHeader title={'Role Information'}/>
 				
-				{/* street */}
+				{/* date of birth */}
 				<InputWrapper
-					{...register('street')}
+					{...register('dateOfBirth')}
 					conf={{
-						label: 'Street'
+						label: 'Date of Birth',
+						placeholder: '1900-01-01'
 					}}
-					name={'street'}
-					error={errors.street}
+					name={'dateOfBirth'}
+					error={errors.dateOfBirth}
 				/>
 				
-				{/* city */}
+				{/* allergies */}
 				<InputWrapper
-					{...register('city')}
+					{...register('allergies')}
 					conf={{
-						label: 'City'
+						label: 'Allergies',
+						placeholder: 'Peanuts, Milk'
 					}}
-					name={'city'}
-					error={errors.city}
+					name={'allergies'}
+					error={errors.allergies}
 				/>
 				
-				{/* province */}
-				<Select
+				{/* blood type */}
+				<InputWrapper
+					disabled
 					conf={{
-						label: 'Province'
+						label: 'Blood Type',
+						placeholder: 'AB+'
 					}}
-					name={'province'}
-					control={control}
-					options={canadianProvinces}
-					error={errors.province}
+					name={'bloodType'}
 				/>
 				
-				{/* postal code */}
+				{/* insurance provider */}
 				<InputWrapper
-					{...register('postalCode')}
+					{...register('insuranceProvider')}
 					conf={{
-						label: 'Postal Code'
+						label: 'Insurance Provider',
+						placeholder: 'Sentinel Assurance Inc.'
 					}}
-					name={'postalCode'}
-					error={errors.postalCode}
+					name={'insuranceProvider'}
+					error={errors.insuranceProvider}
 				/>
 				
-				{/* country */}
+				{/* insurance policy number */}
 				<InputWrapper
-					{...register('country')}
+					{...register('insurancePolicyNumber')}
 					conf={{
-						label: 'Country'
+						label: 'Insurance Policy Number',
+						placeholder: 'SA-9876543210'
 					}}
-					name={'country'}
-					error={errors.country}
+					name={'insurancePolicyNumber'}
+					error={errors.insurancePolicyNumber}
+				/>
+				
+				{/* chronic conditions */}
+				<InputWrapper
+					{...register('chronicConditions')}
+					conf={{
+						label: 'Chronic Conditions',
+						placeholder: 'Diabetes, Asthma'
+					}}
+					name={'chronicConditions'}
+					error={errors.chronicConditions}
 				/>
 				
 				<FormButtons/>
@@ -93,51 +106,57 @@ function Address() {
 	);
 }
 
-function EmergencyContact() {
+function HealthMetrics() {
 	const {
 		register, handleSubmit, formState: { errors }
-	} = useForm<EmergencyContactType>({
-		resolver: zodResolver(EmergencyContactSchema),
+	} = useForm<HealthMetricsType>({
+		resolver: zodResolver(HealthMetricsSchema),
 		reValidateMode: 'onBlur'
 	});
 	
-	const onSubmit: SubmitHandler<EmergencyContactType> = (data) => {
+	const onSubmit: SubmitHandler<HealthMetricsType> = (data) => {
 		console.log(data);
 	};
 	
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<FormLayout>
-				<FormHeader title={'Emergency Contact'}/>
+				<FormHeader title={'Health Metrics'}/>
 				
-				{/* name */}
+				{/* height */}
 				<InputWrapper
-					{...register('name')}
+					{...register('height')}
+					type={'number'}
 					conf={{
-						label: 'Contact Name'
+						label: 'Height (cm)',
+						placeholder: '175'
 					}}
-					name={'name'}
-					error={errors.name}
+					name={'height'}
+					error={errors.height}
 				/>
 				
-				{/* relationship */}
+				{/* weight */}
 				<InputWrapper
-					{...register('relationship')}
+					type={'number'}
+					{...register('weight')}
 					conf={{
-						label: 'Relationship to User'
+						label: 'Weight (kg)',
+						placeholder: '75'
 					}}
-					name={'relationship'}
-					error={errors.relationship}
+					name={'weight'}
+					error={errors.weight}
 				/>
 				
-				{/* email */}
+				{/* heart rate */}
 				<InputWrapper
-					{...register('email')}
+					type={'number'}
+					{...register('heartRate')}
 					conf={{
-						label: 'Contact Email'
+						label: 'Heart Rate (bpm)',
+						placeholder: '75'
 					}}
-					name={'email'}
-					error={errors.email}
+					name={'heartRate'}
+					error={errors.heartRate}
 				/>
 				
 				<FormButtons/>

@@ -36,9 +36,11 @@ export default forwardRef<HTMLInputElement, InputWrapperProps>(
 					ref={ref}
 					id={props.name}
 					type={props.type}
-					className={clsx(props.className, {
-						'border-red-500': props.error
-					})}
+					className={clsx(props.className,
+						{ 'bg-white': props },
+						{ 'bg-gray-200/70': props.disabled },
+						{ 'border-red-500': props.error }
+					)}
 					placeholder={props.conf.placeholder}
 					aria-describedby={`${props.name}-error`}
 				/>

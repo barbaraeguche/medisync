@@ -27,7 +27,8 @@ export default function UserInfo() {
 				<InputWrapper
 					{...register('firstName')}
 					conf={{
-						label: 'First Name'
+						label: 'First Name',
+						placeholder: 'Jane'
 					}}
 					name={'firstName'}
 					error={errors.firstName}
@@ -37,7 +38,8 @@ export default function UserInfo() {
 				<InputWrapper
 					{...register('lastName')}
 					conf={{
-						label: 'Last Name'
+						label: 'Last Name',
+						placeholder: 'Doe'
 					}}
 					name={'lastName'}
 					error={errors.lastName}
@@ -47,7 +49,8 @@ export default function UserInfo() {
 				<InputWrapper
 					disabled
 					conf={{
-						label: 'Email'
+						label: 'Email',
+						placeholder: 'jane.doe@example.com'
 					}}
 					name={'email'}
 				/>
@@ -56,7 +59,8 @@ export default function UserInfo() {
 				<InputWrapper
 					disabled
 					conf={{
-            label: 'Phone number'
+            label: 'Phone number',
+						placeholder: '(123) 456-7890'
           }}
 					name={'phoneNumber'}
 				/>
@@ -65,7 +69,8 @@ export default function UserInfo() {
 				<InputWrapper
 					disabled
 					conf={{
-						label: 'Gender'
+						label: 'Gender',
+						placeholder: 'Male'
 					}}
 					name={'gender'}
 				/>

@@ -11,18 +11,18 @@ export interface User {
 	email: string;
 	password: string;
 	phoneNumber: string;
-	gender: 'Male' | 'Female' | '';
+	gender: 'Male' | 'Female';
 	role: 'Admin' | 'Doctor' | 'Patient';
 	address?: {
-		street: string;
-		city: string;
+		street?: string;
+		city?: string;
 		province: string;
 		postalCode: string;
 		country: string;
 	};
 	emergencyContact?: {
 		name: string;
-		relationship: string;
+		relationship?: string;
 		email: string;
 	};
 }
@@ -43,17 +43,17 @@ export interface Patient {
 	_id: string;
 	user: User;
 	dateOfBirth: Date;
-	allergies: string;
+	allergies?: string;
 	bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | '';
 	insuranceProvider?: string;
 	insurancePolicyNumber?: string;
 	appointments?: Appointments[];
 	medicalHistory?: MedicalHistory[];
-	healthMetrics: {
-		height: number;
-		weight: number;
-		bloodSugar: number;
-		bloodPressure: string;
+	chronicConditions?: string;
+	healthMetrics?: {
+		height?: number;
+		weight?: number;
+		heartRate?: number;
 	};
 }
 

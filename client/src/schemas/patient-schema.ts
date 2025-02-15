@@ -1,31 +1,38 @@
 import { z } from 'zod';
-
-const formatTxt = ['Greater than', 'Less than'];
+import { dateOfBirthRegex } from '@/utils/regex.ts';
+import { validBloodTypes, numFieldConstraints } from '@/utils/constants.ts';
 
 export const PatientSchema = z.object({
-	dateOfBirth: z.custom<Date>((val) => {
-		return typeof val === 'string' && new Date(val).toISOString().split('T')[0];
-	})
-	
-	
-	// dateOfBirth: Date;
-	// allergies: string;
-	// bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | '';
-	// insuranceProvider?: string;
-	// insurancePolicyNumber?: string;
+	dateOfBirth: z.string().refine((val) => dateOfBirthRegex.test(val), {
+		message: 'Birth date cannot be null'
+	}),
+	allergies: z.string().optional(),
+	bloodType: z.enum(validBloodTypes, { message: 'Select a blood type' }),
+	insuranceProvider: z.string().optional(),
+	insurancePolicyNumber: z.string().optional(),
+	chronicConditions: z.string().optional()
 });
-export type PatientType = z.infer<typeof PatientSchema>;
+export const BasicPatientSchema = PatientSchema.omit({ bloodType: true });
+export type PatientType = z.infer<typeof BasicPatientSchema>;
 
 export const HealthMetricsSchema = z.object({
-	height: z.number()
-		.min(30, { message: `${formatTxt[0]} 30 cm` })
-		.max(272, { message: `${formatTxt[1]} 272 cm` }),
-	weight: z.number()
-		.min(5, { message: `${formatTxt[0]} 5 lbs` })
-		.max(355, { message: `${formatTxt[1]} 355 lbs` }),
-	bloodSugar: z.number()
-		.min(54, { message: '' })
-		.max(272, { message: '' }),
-	bloodPressure: z.string()
+	height: z.union([
+		z.coerce.number().nullish(),
+		z.coerce.number()
+			.min(5, { message: `${numFieldConstraints[0]} 5` })
+			.max(355, { message: `${numFieldConstraints[1]} 355` })
+	]),
+	weight: z.union([
+		z.coerce.number().nullish(),
+		z.coerce.number()
+			.min(5, { message: `${numFieldConstraints[0]} 5` })
+			.max(355, { message: `${numFieldConstraints[1]} 355` }),
+	]),
+	heartRate: z.union([
+		z.coerce.number().nullish(),
+		z.coerce.number()
+			.min(54, { message: `${numFieldConstraints[0]} 54` })
+			.max(272, { message: `${numFieldConstraints[0]} 272` })
+	])
 });
 export type HealthMetricsType = z.infer<typeof HealthMetricsSchema>;
