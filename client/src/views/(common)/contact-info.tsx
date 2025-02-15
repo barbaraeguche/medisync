@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-	UserAddressSchema, UserEmergencyContactSchema, UserAddressType, UserEmergencyContactType
+	AddressSchema, EmergencyContactSchema, AddressType, EmergencyContactType
 } from '@/schemas/user-schema';
 import { canadianProvinces } from '@/utils/constants';
 import FormLayout from '@/layouts/forms';
@@ -10,24 +10,24 @@ import FormButtons from '@/components/form-buttons';
 import FormHeader from '@/components/form-header';
 import { Select } from '@/ui/index';
 
-export default function AdditionalUserInfo() {
+export default function ContactInfo() {
 	return (
 		<div className={'space-y-12 md:space-y-24'}>
-			<UserAddress/>
-			<UserEmergencyContact/>
+			<Address/>
+			<EmergencyContact/>
 		</div>
 	);
 }
 
-function UserAddress() {
+function Address() {
 	const {
 		register, handleSubmit, formState: { errors }, control
-	} = useForm<UserAddressType>({
-		resolver: zodResolver(UserAddressSchema),
+	} = useForm<AddressType>({
+		resolver: zodResolver(AddressSchema),
 		reValidateMode: 'onBlur'
 	});
 	
-	const onSubmit: SubmitHandler<UserAddressType> = (data) => {
+	const onSubmit: SubmitHandler<AddressType> = (data) => {
 		console.log(data);
 	};
 	
@@ -40,7 +40,8 @@ function UserAddress() {
 				<InputWrapper
 					{...register('street')}
 					conf={{
-						label: 'Street'
+						label: 'Street',
+						placeholder: '123 Main St'
 					}}
 					name={'street'}
 					error={errors.street}
@@ -50,7 +51,8 @@ function UserAddress() {
 				<InputWrapper
 					{...register('city')}
 					conf={{
-						label: 'City'
+						label: 'City',
+						placeholder: 'Vancouver'
 					}}
 					name={'city'}
 					error={errors.city}
@@ -59,7 +61,8 @@ function UserAddress() {
 				{/* province */}
 				<Select
 					conf={{
-						label: 'Province'
+						label: 'Province',
+						placeholder: 'Select your province'
 					}}
 					name={'province'}
 					control={control}
@@ -71,7 +74,8 @@ function UserAddress() {
 				<InputWrapper
 					{...register('postalCode')}
 					conf={{
-						label: 'Postal Code'
+						label: 'Postal Code',
+						placeholder: 'V6B 2K8'
 					}}
 					name={'postalCode'}
 					error={errors.postalCode}
@@ -81,7 +85,8 @@ function UserAddress() {
 				<InputWrapper
 					{...register('country')}
 					conf={{
-						label: 'Country'
+						label: 'Country',
+						placeholder: 'Canada'
 					}}
 					name={'country'}
 					error={errors.country}
@@ -93,15 +98,15 @@ function UserAddress() {
 	);
 }
 
-function UserEmergencyContact() {
+function EmergencyContact() {
 	const {
 		register, handleSubmit, formState: { errors }
-	} = useForm<UserEmergencyContactType>({
-		resolver: zodResolver(UserEmergencyContactSchema),
+	} = useForm<EmergencyContactType>({
+		resolver: zodResolver(EmergencyContactSchema),
 		reValidateMode: 'onBlur'
 	});
 	
-	const onSubmit: SubmitHandler<UserEmergencyContactType> = (data) => {
+	const onSubmit: SubmitHandler<EmergencyContactType> = (data) => {
 		console.log(data);
 	};
 	
@@ -114,7 +119,8 @@ function UserEmergencyContact() {
 				<InputWrapper
 					{...register('name')}
 					conf={{
-						label: 'Contact Name'
+						label: 'Contact Name',
+						placeholder: 'Steve Dave'
 					}}
 					name={'name'}
 					error={errors.name}
@@ -124,7 +130,8 @@ function UserEmergencyContact() {
 				<InputWrapper
 					{...register('relationship')}
 					conf={{
-						label: 'Relationship to User'
+						label: 'Relationship to User',
+						placeholder: 'Spouse'
 					}}
 					name={'relationship'}
 					error={errors.relationship}
@@ -134,7 +141,8 @@ function UserEmergencyContact() {
 				<InputWrapper
 					{...register('email')}
 					conf={{
-						label: 'Contact Email'
+						label: 'Contact Email',
+						placeholder: 'steve.dave@example.com'
 					}}
 					name={'email'}
 					error={errors.email}

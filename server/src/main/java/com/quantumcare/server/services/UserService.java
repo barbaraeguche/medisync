@@ -1,7 +1,7 @@
 package com.quantumcare.server.services;
 
 import com.quantumcare.server.models.User;
-import com.quantumcare.server.models.factories.UserFactory;
+import com.quantumcare.server.factories.UserFactory;
 import com.quantumcare.server.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

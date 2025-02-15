@@ -1,36 +1,38 @@
-export const emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-export const phoneNumberRegex: RegExp = /^(\(\d{3}\) |\d{3}-?)\d{3}-?\d{4}$/;
-export const postalCodeRegex: RegExp = /^[a-z][0-9][a-z]\s?[0-9][a-z][0-9]$/i;
+export const numFieldConstraints = ['Greater than', 'Less than'];
 
 export const validCanadianProvinces = [
 	'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon'
+] as const;
+export const validGenders = [
+	'Male', 'Female'
+] as const;
+export const validRoles = [
+	'Admin', 'Doctor', 'Patient'
+] as const;
+export const validBloodTypes = [
+	'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'
+] as const;
+export const validAppointmentTypes = [
+	'Checkup', 'Follow Up', 'Emergency', 'Consultation'
 ] as const;
 
 export const canadianProvinces = validCanadianProvinces.map((province) => ({
 	value: province,
 	label: province
 }));
-
-export const genders = (['Male', 'Female'] as const)
-	.map((gender) => ({
-		value: gender,
-		label: gender
-	}));
-
-export const roles = (['Admin', 'Doctor', 'Patient'] as const)
-	.map((role) => ({
-		value: role,
-		label: role
-	}));
-
-export const bloodTypes = (['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as const)
-	.map((bloodType) => ({
-		value: bloodType,
-		label: bloodType
-	}));
-
-export const appointmentType = (['Checkup', 'Follow Up', 'Emergency', 'Consultation'] as const)
-	.map((appType) => ({
-		value: appType,
-		label: appType
-	}));
+export const genders = validGenders.map((gender) => ({
+	value: gender,
+	label: gender
+}));
+export const roles = validRoles.map((role) => ({
+	value: role,
+	label: role
+}));
+export const bloodTypes = validBloodTypes.map((bloodType) => ({
+	value: bloodType,
+	label: bloodType
+}));
+export const appointmentType = validAppointmentTypes.map((appType) => ({
+	value: appType,
+	label: appType
+}));

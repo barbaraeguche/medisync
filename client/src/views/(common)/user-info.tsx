@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ShownBasicInfoSchema, BasicUserInfoType } from '@/schemas/user-schema';
+import { BasicUserSchema, BasicUserType } from '@/schemas/user-schema';
 import FormLayout from '@/layouts/forms';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons.tsx';
@@ -9,12 +9,12 @@ import FormHeader from '@/components/form-header.tsx';
 export default function UserInfo() {
 	const {
 		register, handleSubmit, formState: { errors }
-	} = useForm<BasicUserInfoType>({
-		resolver: zodResolver(ShownBasicInfoSchema),
+	} = useForm<BasicUserType>({
+		resolver: zodResolver(BasicUserSchema),
 		reValidateMode: 'onBlur'
 	});
 	
-	const onSubmit: SubmitHandler<BasicUserInfoType> = (data) => {
+	const onSubmit: SubmitHandler<BasicUserType> = (data) => {
     console.log(data);
   };
 
@@ -27,7 +27,8 @@ export default function UserInfo() {
 				<InputWrapper
 					{...register('firstName')}
 					conf={{
-						label: 'First Name'
+						label: 'First Name',
+						placeholder: 'Jane'
 					}}
 					name={'firstName'}
 					error={errors.firstName}
@@ -37,7 +38,8 @@ export default function UserInfo() {
 				<InputWrapper
 					{...register('lastName')}
 					conf={{
-						label: 'Last Name'
+						label: 'Last Name',
+						placeholder: 'Doe'
 					}}
 					name={'lastName'}
 					error={errors.lastName}
@@ -47,7 +49,8 @@ export default function UserInfo() {
 				<InputWrapper
 					disabled
 					conf={{
-						label: 'Email'
+						label: 'Email',
+						placeholder: 'jane.doe@example.com'
 					}}
 					name={'email'}
 				/>
@@ -56,7 +59,8 @@ export default function UserInfo() {
 				<InputWrapper
 					disabled
 					conf={{
-            label: 'Phone number'
+            label: 'Phone number',
+						placeholder: '(123) 456-7890'
           }}
 					name={'phoneNumber'}
 				/>
@@ -65,7 +69,8 @@ export default function UserInfo() {
 				<InputWrapper
 					disabled
 					conf={{
-						label: 'Gender'
+						label: 'Gender',
+						placeholder: 'Male'
 					}}
 					name={'gender'}
 				/>
