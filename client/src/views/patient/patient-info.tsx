@@ -3,10 +3,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	BasicPatientSchema, PatientType, HealthMetricsSchema, HealthMetricsType
 } from '@/schemas/patient-schema';
-import FormLayout from '@/layouts/forms';
+import CardLayout from '@/layouts/cards.tsx';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons';
-import FormHeader from '@/components/form-header';
+import CardHeader from '@/components/card-header.tsx';
 
 export default function PatientInfo() {
 	return (
@@ -26,14 +26,13 @@ function RoleInfo() {
 	});
 	
 	const onSubmit: SubmitHandler<PatientType> = (data) => {
-		console.log('hello');
 		console.log(data);
 	};
 	
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<FormLayout>
-				<FormHeader title={'Role Information'}/>
+			<CardLayout>
+				<CardHeader title={'Role Information'}/>
 				
 				{/* date of birth */}
 				<InputWrapper
@@ -101,7 +100,7 @@ function RoleInfo() {
 				/>
 				
 				<FormButtons/>
-			</FormLayout>
+			</CardLayout>
 		</form>
 	);
 }
@@ -120,8 +119,8 @@ function HealthMetrics() {
 	
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<FormLayout>
-				<FormHeader title={'Health Metrics'}/>
+			<CardLayout>
+				<CardHeader title={'Health Metrics'}/>
 				
 				{/* height */}
 				<InputWrapper
@@ -160,7 +159,7 @@ function HealthMetrics() {
 				/>
 				
 				<FormButtons/>
-			</FormLayout>
+			</CardLayout>
 		</form>
 	);
 }

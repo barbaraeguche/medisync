@@ -1,10 +1,10 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BasicUserSchema, BasicUserType } from '@/schemas/user-schema';
-import FormLayout from '@/layouts/forms';
+import CardLayout from '@/layouts/cards.tsx';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons.tsx';
-import FormHeader from '@/components/form-header.tsx';
+import CardHeader from '@/components/card-header.tsx';
 
 export default function UserInfo() {
 	const {
@@ -20,8 +20,8 @@ export default function UserInfo() {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<FormLayout>
-				<FormHeader title={'User Information'}/>
+			<CardLayout>
+				<CardHeader title={'User Information'}/>
 				
 				{/* first name */}
 				<InputWrapper
@@ -76,7 +76,7 @@ export default function UserInfo() {
 				/>
 				
 				<FormButtons/>
-			</FormLayout>
+			</CardLayout>
 		</form>
 	);
 }

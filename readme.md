@@ -9,17 +9,23 @@
 ## features 👾
 - **title:** description
 
+## challenges faced 💢
+- **title:** description
+- getting zod to validate an optional number input
+
 ## what I learned 💭
 - **title:** description
 - react hook forms
 - custom input wrapper to display label, input field and error
+- tanstack table
+- pagination
 
 ## limitations 🚨
 - **title:** description
 
 ## improvements 🌱
 - **title:** description
-  - add reviews for each doctor
+- add reviews for each doctor
 
 ## .env file & application.properties 📄
 

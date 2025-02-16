@@ -4,10 +4,10 @@ import {
 	AddressSchema, EmergencyContactSchema, AddressType, EmergencyContactType
 } from '@/schemas/user-schema';
 import { canadianProvinces } from '@/utils/constants';
-import FormLayout from '@/layouts/forms';
+import CardLayout from '@/layouts/cards.tsx';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons';
-import FormHeader from '@/components/form-header';
+import CardHeader from '@/components/card-header.tsx';
 import { Select } from '@/ui/index';
 
 export default function ContactInfo() {
@@ -33,8 +33,8 @@ function Address() {
 	
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<FormLayout>
-				<FormHeader title={'Address'}/>
+			<CardLayout>
+				<CardHeader title={'Address'}/>
 				
 				{/* street */}
 				<InputWrapper
@@ -93,7 +93,7 @@ function Address() {
 				/>
 				
 				<FormButtons/>
-			</FormLayout>
+			</CardLayout>
 		</form>
 	);
 }
@@ -112,8 +112,8 @@ function EmergencyContact() {
 	
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<FormLayout>
-				<FormHeader title={'Emergency Contact'}/>
+			<CardLayout>
+				<CardHeader title={'Emergency Contact'}/>
 				
 				{/* name */}
 				<InputWrapper
@@ -149,7 +149,7 @@ function EmergencyContact() {
 				/>
 				
 				<FormButtons/>
-      </FormLayout>
+      </CardLayout>
 		</form>
 	);
 }
