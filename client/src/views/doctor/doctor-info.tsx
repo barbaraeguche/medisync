@@ -3,10 +3,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	DoctorSchema, EducationSchema, DoctorType, EducationType
 } from '@/schemas/doctor-schema';
-import FormLayout from '@/layouts/forms';
+import FormLayout from '@/layouts/cards';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons';
-import FormHeader from '@/components/form-header';
+import FormHeader from '@/components/card-header';
 
 export default function DoctorInfo() {
 	return (
