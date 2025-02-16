@@ -6,7 +6,7 @@ import {
 	validGenders,validRoles, validCanadianProvinces
 } from '@/utils/constants.ts';
 
-export const UserSchema = z.object({
+const UserSchema = z.object({
 	firstName: z.string().min(1, { message: 'Enter your first name' }),
 	lastName: z.string().min(1, { message: 'Enter your last name' }),
 	email: z.string().refine((val) => emailRegex.test(val), {
