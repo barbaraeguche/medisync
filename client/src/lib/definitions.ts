@@ -32,7 +32,7 @@ export interface Doctor {
 	user: User;
 	practitioner: Practitioner;
 	doctorAvailabilities?: {
-		day: Date;
+		date: Date;
 		startTime: string;
 		endTime: string;
 	}[];

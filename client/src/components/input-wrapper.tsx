@@ -1,10 +1,10 @@
 import { forwardRef, ComponentProps } from 'react';
 import { FieldError } from 'react-hook-form';
 import { clsx } from 'clsx';
-import { cn } from '@/utils/utils.ts';
-import { InputConfig } from '@/lib/definitions.ts';
-import FormError from './form-error.tsx';
-import { Input } from '@/ui/index.ts';
+import { cn } from '@/utils/utils';
+import { InputConfig } from '@/lib/definitions';
+import FormError from './form-error';
+import { Input } from '@/ui/index';
 
 type InputWrapperProps = {
 	conf: InputConfig;

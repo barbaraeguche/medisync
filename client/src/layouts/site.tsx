@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import Header from '@/components/header.tsx';
-import Footer from '@/components/footer.tsx';
+import Header from '@/components/header';
+import Footer from '@/components/footer';
 
 export default function SiteLayout({ children }: {
 	children: ReactNode

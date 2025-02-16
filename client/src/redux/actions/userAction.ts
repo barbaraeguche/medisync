@@ -1,5 +1,5 @@
-import { apiClient } from '../../utils/axios-config.ts';
-import { User } from '../../lib/definitions.ts';
+import { apiClient } from '@/utils/axios-config.ts';
+import { User } from '@/lib/definitions.ts';
 
 export const getUser = async (id: string) => {
 	const endpoint = `/user/${id}`;

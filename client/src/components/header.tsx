@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
 import { Heart } from 'lucide-react';
-import Button from '../ui/button.tsx';
+import Button from '@/ui/button';
 
 export default function Header() {
 	return (

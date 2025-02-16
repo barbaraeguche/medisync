@@ -1,11 +1,8 @@
 import { z } from 'zod';
-import { dateOfBirthRegex } from '@/utils/regex.ts';
 import { validBloodTypes, numFieldConstraints } from '@/utils/constants.ts';
 
 const PatientSchema = z.object({
-	dateOfBirth: z.string().refine((val) => dateOfBirthRegex.test(val), {
-		message: 'Birth date cannot be null'
-	}),
+	dateOfBirth: z.string().date('Birth date cannot be null'),
 	allergies: z.string().optional(),
 	bloodType: z.enum(validBloodTypes, { message: 'Select a blood type' }),
 	insuranceProvider: z.string().optional(),

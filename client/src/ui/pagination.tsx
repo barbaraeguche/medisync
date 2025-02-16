@@ -2,15 +2,15 @@ import { ReactNode, Dispatch, SetStateAction } from 'react';
 import { clsx } from 'clsx';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { generatePagination } from '@/utils/utils.ts';
-import Button from '@/ui/button.tsx';
+import Button from '@/ui/button';
 
-export default function Pagination({ itemsPerPage, currentPage, setCurrentPage, arrayLength }: {
+export default function Pagination({ itemsPerPage, currentPage, setCurrentPage, totalItems }: {
 	itemsPerPage: number,
 	currentPage: number,
   setCurrentPage: Dispatch<SetStateAction<number>>,
-	arrayLength: number
+	totalItems: number
 }) {
-	const totalPages = Math.ceil(arrayLength / itemsPerPage);
+	const totalPages = Math.ceil(totalItems / itemsPerPage);
 	const pagination = generatePagination(currentPage, totalPages);
 	
 	return (
@@ -22,7 +22,7 @@ export default function Pagination({ itemsPerPage, currentPage, setCurrentPage, 
 				onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
 			/>
 			
-			<div className={' -space-x-px'}>
+			<div className={'-space-x-px'}>
 				{pagination.map((page, idx) => (
 					<PaginationNumber
 						key={`${page}-${idx}`}
@@ -67,7 +67,7 @@ function PaginationNumber({ page, isActive, onClick }: {
 }) {
 	const className = clsx('border-0 shadow-none', {
 		'hover:bg-transparent cursor-default': page === '...',
-		'bg-gray-100': isActive
+		'bg-gray-100 font-semibold': isActive
 	});
 	
 	return (

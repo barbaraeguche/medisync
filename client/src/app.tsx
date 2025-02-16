@@ -1,21 +1,21 @@
 // import HomePage from './views/home';
 // import UserInfo from './views/(common)/user-info';
-// import ContactInfo from './views/(common)/contact-info.tsx';
-// import PatientInfo from '@/views/patient/patient-info.tsx';
-// import DoctorInfo from '@/views/doctor/doctor-info.tsx';
-// import MedicalHistory from '@/views/patient/medical-history.tsx';
-import Availabilities from '@/views/doctor/availabilities.tsx';
-// import CustomTable from '@/ui/table.tsx';
+// import ContactInfo from './views/(common)/contact-info';
+// import PatientInfo from '@/views/patient/patient-info';
+// import DoctorInfo from '@/views/doctor/doctor-info';
+// import MedicalHistory from '@/views/patient/medical-history';
+import Availabilities from '@/views/doctor/availabilities';
+// import CustomTable from '@/ui/table';
 
 export default function App() {
 	return (
-		<div>
+		<div className={'space-y-6'}>
 			{/*<HomePage/>*/}
 			{/*<UserInfo/>*/}
 			{/*<ContactInfo/>*/}
 			{/*<PatientInfo/>*/}
       {/*<DoctorInfo/>*/}
-			{/*<MedicalHistoryHistory medicalHistory={medicalHistories}/>*/}
+			{/*<MedicalHistory medicalHistory={medicalHistories}/>*/}
 			<Availabilities/>
 			{/*<CustomTable/>*/}
 		</div>
