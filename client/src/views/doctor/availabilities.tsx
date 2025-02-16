@@ -23,6 +23,7 @@ const timeSlots = [
 	{ startTime: '17:00', endTime: '20:00' }
 ]
 
+// TODO: need to replace this with actual data
 const retrieved =	[
 	{
 		"date": "2025-02-18",

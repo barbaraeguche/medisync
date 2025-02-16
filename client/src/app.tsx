@@ -4,7 +4,7 @@
 // import PatientInfo from '@/views/patient/patient-info';
 // import DoctorInfo from '@/views/doctor/doctor-info';
 // import MedicalHistory from '@/views/patient/medical-history';
-import Availabilities from '@/views/doctor/availabilities';
+// import Availabilities from '@/views/doctor/availabilities';
 // import CustomTable from '@/ui/table';
 
 export default function App() {
@@ -16,11 +16,8 @@ export default function App() {
 			{/*<PatientInfo/>*/}
       {/*<DoctorInfo/>*/}
 			{/*<MedicalHistory medicalHistory={medicalHistories}/>*/}
-			<Availabilities/>
+			{/*<Availabilities/>*/}
 			{/*<CustomTable/>*/}
 		</div>
 	);
 }
-
-// checked={availability[day][`${slot.start}-${slot.end}`]}
-// onCheckedChange={() => handleCheckboxChange(day, `${slot.start}-${slot.end}`)}
