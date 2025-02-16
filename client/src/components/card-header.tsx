@@ -1,4 +1,4 @@
-export default function FormHeader({ title }: {
+export default function CardHeader({ title }: {
 	title: string
 }) {
 	return (

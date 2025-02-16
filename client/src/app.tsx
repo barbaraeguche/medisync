@@ -2,7 +2,9 @@
 // import UserInfo from './views/(common)/user-info';
 // import ContactInfo from './views/(common)/contact-info.tsx';
 // import PatientInfo from '@/views/patient/patient-info.tsx';
-import DoctorInfo from '@/views/doctor/doctor-info.tsx';
+// import DoctorInfo from '@/views/doctor/doctor-info.tsx';
+// import MedicalHistory from '@/views/patient/medical-history.tsx';
+// import CustomTable from '@/ui/table.tsx';
 
 export default function App() {
 	return (
@@ -11,7 +13,9 @@ export default function App() {
 			{/*<UserInfo/>*/}
 			{/*<ContactInfo/>*/}
 			{/*<PatientInfo/>*/}
-			<DoctorInfo/>
+      {/*<DoctorInfo/>*/}
+			{/*<MedicalHistory medicalHistory={medicalHistories}/>*/}
+			{/*<CustomTable/>*/}
 		</div>
 	);
 }
