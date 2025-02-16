@@ -4,6 +4,7 @@
 // import PatientInfo from '@/views/patient/patient-info.tsx';
 // import DoctorInfo from '@/views/doctor/doctor-info.tsx';
 // import MedicalHistory from '@/views/patient/medical-history.tsx';
+import Availabilities from '@/views/doctor/availabilities.tsx';
 // import CustomTable from '@/ui/table.tsx';
 
 export default function App() {
@@ -14,7 +15,8 @@ export default function App() {
 			{/*<ContactInfo/>*/}
 			{/*<PatientInfo/>*/}
       {/*<DoctorInfo/>*/}
-			{/*<MedicalHistory medicalHistory={medicalHistories}/>*/}
+			{/*<MedicalHistoryHistory medicalHistory={medicalHistories}/>*/}
+			<Availabilities/>
 			{/*<CustomTable/>*/}
 		</div>
 	);

@@ -1,11 +1,8 @@
-import {
-	Accordion, AccordionContent, AccordionTrigger, AccordionItem
-} from '@/ui/shadcn/accordion';
-import { MedicalHistory as MedicalHistoryType } from '@/lib/definitions.ts';
-import CardLayout from '@/layouts/cards.tsx';
-import CardHeader from '@/components/card-header.tsx';
-import Pagination from '@/ui/pagination.tsx';
 import { useState } from 'react';
+import { MedicalHistory as MedicalHistoryType } from '@/lib/definitions';
+import CardLayout from '@/layouts/cards';
+import CardHeader from '@/components/card-header';
+import { Pagination, Accordion } from '@/ui/index';
 
 export default function MedicalHistory({ medicalHistory }: {
 	medicalHistory: MedicalHistoryType[]
@@ -26,7 +23,7 @@ export default function MedicalHistory({ medicalHistory }: {
 					itemsPerPage={itemsPerPage}
 					currentPage={currentPage}
 					setCurrentPage={setCurrentPage}
-					medicalHistory={medicalHistory}
+					arrayLength={medicalHistory.length}
 				/>
 			</div>
 			
@@ -79,19 +76,19 @@ function Medications({ history }: {
 	history: MedicalHistoryType
 }) {
 	return (
-		<Accordion type={'single'} collapsible>
+		<Accordion>
 			{history.medications!.map((medication, idx) => (
-				<AccordionItem
+				<Accordion.Item
 					key={idx}
 					value={`medication${idx}`}
 				>
-					<AccordionTrigger className={'hover:no-underline hover:cursor-pointer'}>
+					<Accordion.Button>
 						<div className={'flex justify-between items-center w-full pr-4'}>
 							<span className={'font-medium'}>{medication.drugName}</span>
 							<span className={'text-sm text-gray-500'}>{medication.dosage}</span>
 						</div>
-					</AccordionTrigger>
-					<AccordionContent>
+          </Accordion.Button>
+					<Accordion.Content>
 						<div className={'grid grid-cols-2 gap-4 p-4'}>
 							<div>
 								<p className={'text-sm text-gray-500'}>Drug Name</p>
@@ -110,8 +107,8 @@ function Medications({ history }: {
 								<p className={'font-medium'}>{medication.duration}</p>
 							</div>
 						</div>
-					</AccordionContent>
-				</AccordionItem>
+					</Accordion.Content>
+				</Accordion.Item>
 			))}
 		</Accordion>
 	);

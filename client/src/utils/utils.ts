@@ -22,3 +22,27 @@ export const generatePagination = (currentPage: number, totalPages: number): (st
 	// if the current page is in the middle
 	return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
 };
+
+export const generateCurrentWeek = () => {
+	const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	const week = [];
+	
+	for (let idx = 0; idx <= 7; idx++) {
+		// generate current the next day, appointments are booked in advance
+		const day = new Date(Date.now() + (idx * 24 * 60 * 60 * 1000));
+		
+		// format: yyyy-mm-dd
+		const isoDate = day.toISOString().split('T')[0];
+		
+		// format: weekday, mm dd yyyy
+		const formattedDate = `${weekdays[day.getDay()]}, ${day.toLocaleDateString('en-US', {
+			month: 'short',
+			day: 'numeric',
+			year: 'numeric'
+		})}`;
+		
+		week.push({ isoDate, formattedDate });
+	}
+	
+	return week;
+};

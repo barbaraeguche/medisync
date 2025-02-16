@@ -2,16 +2,15 @@ import { ReactNode, Dispatch, SetStateAction } from 'react';
 import { clsx } from 'clsx';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { generatePagination } from '@/utils/utils.ts';
-import { MedicalHistory as MedicalHistoryType } from '@/lib/definitions.ts';
 import Button from '@/ui/button.tsx';
 
-export default function Pagination({ itemsPerPage, currentPage, setCurrentPage, medicalHistory }: {
+export default function Pagination({ itemsPerPage, currentPage, setCurrentPage, arrayLength }: {
 	itemsPerPage: number,
 	currentPage: number,
   setCurrentPage: Dispatch<SetStateAction<number>>,
-	medicalHistory: MedicalHistoryType[]
+	arrayLength: number
 }) {
-	const totalPages = Math.ceil(medicalHistory.length / itemsPerPage);
+	const totalPages = Math.ceil(arrayLength / itemsPerPage);
 	const pagination = generatePagination(currentPage, totalPages);
 	
 	return (
@@ -26,7 +25,7 @@ export default function Pagination({ itemsPerPage, currentPage, setCurrentPage, 
 			<div className={' -space-x-px'}>
 				{pagination.map((page, idx) => (
 					<PaginationNumber
-						key={idx}
+						key={`${page}-${idx}`}
 						page={page}
 						isActive={currentPage === page}
 						onClick={() => page !== '...' && setCurrentPage(page as number)}
@@ -44,15 +43,13 @@ export default function Pagination({ itemsPerPage, currentPage, setCurrentPage, 
 	);
 }
 
-function PaginationButton({ key, className, onClick, children }: {
-	key?: number,
+function PaginationButton({ className, onClick, children }: {
 	className: string,
   onClick: () => void,
 	children: ReactNode
 }) {
 	return (
 		<Button
-			key={key}
 			size={'icon'}
 			variant={'outline'}
 			className={className}
@@ -63,8 +60,7 @@ function PaginationButton({ key, className, onClick, children }: {
 	);
 }
 
-function PaginationNumber({ key, page, isActive, onClick }: {
-	key: number,
+function PaginationNumber({ page, isActive, onClick }: {
 	page: number | string,
   isActive: boolean,
 	onClick: () => void
@@ -76,7 +72,6 @@ function PaginationNumber({ key, page, isActive, onClick }: {
 	
 	return (
 		<PaginationButton
-			key={key}
 			className={className}
 			onClick={onClick}
 		>
