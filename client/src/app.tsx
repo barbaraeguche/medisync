@@ -5,7 +5,7 @@
 // import DoctorInfo from '@/views/doctor/doctor-info';
 // import MedicalHistory from '@/views/patient/medical-history';
 // import Availabilities from '@/views/doctor/availabilities';
-// import CustomTable from '@/ui/table';
+import CustomTable from '@/ui/table';
 
 export default function App() {
 	return (
@@ -17,7 +17,7 @@ export default function App() {
       {/*<DoctorInfo/>*/}
 			{/*<MedicalHistory medicalHistory={medicalHistories}/>*/}
 			{/*<Availabilities/>*/}
-			{/*<CustomTable/>*/}
+			<CustomTable/>
 		</div>
 	);
 }
