@@ -21,9 +21,10 @@ export const EducationSchema = z.object({
 });
 export type EducationType = z.infer<typeof EducationSchema>;
 
-export const AvailabilitySchema = z.object({
-	day: z.string().date('Date cannot be null'),
-  startTime: z.string().min(5, { message: 'Enter a valid start time (e.g., 09:00 AM)' }),
-  endTime: z.string().min(5, { message: 'Enter a valid end time (e.g., 10:00 AM)' })
-});
-export type AvailabilityType = z.infer<typeof AvailabilitySchema>;
+// TODO: might not need this, will see
+// export const AvailabilitySchema = z.array(z.object({
+// 	date: z.string().date('Date cannot be null'),
+//   startTime: z.string().min(5, { message: 'Enter a valid start time (e.g., 09:00 AM)' }),
+//   endTime: z.string().min(5, { message: 'Enter a valid end time (e.g., 10:00 AM)' })
+// }));
+// export type AvailabilityType = z.infer<typeof AvailabilitySchema>;

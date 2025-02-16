@@ -24,25 +24,18 @@ export const generatePagination = (currentPage: number, totalPages: number): (st
 };
 
 export const generateCurrentWeek = () => {
-	const currentWeek = [];
-	
-	for (let idx = 1; idx <= 7; idx++) {
+	return Array.from({ length: 7 }, (_, idx) => {
 		// generate the next day from current day; appointments are booked in advance
-		const day = new Date(Date.now() + (idx * 24 * 60 * 60 * 1000));
+		const day = new Date(Date.now() + ((idx + 1) * 24 * 60 * 60 * 1000));
 		
-		// format: yyyy-mm-dd
-		const date = day.toISOString().split('T')[0];
-		
-		// format: weekday, mm dd, yyyy
-		const formattedDate = `${day.toLocaleDateString('en-US', {
-			weekday: 'long',
-			month: 'short',
-			day: 'numeric',
-			year: 'numeric'
-		})}`;
-		
-		currentWeek.push({ date, formattedDate });
-	}
-	
-	return currentWeek;
+		return {
+			date: day.toISOString().split('T')[0],
+			formattedDate: day.toLocaleDateString('en-US', {
+				weekday: 'long',
+				month: 'short',
+				day: 'numeric',
+				year: 'numeric'
+			})
+		};
+	});
 };

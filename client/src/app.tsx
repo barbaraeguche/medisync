@@ -21,3 +21,6 @@ export default function App() {
 		</div>
 	);
 }
+
+// checked={availability[day][`${slot.start}-${slot.end}`]}
+// onCheckedChange={() => handleCheckboxChange(day, `${slot.start}-${slot.end}`)}
