@@ -4,11 +4,9 @@ import {
 	AddressSchema, EmergencyContactSchema, AddressType, EmergencyContactType
 } from '@/schemas/user-schema';
 import { canadianProvinces } from '@/utils/constants';
-import CardLayout from '@/layouts/cards.tsx';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons';
-import CardHeader from '@/components/card-header.tsx';
-import { Select } from '@/ui/index';
+import { Card, Select } from '@/ui/index';
 
 export default function ContactInfo() {
 	return (
@@ -26,74 +24,78 @@ function Address() {
 		resolver: zodResolver(AddressSchema),
 		reValidateMode: 'onBlur'
 	});
-	
+
 	const onSubmit: SubmitHandler<AddressType> = (data) => {
 		console.log(data);
 	};
-	
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<CardLayout>
-				<CardHeader title={'Address'}/>
+			<Card>
+				<Card.Header title={'Address'}/>
+
+				<Card.Content>
+					{/* street */}
+					<InputWrapper
+						{...register('street')}
+						conf={{
+							label: 'Street',
+							placeholder: '123 Main St'
+						}}
+						name={'street'}
+						error={errors.street}
+					/>
+	
+					{/* city */}
+					<InputWrapper
+						{...register('city')}
+						conf={{
+							label: 'City',
+							placeholder: 'Vancouver'
+						}}
+						name={'city'}
+						error={errors.city}
+					/>
+	
+					{/* province */}
+					<Select
+						conf={{
+							label: 'Province',
+							placeholder: 'Select your province'
+						}}
+						name={'province'}
+						control={control}
+						options={canadianProvinces}
+						error={errors.province}
+					/>
+	
+					{/* postal code */}
+					<InputWrapper
+						{...register('postalCode')}
+						conf={{
+							label: 'Postal Code',
+							placeholder: 'V6B 2K8'
+						}}
+						name={'postalCode'}
+						error={errors.postalCode}
+					/>
+	
+					{/* country */}
+					<InputWrapper
+						{...register('country')}
+						conf={{
+							label: 'Country',
+							placeholder: 'Canada'
+						}}
+						name={'country'}
+						error={errors.country}
+					/>
+				</Card.Content>
 				
-				{/* street */}
-				<InputWrapper
-					{...register('street')}
-					conf={{
-						label: 'Street',
-						placeholder: '123 Main St'
-					}}
-					name={'street'}
-					error={errors.street}
-				/>
-				
-				{/* city */}
-				<InputWrapper
-					{...register('city')}
-					conf={{
-						label: 'City',
-						placeholder: 'Vancouver'
-					}}
-					name={'city'}
-					error={errors.city}
-				/>
-				
-				{/* province */}
-				<Select
-					conf={{
-						label: 'Province',
-						placeholder: 'Select your province'
-					}}
-					name={'province'}
-					control={control}
-					options={canadianProvinces}
-					error={errors.province}
-				/>
-				
-				{/* postal code */}
-				<InputWrapper
-					{...register('postalCode')}
-					conf={{
-						label: 'Postal Code',
-						placeholder: 'V6B 2K8'
-					}}
-					name={'postalCode'}
-					error={errors.postalCode}
-				/>
-				
-				{/* country */}
-				<InputWrapper
-					{...register('country')}
-					conf={{
-						label: 'Country',
-						placeholder: 'Canada'
-					}}
-					name={'country'}
-					error={errors.country}
-				/>
-				
-				<FormButtons/>
-			</CardLayout>
+				<Card.Footer>
+					<FormButtons/>
+				</Card.Footer>
+			</Card>
 		</form>
 	);
 }
@@ -105,51 +107,55 @@ function EmergencyContact() {
 		resolver: zodResolver(EmergencyContactSchema),
 		reValidateMode: 'onBlur'
 	});
-	
+
 	const onSubmit: SubmitHandler<EmergencyContactType> = (data) => {
 		console.log(data);
 	};
-	
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<CardLayout>
-				<CardHeader title={'Emergency Contact'}/>
+			<Card>
+				<Card.Header title={'Emergency Contact'}/>
+
+				<Card.Content>
+					{/* name */}
+					<InputWrapper
+						{...register('name')}
+						conf={{
+							label: 'Contact Name',
+							placeholder: 'Steve Dave'
+						}}
+						name={'name'}
+						error={errors.name}
+					/>
+	
+					{/* relationship */}
+					<InputWrapper
+						{...register('relationship')}
+						conf={{
+							label: 'Relationship to User',
+							placeholder: 'Spouse'
+						}}
+						name={'relationship'}
+						error={errors.relationship}
+					/>
+	
+					{/* email */}
+					<InputWrapper
+						{...register('email')}
+						conf={{
+							label: 'Contact Email',
+							placeholder: 'steve.dave@example.com'
+						}}
+						name={'email'}
+						error={errors.email}
+					/>
+				</Card.Content>
 				
-				{/* name */}
-				<InputWrapper
-					{...register('name')}
-					conf={{
-						label: 'Contact Name',
-						placeholder: 'Steve Dave'
-					}}
-					name={'name'}
-					error={errors.name}
-				/>
-				
-				{/* relationship */}
-				<InputWrapper
-					{...register('relationship')}
-					conf={{
-						label: 'Relationship to User',
-						placeholder: 'Spouse'
-					}}
-					name={'relationship'}
-					error={errors.relationship}
-				/>
-				
-				{/* email */}
-				<InputWrapper
-					{...register('email')}
-					conf={{
-						label: 'Contact Email',
-						placeholder: 'steve.dave@example.com'
-					}}
-					name={'email'}
-					error={errors.email}
-				/>
-				
-				<FormButtons/>
-      </CardLayout>
+				<Card.Footer>
+          <FormButtons/>
+        </Card.Footer>
+      </Card>
 		</form>
 	);
 }

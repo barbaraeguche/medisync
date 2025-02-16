@@ -3,11 +3,11 @@ import {
 } from 'react-hook-form';
 import {
 	Select, SelectContent, SelectTrigger, SelectItem, SelectValue
-} from '@/ui/shadcn/select.tsx';
+} from '@/ui/shadcn/select';
 import { clsx } from 'clsx';
-import { cn } from '@/utils/utils.ts';
-import { InputConfig } from '@/lib/definitions.ts';
-import FormError from '@/components/form-error.tsx';
+import { cn } from '@/utils/utils';
+import { InputConfig } from '@/lib/definitions';
+import FormError from '@/components/form-error';
 
 type CustomSelectProps<T extends FieldValues> = {
 	conf: InputConfig

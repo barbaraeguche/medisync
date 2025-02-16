@@ -1,3 +1,6 @@
-export { default as Input } from './input.tsx';
-export { default as Button } from './button.tsx';
-export { default as Select } from './select.tsx';
+export { default as Input } from './input';
+export { default as Button } from './button';
+export { default as Select } from './select';
+export { default as Card } from './card';
+export { default as Pagination } from './pagination';
+export { default as Accordion } from './accordion';

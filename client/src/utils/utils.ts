@@ -22,3 +22,20 @@ export const generatePagination = (currentPage: number, totalPages: number): (st
 	// if the current page is in the middle
 	return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
 };
+
+export const generateCurrentWeek = () => {
+	return Array.from({ length: 7 }, (_, idx) => {
+		// generate the next day from current day; appointments are booked in advance
+		const day = new Date(Date.now() + ((idx + 1) * 24 * 60 * 60 * 1000));
+		
+		return {
+			date: day.toISOString().split('T')[0],
+			formattedDate: day.toLocaleDateString('en-US', {
+				weekday: 'long',
+				month: 'short',
+				day: 'numeric',
+				year: 'numeric'
+			})
+		};
+	});
+};

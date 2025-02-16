@@ -11,16 +11,12 @@ export default function FormButtons({ isEditing }: {
 		)}>
 			<Button
 				type={'submit'}
-				variant={'secondary'}
-				className={'bg-accent-foreground hover:bg-accent'}
+				variant={'form'}
 			>
 				Save Changes
 			</Button>
 			
-			<Button
-				type={'button'}
-				variant={'outline'}
-			>
+			<Button variant={'outline'}>
 				Cancel
 			</Button>
 		</div>
