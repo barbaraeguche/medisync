@@ -17,12 +17,8 @@ export const doctorAppColumn: ColumnDef<Appointments>[] = [
 		}
 	},
 	{
-		accessorKey: 'startTime',
-		header: 'Start Time',
-	},
-	{
-		accessorKey: 'endTime',
-		header: 'End Time',
+		accessorKey: 'time',
+		header: 'Time',
 	},
 	{
 		accessorKey: 'type',
