@@ -69,8 +69,7 @@ export const medicalHistInitState: MedicalHistory = {
 export const appointmentInitState: Appointments = {
 	_id: 0,
   date: new Date('1900-01-01'),
-  startTime: (new Date('1900-01-01T00:00:00')).toLocaleTimeString(),
-  endTime: (new Date('1900-01-01T23:59:59')).toLocaleTimeString(),
+  time: (new Date('1900-01-01T00:00:00')).toLocaleTimeString(),
   type: 'Consultation',
   status: 'Scheduled',
   notes: '',
