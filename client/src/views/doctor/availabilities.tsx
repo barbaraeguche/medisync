@@ -151,7 +151,7 @@ export default function Availabilities() {
 							>
 								<input
                   type={'checkbox'}
-                  className={'peer accent-background'}
+                  className={'peer accent-background shadow-sm checked:shadow-none'}
                   id={`${date[idx]}-${slot.startTime}-${slot.endTime}`}
                   name={`${date[idx]}-${slot.startTime}-${slot.endTime}`}
                   checked={availability[date[idx]][`${slot.startTime}-${slot.endTime}`]}
