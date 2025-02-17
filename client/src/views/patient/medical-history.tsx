@@ -57,7 +57,7 @@ export default function MedicalHistory({ medicalHistory }: {
 								{/* medication */}
 								<div>
 									<h4 className={'font-semibold'}>Medications</h4>
-									{history.medications?.length !== 0 ? (
+									{history.medications?.length ? (
 										<Medications history={history}/>
 									) : (
 										<p className={'text-sm '}>No medication prescribed.</p>
