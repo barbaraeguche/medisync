@@ -6,7 +6,7 @@
 // import MedicalHistory from '@/views/patient/medical-history';
 // import Availabilities from '@/views/doctor/availabilities';
 import AppointmentsTable from '@/views/(common)/appointments-table';
-import CustomTable from '@/ui/table';
+// import CustomTable from '@/ui/table';
 
 export default function App() {
 	return (
