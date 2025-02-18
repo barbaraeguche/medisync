@@ -61,7 +61,7 @@ function RoleInfo() {
 						{...register('yearsOfExperience')}
 						type={'number'}
 						conf={{
-							label: 'Years of Experience',
+							label: 'Years of Experience (Optional)',
 							placeholder: '5'
 						}}
 						name={'yearsOfExperience'}
@@ -132,7 +132,7 @@ function Education() {
 					<InputWrapper
 						{...register('graduationYear')}
 						conf={{
-							label: 'Graduation Year',
+							label: 'Graduation Year (Optional)',
 							placeholder: '1990'
 						}}
 						name={'graduationYear'}

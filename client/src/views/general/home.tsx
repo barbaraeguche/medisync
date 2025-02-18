@@ -3,8 +3,8 @@ import { Calendar, Check, Phone } from 'lucide-react';
 import {
 	stats, services, whyChooseUs, checkUpReasons
 } from '@/lib/data.ts';
-import SiteLayout from '@/layouts/site';
-import Button from '@/ui/button';
+import SiteLayout from '@/layouts/site.tsx';
+import Button from '@/ui/button.tsx';
 
 export default function HomePage() {
 	return (

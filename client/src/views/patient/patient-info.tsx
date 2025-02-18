@@ -49,7 +49,7 @@ function RoleInfo() {
 					<InputWrapper
 						{...register('allergies')}
 						conf={{
-							label: 'Allergies',
+							label: 'Allergies (Optional)',
 							placeholder: 'Peanuts, Milk'
 						}}
 						name={'allergies'}
@@ -70,7 +70,7 @@ function RoleInfo() {
 					<InputWrapper
 						{...register('insuranceProvider')}
 						conf={{
-							label: 'Insurance Provider',
+							label: 'Insurance Provider (Optional)',
 							placeholder: 'Sentinel Assurance Inc.'
 						}}
 						name={'insuranceProvider'}
@@ -81,7 +81,7 @@ function RoleInfo() {
 					<InputWrapper
 						{...register('insurancePolicyNumber')}
 						conf={{
-							label: 'Insurance Policy Number',
+							label: 'Insurance Policy Number (Optional)',
 							placeholder: 'SA-9876543210'
 						}}
 						name={'insurancePolicyNumber'}
@@ -92,7 +92,7 @@ function RoleInfo() {
 					<InputWrapper
 						{...register('chronicConditions')}
 						conf={{
-							label: 'Chronic Conditions',
+							label: 'Chronic Conditions (Optional)',
 							placeholder: 'Diabetes, Asthma'
 						}}
 						name={'chronicConditions'}

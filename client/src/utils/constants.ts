@@ -13,7 +13,7 @@ export const validBloodTypes = [
 	'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'
 ] as const;
 export const validAppointmentTypes = [
-	'Checkup', 'Follow Up', 'Emergency', 'Consultation'
+	'Consultation', 'Checkup', 'Follow Up', 'Emergency'
 ] as const;
 
 export const canadianProvinces = validCanadianProvinces.map((province) => ({

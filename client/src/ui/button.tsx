@@ -39,7 +39,7 @@ export default forwardRef<HTMLButtonElement, ButtonProps>(
 			<button
 				{...props}
 				ref={ref}
-				type={'button'}
+				type={props.type ?? 'button'}
 				className={cn(buttonVariants({ variant, size }), props.className)}
 			>
 				{props.children}

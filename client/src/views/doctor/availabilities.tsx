@@ -1,4 +1,4 @@
-import { generateCurrentWeek } from '@/utils/utils';
+import { getCurrentWeek } from '@/utils/utils';
 import { Button, Card } from '@/ui/index';
 import { useState } from 'react';
 
@@ -9,78 +9,12 @@ interface WeekAvailability {
 	[key: string]: DayAvailability
 }
 
-const [date, formattedDate] = generateCurrentWeek().reduce<[string[], string[]]>(
-	([dateArr, formatedArr], { date, formattedDate }) => {
-		dateArr.push(date);
-		formatedArr.push(formattedDate);
-		return [dateArr, formatedArr];
-	},
-	[[], []]
-);
+const [date, formattedDate] = getCurrentWeek();
 const timeSlots = [
 	{ startTime: '09:00', endTime: '12:00' },
 	{ startTime: '13:00', endTime: '16:00' },
 	{ startTime: '17:00', endTime: '20:00' }
 ]
-
-// TODO: need to replace this with actual data
-const retrieved =	[
-	{
-		"date": "2025-02-18",
-		"startTime": "09:00",
-		"endTime": "12:00"
-	},
-		{
-			"date": "2025-02-18",
-			"startTime": "13:00",
-			"endTime": "16:00"
-		},
-		{
-			"date": "2025-02-18",
-			"startTime": "17:00",
-			"endTime": "20:00"
-		},
-		{
-			"date": "2025-02-19",
-			"startTime": "09:00",
-			"endTime": "12:00"
-		},
-		{
-			"date": "2025-02-19",
-			"startTime": "13:00",
-			"endTime": "16:00"
-		},
-		{
-			"date": "2025-02-19",
-			"startTime": "17:00",
-			"endTime": "20:00"
-		},
-		{
-			"date": "2025-02-21",
-			"startTime": "09:00",
-			"endTime": "12:00"
-		},
-		{
-			"date": "2025-02-21",
-			"startTime": "13:00",
-			"endTime": "16:00"
-		},
-		{
-			"date": "2025-02-22",
-			"startTime": "09:00",
-			"endTime": "12:00"
-		},
-		{
-			"date": "2025-02-22",
-			"startTime": "13:00",
-			"endTime": "16:00"
-		},
-		{
-			"date": "2025-02-22",
-			"startTime": "17:00",
-			"endTime": "20:00"
-		}
-	]
 
 export default function Availabilities() {
 	const [availability, setAvailability] = useState<WeekAvailability>(() => {
@@ -93,15 +27,15 @@ export default function Availabilities() {
 			});
 		});
 		
-		// set the initial availability if provided
-		retrieved.forEach((app) => {
-			const { date, startTime, endTime } = app;
-			const timeSlot = `${startTime}-${endTime}`;
-			
-			if (initial[date] && timeSlot in initial[date]) {
-				initial[date][timeSlot] = true;
-			}
-		})
+		// TODO: set the initial availability if provided
+		// retrieved.forEach((app) => {
+		// 	const { date, startTime, endTime } = app;
+		// 	const timeSlot = `${startTime}-${endTime}`;
+		//
+		// 	if (initial[date] && timeSlot in initial[date]) {
+		// 		initial[date][timeSlot] = true;
+		// 	}
+		// });
 		
 		return initial;
 	});

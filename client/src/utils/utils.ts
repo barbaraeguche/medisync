@@ -23,13 +23,13 @@ export const generatePagination = (currentPage: number, totalPages: number): (st
 	return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
 };
 
-export const generateCurrentWeek = () => {
+const generateCurrentWeek = () => {
 	return Array.from({ length: 7 }, (_, idx) => {
 		// generate the next day from current day; appointments are booked in advance
 		const day = new Date(Date.now() + ((idx + 1) * 24 * 60 * 60 * 1000));
 		
 		return {
-			date: day.toISOString().split('T')[0],
+			date: day.toLocaleString('en-CA').split(',')[0],
 			formattedDate: day.toLocaleDateString('en-US', {
 				weekday: 'long',
 				month: 'short',
@@ -38,4 +38,15 @@ export const generateCurrentWeek = () => {
 			})
 		};
 	});
+};
+
+export const getCurrentWeek = () => {
+	return generateCurrentWeek().reduce<[string[], string[]]>(
+		([dateArr, formatedArr], { date, formattedDate }) => {
+			dateArr.push(date);
+			formatedArr.push(formattedDate);
+			return [dateArr, formatedArr];
+		},
+		[[], []]
+	);
 };

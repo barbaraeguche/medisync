@@ -3,7 +3,7 @@ import {
 	emailRegex, phoneNumberRegex, postalCodeRegex
 } from '@/utils/regex';
 import {
-	validGenders,validRoles, validCanadianProvinces
+	validGenders, validRoles, validCanadianProvinces
 } from '@/utils/constants.ts';
 
 const UserSchema = z.object({
@@ -40,9 +40,8 @@ export const EmergencyContactSchema = z.object({
 	name: z.string().min(1, { message: 'Enter a name' }),
 	relationship: z.string().min(2, { message: 'Enter the relationship type' })
 		.optional().or(z.literal('')),
-	email: z.string()
-		.refine((val) => emailRegex.test(val), {
-			message: 'Enter a valid email address'
-		})
+	email: z.string().refine((val) => emailRegex.test(val), {
+		message: 'Enter a valid email address'
+	})
 });
 export type EmergencyContactType = z.infer<typeof EmergencyContactSchema>;

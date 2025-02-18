@@ -25,7 +25,7 @@ export default function CustomSelect<T extends FieldValues>(props: CustomSelectP
 				<label
 					htmlFor={props.name}
 					className={clsx(
-						cn('mb-1 block text-xs', props.conf.labelStyle), {
+						cn('mb-1 block text-xs font-medium', props.conf.labelStyle), {
 							'text-red-500 font-medium': props.error
 						}
 					)}

@@ -39,7 +39,7 @@ function Address() {
 					<InputWrapper
 						{...register('street')}
 						conf={{
-							label: 'Street',
+							label: 'Street (Optional)',
 							placeholder: '123 Main St'
 						}}
 						name={'street'}
@@ -50,7 +50,7 @@ function Address() {
 					<InputWrapper
 						{...register('city')}
 						conf={{
-							label: 'City',
+							label: 'City (Optional)',
 							placeholder: 'Vancouver'
 						}}
 						name={'city'}
@@ -133,7 +133,7 @@ function EmergencyContact() {
 					<InputWrapper
 						{...register('relationship')}
 						conf={{
-							label: 'Relationship to User',
+							label: 'Relationship to User (Optional)',
 							placeholder: 'Spouse'
 						}}
 						name={'relationship'}
