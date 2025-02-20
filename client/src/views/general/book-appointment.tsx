@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AppointmentSchema, AppointmentType } from '@/schemas/appointment-schema';
@@ -43,21 +44,6 @@ const henna = [
 	},
 ];
 
-const getDateAndTimeOptions = (doctorId: string) => {
-	type OptionsReturnType = { label: string, value: string }[];
-	
-	return henna
-		.filter((doctor) => doctor.id === doctorId ||!doctor.id)
-		.reduce<[OptionsReturnType, OptionsReturnType]>(
-	    ([dateArr, timeArr], { date, startTime }) => {
-	      dateArr.push({ label: date, value: date });
-	      timeArr.push({ label: `${startTime}`, value: `${startTime}` });
-	      return [dateArr, timeArr];
-	    },
-	    [[], []]
-	  );
-}
-
 export default function BookAppointment() {
 	const {
 		register, handleSubmit, formState: { errors }, control, watch
@@ -67,8 +53,39 @@ export default function BookAppointment() {
 	});
 	
 	const [doctorId, appointmentDate] = watch(['doctorId', 'date']);
-	const [dateOptions, timeOptions] = getDateAndTimeOptions(doctorId);
-	console.log(dateOptions)
+	
+	// TODO: remove !id in production
+	// filter appointments by doctorId (or include those without a specified doctor)
+	const getDoctorDetails = useMemo(() => {
+		return henna.filter(({ id }) => id === doctorId || !id);
+	}, [doctorId]);
+	
+	// find all dates available dates for the chosen doctor
+	const getDateOptions = useMemo(() => {
+		const dateSet = new Set<string>();
+		
+		return getDoctorDetails
+			.filter(({ date }) => {
+				if (dateSet.has(date)) return false;
+				dateSet.add(date);
+				return true;
+			})
+			.map(({ date }) => ({ label: date, value: date }));
+	}, [getDoctorDetails]);
+	
+	const getTimeOptions = useMemo(() => {
+		// find all time slots for the selected doctor & date
+		const timeSet = new Set<string>();
+		
+		return getDoctorDetails
+			.filter(({ date }) => date === appointmentDate)
+			.filter(({ startTime }) => {
+				if (timeSet.has(startTime)) return false;
+				timeSet.add(startTime);
+				return true;
+			})
+			.map(({ startTime }) => ({ label: startTime, value: startTime }));
+	}, [getDoctorDetails, appointmentDate]);
 	
 	const onSubmit: SubmitHandler<AppointmentType> = (data) => {
 		console.log(data);
@@ -104,7 +121,7 @@ export default function BookAppointment() {
 						}}
 						name={'date'}
 						control={control}
-						options={[...new Set(dateOptions)]}
+						options={getDateOptions}
 						error={errors.date}
 					/>
 					
@@ -117,7 +134,7 @@ export default function BookAppointment() {
 						}}
 						name={'time'}
 						control={control}
-						options={timeOptions}
+						options={getTimeOptions}
 						error={errors.time}
 					/>
 					
@@ -148,7 +165,6 @@ export default function BookAppointment() {
 				<Card.Footer>
 					<Button
 						type={'submit'}
-						// onClick={handleSave}
 						className={'mt-5 w-full'}
 					>
 						Book Appointment

@@ -1,7 +1,7 @@
-import { SelectHTMLAttributes } from 'react';
 import {
 	Controller, Control, FieldValues, Path, FieldError
 } from 'react-hook-form';
+import { SelectProps } from '@radix-ui/react-select';
 import {
 	Select, SelectContent, SelectTrigger, SelectItem, SelectValue
 } from '@/ui/shadcn/select';
@@ -10,7 +10,7 @@ import { cn } from '@/utils/utils';
 import { InputConfig } from '@/lib/definitions';
 import FormError from '@/components/form-error';
 
-type CustomSelectProps<T extends FieldValues> = SelectHTMLAttributes<HTMLSelectElement> & {
+type CustomSelectProps<T extends FieldValues> = SelectProps & {
 	conf: InputConfig;
 	name: Path<T>;
 	control: Control<T>;
@@ -56,6 +56,7 @@ function SelectInput<T extends FieldValues>(props: CustomSelectProps<T>) {
 			control={props.control}
 			render={({ field }) => (
 				<Select
+					{...props}
 					value={field.value ?? ''}
 					onValueChange={field.onChange}
 				>
