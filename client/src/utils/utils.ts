@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge';
 import { clsx, type ClassValue } from 'clsx';
-import { format } from 'date-fns';
+import { format, parse, differenceInHours, parseISO } from 'date-fns';
 import { enCA } from 'date-fns/locale';
 
 export function cn(...args: ClassValue[]) {
@@ -26,10 +26,11 @@ export const generatePagination = (currentPage: number, totalPages: number): (st
 };
 
 export const formatDate = (date: string | Date) => {
-	return format(date, 'EEEE, MMM dd yyyy', {
+	const parsedDate = date instanceof Date ? date : parseISO(date);
+	return format(parsedDate, 'EEEE, MMM dd yyyy', {
 		locale: enCA
 	});
-}
+};
 
 const generateCurrentWeek = () => {
 	return Array.from({ length: 7 }, (_, idx) => {
@@ -54,3 +55,23 @@ export const getCurrentWeek = () => {
 		[[], []]
 	);
 };
+
+export const generateTimeSlots = (formerHr: string, latterHr: string) => {
+	// define a reference date (since we're only working with time)
+	const referenceDate = '1900-01-01';
+	
+	const endTime = parse(`${referenceDate} ${formerHr}`, 'yyyy-MM-dd HH:mm', new Date());
+	const startTime = parse(`${referenceDate} ${latterHr}`, 'yyyy-MM-dd HH:mm', new Date());
+	
+	// get the number of hours between them
+	const difference = differenceInHours(endTime, startTime);
+	
+	return Array.from({ length: difference }, (_, idx) => {
+		// generate hourly intervals
+		const time = `${startTime.getHours() + idx}:00`;
+		return generateLabelValue(time);
+	});
+};
+
+export const generateLabelValue = (itemValue: string, itemLabel?: string) =>
+	({ label: itemLabel ?? itemValue, value: itemValue });

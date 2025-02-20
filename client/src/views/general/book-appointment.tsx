@@ -2,7 +2,9 @@ import { useMemo } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AppointmentSchema, AppointmentType } from '@/schemas/appointment-schema';
-import { formatDate } from '@/utils/utils.ts';
+import {
+	formatDate, generateLabelValue, generateTimeSlots
+} from '@/utils/utils.ts';
 import { appointmentType } from '@/utils/constants';
 import InputWrapper from '@/components/input-wrapper';
 import { Button, Card, Select } from '@/ui/index';
@@ -34,13 +36,13 @@ const henna = [
 	{
 		"id": doctorOptions[0].value,
 		"date": "2025-02-19",
-		"startTime": "19:00",
+		"startTime": "9:00",
 		"endTime": "12:00"
 	},
 	{
 		"date": "2025-02-19",
-		"startTime": "15:00",
-		"endTime": "16:00"
+		"startTime": "17:00",
+		"endTime": "20:00"
 	},
 ];
 
@@ -54,7 +56,7 @@ export default function BookAppointment() {
 	
 	const [doctorId, appointmentDate] = watch(['doctorId', 'date']);
 	
-	// TODO: remove !id in production
+	// TODO: remove !id in production, also check if the appointment date isn't already booked
 	// filter appointments by doctorId (or include those without a specified doctor)
 	const getDoctorDetails = useMemo(() => {
 		return henna.filter(({ id }) => id === doctorId || !id);
@@ -70,21 +72,25 @@ export default function BookAppointment() {
 				dateSet.add(date);
 				return true;
 			})
-			.map(({ date }) => ({ label: date, value: date }));
+			.map(({ date }) =>
+				generateLabelValue(date, formatDate(date)));
 	}, [getDoctorDetails]);
 	
 	const getTimeOptions = useMemo(() => {
 		// find all time slots for the selected doctor & date
 		const timeSet = new Set<string>();
 		
-		return getDoctorDetails
+		const uniqueSlots =  getDoctorDetails
 			.filter(({ date }) => date === appointmentDate)
 			.filter(({ startTime }) => {
 				if (timeSet.has(startTime)) return false;
 				timeSet.add(startTime);
 				return true;
-			})
-			.map(({ startTime }) => ({ label: startTime, value: startTime }));
+			});
+		
+		// generate the differences
+		return uniqueSlots.flatMap(({ startTime, endTime }) =>
+			generateTimeSlots(endTime, startTime));
 	}, [getDoctorDetails, appointmentDate]);
 	
 	const onSubmit: SubmitHandler<AppointmentType> = (data) => {
