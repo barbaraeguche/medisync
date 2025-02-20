@@ -1,5 +1,7 @@
 import { twMerge } from 'tailwind-merge';
 import { clsx, type ClassValue } from 'clsx';
+import { format } from 'date-fns';
+import { enCA } from 'date-fns/locale';
 
 export function cn(...args: ClassValue[]) {
 	return twMerge(clsx(args));
@@ -23,29 +25,31 @@ export const generatePagination = (currentPage: number, totalPages: number): (st
 	return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
 };
 
+export const formatDate = (date: string | Date) => {
+	return format(date, 'EEEE, MMM dd yyyy', {
+		locale: enCA
+	});
+}
+
 const generateCurrentWeek = () => {
 	return Array.from({ length: 7 }, (_, idx) => {
 		// generate the next day from current day; appointments are booked in advance
-		const day = new Date(Date.now() + ((idx + 1) * 24 * 60 * 60 * 1000));
+		const date = new Date();
+		date.setDate(date.getDate() + idx + 1);
 		
 		return {
-			date: day.toLocaleString('en-CA').split(',')[0],
-			formattedDate: day.toLocaleDateString('en-US', {
-				weekday: 'long',
-				month: 'short',
-				day: 'numeric',
-				year: 'numeric'
-			})
+			date: format(date, 'yyyy-MM-dd'),
+			displayDate: formatDate(date)
 		};
 	});
 };
 
 export const getCurrentWeek = () => {
 	return generateCurrentWeek().reduce<[string[], string[]]>(
-		([dateArr, formatedArr], { date, formattedDate }) => {
+		([dateArr, displayedArr], { date, displayDate }) => {
 			dateArr.push(date);
-			formatedArr.push(formattedDate);
-			return [dateArr, formatedArr];
+			displayedArr.push(displayDate);
+			return [dateArr, displayedArr];
 		},
 		[[], []]
 	);

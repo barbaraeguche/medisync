@@ -4,7 +4,7 @@
 // import PatientInfo from '@/views/patient/patient-info';
 // import DoctorInfo from '@/views/doctor/doctor-info';
 // import MedicalHistory from '@/views/patient/medical-history';
-import Availabilities from '@/views/doctor/availabilities';
+// import Availabilities from '@/views/doctor/availabilities';
 // import AppointmentsTable from '@/views/(common)/appointments-table';
 import BookAppointment from '@/views/general/book-appointment';
 
@@ -17,7 +17,7 @@ export default function App() {
 			{/*<PatientInfo/>*/}
       {/*<DoctorInfo/>*/}
 			{/*<MedicalHistory medicalHistory={medicalHistories}/>*/}
-			<Availabilities/>
+			{/*<Availabilities/>*/}
 			{/*<AppointmentsTable/>*/}
 			<BookAppointment/>
 		</div>
