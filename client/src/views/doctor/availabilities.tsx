@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { getCurrentWeek } from '@/utils/utils';
 import { Button, Card } from '@/ui/index';
-import { useState } from 'react';
 
 interface DayAvailability {
 	[key: string]: boolean

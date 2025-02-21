@@ -34,9 +34,12 @@ export const formatDate = (date: string | Date) => {
 
 const generateCurrentWeek = () => {
 	return Array.from({ length: 7 }, (_, idx) => {
-		// generate the next day from current day; appointments are booked in advance
+		/*
+		* generate the next day from current week
+		* appointments are booked 2 days in advance to allow patients to book a day before at latest
+		*/
 		const date = new Date();
-		date.setDate(date.getDate() + idx + 1);
+		date.setDate(date.getDate() + idx + 2);
 		
 		return {
 			date: format(date, 'yyyy-MM-dd'),
