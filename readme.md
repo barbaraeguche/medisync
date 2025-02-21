@@ -19,6 +19,8 @@
 - custom input wrapper to display label, input field and error
 - tanstack table
 - pagination
+- availability form
+- string back to date without getting previous date ie parseIso date-fns
 
 ## limitations 🚨
 - **title:** description

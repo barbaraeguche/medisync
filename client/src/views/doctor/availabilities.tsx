@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { getCurrentWeek } from '@/utils/utils';
 import { Button, Card } from '@/ui/index';
-import { useState } from 'react';
 
 interface DayAvailability {
 	[key: string]: boolean
@@ -9,7 +9,7 @@ interface WeekAvailability {
 	[key: string]: DayAvailability
 }
 
-const [date, formattedDate] = getCurrentWeek();
+const [date, displayedDate] = getCurrentWeek();
 const timeSlots = [
 	{ startTime: '09:00', endTime: '12:00' },
 	{ startTime: '13:00', endTime: '16:00' },
@@ -72,7 +72,7 @@ export default function Availabilities() {
 			/>
 			
 			<Card.Content className={'gap-6 grid md:grid-cols-2 lg:grid-cols-3'}>
-				{formattedDate.map((day, idx) => (
+				{displayedDate.map((day, idx) => (
 					<div
 						key={day}
 						className={'space-y-2'}

@@ -1,6 +1,7 @@
 import {
 	Controller, Control, FieldValues, Path, FieldError
 } from 'react-hook-form';
+import { SelectProps } from '@radix-ui/react-select';
 import {
 	Select, SelectContent, SelectTrigger, SelectItem, SelectValue
 } from '@/ui/shadcn/select';
@@ -9,8 +10,8 @@ import { cn } from '@/utils/utils';
 import { InputConfig } from '@/lib/definitions';
 import FormError from '@/components/form-error';
 
-type CustomSelectProps<T extends FieldValues> = {
-	conf: InputConfig
+type CustomSelectProps<T extends FieldValues> = SelectProps & {
+	conf: InputConfig;
 	name: Path<T>;
 	control: Control<T>;
 	options: { label: string; value: string }[];
@@ -47,6 +48,7 @@ export default function CustomSelect<T extends FieldValues>(props: CustomSelectP
 	);
 }
 
+// TODO: optimize here, use `useController instead`
 function SelectInput<T extends FieldValues>(props: CustomSelectProps<T>) {
 	return (
 		<Controller
@@ -54,8 +56,9 @@ function SelectInput<T extends FieldValues>(props: CustomSelectProps<T>) {
 			control={props.control}
 			render={({ field }) => (
 				<Select
-					onValueChange={field.onChange}
+					{...props}
 					value={field.value ?? ''}
+					onValueChange={field.onChange}
 				>
 					<SelectTrigger
 						id={props.name}

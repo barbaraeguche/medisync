@@ -1,68 +1,72 @@
+import { useEffect, useMemo } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AppointmentSchema, AppointmentType } from '@/schemas/appointment-schema';
-import { getCurrentWeek } from '@/utils/utils.ts';
+import {
+	formatDate, generateLabelValue, generateTimeSlots
+} from '@/utils/utils.ts';
 import { appointmentType } from '@/utils/constants';
 import InputWrapper from '@/components/input-wrapper';
 import { Button, Card, Select } from '@/ui/index';
 
-const [date, formattedDate] = getCurrentWeek();
-const availableDoctors = [
-	{ value: "3f98e8a2-6b4d-4c02-bf89-7c72a2d1e3b5", label: "Dr. Sarah Smith" },
-	{ value: "d1e3f5a8-9c4b-41f6-b2c7-8d70e5a9f134", label: "Dr. John Doe" },
-	{ value: "a72d1e39-6f5b-4d12-89c7-3b0e8a4f2d5c", label: "Dr. Emily Brown" },
-]
-const dateOptions = formattedDate.map((item, idx) => ({
-	label: item,
-	value: date[idx]
-}))
-const henna = [
-	{
-		"doctor": "3f98e8a2-6b4d-4c02-bf89-7c72a2d1e3b5",
-		"date": "2025-02-18",
-		"startTime": "09:00",
-		"endTime": "12:00"
-	},
-	{
-		"doctor": "d1e3f5a8-9c4b-41f6-b2c7-8d70e5a9f134",
-		"date": "2025-02-18",
-		"startTime": "13:00",
-		"endTime": "16:00"
-	},
-	{
-		"doctor": "a72d1e39-6f5b-4d12-89c7-3b0e8a4f2d5c",
-		"date": "2025-02-18",
-		"startTime": "17:00",
-		"endTime": "20:00"
-	},
-	{
-		"doctor": "3f98e8a2-6b4d-4c02-bf89-7c72a2d1e3b5",
-		"date": "2025-02-19",
-		"startTime": "19:00",
-		"endTime": "12:00"
-	},
-	{
-		"date": "2025-02-19",
-		"startTime": "15:00",
-		"endTime": "16:00"
-	},
-];
-
 export default function BookAppointment() {
 	const {
-		register, handleSubmit, formState: { errors }, control, getValues
+		register, handleSubmit, formState: { errors }, control, watch, resetField
 	} = useForm<AppointmentType>({
 		resolver: zodResolver(AppointmentSchema),
 		reValidateMode: 'onBlur'
 	});
 	
-	const doctorId = getValues('doctorId');
-	const timeSlots = henna.filter((item) => {
-		return item.doctor === doctorId;
-	}).map((item) => ({
-		label: `${item.startTime}`,
-		value: `${item.startTime}`
-	}));
+	const [doctorId, appointmentDate] = watch(['doctorId', 'date']);
+	
+	useEffect(() => {
+		if (doctorId) {
+			resetField('date');
+			resetField('time');
+		}
+	}, [doctorId, resetField]);
+	useEffect(() => {
+		if (appointmentDate) {
+			resetField('time');
+		}
+	}, [appointmentDate, resetField]);
+	
+	// TODO: remove !id in production, also check if the appointment date isn't already booked
+	// filter appointments by doctorId (or include those without a specified doctor)
+	// const getDoctorDetails = useMemo(() => {
+	// 	return henna.filter(({ id }) => id === doctorId || !id);
+	// }, [doctorId]);
+	//
+	// // find all dates available dates for the chosen doctor
+	// const getDateOptions = useMemo(() => {
+	// 	const dateSet = new Set<string>();
+	//
+	// 	return getDoctorDetails
+	// 		.filter(({ date }) => {
+	// 			if (dateSet.has(date)) return false;
+	// 			dateSet.add(date);
+	// 			return true;
+	// 		})
+	// 		.map(({ date }) =>
+	// 			generateLabelValue(date, formatDate(date)));
+	// }, [getDoctorDetails]);
+	//
+	// const getTimeOptions = useMemo(() => {
+	// 	// find all time slots for the selected doctor & date
+	// 	const timeSet = new Set<string>();
+	//
+	// 	const uniqueSlots =  getDoctorDetails
+	// 		.filter(({ date }) => date === appointmentDate)
+	// 		.filter(({ startTime }) => {
+	// 			if (timeSet.has(startTime)) return false;
+	// 			timeSet.add(startTime);
+	// 			return true;
+	// 		});
+	//
+	// 	// generate the differences
+	// 	return uniqueSlots.flatMap(({ startTime, endTime }) =>
+	// 		generateTimeSlots(endTime, startTime));
+	// }, [getDoctorDetails, appointmentDate]);
 	
 	const onSubmit: SubmitHandler<AppointmentType> = (data) => {
 		console.log(data);
@@ -78,40 +82,42 @@ export default function BookAppointment() {
 				
 				<Card.Content>
 					{/* doctor */}
-					<Select
-						conf={{
-							label: 'Preferred Doctor',
-							placeholder: 'Choose a doctor'
-						}}
-						name={'doctorId'}
-						control={control}
-						options={availableDoctors}
-						error={errors.doctorId}
-					/>
+					{/*<Select*/}
+					{/*	conf={{*/}
+					{/*		label: 'Preferred Doctor',*/}
+					{/*		placeholder: 'Choose a doctor'*/}
+					{/*	}}*/}
+					{/*	name={'doctorId'}*/}
+					{/*	control={control}*/}
+					{/*	options={doctorOptions}*/}
+					{/*	error={errors.doctorId}*/}
+					{/*/>*/}
 					
 					{/* date */}
-					<Select
-						conf={{
-							label: 'Preferred Date',
-							placeholder: 'Choose a date'
-						}}
-						name={'date'}
-						control={control}
-						options={dateOptions}
-						error={errors.date}
-					/>
+					{/*<Select*/}
+					{/*	disabled={!doctorId}*/}
+					{/*	conf={{*/}
+					{/*		label: 'Preferred Date',*/}
+					{/*		placeholder: 'Choose a date'*/}
+					{/*	}}*/}
+					{/*	name={'date'}*/}
+					{/*	control={control}*/}
+					{/*	options={getDateOptions}*/}
+					{/*	error={errors.date}*/}
+					{/*/>*/}
 					
 					{/* time */}
-					<Select
-						conf={{
-							label: 'Preferred Time',
-							placeholder: 'Choose a time'
-						}}
-						name={'time'}
-						control={control}
-						options={timeSlots}
-						error={errors.time}
-					/>
+					{/*<Select*/}
+					{/*	disabled={!appointmentDate}*/}
+					{/*	conf={{*/}
+					{/*		label: 'Preferred Time',*/}
+					{/*		placeholder: 'Choose a time'*/}
+					{/*	}}*/}
+					{/*	name={'time'}*/}
+					{/*	control={control}*/}
+					{/*	options={getTimeOptions}*/}
+					{/*	error={errors.time}*/}
+					{/*/>*/}
 					
 					{/* type */}
 					<Select
@@ -140,7 +146,6 @@ export default function BookAppointment() {
 				<Card.Footer>
 					<Button
 						type={'submit'}
-						// onClick={handleSave}
 						className={'mt-5 w-full'}
 					>
 						Book Appointment
