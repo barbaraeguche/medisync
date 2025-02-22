@@ -1,10 +1,11 @@
-import { useEffect, useMemo } from 'react';
+// import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AppointmentSchema, AppointmentType } from '@/schemas/appointment-schema';
-import {
-	formatDate, generateLabelValue, generateTimeSlots
-} from '@/utils/utils.ts';
+// import {
+// 	formatDate, generateLabelValue, generateTimeSlots
+// } from '@/utils/utils.ts';
 import { appointmentType } from '@/utils/constants';
 import InputWrapper from '@/components/input-wrapper';
 import { Button, Card, Select } from '@/ui/index';

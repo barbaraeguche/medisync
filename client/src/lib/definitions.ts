@@ -31,7 +31,7 @@ export interface Doctor {
 	_id: string;
 	user: User;
 	practitioner: Practitioner;
-	doctorAvailabilities?: {
+	availabilities?: {
 		date: Date;
 		startTime: string;
 		endTime: string;

@@ -1,10 +1,10 @@
-import { User, Doctor, Patient, Practitioner, MedicalHistory, Appointments } from '../lib/definitions.ts';
+import { User, Doctor, Patient, Practitioner, MedicalHistory, Appointments } from '@/lib/definitions';
 
 export const userInitState: User = {
 	_id: 'a1-b2-c3',
-	firstName: '',
-	lastName: '',
-	email: '',
+	firstName: 'Barbara',
+	lastName: 'Eguche',
+	email: 'barbara@gmail.com',
 	password: '',
 	phoneNumber: '',
 	gender: 'Female',
@@ -36,7 +36,7 @@ export const doctorInitState: Doctor = {
 	_id: 'a1-b2-c3',
   user: userInitState,
   practitioner: practitionerInitState,
-  doctorAvailabilities: [],
+  availabilities: [],
   appointments: []
 };
 
