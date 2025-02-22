@@ -5,8 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AppointmentSchema, AppointmentType } from '@/schemas/appointment-schema';
 // import {
 // 	formatDate, generateLabelValue, generateTimeSlots
-// } from '@/utils/utils.ts';
-import { appointmentType } from '@/utils/constants';
+// } from '@/utils/utils';
+import { appointmentTypeOptions } from '@/utils/constants';
 import InputWrapper from '@/components/input-wrapper';
 import { Button, Card, Select } from '@/ui/index';
 
@@ -32,10 +32,10 @@ export default function BookAppointment() {
 		}
 	}, [appointmentDate, resetField]);
 	
-	// TODO: remove !id in production, also check if the appointment date isn't already booked
+	// TODO: check if the appointment date isn't already booked
 	// filter appointments by doctorId (or include those without a specified doctor)
 	// const getDoctorDetails = useMemo(() => {
-	// 	return henna.filter(({ id }) => id === doctorId || !id);
+	// 	return henna.filter(({ id }) => id === doctorId);
 	// }, [doctorId]);
 	//
 	// // find all dates available dates for the chosen doctor
@@ -48,8 +48,7 @@ export default function BookAppointment() {
 	// 			dateSet.add(date);
 	// 			return true;
 	// 		})
-	// 		.map(({ date }) =>
-	// 			generateLabelValue(date, formatDate(date)));
+	// 		.map(({ date }) => generateLabelValue(date, formatDate(date)));
 	// }, [getDoctorDetails]);
 	//
 	// const getTimeOptions = useMemo(() => {
@@ -65,8 +64,7 @@ export default function BookAppointment() {
 	// 		});
 	//
 	// 	// generate the differences
-	// 	return uniqueSlots.flatMap(({ startTime, endTime }) =>
-	// 		generateTimeSlots(endTime, startTime));
+	// 	return uniqueSlots.flatMap(({ startTime, endTime }) => generateTimeSlots(endTime, startTime));
 	// }, [getDoctorDetails, appointmentDate]);
 	
 	const onSubmit: SubmitHandler<AppointmentType> = (data) => {
@@ -128,7 +126,7 @@ export default function BookAppointment() {
 						}}
 						name={'type'}
 						control={control}
-						options={appointmentType}
+						options={appointmentTypeOptions}
 						error={errors.type}
 					/>
 					

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { formatDate } from '@/utils/utils';
 import { MedicalHistory as MedicalHistoryType } from '@/lib/definitions';
 import { Card, Pagination, Accordion } from '@/ui/index';
 
@@ -49,7 +50,7 @@ export default function MedicalHistory({ medicalHistory }: {
 										</div>
 										<div>
 											<p className={'text-sm text-gray-500'}>Diagnosis Date</p>
-											<p>{history.diagnosisDate.toLocaleDateString()}</p>
+											<p>{formatDate(history.diagnosisDate, 'MMM, dd yyyy')}</p>
 										</div>
 									</div>
 								</div>

@@ -9,7 +9,7 @@ import { Card } from '@/ui/index';
 
 export default function PatientInfo() {
 	return (
-		<div className={'space-y-12 md:space-y-24'}>
+		<div className={'space-y-12 md:space-y-16'}>
 			<RoleInfo/>
 			<HealthMetrics/>
 		</div>

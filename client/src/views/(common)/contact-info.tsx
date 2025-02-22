@@ -3,14 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	AddressSchema, EmergencyContactSchema, AddressType, EmergencyContactType
 } from '@/schemas/user-schema';
-import { canadianProvinces } from '@/utils/constants';
+import { provinceOptions } from '@/utils/constants';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons';
 import { Card, Select } from '@/ui/index';
 
 export default function ContactInfo() {
 	return (
-		<div className={'space-y-12 md:space-y-24'}>
+		<div className={'space-y-12 md:space-y-16'}>
 			<Address/>
 			<EmergencyContact/>
 		</div>
@@ -65,7 +65,7 @@ function Address() {
 						}}
 						name={'province'}
 						control={control}
-						options={canadianProvinces}
+						options={provinceOptions}
 						error={errors.province}
 					/>
 	

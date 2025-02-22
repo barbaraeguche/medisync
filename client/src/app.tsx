@@ -5,7 +5,8 @@
 // import DoctorInfo from '@/views/doctor/doctor-info';
 // import MedicalHistory from '@/views/patient/medical-history';
 // import Availabilities from '@/views/doctor/availabilities';
-// import AppointmentsTable from '@/views/(common)/appointments-table';
+// import Appointments from '@/views/patient/appointments';
+// import Appointments from '@/views/doctor/appointments';
 // import BookAppointment from '@/views/general/book-appointment';
 
 export default function App() {
@@ -18,7 +19,7 @@ export default function App() {
       {/*<DoctorInfo/>*/}
 			{/*<MedicalHistory medicalHistory={medicalHistories}/>*/}
 			{/*<Availabilities/>*/}
-			{/*<AppointmentsTable/>*/}
+			{/*<Appointments/>*/}
 			{/*<BookAppointment/>*/}
 		</div>
 	);

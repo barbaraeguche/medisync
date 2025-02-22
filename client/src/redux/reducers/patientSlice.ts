@@ -19,12 +19,18 @@ const patientSlice = createSlice({
 		getPatient: (state, action: PayloadAction<{ patient: Patient }>) => {
 			state.patient = action.payload.patient;
 		},
+		updatePatient: (state, actions: PayloadAction<Partial<Patient>>) => {
+			state.patient = {
+				...state.patient,
+				...actions.payload
+			};
+		},
 		updateHealthMetrics: (state, action: PayloadAction<Patient['healthMetrics']>) => {
 			state.patient.healthMetrics = {
 				...state.patient.healthMetrics,
 				...action.payload
 			};
-		},
+		}
 	}
 });
 

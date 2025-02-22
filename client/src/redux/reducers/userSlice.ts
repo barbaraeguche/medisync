@@ -36,11 +36,14 @@ const userSlice = createSlice({
 				...state.user.emergencyContact,
 				...action.payload
 			};
-		}
+		},
+		getUsers: (state, action: PayloadAction<{ users: User[] }>) => {
+      state.users = action.payload.users;
+    }
 	}
 });
 
 export const {
-	getUser, updateUser, updateAddress, updateEmergencyContact
+	getUser, updateUser, updateAddress, updateEmergencyContact, getUsers
 } = userSlice.actions;
 export default userSlice.reducer;
