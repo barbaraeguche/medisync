@@ -2,9 +2,9 @@ import { User, Doctor, Patient, Practitioner, MedicalHistory, Appointments } fro
 
 export const userInitState: User = {
 	_id: 'a1-b2-c3',
-	firstName: 'Barbara',
-	lastName: 'Eguche',
-	email: 'barbara@gmail.com',
+	firstName: '',
+	lastName: '',
+	email: '',
 	password: '',
 	phoneNumber: '',
 	gender: 'Female',

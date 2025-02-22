@@ -1,5 +1,5 @@
 // import HomePage from '@/views/general/home';
-import UserInfo from '@/views/(common)/user-info';
+// import UserInfo from '@/views/(common)/user-info';
 // import ContactInfo from '@/views/(common)/contact-info';
 // import PatientInfo from '@/views/patient/patient-info';
 // import DoctorInfo from '@/views/doctor/doctor-info';
@@ -12,7 +12,7 @@ export default function App() {
 	return (
 		<div className={'space-y-6'}>
 			{/*<HomePage/>*/}
-			<UserInfo/>
+			{/*<UserInfo/>*/}
 			{/*<ContactInfo/>*/}
 			{/*<PatientInfo/>*/}
       {/*<DoctorInfo/>*/}

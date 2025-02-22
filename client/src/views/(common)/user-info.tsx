@@ -1,28 +1,20 @@
-import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BasicUserSchema, BasicUserType } from '@/schemas/user-schema';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons';
 import { Card } from '@/ui/index';
-import { updateUser } from '@/redux/reducers/userSlice.ts';
 
 export default function UserInfo() {
-	const dispatch = useAppDispatch();
-	const user = useAppSelector((state) => state.userSlice.user);
-	console.log(user);
 	const {
 		register, handleSubmit, formState: { errors }
 	} = useForm<BasicUserType>({
 		resolver: zodResolver(BasicUserSchema),
-		reValidateMode: 'onBlur',
-		values: user
+		reValidateMode: 'onBlur'
 	});
 	
 	const onSubmit: SubmitHandler<BasicUserType> = (data) => {
-    dispatch(updateUser(data));
-		
-		// console.log(data);
+		console.log(data);
   };
 
 	return (
