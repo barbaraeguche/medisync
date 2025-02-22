@@ -22,11 +22,11 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
 	return (
 		<div>
 			<Table>
-				<TableHeader>
+				<TableHeader className={'bg-gray-100 p-12'}>
 					{table.getHeaderGroups().map((headerGroup) => (
 						<TableRow
 							key={headerGroup.id}
-							className={'bg-gray-100'}
+	            className={'bg-inherit hover:bg-inherit'}
 						>
 							{headerGroup.headers.map((header) => (
 								<TableHead key={header.id}>
@@ -41,13 +41,10 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
 						</TableRow>
 					))}
 				</TableHeader>
-				<TableBody>
+				<TableBody className={'bg-white'}>
 					{table.getRowModel().rows.length ? (
 						table.getRowModel().rows.map((row) => (
-							<TableRow
-								key={row.id}
-								data-state={row.getIsSelected() && 'selected'}
-							>
+							<TableRow key={row.id}>
 								{row.getVisibleCells().map((cell) => (
 									<TableCell key={cell.id}>
 										{flexRender(
@@ -62,7 +59,7 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
 						<TableRow>
 		          <TableCell
 		            colSpan={columns.length}
-		            className={'h-24 text-center'}
+		            className={'h-20 text-center'}
 		          >
 		            No results found.
 		          </TableCell>
@@ -70,23 +67,38 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
 					)}
 				</TableBody>
 			</Table>
-			<div className={'flex items-center justify-end space-x-2 py-2'}>
-				<Button
-					variant={'outline'}
-					size={'sm'}
-					onClick={() => table.previousPage()}
-					disabled={!table.getCanPreviousPage()}
-				>
-					Previous
-				</Button>
-				<Button
-					variant={'outline'}
-					size={'sm'}
-					onClick={() => table.nextPage()}
-					disabled={!table.getCanNextPage()}
-				>
-					Next
-				</Button>
+			<div className={'flex items-center justify-between py-2'}>
+				<div className={'text-sm font-medium text-gray-400 tracking-tight'}>
+					{table.getPageCount() === 0
+						? null
+					  : (
+							<span>
+								Page {table.getState().pagination.pageIndex + 1} out of {table.getPageCount()}.
+							</span>
+						)}
+				</div>
+				
+				{/* pagination buttons */}
+				<div className={'space-x-1.5'}>
+					<Button
+						variant={'outline'}
+						size={'sm'}
+						className={'text-xs tracking-tight'}
+						disabled={!table.getCanPreviousPage()}
+						onClick={() => table.previousPage()}
+					>
+						Prev
+					</Button>
+					<Button
+						variant={'outline'}
+						size={'sm'}
+						disabled={!table.getCanNextPage()}
+						className={'text-xs tracking-tight'}
+						onClick={() => table.nextPage()}
+					>
+						Next
+					</Button>
+				</div>
 			</div>
 		</div>
 	);

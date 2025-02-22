@@ -62,7 +62,7 @@ function SelectInput<T extends FieldValues>(props: CustomSelectProps<T>) {
 				>
 					<SelectTrigger
 						id={props.name}
-						className={`${props.error && 'border-red-500 !ring-0'}`}
+						className={`${props.error && 'border-red-500 focus:border-foreground/20'}`}
 					>
 						<SelectValue placeholder={props.conf.placeholder ?? 'Select an option'}/>
 					</SelectTrigger>

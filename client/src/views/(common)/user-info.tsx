@@ -14,7 +14,7 @@ export default function UserInfo() {
 	});
 	
 	const onSubmit: SubmitHandler<BasicUserType> = (data) => {
-    console.log(data);
+		console.log(data);
   };
 
 	return (

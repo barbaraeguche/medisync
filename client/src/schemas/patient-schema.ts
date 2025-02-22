@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import { validBloodTypes, numFieldConstraints } from '@/utils/constants.ts';
+import { bloodTypes, numFieldConstraints } from '@/utils/constants.ts';
 
 const PatientSchema = z.object({
 	dateOfBirth: z.string().date('Birth date cannot be null'),
 	allergies: z.string().optional(),
-	bloodType: z.enum(validBloodTypes, { message: 'Select a blood type' }),
+	bloodType: z.enum(bloodTypes, { message: 'Select a blood type' }),
 	insuranceProvider: z.string().optional(),
 	insurancePolicyNumber: z.string().optional(),
 	chronicConditions: z.string().optional()

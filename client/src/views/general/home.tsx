@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, Check, Phone } from 'lucide-react';
 import {
 	stats, services, whyChooseUs, checkUpReasons
-} from '@/lib/data.ts';
+} from '@/lib/homeUIData.ts';
 import SiteLayout from '@/layouts/site.tsx';
 import Button from '@/ui/button.tsx';
 

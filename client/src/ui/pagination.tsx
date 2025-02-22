@@ -12,13 +12,14 @@ export default function Pagination({ itemsPerPage, currentPage, setCurrentPage, 
 }) {
 	const totalPages = Math.ceil(totalItems / itemsPerPage);
 	const pagination = generatePagination(currentPage, totalPages);
+	const isArrowHidden = pagination.length <= 5;
 	
 	return (
 		<div className={'inline-flex'}>
 			<PaginationArrow
 				direction={'prev'}
 				isDisabled={currentPage === 1}
-				hidden={pagination.length <= 5}
+				hidden={isArrowHidden}
 				onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
 			/>
 			
@@ -35,7 +36,7 @@ export default function Pagination({ itemsPerPage, currentPage, setCurrentPage, 
 			
 			<PaginationArrow
 				direction={'next'}
-				hidden={pagination.length <= 5}
+				hidden={isArrowHidden}
 				isDisabled={currentPage === totalPages}
 				onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
 			/>

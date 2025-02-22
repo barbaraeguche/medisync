@@ -1,6 +1,8 @@
 import { twMerge } from 'tailwind-merge';
 import { clsx, type ClassValue } from 'clsx';
-import { format, parse, differenceInHours, parseISO } from 'date-fns';
+import {
+	format, parse, differenceInHours, parseISO, isBefore, isToday
+} from 'date-fns';
 import { enCA } from 'date-fns/locale';
 
 export function cn(...args: ClassValue[]) {
@@ -25,9 +27,9 @@ export const generatePagination = (currentPage: number, totalPages: number): (st
 	return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
 };
 
-export const formatDate = (date: string | Date) => {
+export const formatDate = (date: string | Date, formatStr: string = 'EEEE, MMM dd. yyyy') => {
 	const parsedDate = date instanceof Date ? date : parseISO(date);
-	return format(parsedDate, 'EEEE, MMM dd yyyy', {
+	return format(parsedDate, formatStr, {
 		locale: enCA
 	});
 };
@@ -42,7 +44,7 @@ const generateCurrentWeek = () => {
 		date.setDate(date.getDate() + idx + 2);
 		
 		return {
-			date: format(date, 'yyyy-MM-dd'),
+			date: formatDate(date, 'yyyy-MM-dd'),
 			displayDate: formatDate(date)
 		};
 	});
@@ -78,3 +80,24 @@ export const generateTimeSlots = (formerHr: string, latterHr: string) => {
 
 export const generateLabelValue = (itemValue: string, itemLabel?: string) =>
 	({ label: itemLabel ?? itemValue, value: itemValue });
+
+export const categorizeAppointments = <T extends { date: string | Date }>(appointments: T[]) => {
+	const now = new Date();
+	
+	return appointments.reduce<{ past: T[]; current: T[]; upcoming: T[] }>(
+		(accumulator, appointment) => {
+			const apptDate = typeof appointment.date === 'string' ? parseISO(appointment.date) : appointment.date;
+			
+			if (isBefore(apptDate, now) && !isToday(apptDate)) {
+				accumulator.past.push(appointment);
+			} else if (isToday(apptDate)) {
+				accumulator.current.push(appointment);
+			} else {
+				accumulator.upcoming.push(appointment);
+			}
+			
+			return accumulator;
+		},
+		{ past: [], current: [], upcoming: [] }
+	);
+};

@@ -3,7 +3,7 @@ import {
 	emailRegex, phoneNumberRegex, postalCodeRegex
 } from '@/utils/regex';
 import {
-	validGenders, validRoles, validCanadianProvinces
+	genders, roles, provinces
 } from '@/utils/constants.ts';
 
 const UserSchema = z.object({
@@ -15,8 +15,8 @@ const UserSchema = z.object({
 	phoneNumber: z.string().refine((val) => phoneNumberRegex.test(val), {
 		message: 'Enter a valid 10-digit Canadian phone number'
 	}),
-	gender: z.enum(validGenders, { message: 'Select a gender' }),
-	role: z.enum(validRoles, { message: 'Select a role' })
+	gender: z.enum(genders, { message: 'Select a gender' }),
+	role: z.enum(roles, { message: 'Select a role' })
 });
 export const BasicUserSchema = UserSchema.pick({ firstName: true, lastName: true });
 export type BasicUserType = z.infer<typeof BasicUserSchema>;
@@ -26,7 +26,7 @@ export const AddressSchema = z.object({
 		.optional().or(z.literal('')),
 	city: z.string().min(1, { message: 'Enter a valid street' })
 		.optional().or(z.literal('')),
-	province: z.enum(validCanadianProvinces, { message: 'Select a province' }),
+	province: z.enum(provinces, { message: 'Select a province' }),
 	postalCode: z.string().refine((val) => postalCodeRegex.test(val), {
 		message: 'Enter a valid Canadian postal code'
 	}),
