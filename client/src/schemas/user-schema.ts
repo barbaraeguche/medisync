@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import {
-	emailRegex, phoneNumberRegex, postalCodeRegex
+	emailRegex, passwordRegex, phoneNumberRegex, postalCodeRegex
 } from '@/utils/regex';
 import {
 	genders, roles, provinces
@@ -12,7 +12,12 @@ const UserSchema = z.object({
 	email: z.string().refine((val) => emailRegex.test(val), {
 		message: 'Enter a valid email address'
 	}),
-	phoneNumber: z.string().refine((val) => phoneNumberRegex.test(val), {
+	password: z.string()
+		.min(8, { message: 'Enter a password with at least 8 characters' })
+		.refine((val) => passwordRegex.test(val), {
+			message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
+		}),
+	phoneNumber: z.string().regex(phoneNumberRegex, {
 		message: 'Enter a valid 10-digit Canadian phone number'
 	}),
 	gender: z.enum(genders, { message: 'Select a gender' }),
@@ -27,7 +32,7 @@ export const AddressSchema = z.object({
 	city: z.string().min(1, { message: 'Enter a valid street' })
 		.optional().or(z.literal('')),
 	province: z.enum(provinces, { message: 'Select a province' }),
-	postalCode: z.string().refine((val) => postalCodeRegex.test(val), {
+	postalCode: z.string().regex(postalCodeRegex, {
 		message: 'Enter a valid Canadian postal code'
 	}),
 	country: z.string().refine((val) => val === 'Canada', {
@@ -45,3 +50,23 @@ export const EmergencyContactSchema = z.object({
 	})
 });
 export type EmergencyContactType = z.infer<typeof EmergencyContactSchema>;
+
+// for account security
+export const UpdateEmailSchema = UserSchema.pick({ email: true });
+export type UpdateEmailType = z.infer<typeof UpdateEmailSchema>;
+
+export const UpdatePhoneNumberSchema = UserSchema.pick({ phoneNumber: true });
+export type UpdatePhoneNumberType = z.infer<typeof UpdatePhoneNumberSchema>;
+
+export const UpdatePasswordSchema = z
+	.object({
+		...(UserSchema.pick({ password: true })).shape,
+		confirmPassword: z.string()
+	})
+	.refine((val) => val.password === val.confirmPassword, {
+		message: 'Passwords do not match',
+		path: ['confirmPassword']
+	});
+export type UpdatePasswordType = z.infer<typeof UpdatePasswordSchema>;
+
+// for authentication

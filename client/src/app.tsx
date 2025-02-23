@@ -8,6 +8,9 @@
 // import Appointments from '@/views/patient/appointments';
 // import Appointments from '@/views/doctor/appointments';
 // import BookAppointment from '@/views/general/book-appointment';
+// import AccountSettings from '@/views/(common)/account-settings';
+import LoginForm from '@/views/auth/login';
+import RegisterForm from '@/views/auth/register';
 
 export default function App() {
 	return (
@@ -21,6 +24,9 @@ export default function App() {
 			{/*<Availabilities/>*/}
 			{/*<Appointments/>*/}
 			{/*<BookAppointment/>*/}
+			{/*<AccountSettings/>*/}
+			<LoginForm/>
+			<RegisterForm/>
 		</div>
 	);
 }
