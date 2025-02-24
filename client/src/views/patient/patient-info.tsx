@@ -1,8 +1,8 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-	BasicPatientSchema, PatientType, HealthMetricsSchema, HealthMetricsType
-} from '@/schemas/patient-schema';
+	NoBloodTypeSchema, NoBloodType, HealthMetricsSchema, HealthMetricsType
+} from '@/schemas/patientSchema';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons';
 import { Card } from '@/ui/index';
@@ -19,12 +19,12 @@ export default function PatientInfo() {
 function RoleInfo() {
 	const {
 		register, handleSubmit, formState: { errors }
-	} = useForm<PatientType>({
-		resolver: zodResolver(BasicPatientSchema),
+	} = useForm<NoBloodType>({
+		resolver: zodResolver(NoBloodTypeSchema),
 		reValidateMode: 'onBlur'
 	});
 
-	const onSubmit: SubmitHandler<PatientType> = (data) => {
+	const onSubmit: SubmitHandler<NoBloodType> = (data) => {
 		console.log(data);
 	};
 

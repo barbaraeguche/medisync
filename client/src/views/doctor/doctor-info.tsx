@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	DoctorSchema, EducationSchema, DoctorType, EducationType
-} from '@/schemas/doctor-schema';
+} from '@/schemas/doctorSchema';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons';
 import { Card } from '@/ui/index';

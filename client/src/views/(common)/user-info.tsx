@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { BasicUserSchema, BasicUserType } from '@/schemas/user-schema';
+import { UserFullNameSchema, UserFullNameType } from '@/schemas/userSchema';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons';
 import { Card } from '@/ui/index';
@@ -8,12 +8,12 @@ import { Card } from '@/ui/index';
 export default function UserInfo() {
 	const {
 		register, handleSubmit, formState: { errors }
-	} = useForm<BasicUserType>({
-		resolver: zodResolver(BasicUserSchema),
+	} = useForm<UserFullNameType>({
+		resolver: zodResolver(UserFullNameSchema),
 		reValidateMode: 'onBlur'
 	});
 	
-	const onSubmit: SubmitHandler<BasicUserType> = (data) => {
+	const onSubmit: SubmitHandler<UserFullNameType> = (data) => {
 		console.log(data);
   };
 

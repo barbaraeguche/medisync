@@ -3,7 +3,7 @@ import { FieldError } from 'react-hook-form';
 import { clsx } from 'clsx';
 import { cn } from '@/utils/utils';
 import { InputConfig } from '@/lib/definitions';
-import FormError from './form-error';
+import { InputError } from '@/components/form-error';
 import { Input } from '@/ui/index';
 
 type InputWrapperProps = {
@@ -46,7 +46,10 @@ export default forwardRef<HTMLInputElement, InputWrapperProps>(
 				
 				{/* error */}
 				{props.error && (
-					<FormError id={`${props.name}-error`} error={props.error.message}/>
+					<InputError
+						id={`${props.name}-error`}
+						message={props.error.message}
+					/>
 				)}
 			</div>
 		);

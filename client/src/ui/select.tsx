@@ -8,7 +8,7 @@ import {
 import { clsx } from 'clsx';
 import { cn } from '@/utils/utils';
 import { InputConfig } from '@/lib/definitions';
-import FormError from '@/components/form-error';
+import { InputError } from '@/components/form-error';
 
 type CustomSelectProps<T extends FieldValues> = SelectProps & {
 	conf: InputConfig;
@@ -42,7 +42,10 @@ export default function CustomSelect<T extends FieldValues>(props: CustomSelectP
 			
 			{/* error */}
 			{props.error && (
-				<FormError id={`${props.name}-error`} error={props.error.message}/>
+				<InputError
+					id={`${props.name}-error`}
+					message={props.error.message}
+				/>
 			)}
 		</div>
 	);
@@ -62,7 +65,9 @@ function SelectInput<T extends FieldValues>(props: CustomSelectProps<T>) {
 				>
 					<SelectTrigger
 						id={props.name}
-						className={`${props.error && 'border-red-500 focus:border-foreground/20'}`}
+						className={clsx('bg-white', {
+							'border-red-500 focus:border-foreground/20': props.error
+						})}
 					>
 						<SelectValue placeholder={props.conf.placeholder ?? 'Select an option'}/>
 					</SelectTrigger>

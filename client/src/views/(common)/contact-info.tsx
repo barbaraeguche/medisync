@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	AddressSchema, EmergencyContactSchema, AddressType, EmergencyContactType
-} from '@/schemas/user-schema';
+} from '@/schemas/userSchema';
 import { provinceOptions } from '@/utils/constants';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons';
