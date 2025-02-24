@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AppointmentSchema, AppointmentType } from '@/schemas/appointment-schema';
+import { AppointmentSchema, AppointmentType } from '@/schemas/appointmentSchema';
 // import {
 // 	formatDate, generateLabelValue, generateTimeSlots
 // } from '@/utils/utils';

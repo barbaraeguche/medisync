@@ -9,7 +9,7 @@
 // import Appointments from '@/views/doctor/appointments';
 // import BookAppointment from '@/views/general/book-appointment';
 // import AccountSettings from '@/views/(common)/account-settings';
-import LoginForm from '@/views/auth/login';
+// import SignInForm from '@/views/auth/sign-in';
 import RegisterForm from '@/views/auth/register';
 
 export default function App() {
@@ -25,7 +25,7 @@ export default function App() {
 			{/*<Appointments/>*/}
 			{/*<BookAppointment/>*/}
 			{/*<AccountSettings/>*/}
-			<LoginForm/>
+			{/*<SignInForm/>*/}
 			<RegisterForm/>
 		</div>
 	);
