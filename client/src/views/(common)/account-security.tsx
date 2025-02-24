@@ -1,13 +1,14 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-	UpdateEmailSchema, UpdatePhoneNumberSchema, UpdatePasswordSchema, UpdateEmailType, UpdatePhoneNumberType, UpdatePasswordType
+	UpdateEmailSchema, UpdatePhoneNumberSchema, UpdatePasswordSchema,
+	UpdateEmailType, UpdatePhoneNumberType, UpdatePasswordType
 } from '@/schemas/userSchema';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons';
 import { Card } from '@/ui';
 
-export default function AccountSettings() {
+export default function AccountSecurity() {
 	return (
 		<div className={'space-y-12 md:space-y-16'}>
 			{/* todo: insert previous values for email and phone number */}
