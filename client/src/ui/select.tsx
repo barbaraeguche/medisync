@@ -1,5 +1,5 @@
 import {
-	Controller, Control, FieldValues, Path, FieldError
+	Control, FieldValues, Path, FieldError, useController
 } from 'react-hook-form';
 import { SelectProps } from '@radix-ui/react-select';
 import {
@@ -10,13 +10,13 @@ import { cn } from '@/utils/utils';
 import { InputConfig } from '@/lib/definitions';
 import { InputError } from '@/components/form-error';
 
-type CustomSelectProps<T extends FieldValues> = SelectProps & {
+type CustomSelectProps<T extends FieldValues> = {
 	conf: InputConfig;
 	name: Path<T>;
 	control: Control<T>;
 	options: { label: string; value: string }[];
 	error?: FieldError | undefined;
-};
+} & Omit<SelectProps, 'onValueChange' | 'value'>;
 
 export default function CustomSelect<T extends FieldValues>(props: CustomSelectProps<T>) {
 	return (
@@ -52,37 +52,37 @@ export default function CustomSelect<T extends FieldValues>(props: CustomSelectP
 }
 
 // TODO: optimize here, use `useController instead`
-function SelectInput<T extends FieldValues>(props: CustomSelectProps<T>) {
+function SelectInput<T extends FieldValues>({ name, control, ...props }: CustomSelectProps<T>) {
+	const {
+		field: { value, onChange }
+	} = useController({
+		name, control
+	});
+	
 	return (
-		<Controller
-			name={props.name}
-			control={props.control}
-			render={({ field }) => (
-				<Select
-					{...props}
-					value={field.value ?? ''}
-					onValueChange={field.onChange}
-				>
-					<SelectTrigger
-						id={props.name}
-						className={clsx('bg-white', {
-							'border-red-500 focus:border-foreground/20': props.error
-						})}
+		<Select
+			{...props}
+			value={value ?? ''}
+			onValueChange={onChange}
+		>
+			<SelectTrigger
+				id={name}
+				className={clsx('bg-white', {
+					'border-red-500 focus:border-foreground/20': props.error
+				})}
+			>
+				<SelectValue placeholder={props.conf.placeholder ?? 'Select an option'}/>
+			</SelectTrigger>
+			<SelectContent>
+				{props.options.map((opt) => (
+					<SelectItem
+						key={opt.value}
+						value={opt.value}
 					>
-						<SelectValue placeholder={props.conf.placeholder ?? 'Select an option'}/>
-					</SelectTrigger>
-					<SelectContent>
-						{props.options.map((opt) => (
-							<SelectItem
-								key={opt.value}
-								value={opt.value}
-							>
-								{opt.label}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
-			)}
-		/>
+						{opt.label}
+					</SelectItem>
+				))}
+			</SelectContent>
+		</Select>
 	);
 }

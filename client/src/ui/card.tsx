@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { cn } from '@/utils/utils.ts';
+import { cn } from '@/utils/utils';
 
 export default function Card({ children, className }: {
 	children: ReactNode,
@@ -24,7 +24,7 @@ function CardHeader({ title, description }: {
 			<div className={'text-xl font-bold'}>
 				{title}
 			</div>
-			<div className={'text-sm text-gray-600'}>
+			<div className={'text-sm text-muted-foreground'}>
 				{description}
 			</div>
 		</div>

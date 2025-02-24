@@ -77,35 +77,35 @@ function Medications({ history }: {
 	history: MedicalHistoryType
 }) {
 	return (
-		<Accordion>
-			{history.medications!.map((medication, idx) => (
+		<Accordion type={'single'} collapsible>
+			{history.medications!.map((med, idx) => (
 				<Accordion.Item
 					key={idx}
 					value={`medication${idx}`}
 				>
 					<Accordion.Button>
 						<div className={'flex justify-between items-center w-full pr-4'}>
-							<span className={'font-medium'}>{medication.drugName}</span>
-							<span className={'text-sm text-gray-500'}>{medication.dosage}</span>
+							<span className={'font-medium'}>{med.drugName}</span>
+							<span className={'text-sm text-gray-500'}>{med.dosage}</span>
 						</div>
           </Accordion.Button>
 					<Accordion.Content>
 						<div className={'grid grid-cols-2 gap-4 p-4'}>
 							<div>
 								<p className={'text-sm text-gray-500'}>Drug Name</p>
-								<p className={'font-medium'}>{medication.drugName}</p>
+								<p className={'font-medium'}>{med.drugName}</p>
 							</div>
 							<div>
 								<p className={'text-sm text-gray-500'}>Dosage</p>
-								<p className={'font-medium'}>{medication.dosage}</p>
+								<p className={'font-medium'}>{med.dosage}</p>
 							</div>
 							<div>
 								<p className={'text-sm text-gray-500'}>Frequency</p>
-								<p className={'font-medium'}>{medication.frequency}</p>
+								<p className={'font-medium'}>{med.frequency}</p>
 							</div>
 							<div>
 								<p className={'text-sm text-gray-500'}>Duration</p>
-								<p className={'font-medium'}>{medication.duration}</p>
+								<p className={'font-medium'}>{med.duration}</p>
 							</div>
 						</div>
 					</Accordion.Content>

@@ -22,7 +22,7 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
 	return (
 		<div>
 			<Table>
-				<TableHeader className={'bg-gray-100 p-12'}>
+				<TableHeader className={'bg-gray-100'}>
 					{table.getHeaderGroups().map((headerGroup) => (
 						<TableRow
 							key={headerGroup.id}
@@ -83,7 +83,7 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
 					<Button
 						variant={'outline'}
 						size={'sm'}
-						className={'text-xs tracking-tight'}
+						className={'text-sm tracking-tight'}
 						disabled={!table.getCanPreviousPage()}
 						onClick={() => table.previousPage()}
 					>
@@ -93,7 +93,7 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
 						variant={'outline'}
 						size={'sm'}
 						disabled={!table.getCanNextPage()}
-						className={'text-xs tracking-tight'}
+						className={'text-sm tracking-tight'}
 						onClick={() => table.nextPage()}
 					>
 						Next

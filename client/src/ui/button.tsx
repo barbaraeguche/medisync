@@ -3,7 +3,9 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/utils.ts';
 
 const buttonVariants = cva(
-	'shadow-xs inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer disabled:pointer-events-none disabled:opacity-50', {
+	'shadow-xs inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background ' +
+	'transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ' +
+	'focus-visible:ring-offset-2 cursor-pointer disabled:pointer-events-none disabled:opacity-50', {
 		variants: {
 			variant: {
 				default: 'bg-primary text-primary-foreground hover:bg-primary/90',
@@ -19,7 +21,7 @@ const buttonVariants = cva(
 				sm: 'h-8 px-3',
 				lg: 'h-11 px-8',
 				icon: 'h-8 w-8'
-			},
+			}
 		},
 		defaultVariants: {
 			variant: 'default',
@@ -39,8 +41,11 @@ export default forwardRef<HTMLButtonElement, ButtonProps>(
 			<button
 				{...props}
 				ref={ref}
-				type={props.type ?? 'button'}
-				className={cn(buttonVariants({ variant, size }), props.className)}
+				type={props.type ?? 'button'} // default to button as submit forms appear less
+				className={cn(
+					buttonVariants({ variant, size }),
+					props.className
+				)}
 			>
 				{props.children}
 			</button>

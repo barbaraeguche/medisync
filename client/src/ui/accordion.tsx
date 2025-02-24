@@ -1,28 +1,43 @@
-import { ReactNode } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
+import {
+	AccordionItemProps, AccordionTriggerProps, AccordionContentProps
+} from '@radix-ui/react-accordion';
 import {
 	Accordion, AccordionContent, AccordionTrigger, AccordionItem
 } from '@/ui/shadcn/accordion';
 
-export default function CustomAccordion({ children }: {
-	children: ReactNode
-}) {
+export default function CustomAccordion({ children, ...props }: ComponentPropsWithoutRef<typeof Accordion>) {
 	return (
-		<Accordion type={'single'} collapsible>
+		<Accordion {...props}>
 			{children}
 		</Accordion>
 	);
 }
 
-function CustomAccordionTrigger({ children }: {
-	children: ReactNode
-}) {
+function CustomAccordionItem({ children, ...props }: AccordionItemProps) {
 	return (
-		<AccordionTrigger className={'hover:no-underline hover:cursor-pointer'}>
+		<AccordionItem {...props}>
+			{children}
+		</AccordionItem>
+	);
+}
+
+function CustomAccordionTrigger({ children, ...props }: AccordionTriggerProps) {
+	return (
+		<AccordionTrigger {...props}>
 			{children}
 		</AccordionTrigger>
 	);
 }
 
-CustomAccordion.Item = AccordionItem;
+function CustomAccordionContent({ children, ...props }: AccordionContentProps) {
+	return (
+		<AccordionContent {...props}>
+			{children}
+		</AccordionContent>
+	);
+}
+
+CustomAccordion.Item = CustomAccordionItem;
 CustomAccordion.Button = CustomAccordionTrigger;
-CustomAccordion.Content = AccordionContent;
+CustomAccordion.Content = CustomAccordionContent;

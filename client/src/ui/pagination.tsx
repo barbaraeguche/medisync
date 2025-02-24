@@ -1,7 +1,7 @@
 import { ReactNode, Dispatch, SetStateAction } from 'react';
-import { clsx } from 'clsx';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { generatePagination } from '@/utils/utils.ts';
+import { clsx } from 'clsx';
+import { generatePagination } from '@/utils/utils';
 import Button from '@/ui/button';
 
 export default function Pagination({ itemsPerPage, currentPage, setCurrentPage, totalItems }: {
