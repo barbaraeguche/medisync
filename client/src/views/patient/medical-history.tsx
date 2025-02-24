@@ -3,11 +3,11 @@ import { formatDate } from '@/utils/utils';
 import { MedicalHistory as MedicalHistoryType } from '@/lib/definitions';
 import { Card, Pagination, Accordion } from '@/ui/index';
 
-export default function MedicalHistory({ medicalHistory }: {
-	medicalHistory: MedicalHistoryType[]
-}) {
-	const [currentPage, setCurrentPage] = useState<number>(1);
+export default function MedicalHistory() {
 	const itemsPerPage = 3;
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	
+	const medicalHistory: MedicalHistoryType[] = []; // todo: this is from backend
 
 	const paginatedHistory = medicalHistory.slice(
 		(currentPage - 1) * itemsPerPage,
