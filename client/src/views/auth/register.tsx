@@ -146,6 +146,7 @@ export default function RegisterForm() {
 							<Button
 								onClick={nextStep}
 								className={'mt-2 w-full'}
+								disabled={userRole === undefined}
 							>
 								Next Step
 							</Button>
