@@ -1,4 +1,4 @@
-// import HomePage from '@/views/general/home';
+import HomePage from '@/views/general/home';
 // import UserInfo from '@/views/(common)/user-info';
 // import ContactInfo from '@/views/(common)/contact-info';
 // import PatientInfo from '@/views/patient/patient-info';
@@ -10,12 +10,12 @@
 // import BookAppointment from '@/views/general/book-appointment';
 // import AccountSecurity from '@/views/(common)/account-settings';
 // import SignInForm from '@/views/auth/sign-in';
-import RegisterForm from '@/views/auth/register';
+// import RegisterForm from '@/views/auth/register';
 
 export default function App() {
 	return (
 		<div className={'space-y-6'}>
-			{/*<HomePage/>*/}
+			<HomePage/>
 			{/*<UserInfo/>*/}
 			{/*<ContactInfo/>*/}
 			{/*<PatientInfo/>*/}
@@ -26,7 +26,7 @@ export default function App() {
 			{/*<BookAppointment/>*/}
 			{/*<AccountSecurity/>*/}
 			{/*<SignInForm/>*/}
-			<RegisterForm/>
+			{/*<RegisterForm/>*/}
 		</div>
 	);
 }

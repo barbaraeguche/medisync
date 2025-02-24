@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import { Calendar, Check, Phone } from 'lucide-react';
 import {
 	stats, services, whyChooseUs, checkUpReasons
-} from '@/lib/homeUIData.ts';
-import SiteLayout from '@/layouts/site.tsx';
-import Button from '@/ui/button.tsx';
+} from '@/lib/homeUIData';
+import SiteLayout from '@/layouts/site';
+import Button from '@/ui/button';
 
 export default function HomePage() {
 	return (
@@ -51,8 +51,9 @@ export default function HomePage() {
 								</div>
 								<div className={'grid grid-cols-3 gap-4 pt-8'}>
 									{stats.map((stat) => (
-										<div key={stat.title}
-										     className={'space-y-2'}
+										<div
+											key={stat.title}
+											className={'space-y-2'}
 										>
 											<div className={'text-3xl font-bold bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent'}>
 												{stat.value}
@@ -167,7 +168,10 @@ export default function HomePage() {
 								</p>
 								<ul className={'space-y-4'}>
 									{checkUpReasons.map((reason, idx) => (
-										<li key={idx} className={'flex items-start space-x-3'}>
+										<li
+											key={idx}
+											className={'flex items-start space-x-3'}
+										>
 											<div className={'shrink-0 w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center'}>
 												<Check className={'w-4 h-4 text-teal-600'}/>
 											</div>

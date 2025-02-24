@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { RegisterSchema, RegisterType } from '@/schemas/authSchema';
-import { DoctorType } from '@/schemas/doctorSchema';
-import { PatientType } from '@/schemas/patientSchema';
+import { RegisterSchema, RegisterType } from '@/schemas/auth';
+import { DoctorType } from '@/schemas/doctor';
+import { PatientType } from '@/schemas/patient';
 import {
 	genderOptions, roleOptions, bloodTypeOptions
 } from '@/utils/constants';

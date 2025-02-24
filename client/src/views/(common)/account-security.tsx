@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	UpdateEmailSchema, UpdatePhoneNumberSchema, UpdatePasswordSchema,
 	UpdateEmailType, UpdatePhoneNumberType, UpdatePasswordType
-} from '@/schemas/userSchema';
+} from '@/schemas/user';
 import InputWrapper from '@/components/input-wrapper';
 import FormButtons from '@/components/form-buttons';
 import { Card } from '@/ui';

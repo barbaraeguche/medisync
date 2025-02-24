@@ -19,13 +19,17 @@ export default function Footer() {
 				</div>
 				<div className={'grid grid-cols-2 gap-12 sm:grid-cols-3'}>
 					{footerLinks.map((section) => (
-						<div key={section.title} className={'space-y-4'}>
+						<div
+							key={section.title}
+							className={'space-y-4'}
+						>
 							<h3 className={'text-sm font-medium'}>{section.title}</h3>
 							<nav className={'flex flex-col space-y-2'}>
 								{section.links.map((link) => (
-									<Link to={link.href}
-									      key={link.title}
-									      className={'text-sm text-gray-500 hover:text-teal-600 dark:text-gray-400'}
+									<Link
+										to={link.href}
+										key={link.title}
+										className={'text-sm text-gray-500 hover:text-teal-600 dark:text-gray-400'}
 									>
 										{link.title}
 									</Link>
@@ -42,7 +46,11 @@ export default function Footer() {
 					</p>
 					<div className={'flex gap-4'}>
 						{['Terms', 'Privacy', 'Cookies'].map((item) => (
-							<Link to={'#'} key={item} className={'text-sm text-gray-500 hover:text-teal-600 dark:text-gray-400'}>
+							<Link
+								to={'#'}
+								key={item}
+								className={'text-sm text-gray-500 hover:text-teal-600 dark:text-gray-400'}
+							>
 								{item}
 							</Link>
 						))}
