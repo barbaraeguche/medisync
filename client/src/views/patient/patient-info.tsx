@@ -2,9 +2,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	NoBloodTypeSchema, NoBloodType, HealthMetricsSchema, HealthMetricsType
-} from '@/schemas/patient';
-import InputWrapper from '@/components/input-wrapper';
-import FormButtons from '@/components/form-buttons';
+} from '@/schemas/patientSchema';
+import InputWrapper from '@/components/inputWrapper';
+import FormButtons from '@/components/formButtons';
 import { Card } from '@/ui/index';
 
 export default function PatientInfo() {

@@ -1,20 +1,19 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { RegisterSchema, RegisterType } from '@/schemas/auth';
-import { DoctorType } from '@/schemas/doctor';
-import { PatientType } from '@/schemas/patient';
+import { RegisterSchema, RegisterType } from '@/schemas/authSchema';
+import { DoctorType } from '@/schemas/doctorSchema';
+import { PatientType } from '@/schemas/patientSchema';
 import {
 	genderOptions, roleOptions, bloodTypeOptions
 } from '@/utils/constants';
-import { AuthError } from '@/components/form-error';
-import InputWrapper from '@/components/input-wrapper';
+import { AuthError } from '@/components/formError';
+import InputWrapper from '@/components/inputWrapper';
 import { Button, Card, Select } from '@/ui/index';
 
 export default function RegisterForm() {
 	const [steps, setSteps] = useState(1);
-	const navigate = useNavigate();
 	
 	const {
 		register, handleSubmit, formState: { errors }, control, watch, trigger
@@ -266,13 +265,13 @@ export default function RegisterForm() {
 			
 			<Card.Footer className={'mt-7 text-sm text-muted-foreground text-center'}>
 				Have an account? {' '}
-				<button
-					aria-label={'Sign in'}
+				<Link
+					to={'/auth/sign-in'}
+					aria-label={'Create an account'}
 					className={'text-primary underline-offset-4 hover:underline cursor-pointer'}
-					onClick={() => navigate('/auth/sign-in')}
 				>
 					Sign in
-				</button>
+				</Link>
 			</Card.Footer>
 		</Card>
 	);

@@ -1,14 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginSchema, LoginType } from '@/schemas/auth';
-import { AuthError } from '@/components/form-error';
-import InputWrapper from '@/components/input-wrapper';
+import { LoginSchema, LoginType } from '@/schemas/authSchema';
+import { AuthError } from '@/components/formError';
+import InputWrapper from '@/components/inputWrapper';
 import { Button, Card } from '@/ui/index';
 
 export default function SignInForm() {
-	const navigate = useNavigate();
-	
 	const {
     register, handleSubmit, formState: { errors }
   } = useForm<LoginType>({
@@ -63,13 +61,13 @@ export default function SignInForm() {
 				
 				<Card.Footer className={'text-sm text-muted-foreground text-center'}>
 					Don't have an account? {' '}
-					<button
+					<Link
+						to={'/auth/register'}
 						aria-label={'Create an account'}
 						className={'text-primary underline-offset-4 hover:underline cursor-pointer'}
-						onClick={() => navigate('/auth/register')}
 					>
 						Create an account
-					</button>
+					</Link>
 				</Card.Footer>
 			</Card>
 		</form>

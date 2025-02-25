@@ -8,7 +8,7 @@ import {
 import { clsx } from 'clsx';
 import { cn } from '@/utils/utils';
 import { InputConfig } from '@/lib/definitions';
-import { InputError } from '@/components/form-error';
+import { InputError } from '@/components/formError';
 
 type CustomSelectProps<T extends FieldValues> = {
 	conf: InputConfig;
@@ -51,7 +51,6 @@ export default function CustomSelect<T extends FieldValues>(props: CustomSelectP
 	);
 }
 
-// TODO: optimize here, use `useController instead`
 function SelectInput<T extends FieldValues>({ name, control, ...props }: CustomSelectProps<T>) {
 	const {
 		field: { value, onChange }

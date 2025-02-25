@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Doctor, Practitioner } from '@/lib/definitions';
-import { doctorInitState } from '@/redux/initial-states';
+import { doctorInitState } from '@/redux/initialStates';
 
 interface DoctorState {
 	doctor: Doctor;

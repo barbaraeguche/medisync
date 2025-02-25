@@ -1,14 +1,16 @@
-import { User, Doctor, Patient, Practitioner, MedicalHistory, Appointments } from '@/lib/definitions';
+import {
+	User, Doctor, Patient, Practitioner, MedicalHistory, Appointments
+} from '@/lib/definitions';
 
 export const userInitState: User = {
 	_id: 'a1-b2-c3',
 	firstName: '',
 	lastName: '',
-	email: '',
+	email: 'b',
 	password: '',
 	phoneNumber: '',
 	gender: 'Female',
-	role: 'Patient',
+	role: 'Doctor',
 	address: {
 		street: '',
 		city: '',

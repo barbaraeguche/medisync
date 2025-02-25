@@ -1,7 +1,17 @@
+import { FC } from 'react';
+import type { LucideIcon } from 'lucide-react';
+
 export type InputConfig = {
 	label?: string;
 	labelStyle?: string;
 	placeholder?: string;
+}
+
+export type SidebarRoutes = {
+	path: string;
+	icon?: LucideIcon;
+	name?: string;
+	component: FC;
 }
 
 export interface User {

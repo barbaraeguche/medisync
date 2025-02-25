@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { UserSchema } from '@/schemas/user';
-import { DoctorSchema } from '@/schemas/doctor';
-import { PatientSchema } from '@/schemas/patient';
+import { UserSchema } from '@/schemas/userSchema';
+import { DoctorSchema } from '@/schemas/doctorSchema';
+import { PatientSchema } from '@/schemas/patientSchema';
 
 // for authentication
 export const LoginSchema = z.object({

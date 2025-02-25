@@ -3,7 +3,7 @@ import { FieldError } from 'react-hook-form';
 import { clsx } from 'clsx';
 import { cn } from '@/utils/utils';
 import { InputConfig } from '@/lib/definitions';
-import { InputError } from '@/components/form-error';
+import { InputError } from '@/components/formError';
 import { Input } from '@/ui/index';
 
 type InputWrapperProps = {

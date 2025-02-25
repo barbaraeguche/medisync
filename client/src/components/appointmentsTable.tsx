@@ -17,7 +17,7 @@ export default function AppointmentsTable({ appointments, columns }: {
 		<div className={'space-y-12 md:space-y-16'}>
 			{/* past appointments */}
 			<Card className={'max-w-full'}>
-				<Card.Header title={'Past DoctorAppointments'}/>
+				<Card.Header title={'Past Appointments'}/>
 				<Card.Content>
 					<Table
 						columns={columns}
@@ -28,7 +28,7 @@ export default function AppointmentsTable({ appointments, columns }: {
 			
 			{/* current appointments */}
 			<Card className={'max-w-full'}>
-				<Card.Header title={'Current DoctorAppointments'}/>
+				<Card.Header title={'Current Appointments'}/>
 				<Card.Content>
 					<Table
 						columns={columns}
@@ -39,7 +39,7 @@ export default function AppointmentsTable({ appointments, columns }: {
 			
 			{/* upcoming appointments */}
 			<Card className={'max-w-full'}>
-				<Card.Header title={'Upcoming DoctorAppointments'}/>
+				<Card.Header title={'Upcoming Appointments'}/>
 				<Card.Content>
 					<Table
 						columns={columns}

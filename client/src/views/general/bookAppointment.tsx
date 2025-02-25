@@ -2,12 +2,12 @@
 import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AppointmentSchema, AppointmentType } from '@/schemas/appointment';
+import { AppointmentSchema, AppointmentType } from '@/schemas/appointmentSchema';
 // import {
 // 	formatDate, generateLabelValue, generateTimeSlots
 // } from '@/utils/utils';
 import { appointmentTypeOptions } from '@/utils/constants';
-import InputWrapper from '@/components/input-wrapper';
+import InputWrapper from '@/components/inputWrapper';
 import { Button, Card, Select } from '@/ui/index';
 
 export default function BookAppointment() {

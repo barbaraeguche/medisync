@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Patient } from '@/lib/definitions';
-import { patientInitState } from '@/redux/initial-states';
+import { patientInitState } from '@/redux/initialStates';
 
 interface PatientState {
   patient: Patient;

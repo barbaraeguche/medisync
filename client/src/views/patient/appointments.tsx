@@ -1,6 +1,6 @@
 import { Appointments } from '@/lib/definitions'; // todo: remove after redux
 import { patientApptColumn } from '@/lib/columns';
-import AppointmentsTable from '@/components/appointments-table';
+import AppointmentsTable from '@/components/appointmentsTable';
 
 export default function PatientAppointments() {
 	// todo: appointments from redux

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '@/lib/definitions';
-import { userInitState } from '@/redux/initial-states';
+import { userInitState } from '@/redux/initialStates';
 
 interface UserState {
 	user: User;

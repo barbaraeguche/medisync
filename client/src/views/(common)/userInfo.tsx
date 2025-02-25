@@ -1,8 +1,8 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { UserFullNameSchema, UserFullNameType } from '@/schemas/user';
-import InputWrapper from '@/components/input-wrapper';
-import FormButtons from '@/components/form-buttons';
+import { UserFullNameSchema, UserFullNameType } from '@/schemas/userSchema';
+import InputWrapper from '@/components/inputWrapper';
+import FormButtons from '@/components/formButtons';
 import { Card } from '@/ui/index';
 
 export default function UserInfo() {
