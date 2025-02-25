@@ -3,8 +3,10 @@ import Sidebar from '@/components/sidebar';
 
 export default function DashboardLayout() {
 	return (
-		<div className={'flex h-screen bg-background'}>
-			<Sidebar/>
+		<div className={'flex h-full bg-background'}>
+			<div className={'min-h-dvh'}>
+				<Sidebar/>
+			</div>
 			<main className={'flex-1 overflow-y-auto'}>
 				<div className={'container py-6'}>
 					<Outlet/>

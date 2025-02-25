@@ -47,7 +47,7 @@ export default function Footer() {
 					<div className={'flex gap-4'}>
 						{['Terms', 'Privacy', 'Cookies'].map((item) => (
 							<Link
-								to={'#'}
+								to={`/${item.toLowerCase()}`}
 								key={item}
 								className={'text-sm text-gray-500 hover:text-teal-600 dark:text-gray-400'}
 							>

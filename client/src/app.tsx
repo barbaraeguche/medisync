@@ -7,10 +7,8 @@ import AuthLayout from '@/layouts/auth';
 import DashboardLayout from '@/layouts/dashboard';
 import ProtectedRoute from '@/components/protectedRoute';
 import HomePage from '@/views/general/home';
+import BookAppointment from '@/views/general/bookAppointment';
 import { NotFound, UnAuthorized } from '@/views/auth/error';
-
-
-// import BookAppointment from '@/views/general/book-appointment';
 
 export default function App() {
 	return (
@@ -34,6 +32,7 @@ export default function App() {
 				
 				{/* user routes */}
 				<Route element={<ProtectedRoute allowedRoles={['Admin', 'Doctor', 'Patient']}/>}>
+					<Route path={'/book-appointment'} element={<BookAppointment/>}/>
 					<Route element={<DashboardLayout/>}>
 						{userRoutes.map((route, idx) => {
 							const Component = route.component;

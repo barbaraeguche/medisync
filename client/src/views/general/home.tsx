@@ -5,7 +5,7 @@ import Button from '@/ui/button';
 
 export default function HomePage() {
 	return (
-		<main className={'flex-1'}>
+		<main>
 			{/* hero section */}
 			<section className={'relative overflow-hidden'}>
 				<div className={'absolute inset-0 bg-gradient-to-br from-primary/10 to-teal-600/10 -z-10'}/>
@@ -30,13 +30,15 @@ export default function HomePage() {
 								</p>
 							</div>
 							<div className={'flex flex-col gap-4 sm:flex-row'}>
-								<Button
-									size={'lg'}
-									className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90 group'}
-								>
-									<Calendar className={'mr-2 h-4 w-4 group-hover:rotate-12 transition-transform'}/>
-									Book Consultation
-								</Button>
+								<Link to={'/book-appointment'}>
+									<Button
+										size={'lg'}
+										className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90 group'}
+									>
+										<Calendar className={'mr-2 h-4 w-4 group-hover:rotate-12 transition-transform'}/>
+										Book Consultation
+									</Button>
+								</Link>
 								<Button
 									size={'lg'}
 									variant={'outline'}
@@ -175,12 +177,14 @@ export default function HomePage() {
 									</li>
 								))}
 							</ul>
-							<Button
-								size={'lg'}
-								className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}
-							>
-								Schedule Your Check-up
-							</Button>
+							<Link to={'/book-appointment'}>
+								<Button
+									size={'lg'}
+									className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}
+								>
+									Schedule Your Check-up
+								</Button>
+							</Link>
 						</div>
 						<div className={'lg:w-1/2 relative'}>
 							<div className={'absolute inset-0 bg-gradient-to-tr from-primary to-teal-600 rounded-2xl blur-2xl opacity-20 transform rotate-3'}/>

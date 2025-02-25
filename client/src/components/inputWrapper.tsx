@@ -22,7 +22,7 @@ export default forwardRef<HTMLInputElement, InputWrapperProps>(
 						htmlFor={props.name}
 						className={clsx(
 							cn('mb-1 block text-xs font-medium', props.conf.labelStyle), {
-								'text-red-500 font-medium': props.error
+								'text-red-500': props.error
 							}
 						)}
 					>
@@ -37,8 +37,9 @@ export default forwardRef<HTMLInputElement, InputWrapperProps>(
 					id={props.name}
 					className={clsx(props.className,
 						{ 'bg-white': props },
-						{ 'bg-gray-200/70': props.disabled },
-						{ 'border-red-500 focus-visible:border-foreground/20': props.error }
+						{ 'bg-gray-100/90': props.disabled },
+						{ 'border-red-500 focus-visible:border-foreground/20': props.error },
+						{ 'shadow-none !bg-inherit px-0 border-0 focus:outline-none': props.readOnly }
 					)}
 					placeholder={props.conf.placeholder}
 					aria-describedby={`${props.name}-error`}

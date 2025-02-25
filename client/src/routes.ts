@@ -21,7 +21,6 @@ import PatientInfo from '@/views/patient/patient-info';
 import SignInForm from '@/views/auth/signIn';
 import RegisterForm from '@/views/auth/register';
 // general
-import BookAppointment from '@/views/general/bookAppointment';
 
 const userRoutes: SidebarRoutes[] = [
 	{
@@ -97,14 +96,15 @@ const authRoutes: SidebarRoutes[] = [
 	}
 ];
 
-const allRoutes: SidebarRoutes[] = [
+const commonRoutes: SidebarRoutes[] = [
 	// todo: not in use
-	{
-		path: '/book-appointment',
-		component: BookAppointment
-	}
+	
+	// services
+	// how it works
+	// our doctors
+	// contact
 ];
 
 export {
-	userRoutes, doctorRoutes, patientRoutes, authRoutes, allRoutes
+	userRoutes, doctorRoutes, patientRoutes, authRoutes, commonRoutes
 };

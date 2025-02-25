@@ -11,9 +11,11 @@ export function NotFound() {
 				</div>
 				<h1 className={'text-3xl font-bold tracking-tight text-primary'}>404 - Not Found</h1>
 				<p className={'text-lg text-muted-foreground'}>The page you're looking for doesn't exist.</p>
-				<Button className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}>
-					<Link to={'/'}>Return Home</Link>
-				</Button>
+				<Link to={'/'}>
+					<Button className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}>
+						Return Home
+					</Button>
+				</Link>
 			</div>
 		</div>
 	);
@@ -29,15 +31,20 @@ export function UnAuthorized() {
 				<h1 className={'text-3xl font-bold tracking-tight text-primary'}>401 - Unauthorized</h1>
 				<p className={'text-lg text-muted-foreground'}>You don't have permission to access this page.</p>
 				<div className={'flex gap-4'}>
-					<Button
-						variant={'outline'}
-						className={'border-primary hover:bg-primary/10'}
-					>
-						<Link to={'/sign-in'}>Sign In</Link>
-					</Button>
-					<Button className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}>
-						<Link to={'/'}>Return Home</Link>
-					</Button>
+					<Link to={'/auth/sign-in'}>
+						<Button
+							variant={'outline'}
+							className={'border-primary hover:bg-primary/10'}
+						>
+							Sign In
+						</Button>
+					</Link>
+					
+					<Link to={'/'}>
+						<Button className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}>
+							Return Home
+						</Button>
+					</Link>
 				</div>
 			</div>
 		</div>

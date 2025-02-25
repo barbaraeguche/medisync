@@ -28,13 +28,19 @@ export default function Header() {
 					))}
 				</nav>
 				<div className={'flex items-center gap-4'}>
-					<Button
-						variant={'ghost'}
-						className={'hover:text-teal-600'}
-					>
-						Sign In
-					</Button>
-					<Button className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}>Book Appointment</Button>
+					<Link to={'/auth/sign-in'}>
+						<Button
+							variant={'ghost'}
+							className={'hover:text-teal-600'}
+						>
+							Sign In
+						</Button>
+					</Link>
+					<Link to={'/book-appointment'}>
+						<Button className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}>
+							Book Appointment
+						</Button>
+					</Link>
 				</div>
 			</div>
 		</header>
