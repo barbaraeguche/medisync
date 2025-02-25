@@ -1,14 +1,13 @@
-import { Appointments } from '@/lib/definitions'; // todo: remove after redux
+import { useAppSelector } from '@/hooks/useAppDispatch';
 import { patientApptColumn } from '@/lib/columns';
 import AppointmentsTable from '@/components/appointmentsTable';
 
 export default function PatientAppointments() {
-	// todo: appointments from redux
-	const appointments: Appointments[] = [];
+	const { appointments } = useAppSelector((state) => state.patientSlice.patient);
 	
 	return (
 		<AppointmentsTable
-			appointments={appointments}
+			appointments={appointments ?? []}
 			columns={patientApptColumn}
 		/>
 	);

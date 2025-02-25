@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAppSelector } from '@/hooks/useAppDispatch';
 import { formatDate } from '@/utils/utils';
 import { MedicalHistory as MedicalHistoryType } from '@/lib/definitions';
 import { Card, Pagination, Accordion } from '@/ui/index';
@@ -6,10 +7,9 @@ import { Card, Pagination, Accordion } from '@/ui/index';
 export default function MedicalHistory() {
 	const itemsPerPage = 3;
 	const [currentPage, setCurrentPage] = useState<number>(1);
+	const { medicalHistory } = useAppSelector((state) => state.patientSlice.patient);
 	
-	const medicalHistory: MedicalHistoryType[] = []; // todo: this is from backend
-
-	const paginatedHistory = medicalHistory.slice(
+	const paginatedHistory = (medicalHistory ?? []).slice(
 		(currentPage - 1) * itemsPerPage,
 		currentPage * itemsPerPage
 	);
@@ -22,7 +22,7 @@ export default function MedicalHistory() {
 					itemsPerPage={itemsPerPage}
 					currentPage={currentPage}
 					setCurrentPage={setCurrentPage}
-					totalItems={medicalHistory.length}
+					totalItems={(medicalHistory ?? []).length}
 				/>
 			</div>
 
