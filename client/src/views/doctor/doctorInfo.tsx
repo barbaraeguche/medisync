@@ -4,7 +4,7 @@ import {
 	DoctorSchema, EducationSchema, DoctorType, EducationType
 } from '@/schemas/doctorSchema';
 import InputWrapper from '@/components/inputWrapper';
-import FormButtons from '@/components/formButtons';
+import FormActionButtons from '@/components/formActionButtons.tsx';
 import { Card } from '@/ui/index';
 
 export default function DoctorInfo() {
@@ -81,7 +81,7 @@ function RoleInfo() {
 				</Card.Content>
 				
 				<Card.Footer>
-					<FormButtons/>
+					<FormActionButtons/>
 				</Card.Footer>
 			</Card>
 		</form>
@@ -141,7 +141,7 @@ function Education() {
 				</Card.Content>
 				
 				<Card.Footer>
-					<FormButtons/>
+					<FormActionButtons/>
 				</Card.Footer>
 			</Card>
 		</form>

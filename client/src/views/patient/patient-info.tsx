@@ -7,11 +7,10 @@ import {
 import { useAppSelector } from '@/hooks/useAppDispatch.ts';
 import { Patient } from '@/lib/definitions.ts';
 import InputWrapper from '@/components/inputWrapper';
-import FormButtons from '@/components/formButtons';
+import FormActionButtons from '@/components/formActionButtons.tsx';
 import { Card } from '@/ui/index';
 
 export default function PatientInfo() {
-	const [isEditing, setIsEditing] = useState(false);
 	const patient = useAppSelector((state) => state.patientSlice.patient);
 	
 	return (
@@ -25,8 +24,10 @@ export default function PatientInfo() {
 function RoleInfo({ patient }: {
 	patient: Patient
 }) {
+	const [isEditing, setIsEditing] = useState(false);
+	
 	const {
-		register, handleSubmit, formState: { errors }
+		register, handleSubmit, formState: { errors }, reset
 	} = useForm<NoBloodType>({
 		resolver: zodResolver(NoBloodTypeSchema),
 		reValidateMode: 'onBlur',
@@ -38,6 +39,7 @@ function RoleInfo({ patient }: {
 
 	const onSubmit: SubmitHandler<NoBloodType> = (data) => {
 		console.log(data);
+		setIsEditing(false);
 	};
 
 	return (
@@ -119,7 +121,7 @@ function RoleInfo({ patient }: {
 				</Card.Content>
 				
 				<Card.Footer>
-					<FormButtons/>
+					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
 				</Card.Footer>
 			</Card>
 		</form>
@@ -129,8 +131,10 @@ function RoleInfo({ patient }: {
 function HealthMetrics({ patient }: {
 	patient: Patient
 }) {
+	const [isEditing, setIsEditing] = useState(false);
+	
 	const {
-		register, handleSubmit, formState: { errors }
+		register, handleSubmit, formState: { errors }, reset
 	} = useForm<HealthMetricsType>({
 		resolver: zodResolver(HealthMetricsSchema),
 		reValidateMode: 'onBlur',
@@ -139,6 +143,7 @@ function HealthMetrics({ patient }: {
 
 	const onSubmit: SubmitHandler<HealthMetricsType> = (data) => {
 		console.log(data);
+		setIsEditing(false);
 	};
 
 	return (
@@ -188,7 +193,7 @@ function HealthMetrics({ patient }: {
 				</Card.Content>
 			
 				<Card.Footer>
-					<FormButtons/>
+					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
 				</Card.Footer>
 			</Card>
 		</form>

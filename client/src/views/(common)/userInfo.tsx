@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { UserFullNameSchema, UserFullNameType } from '@/schemas/userSchema';
 import { useAppSelector } from '@/hooks/useAppDispatch.ts';
 import InputWrapper from '@/components/inputWrapper';
-import FormButtons from '@/components/formButtons';
+import FormActionButtons from '@/components/formActionButtons.tsx';
 import { Card } from '@/ui/index';
 
 export default function UserInfo() {
@@ -21,6 +21,7 @@ export default function UserInfo() {
 	
 	const onSubmit: SubmitHandler<UserFullNameType> = (data) => {
 		console.log(data);
+		setIsEditing(false);
   };
 
 	return (
@@ -88,7 +89,7 @@ export default function UserInfo() {
 				</Card.Content>
 				
 				<Card.Footer>
-					<FormButtons<UserFullNameType> isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
+					<FormActionButtons<UserFullNameType> isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
 				</Card.Footer>
 			</Card>
 		</form>

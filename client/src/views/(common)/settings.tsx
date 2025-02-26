@@ -5,7 +5,7 @@ import {
 	UpdateEmailType, UpdatePhoneNumberType, UpdatePasswordType
 } from '@/schemas/userSchema';
 import InputWrapper from '@/components/inputWrapper';
-import FormButtons from '@/components/formButtons';
+import FormActionButtons from '@/components/formActionButtons.tsx';
 import { Card } from '@/ui';
 
 export default function Settings() {
@@ -47,7 +47,7 @@ function ChangeEmail() {
 			    />
         </Card.Content>
 		    <Card.Footer>
-			    <FormButtons/>
+			    <FormActionButtons/>
 		    </Card.Footer>
 	    </Card>
     </form>
@@ -82,7 +82,7 @@ function ChangePhoneNumber() {
 					/>
 				</Card.Content>
 				<Card.Footer>
-					<FormButtons/>
+					<FormActionButtons/>
 				</Card.Footer>
 			</Card>
 		</form>
@@ -129,7 +129,7 @@ function ChangePassword() {
 					/>
 				</Card.Content>
 				<Card.Footer>
-					<FormButtons/>
+					<FormActionButtons/>
 				</Card.Footer>
 			</Card>
 		</form>

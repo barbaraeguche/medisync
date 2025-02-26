@@ -13,7 +13,3 @@ export type SidebarRoutes = {
 	name?: string;
 	component: FC;
 }
-
-// type EditInputProps = {
-//
-// } //todo: come back here

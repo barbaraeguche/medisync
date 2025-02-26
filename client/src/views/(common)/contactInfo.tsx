@@ -5,7 +5,7 @@ import {
 } from '@/schemas/userSchema';
 import { provinceOptions } from '@/utils/constants';
 import InputWrapper from '@/components/inputWrapper';
-import FormButtons from '@/components/formButtons';
+import FormActionButtons from '@/components/formActionButtons.tsx';
 import { Card, Select } from '@/ui/index';
 
 export default function ContactInfo() {
@@ -93,7 +93,7 @@ function Address() {
 				</Card.Content>
 				
 				<Card.Footer>
-					<FormButtons/>
+					<FormActionButtons/>
 				</Card.Footer>
 			</Card>
 		</form>
@@ -153,7 +153,7 @@ function EmergencyContact() {
 				</Card.Content>
 				
 				<Card.Footer>
-          <FormButtons/>
+          <FormActionButtons/>
         </Card.Footer>
       </Card>
 		</form>

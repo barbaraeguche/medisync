@@ -1,7 +1,7 @@
 import { FieldValues, UseFormReset } from 'react-hook-form';
 import { Button } from '@/ui/index';
 
-export default function FormButtons<T extends FieldValues>({ isEditing, setIsEditing, reset }: {
+export default function FormActionButtons<T extends FieldValues>({ isEditing, setIsEditing, reset }: {
 	isEditing: boolean,
 	setIsEditing: (value: boolean) => void,
 	reset: UseFormReset<T>
@@ -21,8 +21,8 @@ export default function FormButtons<T extends FieldValues>({ isEditing, setIsEdi
 						variant={'outline'}
 						type={'button'}
 						onClick={() => {
-							reset();
-							setIsEditing(false)
+							reset(); // reset any edit done
+							setIsEditing(false);
 						}}
 					>
 						Cancel
@@ -31,7 +31,10 @@ export default function FormButtons<T extends FieldValues>({ isEditing, setIsEdi
 			) : (
 				<Button
 					variant={'form'}
-					onClick={() => setIsEditing(true)}
+					onClick={(e) => {
+						e.preventDefault(); // to stop dispatch
+						setIsEditing(true);
+					}}
 				>
           Edit Details
         </Button>
