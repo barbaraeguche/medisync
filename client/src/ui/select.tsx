@@ -14,7 +14,7 @@ type CustomSelectProps<T extends FieldValues> = {
 	conf: InputConfig;
 	name: Path<T>;
 	control: Control<T>;
-	options: { label: string; value: string }[];
+	options: { label: string; value: string }[] | [];
 	error?: FieldError | undefined;
 } & Omit<SelectProps, 'onValueChange' | 'value'>;
 
@@ -73,14 +73,23 @@ function SelectInput<T extends FieldValues>({ name, control, ...props }: CustomS
 				<SelectValue placeholder={props.conf.placeholder ?? 'Select an option'}/>
 			</SelectTrigger>
 			<SelectContent>
-				{props.options.map((opt) => (
+				{props.options.length ? (
+					props.options.map((opt) => (
+						<SelectItem
+							key={opt.value}
+							value={opt.value}
+						>
+							{opt.label}
+						</SelectItem>
+					))
+				) : (
 					<SelectItem
-						key={opt.value}
-						value={opt.value}
+						value={'#'}
+						disabled
 					>
-						{opt.label}
+						No options available
 					</SelectItem>
-				))}
+				)}
 			</SelectContent>
 		</Select>
 	);

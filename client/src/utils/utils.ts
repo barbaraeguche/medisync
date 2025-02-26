@@ -4,6 +4,7 @@ import {
 	format, parse, differenceInHours, parseISO, isBefore, isToday
 } from 'date-fns';
 import { enCA } from 'date-fns/locale';
+import { yyyy_MM_dd } from '@/utils/constants.ts';
 
 export function cn(...args: ClassValue[]) {
 	return twMerge(clsx(args));
@@ -44,7 +45,7 @@ const generateCurrentWeek = () => {
 		date.setDate(date.getDate() + idx + 2);
 		
 		return {
-			date: formatDate(date, 'yyyy-MM-dd'),
+			date: formatDate(date, yyyy_MM_dd),
 			displayDate: formatDate(date)
 		};
 	});

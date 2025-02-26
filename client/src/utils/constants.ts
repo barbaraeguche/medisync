@@ -1,5 +1,6 @@
 import { generateLabelValue } from '@/utils/utils';
 
+export const yyyy_MM_dd = 'yyyy-MM-dd';
 export const numFieldConstraints = ['Must be greater than', 'Must be less than'];
 
 export const provinces = [

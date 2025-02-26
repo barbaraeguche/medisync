@@ -6,7 +6,7 @@ export const userInitState: User = {
 	_id: 'a1-b2-c3',
 	firstName: '',
 	lastName: '',
-	email: '',
+	email: 'b',
 	password: '',
 	phoneNumber: '',
 	gender: 'Female',
