@@ -1,19 +1,3 @@
-import { FC } from 'react';
-import type { LucideIcon } from 'lucide-react';
-
-export type InputConfig = {
-	label?: string;
-	labelStyle?: string;
-	placeholder?: string;
-}
-
-export type SidebarRoutes = {
-	path: string;
-	icon?: LucideIcon;
-	name?: string;
-	component: FC;
-}
-
 export interface User {
 	_id: string;
 	firstName: string;
@@ -21,8 +5,8 @@ export interface User {
 	email: string;
 	password: string;
 	phoneNumber: string;
-	gender: 'Male' | 'Female';
-	role: 'Admin' | 'Doctor' | 'Patient';
+	gender: 'Male' | 'Female' | '';
+	role: 'Admin' | 'Doctor' | 'Patient' | '';
 	address?: {
 		street?: string;
 		city?: string;
@@ -97,8 +81,8 @@ export interface Appointments {
 	_id: number;
 	date: Date;
 	time: string;
-	type: 'Checkup' | 'Follow Up' | 'Emergency' | 'Consultation';
-	status: 'Scheduled' | 'Completed' | 'Cancelled';
+	type: 'Checkup' | 'Follow Up' | 'Emergency' | 'Consultation' | '';
+	status: 'Scheduled' | 'Completed' | 'Cancelled' | '';
 	notes?: string;
 	doctorId: string;
 	patientId: string;

@@ -6,8 +6,7 @@ import {
 	Select, SelectContent, SelectTrigger, SelectItem, SelectValue
 } from '@/ui/shadcn/select';
 import { clsx } from 'clsx';
-import { cn } from '@/utils/utils';
-import { InputConfig } from '@/lib/definitions';
+import { InputConfig } from '@/lib/types';
 import { InputError } from '@/components/formError';
 
 type CustomSelectProps<T extends FieldValues> = {
@@ -25,11 +24,9 @@ export default function CustomSelect<T extends FieldValues>(props: CustomSelectP
 			{props.conf.label && (
 				<label
 					htmlFor={props.name}
-					className={clsx(
-						cn('mb-1 block text-xs font-medium', props.conf.labelStyle), {
-							'text-red-500 font-medium': props.error
-						}
-					)}
+					className={clsx('mb-1 block text-xs font-medium', {
+						'text-red-500': props.error
+					})}
 				>
 					{props.conf.label}
 				</label>
@@ -66,9 +63,10 @@ function SelectInput<T extends FieldValues>({ name, control, ...props }: CustomS
 		>
 			<SelectTrigger
 				id={name}
-				className={clsx('bg-white', {
-					'border-red-500 focus:border-foreground/20': props.error
-				})}
+				className={clsx('bg-white',
+					{ 'border-red-500 focus:border-foreground/20': props.error },
+					{ 'focus:ring-0 focus:ring-offset-0': props.conf.readOnly }
+				)}
 			>
 				<SelectValue placeholder={props.conf.placeholder ?? 'Select an option'}/>
 			</SelectTrigger>

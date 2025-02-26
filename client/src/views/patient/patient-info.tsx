@@ -1,27 +1,39 @@
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	NoBloodTypeSchema, NoBloodType, HealthMetricsSchema, HealthMetricsType
 } from '@/schemas/patientSchema';
+import { useAppSelector } from '@/hooks/useAppDispatch.ts';
+import { Patient } from '@/lib/definitions.ts';
 import InputWrapper from '@/components/inputWrapper';
 import FormButtons from '@/components/formButtons';
 import { Card } from '@/ui/index';
 
 export default function PatientInfo() {
+	const [isEditing, setIsEditing] = useState(false);
+	const patient = useAppSelector((state) => state.patientSlice.patient);
+	
 	return (
 		<div className={'space-y-12 md:space-y-16'}>
-			<RoleInfo/>
-			<HealthMetrics/>
+			<RoleInfo patient={patient}/>
+			<HealthMetrics patient={patient}/>
 		</div>
 	);
 }
 
-function RoleInfo() {
+function RoleInfo({ patient }: {
+	patient: Patient
+}) {
 	const {
 		register, handleSubmit, formState: { errors }
 	} = useForm<NoBloodType>({
 		resolver: zodResolver(NoBloodTypeSchema),
-		reValidateMode: 'onBlur'
+		reValidateMode: 'onBlur',
+		defaultValues: {
+			...patient,
+			dateOfBirth: patient.dateOfBirth.toLocaleDateString()
+		}
 	});
 
 	const onSubmit: SubmitHandler<NoBloodType> = (data) => {
@@ -37,6 +49,7 @@ function RoleInfo() {
 					{/* date of birth */}
 					<InputWrapper
 						{...register('dateOfBirth')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Date of Birth',
 							placeholder: '1900-01-01'
@@ -48,6 +61,7 @@ function RoleInfo() {
 					{/* allergies */}
 					<InputWrapper
 						{...register('allergies')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Allergies (Optional)',
 							placeholder: 'Peanuts, Milk'
@@ -59,6 +73,7 @@ function RoleInfo() {
 					{/* blood type */}
 					<InputWrapper
 						disabled
+						readOnly={!isEditing}
 						conf={{
 							label: 'Blood Type',
 							placeholder: 'AB+'
@@ -69,6 +84,7 @@ function RoleInfo() {
 					{/* insurance provider */}
 					<InputWrapper
 						{...register('insuranceProvider')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Insurance Provider (Optional)',
 							placeholder: 'Sentinel Assurance Inc.'
@@ -80,6 +96,7 @@ function RoleInfo() {
 					{/* insurance policy number */}
 					<InputWrapper
 						{...register('insurancePolicyNumber')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Insurance Policy Number (Optional)',
 							placeholder: 'SA-9876543210'
@@ -91,6 +108,7 @@ function RoleInfo() {
 					{/* chronic conditions */}
 					<InputWrapper
 						{...register('chronicConditions')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Chronic Conditions (Optional)',
 							placeholder: 'Diabetes, Asthma'
@@ -108,12 +126,15 @@ function RoleInfo() {
 	);
 }
 
-function HealthMetrics() {
+function HealthMetrics({ patient }: {
+	patient: Patient
+}) {
 	const {
 		register, handleSubmit, formState: { errors }
 	} = useForm<HealthMetricsType>({
 		resolver: zodResolver(HealthMetricsSchema),
-		reValidateMode: 'onBlur'
+		reValidateMode: 'onBlur',
+		defaultValues: patient.healthMetrics
 	});
 
 	const onSubmit: SubmitHandler<HealthMetricsType> = (data) => {
@@ -130,6 +151,7 @@ function HealthMetrics() {
 					<InputWrapper
 						{...register('height')}
 						type={'number'}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Height (cm)',
 							placeholder: '175'
@@ -140,8 +162,9 @@ function HealthMetrics() {
 	
 					{/* weight */}
 					<InputWrapper
-						type={'number'}
 						{...register('weight')}
+						type={'number'}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Weight (kg)',
 							placeholder: '75'
@@ -152,8 +175,9 @@ function HealthMetrics() {
 	
 					{/* heart rate */}
 					<InputWrapper
-						type={'number'}
 						{...register('heartRate')}
+						type={'number'}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Heart Rate (bpm)',
 							placeholder: '75'

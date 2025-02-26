@@ -1,8 +1,7 @@
 import { forwardRef, ComponentProps } from 'react';
 import { FieldError } from 'react-hook-form';
 import { clsx } from 'clsx';
-import { cn } from '@/utils/utils';
-import { InputConfig } from '@/lib/definitions';
+import { InputConfig } from '@/lib/types';
 import { InputError } from '@/components/formError';
 import { Input } from '@/ui/index';
 
@@ -20,11 +19,9 @@ export default forwardRef<HTMLInputElement, InputWrapperProps>(
 				{props.conf.label && (
 					<label
 						htmlFor={props.name}
-						className={clsx(
-							cn('mb-1 block text-xs font-medium', props.conf.labelStyle), {
-								'text-red-500': props.error
-							}
-						)}
+						className={clsx('mb-1 block text-xs font-medium', {
+							'text-red-500': props.error
+						})}
 					>
 						{props.conf.label}
 					</label>
@@ -39,7 +36,7 @@ export default forwardRef<HTMLInputElement, InputWrapperProps>(
 						{ 'bg-white': props },
 						{ 'bg-gray-100/90': props.disabled },
 						{ 'border-red-500 focus-visible:border-foreground/20': props.error },
-						{ 'shadow-none !bg-inherit px-0 border-0 focus:outline-none': props.readOnly }
+						{ 'focus:outline-none': props.readOnly }
 					)}
 					placeholder={props.conf.placeholder}
 					aria-describedby={`${props.name}-error`}

@@ -11,8 +11,6 @@ export default function UserInfo() {
 	const [isEditing, setIsEditing] = useState(false);
 	const user = useAppSelector((state) => state.userSlice.user);
 	
-	
-	console.log(isEditing)
 	const {
 		register, handleSubmit, formState: { errors }, reset
 	} = useForm<UserFullNameType>({

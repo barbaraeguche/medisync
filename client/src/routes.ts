@@ -3,7 +3,7 @@ import {
 	CalendarClock, ClipboardList, Stethoscope,
 	Activity, FilePlus
 } from 'lucide-react';
-import { SidebarRoutes } from '@/lib/definitions';
+import { SidebarRoutes } from '@/lib/types';
 
 // user
 import UserInfo from '@/views/(common)/userInfo';

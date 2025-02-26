@@ -3,14 +3,14 @@ import {
 } from '@/lib/definitions';
 
 export const userInitState: User = {
-	_id: 'a1-b2-c3',
+	_id: '',
 	firstName: '',
 	lastName: '',
 	email: 'b',
 	password: '',
 	phoneNumber: '',
-	gender: 'Female',
-	role: 'Doctor',
+	gender: '',
+	role: 'Patient',
 	address: {
 		street: '',
 		city: '',
@@ -35,7 +35,7 @@ export const practitionerInitState: Practitioner = {
 };
 
 export const doctorInitState: Doctor = {
-	_id: 'a1-b2-c3',
+	_id: '',
   user: userInitState,
   practitioner: practitionerInitState,
   availabilities: [],
@@ -43,7 +43,7 @@ export const doctorInitState: Doctor = {
 };
 
 export const patientInitState: Patient = {
-	_id: 'a1-b2-c3',
+	_id: '',
 	user: userInitState,
 	dateOfBirth: new Date('1900-01-01'),
   allergies: '',
@@ -71,9 +71,9 @@ export const medicalHistInitState: MedicalHistory = {
 export const appointmentInitState: Appointments = {
 	_id: 0,
   date: new Date('1900-01-01'),
-  time: (new Date('1900-01-01T00:00:00')).toLocaleTimeString(),
-  type: 'Consultation',
-  status: 'Scheduled',
+  time: '',
+  type: '',
+  status: '',
   notes: '',
   doctorId: '',
   patientId: ''
