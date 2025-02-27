@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginSchema, LoginType } from '@/schemas/authSchema';
+import { loginSchema, LoginType } from '@/schemas/authSchema';
 import { AuthError } from '@/components/formError';
 import InputWrapper from '@/components/inputWrapper';
 import { Button, Card } from '@/ui/index';
@@ -10,7 +10,7 @@ export default function SignInForm() {
 	const {
     register, handleSubmit, formState: { errors }
   } = useForm<LoginType>({
-    resolver: zodResolver(LoginSchema),
+    resolver: zodResolver(loginSchema),
 		reValidateMode: 'onBlur'
   });
 	

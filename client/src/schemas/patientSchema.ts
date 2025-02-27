@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { bloodTypes, numFieldConstraints } from '@/utils/constants.ts';
 
-export const PatientSchema = z.object({
+export const patientSchema = z.object({
 	dateOfBirth: z.string().date('Birth date cannot be null'),
 	allergies: z.string().optional(),
 	bloodType: z.enum(bloodTypes, { message: 'Select a blood type' }),
@@ -9,9 +9,9 @@ export const PatientSchema = z.object({
 	insurancePolicyNumber: z.string().optional(),
 	chronicConditions: z.string().optional()
 });
-export type PatientType = z.infer<typeof PatientSchema>;
+export type PatientType = z.infer<typeof patientSchema>;
 
-export const HealthMetricsSchema = z.object({
+export const healthMetricsSchema = z.object({
 	height: z.union([
 		z.coerce.number().nullish(),
 		z.coerce.number()
@@ -31,8 +31,8 @@ export const HealthMetricsSchema = z.object({
 			.max(272, { message: `${numFieldConstraints[0]} 272` })
 	])
 });
-export type HealthMetricsType = z.infer<typeof HealthMetricsSchema>;
+export type HealthMetricsType = z.infer<typeof healthMetricsSchema>;
 
 // cannot be changed after initialization
-export const NoBloodTypeSchema = PatientSchema.omit({ bloodType: true });
-export type NoBloodType = z.infer<typeof NoBloodTypeSchema>;
+export const noBloodTypeSchema = patientSchema.omit({ bloodType: true });
+export type NoBloodType = z.infer<typeof noBloodTypeSchema>;

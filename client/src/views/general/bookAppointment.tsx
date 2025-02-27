@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AppointmentSchema, AppointmentType } from '@/schemas/appointmentSchema';
+import { appointmentSchema, AppointmentType } from '@/schemas/appointmentSchema';
 import { useAppSelector } from '@/hooks/useAppDispatch.ts';
 import {
 	formatDate, generateLabelValue, generateTimeSlots
@@ -21,7 +21,7 @@ export default function BookAppointment() {
 	const {
 		register, handleSubmit, formState: { errors }, control, watch, resetField
 	} = useForm<AppointmentType>({
-		resolver: zodResolver(AppointmentSchema),
+		resolver: zodResolver(appointmentSchema),
 		reValidateMode: 'onBlur'
 	});
 	

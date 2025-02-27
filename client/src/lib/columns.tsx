@@ -42,9 +42,12 @@ const baseApptColumns: ColumnDef<Appointments>[] = [
 ];
 
 export const patientApptColumn: ColumnDef<Appointments>[] = [...baseApptColumns];
-patientApptColumn.splice(1, 0, {
-	accessorKey: 'patientId',
-	header: 'Patient'
+patientApptColumn.splice(patientApptColumn.length, 0, {
+	accessorKey: 'doctorId',
+	header: 'Doctor',
+	cell: ({ row }) => {
+		return <div>Dr. {row.getValue('doctorId')}</div>;
+	}
 });
 patientApptColumn.splice(patientApptColumn.length, 0, {
 	id: 'actions',
@@ -54,17 +57,14 @@ patientApptColumn.splice(patientApptColumn.length, 0, {
 		
 		return (
 			<>
-				{(upcomingAppointment) && <DeleteAppointment id={appointment._id}/>}
+				{upcomingAppointment && <DeleteAppointment id={appointment._id}/>}
 			</>
 		);
 	}
 })
 
 export const doctorApptColumn: ColumnDef<Appointments>[] = [...baseApptColumns];
-doctorApptColumn.splice(doctorApptColumn.length, 0, {
-	accessorKey: 'doctorId',
-  header: 'Doctor',
-	cell: ({ row }) => {
-		return <div>Dr. {row.getValue('doctorId')}</div>;
-	}
+doctorApptColumn.splice(1, 0, {
+	accessorKey: 'patientId',
+	header: 'Patient'
 });

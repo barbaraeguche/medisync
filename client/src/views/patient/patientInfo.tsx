@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-	NoBloodTypeSchema, NoBloodType, HealthMetricsSchema, HealthMetricsType
+	noBloodTypeSchema, NoBloodType, healthMetricsSchema, HealthMetricsType
 } from '@/schemas/patientSchema';
 import { useAppSelector } from '@/hooks/useAppDispatch';
 import { useEditableState } from '@/hooks/useEditableState';
@@ -30,14 +30,14 @@ function RoleInfo({ patient }: {
 	const {
 		register, handleSubmit, formState: { errors }, reset
 	} = useForm<NoBloodType>({
-		resolver: zodResolver(NoBloodTypeSchema),
+		resolver: zodResolver(noBloodTypeSchema),
 		reValidateMode: 'onBlur',
 		values: {
 			...patient,
 			dateOfBirth: formatDate(patient.dateOfBirth, yyyy_MM_dd)
 		}
 	});
-
+	
 	const onSubmit: SubmitHandler<NoBloodType> = (data) => {
 		console.log(data);
 		setIsEditing(false);
@@ -136,7 +136,7 @@ function HealthMetrics({ patient }: {
 	const {
 		register, handleSubmit, formState: { errors }, reset
 	} = useForm<HealthMetricsType>({
-		resolver: zodResolver(HealthMetricsSchema),
+		resolver: zodResolver(healthMetricsSchema),
 		reValidateMode: 'onBlur',
 		values: patient.healthMetrics
 	});

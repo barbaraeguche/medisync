@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { RegisterSchema, RegisterType } from '@/schemas/authSchema';
+import { registerSchema, RegisterType } from '@/schemas/authSchema';
 import { DoctorType } from '@/schemas/doctorSchema';
 import { PatientType } from '@/schemas/patientSchema';
 import {
@@ -18,7 +18,7 @@ export default function RegisterForm() {
 	const {
 		register, handleSubmit, formState: { errors }, control, watch, trigger
 	} = useForm<RegisterType>({
-		resolver: zodResolver(RegisterSchema),
+		resolver: zodResolver(registerSchema),
 		reValidateMode: 'onBlur'
 	});
 	const userRole = watch('role');

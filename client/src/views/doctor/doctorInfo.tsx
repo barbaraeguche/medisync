@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-	DoctorSchema, EducationSchema, DoctorType, EducationType
+	doctorSchema, educationSchema, DoctorType, EducationType
 } from '@/schemas/doctorSchema';
 import { useAppSelector } from '@/hooks/useAppDispatch';
 import { useEditableState } from '@/hooks/useEditableState';
@@ -28,13 +28,14 @@ function RoleInfo({ doctor }: {
 	const {
 		register, handleSubmit, formState: { errors }, reset
 	} = useForm<DoctorType>({
-		resolver: zodResolver(DoctorSchema),
+		resolver: zodResolver(doctorSchema),
 		reValidateMode: 'onBlur',
 		values: doctor.practitioner
 	});
 
 	const onSubmit: SubmitHandler<DoctorType> = (data) => {
 		console.log(data);
+		setIsEditing(false);
 	};
 
 	return (
@@ -108,13 +109,14 @@ function Education({ doctor }: {
 	const {
 		register, handleSubmit, formState: { errors }, reset
 	} = useForm<EducationType>({
-		resolver: zodResolver(EducationSchema),
+		resolver: zodResolver(educationSchema),
 		reValidateMode: 'onBlur',
 		values: doctor.practitioner.education
 	});
 
 	const onSubmit: SubmitHandler<EducationType> = (data) => {
 		console.log(data);
+		setIsEditing(false);
 	};
 
 	return (

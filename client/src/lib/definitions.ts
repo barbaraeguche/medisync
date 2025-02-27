@@ -1,3 +1,5 @@
+import { provinces } from '@/utils/constants';
+
 export interface User {
 	_id: string;
 	firstName: string;
@@ -10,9 +12,9 @@ export interface User {
 	address?: {
 		street?: string;
 		city?: string;
-		province: string;
+		province: (typeof provinces)[number];
 		postalCode: string;
-		country: string;
+		country: 'Canada';
 	};
 	emergencyContact?: {
 		name: string;

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { numFieldConstraints } from '@/utils/constants.ts';
 
-export const DoctorSchema = z.object({
+export const doctorSchema = z.object({
 	licenseNumber: z.string().min(1, { message: 'Enter your license number' }),
 	specialization: z.string().min(1, { message: 'Enter your specialization' }),
 	yearsOfExperience: z.union([
@@ -11,15 +11,15 @@ export const DoctorSchema = z.object({
 	]),
 	languages: z.string().min(1, { message: 'Enter your spoken languages' })
 });
-export type DoctorType = z.infer<typeof DoctorSchema>;
+export type DoctorType = z.infer<typeof doctorSchema>;
 
-export const EducationSchema = z.object({
+export const educationSchema = z.object({
 	degree: z.string().min(1, { message: 'Enter your degree name' }),
 	institution: z.string().min(1, { message: 'Enter your institution name' }),
 	graduationYear: z.string().min(1, { message: 'Enter your graduation year' })
 		.optional().or(z.literal(''))
 });
-export type EducationType = z.infer<typeof EducationSchema>;
+export type EducationType = z.infer<typeof educationSchema>;
 
 // TODO: might not need this, will see
 // export const AvailabilitySchema = z.array(z.object({

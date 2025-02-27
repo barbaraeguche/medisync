@@ -1,11 +1,11 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-	AddressSchema, EmergencyContactSchema, AddressType, EmergencyContactType
+	addressSchema, emergencyContactSchema, AddressType, EmergencyContactType
 } from '@/schemas/userSchema';
 import { useAppSelector } from '@/hooks/useAppDispatch';
 import { useEditableState } from '@/hooks/useEditableState';
-import { provinces, provinceOptions } from '@/utils/constants';
+import { provinceOptions } from '@/utils/constants';
 import { User } from '@/lib/definitions';
 import InputWrapper from '@/components/inputWrapper';
 import FormActionButtons from '@/components/formActionButtons';
@@ -29,16 +29,14 @@ function Address({ user }: {
 	const {
 		register, handleSubmit, formState: { errors }, control, reset
 	} = useForm<AddressType>({
-		resolver: zodResolver(AddressSchema),
+		resolver: zodResolver(addressSchema),
 		reValidateMode: 'onBlur',
-		values = {
-			...user.address,
-			province: user.address?.province as (typeof provinces)[number]
-		}
+		values: user.address
 	});
 
 	const onSubmit: SubmitHandler<AddressType> = (data) => {
 		console.log(data);
+		setIsEditing(false);
 	};
 
 	return (
@@ -125,13 +123,14 @@ function EmergencyContact({ user }: {
 	const {
 		register, handleSubmit, formState: { errors }, reset
 	} = useForm<EmergencyContactType>({
-		resolver: zodResolver(EmergencyContactSchema),
+		resolver: zodResolver(emergencyContactSchema),
 		reValidateMode: 'onBlur',
 		values: user.emergencyContact
 	});
 
 	const onSubmit: SubmitHandler<EmergencyContactType> = (data) => {
 		console.log(data);
+		setIsEditing(false);
 	};
 
 	return (

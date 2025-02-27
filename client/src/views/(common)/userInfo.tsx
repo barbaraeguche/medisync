@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { UserFullNameSchema, UserFullNameType } from '@/schemas/userSchema';
+import { userFullNameSchema, UserFullNameType } from '@/schemas/userSchema';
 import { useAppSelector } from '@/hooks/useAppDispatch.ts';
 import { useEditableState } from '@/hooks/useEditableState.ts';
 import InputWrapper from '@/components/inputWrapper';
@@ -14,7 +14,7 @@ export default function UserInfo() {
 	const {
 		register, handleSubmit, formState: { errors }, reset
 	} = useForm<UserFullNameType>({
-		resolver: zodResolver(UserFullNameSchema),
+		resolver: zodResolver(userFullNameSchema),
 		reValidateMode: 'onBlur',
 		values: user
 	});

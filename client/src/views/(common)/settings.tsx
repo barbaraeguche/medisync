@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-	UpdateEmailSchema, UpdatePhoneNumberSchema, UpdatePasswordSchema,
+	updateEmailSchema, updatePhoneNumberSchema, updatePasswordSchema,
 	UpdateEmailType, UpdatePhoneNumberType, UpdatePasswordType
 } from '@/schemas/userSchema';
 import { useAppSelector } from '@/hooks/useAppDispatch';
@@ -31,13 +31,14 @@ function ChangeEmail({ user }: {
 	const {
 		register, handleSubmit, formState: { errors }, reset
 	} = useForm<UpdateEmailType>({
-		resolver: zodResolver(UpdateEmailSchema),
+		resolver: zodResolver(updateEmailSchema),
 		reValidateMode: 'onBlur',
 		values: { email: user.email }
 	});
 	
 	const onSubmit: SubmitHandler<UpdateEmailType> = (data) => {
 		console.log(data);
+		setIsEditing(false);
 	};
 	
 	return (
@@ -71,13 +72,14 @@ function ChangePhoneNumber({ user }: {
 	const {
 		register, handleSubmit, formState: { errors }, reset
 	} = useForm<UpdatePhoneNumberType>({
-		resolver: zodResolver(UpdatePhoneNumberSchema),
+		resolver: zodResolver(updatePhoneNumberSchema),
 		reValidateMode: 'onBlur',
 		values: { phoneNumber: user.phoneNumber }
 	});
 	
 	const onSubmit: SubmitHandler<UpdatePhoneNumberType> = (data) => {
 		console.log(data);
+		setIsEditing(false);
 	};
 	
 	return (
@@ -109,12 +111,13 @@ function ChangePassword() {
 	const {
 		register, handleSubmit, formState: { errors }, reset
 	} = useForm<UpdatePasswordType>({
-		resolver: zodResolver(UpdatePasswordSchema),
+		resolver: zodResolver(updatePasswordSchema),
 		reValidateMode: 'onBlur'
 	});
 	
 	const onSubmit: SubmitHandler<UpdatePasswordType> = (data) => {
     console.log(data);
+		setIsEditing(false);
   };
 	
 	return (

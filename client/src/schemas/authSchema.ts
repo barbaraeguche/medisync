@@ -1,24 +1,24 @@
 import { z } from 'zod';
-import { UserSchema } from '@/schemas/userSchema';
-import { DoctorSchema } from '@/schemas/doctorSchema';
-import { PatientSchema } from '@/schemas/patientSchema';
+import { userSchema } from '@/schemas/userSchema';
+import { doctorSchema } from '@/schemas/doctorSchema';
+import { patientSchema } from '@/schemas/patientSchema';
 
 // for authentication
-export const LoginSchema = z.object({
-	...(UserSchema.pick({ email: true })).shape,
+export const loginSchema = z.object({
+	...(userSchema.pick({ email: true })).shape,
 	password: z.string()
 });
-export type LoginType = z.infer<typeof LoginSchema>;
+export type LoginType = z.infer<typeof loginSchema>;
 
-export const RegisterSchema = z.discriminatedUnion('role', [
+export const registerSchema = z.discriminatedUnion('role', [
 	z.object({
 		role: z.literal('Doctor'),
-		user: UserSchema.omit({ role: true }),
-	}).merge(DoctorSchema), // merge doctor schema
+		user: userSchema.omit({ role: true }),
+	}).merge(doctorSchema), // merge doctor schema
 	
 	z.object({
 		role: z.literal('Patient'),
-		user: UserSchema.omit({ role: true }),
-	}).merge(PatientSchema), // merge patient schema
+		user: userSchema.omit({ role: true }),
+	}).merge(patientSchema), // merge patient schema
 ]);
-export type RegisterType = z.infer<typeof RegisterSchema>;
+export type RegisterType = z.infer<typeof registerSchema>;

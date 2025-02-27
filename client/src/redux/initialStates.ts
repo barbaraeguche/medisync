@@ -16,7 +16,7 @@ export const userInitState: User = {
 		city: '',
 		province: 'Quebec',
 		postalCode: '',
-		country: ''
+		country: 'Canada',
 	},
 	emergencyContact: {
 		name: '',
@@ -31,7 +31,11 @@ export const practitionerInitState: Practitioner = {
 	specialization: '',
 	yearsOfExperience: 0,
 	languages: '',
-	education: []
+	education: {
+		degree: '',
+    institution: '',
+    graduationYear: ''
+	}
 };
 
 export const doctorInitState: Doctor = {

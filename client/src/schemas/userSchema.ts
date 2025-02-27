@@ -4,7 +4,7 @@ import {
 } from '@/utils/regex';
 import { genders, roles, provinces } from '@/utils/constants';
 
-export const UserSchema = z.object({
+export const userSchema = z.object({
 	firstName: z.string().min(1, { message: 'Enter your first name' }),
 	lastName: z.string().min(1, { message: 'Enter your last name' }),
 	email: z.string().refine((val) => emailRegex.test(val), {
@@ -21,9 +21,9 @@ export const UserSchema = z.object({
 	gender: z.enum(genders, { message: 'Select a gender' }),
 	role: z.enum(roles, { message: 'Select a role' })
 });
-export type UserType = z.infer<typeof UserSchema>;
+export type UserType = z.infer<typeof userSchema>;
 
-export const AddressSchema = z.object({
+export const addressSchema = z.object({
 	street: z.string().min(1, { message: 'Enter a valid street' })
 		.optional().or(z.literal('')),
 	city: z.string().min(1, { message: 'Enter a valid street' })
@@ -36,9 +36,9 @@ export const AddressSchema = z.object({
 		message: 'Country must be Canada'
 	})
 });
-export type AddressType = z.infer<typeof AddressSchema>;
+export type AddressType = z.infer<typeof addressSchema>;
 
-export const EmergencyContactSchema = z.object({
+export const emergencyContactSchema = z.object({
 	name: z.string().min(1, { message: 'Enter a name' }),
 	relationship: z.string().min(2, { message: 'Enter the relationship type' })
 		.optional().or(z.literal('')),
@@ -46,26 +46,26 @@ export const EmergencyContactSchema = z.object({
 		message: 'Enter a valid email address'
 	})
 });
-export type EmergencyContactType = z.infer<typeof EmergencyContactSchema>;
+export type EmergencyContactType = z.infer<typeof emergencyContactSchema>;
 
 // as you can only change your name from the main account page
-export const UserFullNameSchema = UserSchema.pick({ firstName: true, lastName: true });
-export type UserFullNameType = z.infer<typeof UserFullNameSchema>;
+export const userFullNameSchema = userSchema.pick({ firstName: true, lastName: true });
+export type UserFullNameType = z.infer<typeof userFullNameSchema>;
 
 // for account security
-export const UpdateEmailSchema = UserSchema.pick({ email: true });
-export type UpdateEmailType = z.infer<typeof UpdateEmailSchema>;
+export const updateEmailSchema = userSchema.pick({ email: true });
+export type UpdateEmailType = z.infer<typeof updateEmailSchema>;
 
-export const UpdatePhoneNumberSchema = UserSchema.pick({ phoneNumber: true });
-export type UpdatePhoneNumberType = z.infer<typeof UpdatePhoneNumberSchema>;
+export const updatePhoneNumberSchema = userSchema.pick({ phoneNumber: true });
+export type UpdatePhoneNumberType = z.infer<typeof updatePhoneNumberSchema>;
 
-export const UpdatePasswordSchema = z
+export const updatePasswordSchema = z
 	.object({
-		...(UserSchema.pick({ password: true })).shape,
+		...(userSchema.pick({ password: true })).shape,
 		confirmPassword: z.string()
 	})
 	.refine((val) => val.password === val.confirmPassword, {
 		message: 'Passwords do not match',
 		path: ['confirmPassword']
 	});
-export type UpdatePasswordType = z.infer<typeof UpdatePasswordSchema>;
+export type UpdatePasswordType = z.infer<typeof updatePasswordSchema>;
