@@ -16,7 +16,7 @@ import DoctorInfo from '@/views/doctor/doctorInfo';
 // patient
 import PatientAppointments from '@/views/patient/appointments';
 import MedicalHistory from '@/views/patient/medicalHistory';
-import PatientInfo from '@/views/patient/patient-info';
+import PatientInfo from '@/views/patient/patientInfo.tsx';
 // authorization
 import SignInForm from '@/views/auth/signIn';
 import RegisterForm from '@/views/auth/register';

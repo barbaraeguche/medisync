@@ -60,8 +60,8 @@ export interface Practitioner {
 	education?: {
 		degree: string;
 		institution: string;
-		graduationYear: string;
-	}[];
+		graduationYear?: string;
+	};
 }
 
 export interface MedicalHistory {

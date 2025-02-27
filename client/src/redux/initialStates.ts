@@ -14,7 +14,7 @@ export const userInitState: User = {
 	address: {
 		street: '',
 		city: '',
-		province: '',
+		province: 'Quebec',
 		postalCode: '',
 		country: ''
 	},

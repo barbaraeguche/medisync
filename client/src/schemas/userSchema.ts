@@ -2,7 +2,7 @@ import { z } from 'zod';
 import {
 	emailRegex, passwordRegex, phoneNumberRegex, postalCodeRegex
 } from '@/utils/regex';
-import { genders, roles, provinces } from '@/utils/constants.ts';
+import { genders, roles, provinces } from '@/utils/constants';
 
 export const UserSchema = z.object({
 	firstName: z.string().min(1, { message: 'Enter your first name' }),

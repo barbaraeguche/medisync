@@ -50,12 +50,11 @@ patientApptColumn.splice(patientApptColumn.length, 0, {
 	id: 'actions',
 	cell: ({ row }) => {
 		const appointment = row.original;
+		const upcomingAppointment = !isToday(appointment.date) && isAfter(appointment.date, new Date());
+		
 		return (
 			<>
-				{(
-					!isToday(appointment.date) && isAfter(appointment.date, new Date())
-					) && <DeleteAppointment id={appointment._id}/>
-				}
+				{(upcomingAppointment) && <DeleteAppointment id={appointment._id}/>}
 			</>
 		);
 	}

@@ -1,14 +1,14 @@
-import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { UserFullNameSchema, UserFullNameType } from '@/schemas/userSchema';
 import { useAppSelector } from '@/hooks/useAppDispatch.ts';
+import { useEditableState } from '@/hooks/useEditableState.ts';
 import InputWrapper from '@/components/inputWrapper';
 import FormActionButtons from '@/components/formActionButtons.tsx';
 import { Card } from '@/ui/index';
 
 export default function UserInfo() {
-	const [isEditing, setIsEditing] = useState(false);
+	const { isEditing, setIsEditing } = useEditableState();
 	const user = useAppSelector((state) => state.userSlice.user);
 	
 	const {
@@ -16,7 +16,7 @@ export default function UserInfo() {
 	} = useForm<UserFullNameType>({
 		resolver: zodResolver(UserFullNameSchema),
 		reValidateMode: 'onBlur',
-		defaultValues: user
+		values: user
 	});
 	
 	const onSubmit: SubmitHandler<UserFullNameType> = (data) => {

@@ -1,13 +1,15 @@
-import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	NoBloodTypeSchema, NoBloodType, HealthMetricsSchema, HealthMetricsType
 } from '@/schemas/patientSchema';
-import { useAppSelector } from '@/hooks/useAppDispatch.ts';
-import { Patient } from '@/lib/definitions.ts';
+import { useAppSelector } from '@/hooks/useAppDispatch';
+import { useEditableState } from '@/hooks/useEditableState';
+import { formatDate } from '@/utils/utils';
+import { yyyy_MM_dd } from '@/utils/constants';
+import { Patient } from '@/lib/definitions';
 import InputWrapper from '@/components/inputWrapper';
-import FormActionButtons from '@/components/formActionButtons.tsx';
+import FormActionButtons from '@/components/formActionButtons';
 import { Card } from '@/ui/index';
 
 export default function PatientInfo() {
@@ -24,16 +26,15 @@ export default function PatientInfo() {
 function RoleInfo({ patient }: {
 	patient: Patient
 }) {
-	const [isEditing, setIsEditing] = useState(false);
-	
+	const { isEditing, setIsEditing } = useEditableState();
 	const {
 		register, handleSubmit, formState: { errors }, reset
 	} = useForm<NoBloodType>({
 		resolver: zodResolver(NoBloodTypeSchema),
 		reValidateMode: 'onBlur',
-		defaultValues: {
+		values: {
 			...patient,
-			dateOfBirth: patient.dateOfBirth.toLocaleDateString()
+			dateOfBirth: formatDate(patient.dateOfBirth, yyyy_MM_dd)
 		}
 	});
 
@@ -131,14 +132,13 @@ function RoleInfo({ patient }: {
 function HealthMetrics({ patient }: {
 	patient: Patient
 }) {
-	const [isEditing, setIsEditing] = useState(false);
-	
+	const { isEditing, setIsEditing } = useEditableState();
 	const {
 		register, handleSubmit, formState: { errors }, reset
 	} = useForm<HealthMetricsType>({
 		resolver: zodResolver(HealthMetricsSchema),
 		reValidateMode: 'onBlur',
-		defaultValues: patient.healthMetrics
+		values: patient.healthMetrics
 	});
 
 	const onSubmit: SubmitHandler<HealthMetricsType> = (data) => {

@@ -4,27 +4,36 @@ import {
 	UpdateEmailSchema, UpdatePhoneNumberSchema, UpdatePasswordSchema,
 	UpdateEmailType, UpdatePhoneNumberType, UpdatePasswordType
 } from '@/schemas/userSchema';
+import { useAppSelector } from '@/hooks/useAppDispatch';
+import { useEditableState } from '@/hooks/useEditableState';
+import { User } from '@/lib/definitions';
 import InputWrapper from '@/components/inputWrapper';
-import FormActionButtons from '@/components/formActionButtons.tsx';
+import FormActionButtons from '@/components/formActionButtons';
 import { Card } from '@/ui';
 
 export default function Settings() {
+	const user = useAppSelector((state) => state.userSlice.user);
+	
 	return (
 		<div className={'space-y-12 md:space-y-16'}>
 			{/* todo: insert previous values for email and phone number */}
-			<ChangeEmail/>
-      <ChangePhoneNumber/>
+			<ChangeEmail user={user}/>
+      <ChangePhoneNumber user={user}/>
       <ChangePassword/>
 		</div>
 	);
 }
 
-function ChangeEmail() {
+function ChangeEmail({ user }: {
+	user: User
+}) {
+	const { isEditing, setIsEditing } = useEditableState();
 	const {
-		register, handleSubmit, formState: { errors }
+		register, handleSubmit, formState: { errors }, reset
 	} = useForm<UpdateEmailType>({
 		resolver: zodResolver(UpdateEmailSchema),
-		reValidateMode: 'onBlur'
+		reValidateMode: 'onBlur',
+		values: { email: user.email }
 	});
 	
 	const onSubmit: SubmitHandler<UpdateEmailType> = (data) => {
@@ -38,6 +47,7 @@ function ChangeEmail() {
 		    <Card.Content>
 			    <InputWrapper
 				    {...register('email')}
+						readOnly={!isEditing}
 				    conf={{
 					    label: 'New Email',
 					    placeholder: 'jane.doe@example.com'
@@ -47,19 +57,23 @@ function ChangeEmail() {
 			    />
         </Card.Content>
 		    <Card.Footer>
-			    <FormActionButtons/>
+					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
 		    </Card.Footer>
 	    </Card>
     </form>
   );
 }
 
-function ChangePhoneNumber() {
+function ChangePhoneNumber({ user }: {
+	user: User
+}) {
+	const { isEditing, setIsEditing } = useEditableState();
 	const {
-		register, handleSubmit, formState: { errors }
+		register, handleSubmit, formState: { errors }, reset
 	} = useForm<UpdatePhoneNumberType>({
 		resolver: zodResolver(UpdatePhoneNumberSchema),
-		reValidateMode: 'onBlur'
+		reValidateMode: 'onBlur',
+		values: { phoneNumber: user.phoneNumber }
 	});
 	
 	const onSubmit: SubmitHandler<UpdatePhoneNumberType> = (data) => {
@@ -73,6 +87,7 @@ function ChangePhoneNumber() {
 				<Card.Content>
 					<InputWrapper
 						{...register('phoneNumber')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'New Phone number',
 							placeholder: '(123) 456-7890'
@@ -82,7 +97,7 @@ function ChangePhoneNumber() {
 					/>
 				</Card.Content>
 				<Card.Footer>
-					<FormActionButtons/>
+					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
 				</Card.Footer>
 			</Card>
 		</form>
@@ -90,8 +105,9 @@ function ChangePhoneNumber() {
 }
 
 function ChangePassword() {
+	const { isEditing, setIsEditing } = useEditableState();
 	const {
-		register, handleSubmit, formState: { errors }
+		register, handleSubmit, formState: { errors }, reset
 	} = useForm<UpdatePasswordType>({
 		resolver: zodResolver(UpdatePasswordSchema),
 		reValidateMode: 'onBlur'
@@ -109,6 +125,7 @@ function ChangePassword() {
 					{/* new password */}
 					<InputWrapper
 						{...register('password')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'New Password',
 							placeholder: '******'
@@ -120,6 +137,7 @@ function ChangePassword() {
 					{/* confirmed password */}
 					<InputWrapper
 						{...register('confirmPassword')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Confirm Password',
 							placeholder: '******'
@@ -129,7 +147,7 @@ function ChangePassword() {
 					/>
 				</Card.Content>
 				<Card.Footer>
-					<FormActionButtons/>
+					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
 				</Card.Footer>
 			</Card>
 		</form>

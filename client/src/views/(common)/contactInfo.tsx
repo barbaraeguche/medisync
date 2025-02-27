@@ -3,26 +3,38 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	AddressSchema, EmergencyContactSchema, AddressType, EmergencyContactType
 } from '@/schemas/userSchema';
-import { provinceOptions } from '@/utils/constants';
+import { useAppSelector } from '@/hooks/useAppDispatch';
+import { useEditableState } from '@/hooks/useEditableState';
+import { provinces, provinceOptions } from '@/utils/constants';
+import { User } from '@/lib/definitions';
 import InputWrapper from '@/components/inputWrapper';
-import FormActionButtons from '@/components/formActionButtons.tsx';
+import FormActionButtons from '@/components/formActionButtons';
 import { Card, Select } from '@/ui/index';
 
 export default function ContactInfo() {
+	const user = useAppSelector((state) => state.userSlice.user);
+	
 	return (
 		<div className={'space-y-12 md:space-y-16'}>
-			<Address/>
-			<EmergencyContact/>
+			<Address user={user}/>
+			<EmergencyContact user={user}/>
 		</div>
 	);
 }
 
-function Address() {
+function Address({ user }: {
+	user: User
+}) {
+	const { isEditing, setIsEditing } = useEditableState();
 	const {
-		register, handleSubmit, formState: { errors }, control
+		register, handleSubmit, formState: { errors }, control, reset
 	} = useForm<AddressType>({
 		resolver: zodResolver(AddressSchema),
-		reValidateMode: 'onBlur'
+		reValidateMode: 'onBlur',
+		values = {
+			...user.address,
+			province: user.address?.province as (typeof provinces)[number]
+		}
 	});
 
 	const onSubmit: SubmitHandler<AddressType> = (data) => {
@@ -38,6 +50,7 @@ function Address() {
 					{/* street */}
 					<InputWrapper
 						{...register('street')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Street (Optional)',
 							placeholder: '123 Main St'
@@ -49,6 +62,7 @@ function Address() {
 					{/* city */}
 					<InputWrapper
 						{...register('city')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'City (Optional)',
 							placeholder: 'Vancouver'
@@ -59,9 +73,11 @@ function Address() {
 	
 					{/* province */}
 					<Select
+						disabled={!isEditing}
 						conf={{
 							label: 'Province',
-							placeholder: 'Select your province'
+							placeholder: 'Select your province',
+							readOnly: !isEditing
 						}}
 						name={'province'}
 						control={control}
@@ -72,6 +88,7 @@ function Address() {
 					{/* postal code */}
 					<InputWrapper
 						{...register('postalCode')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Postal Code',
 							placeholder: 'V6B 2K8'
@@ -83,6 +100,7 @@ function Address() {
 					{/* country */}
 					<InputWrapper
 						{...register('country')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Country',
 							placeholder: 'Canada'
@@ -93,19 +111,23 @@ function Address() {
 				</Card.Content>
 				
 				<Card.Footer>
-					<FormActionButtons/>
+					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
 				</Card.Footer>
 			</Card>
 		</form>
 	);
 }
 
-function EmergencyContact() {
+function EmergencyContact({ user }: {
+	user: User
+}) {
+	const { isEditing, setIsEditing } = useEditableState();
 	const {
-		register, handleSubmit, formState: { errors }
+		register, handleSubmit, formState: { errors }, reset
 	} = useForm<EmergencyContactType>({
 		resolver: zodResolver(EmergencyContactSchema),
-		reValidateMode: 'onBlur'
+		reValidateMode: 'onBlur',
+		values: user.emergencyContact
 	});
 
 	const onSubmit: SubmitHandler<EmergencyContactType> = (data) => {
@@ -121,6 +143,7 @@ function EmergencyContact() {
 					{/* name */}
 					<InputWrapper
 						{...register('name')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Contact Name',
 							placeholder: 'Steve Dave'
@@ -132,6 +155,7 @@ function EmergencyContact() {
 					{/* relationship */}
 					<InputWrapper
 						{...register('relationship')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Relationship to User (Optional)',
 							placeholder: 'Spouse'
@@ -143,6 +167,7 @@ function EmergencyContact() {
 					{/* email */}
 					<InputWrapper
 						{...register('email')}
+						readOnly={!isEditing}
 						conf={{
 							label: 'Contact Email',
 							placeholder: 'steve.dave@example.com'
@@ -153,7 +178,7 @@ function EmergencyContact() {
 				</Card.Content>
 				
 				<Card.Footer>
-          <FormActionButtons/>
+					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
         </Card.Footer>
       </Card>
 		</form>
