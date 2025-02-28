@@ -1,28 +1,74 @@
-import { apiClient } from '@/utils/axiosConfig.ts';
-import { Doctor } from '@/lib/definitions.ts';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { apiClient } from '@/utils/axiosConfig';
+import { Doctor, Practitioner } from '@/lib/definitions';
 
-export const getDoctor = async (id: string) => {
-	const endpoint = `/doctor/${id}`;
+const mainPath = 'doctors';
 
-	return await apiClient.get(endpoint);
-};
+export const fetchDoctor = createAsyncThunk(
+	'doctor/fetchDoctor',
+	async (id: string, { rejectWithValue }) => {
+		try {
+      const response = await apiClient.get(`/${mainPath}/${id}`);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || 'Failed to fetch doctor');
+    }
+	}
+);
 
-export const createDoctor = async (doctor: Doctor) => {
-	const endpoint = `/doctor`;
-	
-	return await apiClient.post(endpoint, doctor);
-};
+export const fetchDoctors = createAsyncThunk(
+	'doctor/fetchDoctors',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await apiClient.get(`/${mainPath}`);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || 'Failed to fetch all doctors');
+    }
+  }
+);
 
-export const replaceDoctor = async (doctor: Doctor) => {
-	const endpoint = `/doctor/${doctor._id}`;
-	
-	return await apiClient.put(endpoint, doctor);
-};
+export const saveDoctor = createAsyncThunk(
+	'doctor/saveDoctor',
+  async (
+		{ id, practitioner }: { id: string, practitioner: Partial<Practitioner> },
+		{ rejectWithValue }
+	) => {
+    try {
+      const response = await apiClient.put(`/${mainPath}/${id}/practitioner`, practitioner);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || 'Failed to save doctor role information');
+    }
+  }
+);
 
-export const deleteDoctor = async (id: string) => {
-	const endpoint = `/doctor/${id}`;
-	
-	return await apiClient.delete(endpoint);
-};
+export const saveEducation = createAsyncThunk(
+	'doctor/saveEducation',
+  async (
+    { id, education }: { id: string, education: Practitioner['education'] },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await apiClient.put(`/${mainPath}/${id}/practitioner/education`, education);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || 'Failed to save doctor education information');
+    }
+  }
+);
 
-// implement dispatch to update global states
+export const saveAvailability = createAsyncThunk(
+	'doctor/saveAvailability',
+  async (
+    { id, availability }: { id: string, availability: Doctor['availabilities'] },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await apiClient.put(`/${mainPath}/${id}/availability`, availability);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || 'Failed to save doctor availability');
+    }
+  }
+);
