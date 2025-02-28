@@ -40,6 +40,21 @@ export const savePatient = createAsyncThunk(
   }
 );
 
+export const saveHealthMetrics = createAsyncThunk(
+  'patient/saveHealthMetrics',
+  async (
+    { id, healthMetrics }: { id: string, healthMetrics: Patient['healthMetrics'] },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await apiClient.put(`/${mainPath}/${id}/healthMetrics`, healthMetrics);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || 'Failed to save health metrics');
+    }
+  }
+);
+
 export const saveAppointment = createAsyncThunk(
 	'patient/saveAppointment',
   async (
@@ -51,21 +66,6 @@ export const saveAppointment = createAsyncThunk(
       return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Failed to save appointment');
-    }
-  }
-);
-
-export const saveHealthMetrics = createAsyncThunk(
-	'patient/saveHealthMetrics',
-  async (
-    { id, healthMetrics }: { id: string, healthMetrics: Patient['healthMetrics'] },
-    { rejectWithValue }
-  ) => {
-    try {
-      const response = await apiClient.put(`/${mainPath}/${id}/healthMetrics`, healthMetrics);
-      return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || 'Failed to save health metrics');
     }
   }
 );

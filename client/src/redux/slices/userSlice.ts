@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
 	fetchUser, fetchUsers, saveUser, saveAddress, saveEmergencyContact, deleteUser
 } from '@/redux/thunks/userThunk';
-import { userInitState } from '@/redux/initialStates';
 import { User } from '@/lib/definitions';
 import { ThunkStatus, ThunkError } from '@/lib/types';
+import { userInitState } from '@/redux/initialStates';
 
 interface UserState {
 	user: User;
