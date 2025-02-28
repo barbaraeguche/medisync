@@ -1,7 +1,8 @@
+import { saveUser } from '@/redux/thunks/userThunk';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userFullNameSchema, UserFullNameType } from '@/schemas/userSchema';
-import { useAppSelector } from '@/hooks/useAppDispatch.ts';
+import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch.ts';
 import { useEditableState } from '@/hooks/useEditableState.ts';
 import InputWrapper from '@/components/inputWrapper';
 import FormActionButtons from '@/components/formActionButtons.tsx';
@@ -9,6 +10,7 @@ import { Card } from '@/ui/index';
 
 export default function UserInfo() {
 	const { isEditing, setIsEditing } = useEditableState();
+	const dispatch = useAppDispatch();
 	const user = useAppSelector((state) => state.userSlice.user);
 	
 	const {
@@ -21,6 +23,7 @@ export default function UserInfo() {
 	
 	const onSubmit: SubmitHandler<UserFullNameType> = (data) => {
 		console.log(data);
+		dispatch(saveUser(data));
 		setIsEditing(false);
   };
 

@@ -42,26 +42,28 @@ const baseApptColumns: ColumnDef<Appointments>[] = [
 ];
 
 export const patientApptColumn: ColumnDef<Appointments>[] = [...baseApptColumns];
-patientApptColumn.splice(patientApptColumn.length, 0, {
-	accessorKey: 'doctorId',
-	header: 'Doctor',
-	cell: ({ row }) => {
-		return <div>Dr. {row.getValue('doctorId')}</div>;
+patientApptColumn.splice(patientApptColumn.length, 0,
+	{
+		accessorKey: 'doctorId',
+		header: 'Doctor',
+		cell: ({ row }) => {
+			return <div>Dr. {row.getValue('doctorId')}</div>;
+		}
+	},
+	{
+		id: 'actions',
+		cell: ({ row }) => {
+			const appointment = row.original;
+			const upcomingAppointment = !isToday(appointment.date) && isAfter(appointment.date, new Date());
+			
+			return (
+				<>
+					{upcomingAppointment && <DeleteAppointment id={appointment._id}/>}
+				</>
+			);
+		}
 	}
-});
-patientApptColumn.splice(patientApptColumn.length, 0, {
-	id: 'actions',
-	cell: ({ row }) => {
-		const appointment = row.original;
-		const upcomingAppointment = !isToday(appointment.date) && isAfter(appointment.date, new Date());
-		
-		return (
-			<>
-				{upcomingAppointment && <DeleteAppointment id={appointment._id}/>}
-			</>
-		);
-	}
-})
+);
 
 export const doctorApptColumn: ColumnDef<Appointments>[] = [...baseApptColumns];
 doctorApptColumn.splice(1, 0, {

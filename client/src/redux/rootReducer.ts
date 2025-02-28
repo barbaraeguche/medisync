@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import userSlice from '@/redux/reducers/userSlice';
-import doctorSlice from '@/redux/reducers/doctorSlice';
-import patientSlice from '@/redux/reducers/patientSlice';
+import userSlice from '@/redux/slices/userSlice';
+import doctorSlice from '@/redux/slices/doctorSlice';
+import patientSlice from '@/redux/slices/patientSlice';
 
 const rootReducer = combineReducers({
 	userSlice,

@@ -10,6 +10,7 @@ export const apiClient: AxiosInstance = axios.create({
 	}
 });
 
+// todo: use local storage
 apiClient.interceptors.request.use((config) => {
 	const token = document.cookie
 		.split(';')

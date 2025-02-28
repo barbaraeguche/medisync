@@ -13,6 +13,7 @@ export default tseslint.config(
       globals: globals.browser,
     },
     plugins: {
+      '@typescript-eslint': tseslint.plugin,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
@@ -22,6 +23,7 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      '@typescript-eslint/no-explicit-any': 'off'
     },
   },
 )
