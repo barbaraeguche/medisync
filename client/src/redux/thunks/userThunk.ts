@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { apiClient } from '@/utils/axiosConfig.ts';
-import { User } from '@/lib/definitions.ts';
+import { apiClient } from '@/utils/axiosConfig';
+import { User } from '@/lib/definitions';
 
 const mainPath = 'users';
 
