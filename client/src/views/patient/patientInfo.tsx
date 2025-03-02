@@ -171,8 +171,8 @@ function HealthMetrics({ patient }: {
 						type={'number'}
 						readOnly={!isEditing}
 						conf={{
-							label: 'Weight (kg)',
-							placeholder: '75'
+							label: 'Weight (lbs)',
+							placeholder: '75' // todo: this was in kg, should be in lbs
 						}}
 						name={'weight'}
 						error={errors.weight}

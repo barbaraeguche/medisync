@@ -7,8 +7,8 @@ export interface User {
 	email: string;
 	password: string;
 	phoneNumber: string;
-	gender: 'Male' | 'Female' | '';
-	role: 'Admin' | 'Doctor' | 'Patient' | '';
+	gender: 'Male' | 'Female' | 'N/A';
+	role: 'Admin' | 'Doctor' | 'Patient' | 'N/A';
 	address?: {
 		street?: string;
 		city?: string;
@@ -40,17 +40,17 @@ export interface Patient {
 	user: User;
 	dateOfBirth: Date;
 	allergies?: string;
-	bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | '';
+	bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | 'N/A';
 	insuranceProvider?: string;
 	insurancePolicyNumber?: string;
-	appointments?: Appointments[];
-	medicalHistory?: MedicalHistory[];
 	chronicConditions?: string;
 	healthMetrics?: {
 		height?: number;
 		weight?: number;
 		heartRate?: number;
 	};
+	medicalHistory?: MedicalHistory[];
+	appointments?: Appointments[];
 }
 
 export interface Practitioner {
@@ -68,6 +68,7 @@ export interface Practitioner {
 
 export interface MedicalHistory {
 	_id: number;
+	patientId: string;
 	diagnosis: string;
 	diagnosisDate: Date;
 	medications?: {
@@ -76,16 +77,15 @@ export interface MedicalHistory {
 		frequency: string;
 		duration: string;
 	}[];
-	patientId: string;
 }
 
 export interface Appointments {
 	_id: number;
-	date: Date;
-	time: string;
-	type: 'Checkup' | 'Follow Up' | 'Emergency' | 'Consultation' | '';
-	status: 'Scheduled' | 'Completed' | 'Cancelled' | '';
-	notes?: string;
 	doctorId: string;
 	patientId: string;
+	date: Date;
+	time: string;
+	type: 'Checkup' | 'Follow Up' | 'Emergency' | 'Consultation' | 'N/A';
+	status: 'Scheduled' | 'Completed' | 'Cancelled' | 'N/A';
+	notes?: string;
 }

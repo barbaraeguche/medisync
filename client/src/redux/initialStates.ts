@@ -9,7 +9,7 @@ export const userInitState: User = {
 	email: 'b',
 	password: '',
 	phoneNumber: '',
-	gender: '',
+	gender: 'N/A',
 	role: 'Patient',
 	address: {
 		street: '',
@@ -51,7 +51,7 @@ export const patientInitState: Patient = {
 	user: userInitState,
 	dateOfBirth: new Date('1900-01-01'),
   allergies: '',
-  bloodType: '',
+  bloodType: 'N/A',
   insuranceProvider: '',
   insurancePolicyNumber: '',
 	appointments: [],
@@ -76,8 +76,8 @@ export const appointmentInitState: Appointments = {
 	_id: 0,
   date: new Date('1900-01-01'),
   time: '',
-  type: '',
-  status: '',
+  type: 'N/A',
+  status: 'N/A',
   notes: '',
   doctorId: '',
   patientId: ''
