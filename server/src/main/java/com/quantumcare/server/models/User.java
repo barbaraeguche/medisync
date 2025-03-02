@@ -1,11 +1,11 @@
 package com.quantumcare.server.models;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
@@ -17,7 +17,7 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID id;
+	private UUID _id;
 	
 	@NonNull
 	@Column(nullable = false)
@@ -39,10 +39,14 @@ public class User {
 	@NotEmpty(message = "Password must be provided")
 	private String password;
 	
-	private LocalDate dateOfBirth = LocalDate.of(1900, 1, 1);
+	@Column(unique = true)
+	private String phoneNumber = "";
 	
+	@NonNull
 	@Enumerated(EnumType.STRING)
-	private Gender gender = Gender.undisclosed;
+	@Column(updatable = false, nullable = false)
+	@NotNull(message = "Gender must be specified")
+	private Gender gender;
 	
 	@NonNull
 	@Enumerated(EnumType.STRING)
@@ -60,15 +64,35 @@ public class User {
 	
 	
 	// ------------------------ HELPERS ------------------------ //
-	public enum Gender { male, female, undisclosed }
-	public enum Role { doctor, nurse, patient }
+	public enum Gender { Male, Female }
+	public enum Role { Admin, Doctor, Patient }
 	
 	@Data
 	@Embeddable
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class Address {
-		private String street = "", city = "", province = "", postalCode = "", country = "";
+		private enum Province {
+			AB("Alberta"), BC("British Columbia"), MB("Manitoba"), NB("New Brunswick"), NL("Newfoundland and Labrador"),
+			NS("Nova Scotia"), NT("Northwest Territories"), NU("Nunavut"), ON("Ontario"), PE("Prince Edward Island"),
+			QC("Quebec"), SK("Saskatchewan"), YT("Yukon");
+			
+			private final String province;
+			
+			Province(String province) {
+				this.province = province;
+			}
+			
+			@JsonValue
+			public String getProvince() {
+				return this.province;
+			}
+		}
+		
+		private String street = "", city = "", postalCode = "", country = "Canada";
+		
+		@Enumerated(EnumType.STRING)
+		Province province = Province.QC;
 	}
 	
 	@Data

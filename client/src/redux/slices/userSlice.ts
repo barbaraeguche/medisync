@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-	fetchUser, fetchUsers, saveUser, saveAddress, saveEmergencyContact, deleteUser
+	fetchUser, fetchUsers, saveUser, deleteUser
 } from '@/redux/thunks/userThunk';
 import { User } from '@/lib/definitions';
 import { ThunkStatus, ThunkError } from '@/lib/types';
@@ -69,38 +69,6 @@ const userSlice = createSlice({
 				};
 			})
 			.addCase(saveUser.rejected, (state, action) => {
-				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
-			})
-			
-			// saveAddress
-			.addCase(saveAddress.pending, (state) => {
-				state.status = 'pending';
-			})
-			.addCase(saveAddress.fulfilled, (state, action: PayloadAction<NonNullable<User['address']>>) => {
-				state.status = 'fulfilled';
-				state.user.address = {
-					...state.user.address,
-					...action.payload
-				};
-			})
-			.addCase(saveAddress.rejected, (state, action) => {
-				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
-			})
-			
-			// saveEmergencyContact
-			.addCase(saveEmergencyContact.pending, (state) => {
-				state.status = 'pending';
-			})
-			.addCase(saveEmergencyContact.fulfilled, (state, action: PayloadAction<NonNullable<User['emergencyContact']>>) => {
-				state.status = 'fulfilled';
-				state.user.emergencyContact = {
-					...state.user.emergencyContact,
-					...action.payload
-				};
-			})
-			.addCase(saveEmergencyContact.rejected, (state, action) => {
 				state.status = 'rejected';
 				state.error = action.payload as unknown as string;
 			})

@@ -4,8 +4,8 @@ export const yyyy_MM_dd = 'yyyy-MM-dd';
 export const numFieldConstraints = ['Must be greater than', 'Must be less than'];
 
 export const provinces = [
-	'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories',
-	'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon'
+	'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Nova Scotia',
+	'Northwest Territories', 'Nunavut', 'Ontario', 'Prince Edward Island', 'Quebec', 'Saskatchewan', 'Yukon'
 ] as const;
 export const genders = [ 'Male', 'Female' ] as const;
 export const roles = [ 'Admin', 'Doctor', 'Patient' ] as const;

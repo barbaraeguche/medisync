@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController {
 	
 	private final UserService userService;
@@ -22,10 +23,22 @@ public class UserController {
 	}
 	
 	@GetMapping("/{id}")
-	public User getUser(@PathVariable UUID id) {
-		// if not id is sent or id does not exist in database, send a 404 error
+	public User getUserById(@PathVariable UUID id) {
+		// if id is null or id does not exist in db, send a 404 error
 		validateUserId(id);
 		return userService.getUserById(id);
+	}
+	
+	@GetMapping("/email/{email}")
+	public User findUserByEmail(@PathVariable String email) {
+		// during login
+		return userService.findUserByEmail(email);
+	}
+	
+	@GetMapping
+	public List<User> getAllUsers() {
+		// during login
+		return userService.getAllUsers();
 	}
 	
 	@PostMapping
@@ -39,26 +52,10 @@ public class UserController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<String> replaceUser(@PathVariable UUID id, @Valid @RequestBody User user) {
+	public ResponseEntity<String> replaceUser(@PathVariable UUID id, @RequestBody User user) {
 		try {
-			User currUser = getUser(id);
+			User currUser = getUserById(id);
 			userService.putUser(currUser, user);
-			return ResponseEntity.ok("User updated successfully");
-		} catch (Exception exp) {
-			return ResponseEntity.internalServerError().body("Failed to update user: " + exp.getMessage());
-		}
-	}
-	
-	@PatchMapping("/{path}/{id}")
-	public ResponseEntity<String> updateUser(@PathVariable String path, @PathVariable UUID id, @RequestBody User user) {
-		try {
-			User currUser = getUser(id);
-   
-			if (path.equalsIgnoreCase("address")) {
-				userService.patchAddress(currUser, user);
-			} else if (path.equalsIgnoreCase("emergency")) {
-				userService.patchEmergencyContact(currUser, user);
-			}
 			return ResponseEntity.ok("User updated successfully");
 		} catch (Exception exp) {
 			return ResponseEntity.internalServerError().body("Failed to update user: " + exp.getMessage());
@@ -68,7 +65,7 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteUser(@PathVariable UUID id) {
 		try {
-			User currUser = getUser(id);
+			User currUser = getUserById(id);
 			userService.deleteUser(currUser);
 			return ResponseEntity.ok("User deleted successfully");
 		} catch (Exception exp) {

@@ -6,23 +6,33 @@ import com.quantumcare.server.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
 public class UserService {
 	
-	private final UserRepository userRepository;
 	private final UserFactory userFactory;
+	private final UserRepository userRepository;
 	
 	@Autowired
-	public UserService(UserRepository userRepository, UserFactory userFactory) {
-		this.userRepository = userRepository;
+	public UserService(UserFactory userFactory, UserRepository userRepository) {
 		this.userFactory = userFactory;
+		this.userRepository = userRepository;
 	}
 	
 	public User getUserById(UUID id) {
 		return userRepository.findById(id).orElse(null);
   }
+	
+	// for authentication
+	public User findUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+	
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
 	
 	public void postUser(User reqUser) {
 		User user = userFactory.createUser(reqUser);
@@ -31,15 +41,6 @@ public class UserService {
 	
 	public void putUser(User prevUser, User currUser) {
 		userFactory.updateUser(prevUser, currUser);
-		userRepository.save(prevUser);
-	}
-	
-	public void patchAddress(User prevUser, User currUser) {
-    userFactory.updateAddress(prevUser, currUser);
-    userRepository.save(prevUser);
-  }
-	public void patchEmergencyContact(User prevUser, User currUser) {
-		userFactory.updateEmergencyContact(prevUser, currUser);
 		userRepository.save(prevUser);
 	}
 	

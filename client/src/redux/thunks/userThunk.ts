@@ -40,36 +40,6 @@ export const saveUser = createAsyncThunk(
   }
 );
 
-export const saveAddress = createAsyncThunk(
-	'user/saveAddress',
-	async (
-		{ id, address }: { id: string, address: NonNullable<User['address']> },
-		{ rejectWithValue }
-	) => {
-		try {
-			const response = await apiClient.put(`/${mainPath}/${id}/address`, address);
-			return response.data;
-		} catch (err: any) {
-			return rejectWithValue(err.response?.data?.message || 'Failed to update address');
-		}
-	}
-);
-
-export const saveEmergencyContact = createAsyncThunk(
-	'user/saveEmergencyContact',
-	async (
-		{ id, emergencyContact }: { id: string, emergencyContact: NonNullable<User['emergencyContact']> },
-		{ rejectWithValue }
-	) => {
-		try {
-			const response = await apiClient.put(`/${mainPath}/${id}/emergencyContact`, emergencyContact);
-			return response.data;
-		} catch (err: any) {
-			return rejectWithValue(err.response?.data?.message || 'Failed to update emergency contact');
-		}
-	}
-);
-
 export const deleteUser = createAsyncThunk(
   'user/deleteUser',
   async (id: string, { rejectWithValue }) => {
