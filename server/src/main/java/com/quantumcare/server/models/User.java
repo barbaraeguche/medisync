@@ -10,9 +10,9 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "\"user\"")
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Table(name = "\"user\"")
 public class User {
 	
 	@Id

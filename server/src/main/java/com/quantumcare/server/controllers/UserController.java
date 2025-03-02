@@ -37,7 +37,6 @@ public class UserController {
 	
 	@GetMapping
 	public List<User> getAllUsers() {
-		// during login
 		return userService.getAllUsers();
 	}
 	
@@ -52,7 +51,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<String> replaceUser(@PathVariable UUID id, @RequestBody User user) {
+	public ResponseEntity<String> updateUser(@PathVariable UUID id, @RequestBody User user) {
 		try {
 			User currUser = getUserById(id);
 			userService.putUser(currUser, user);

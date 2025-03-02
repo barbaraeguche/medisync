@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/doctor")
+@RequestMapping("/api/doctors")
 public class DoctorController {
 	
 	private final DoctorService doctorService;
@@ -22,11 +23,16 @@ public class DoctorController {
   }
 	
 	@GetMapping("/{id}")
-	public Doctor getDoctor(@PathVariable UUID id) {
-		// if not id is sent or id does not exist in database, send a 404 error
-		validateDoctorId(id);
-		return doctorService.getDoctorById(id);
-	}
+	public Doctor getDoctorById(@PathVariable UUID id) {
+		// if id is null or id does not exist in doctor db, send a 404 error
+    validateDoctorId(id);
+    return doctorService.getDoctorById(id);
+  }
+	
+	@GetMapping
+	public List<Doctor> getAllDoctors() {
+    return doctorService.getAllDoctors();
+  }
 	
 	@PostMapping
 	public ResponseEntity<String> createDoctor(@Valid @RequestBody Doctor doctor) {
@@ -38,22 +44,34 @@ public class DoctorController {
 		}
 	}
 	
-//	@PutMapping("/{doctorId}")
-//	public ResponseEntity<String> replaceDoctor(@PathVariable UUID doctorId, @RequestBody Doctor doctor) {
-//		try {
-//			doctorService.addDoctor(doctor);
-//			return ResponseEntity.ok("Doctor updated successfully");
-//		} catch (Exception exp) {
-//			return ResponseEntity.internalServerError().body("Failed to update doctor: " + exp.getMessage());
-//		}
-//	}
-
+	@PutMapping("/{id}")
+	public ResponseEntity<String> updateDoctor(@PathVariable UUID id, @RequestBody Doctor doctor) {
+		try {
+			Doctor currDoctor = getDoctorById(id);
+			doctorService.putDoctor(currDoctor, doctor);
+			return ResponseEntity.ok("Doctor updated successfully");
+		} catch (Exception exp) {
+			return ResponseEntity.internalServerError().body("Failed to update doctor: " + exp.getMessage());
+		}
+	}
+	
+	@PutMapping("/{id}/availability")
+	public ResponseEntity<String> updateAvailability(@PathVariable UUID id, @Valid @RequestBody List<Doctor.Availabilities> availabilities) {
+		try {
+			Doctor currDoctor = getDoctorById(id);
+			doctorService.updateAvailabilities(currDoctor, availabilities);
+			return ResponseEntity.ok("Availability updated successfully");
+		} catch (Exception exp) {
+			return ResponseEntity.internalServerError().body("Failed to update availability: " + exp.getMessage());
+		}
+	}
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteDoctor(@PathVariable UUID id) {
 		try {
-			Doctor currDoctor = getDoctor(id);
+			Doctor currDoctor = getDoctorById(id);
 			doctorService.deleteDoctor(currDoctor);
-			return ResponseEntity.ok("Doctor deleted successfully");
+			return ResponseEntity.ok("Doctor updated successfully");
 		} catch (Exception exp) {
 			return ResponseEntity.internalServerError().body("Failed to delete doctor: " + exp.getMessage());
 		}

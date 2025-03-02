@@ -7,37 +7,36 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "doctor")
 @NoArgsConstructor
+@Table(name = "doctor")
 @RequiredArgsConstructor
 public class Doctor {
-
+	
 	@Id
 	@Column(name = "user_id")
-	private UUID id;
+	private UUID _id;
 	
 	@MapsId
 	@NonNull
 	@OneToOne(cascade = CascadeType.ALL)
-	@NotNull(message = "Basic details must be provided")
 	@JoinColumn(name = "user_id", nullable = false)
+	@NotNull(message = "Basic details must be provided")
 	private User user;
 	
 	@NonNull
 	@OneToOne(cascade = CascadeType.ALL)
-	@NotNull(message = "Practitioner details must be provided")
 	@JoinColumn(name = "practitioner_id", nullable = false)
+	@NotNull(message = "Practitioner details must be provided")
 	private Practitioner practitioner;
 	
 	@ElementCollection
-	@CollectionTable(name = "doctor_availabilities", joinColumns = @JoinColumn(name = "doctor_id"))
-	private List<DoctorAvailabilities> doctorAvailabilities;
+	@CollectionTable(name = "availabilities", joinColumns = @JoinColumn(name = "doctor_id"))
+	private List<Availabilities> availabilities;
 	
 	@OneToMany(mappedBy = "doctorId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Appointments> appointments;
@@ -48,9 +47,9 @@ public class Doctor {
 	@Embeddable
 	@NoArgsConstructor
 	@AllArgsConstructor
-	public static class DoctorAvailabilities {
-		private LocalDate day;
-		private LocalTime startTime, endTime;
+	public static class Availabilities {
+		private LocalDate date;
+		private String startTime, endTime;
 	}
 	// ---------------------- END HELPERS ---------------------- //
 }

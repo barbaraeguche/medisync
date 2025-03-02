@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-	fetchDoctor, fetchDoctors, saveDoctor, saveEducation, saveAvailability
+	fetchDoctor, fetchDoctors, saveDoctor, saveAvailability, deleteDoctor
 } from '@/redux/thunks/doctorThunk';
 import { Doctor, Practitioner } from '@/lib/definitions';
 import { ThunkStatus, ThunkError } from '@/lib/types';
@@ -73,34 +73,33 @@ const doctorSlice = createSlice({
 				state.error = action.payload as unknown as string;
 			})
 			
-			// saveEducation
-			.addCase(saveEducation.pending, (state) => {
-				state.status = 'pending';
-			})
-			.addCase(saveEducation.fulfilled, (state, action: PayloadAction<NonNullable<Practitioner['education']>>) => {
-				state.status = 'fulfilled';
-				state.doctor.practitioner.education = {
-					...state.doctor.practitioner.education,
-					...action.payload
-				}
-			})
-			.addCase(saveEducation.rejected, (state, action) => {
-				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
-			})
-			
 			// saveAvailability
 			.addCase(saveAvailability.pending, (state) => {
 				state.status = 'pending';
 			})
-			.addCase(saveAvailability.fulfilled, (state, action: PayloadAction<NonNullable<Doctor['availabilities']>>) => {
+			.addCase(saveAvailability.fulfilled, (state, action: PayloadAction<Doctor['availabilities']>) => {
 				state.status = 'fulfilled';
-				state.doctor.availabilities = {
-					...state.doctor.availabilities,
-					...action.payload
-				}
+				state.doctor.availabilities = action.payload;
 			})
 			.addCase(saveAvailability.rejected, (state, action) => {
+				state.status = 'rejected';
+				state.error = action.payload as unknown as string;
+			})
+			
+			// deleteDoctor
+			.addCase(deleteDoctor.pending, (state) => {
+				state.status = 'pending';
+			})
+			.addCase(deleteDoctor.fulfilled, (state, action: PayloadAction<string>) => {
+				state.status = 'fulfilled';
+				state.doctors = state.doctors.filter((doctor) => doctor._id !== action.payload);
+				
+				// reset the current doctor if it was deleted
+				if (state.doctor._id === action.payload) {
+					state.doctor = doctorInitState;
+				}
+			})
+			.addCase(deleteDoctor.rejected, (state, action) => {
 				state.status = 'rejected';
 				state.error = action.payload as unknown as string;
 			})

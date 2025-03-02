@@ -79,6 +79,7 @@ const userSlice = createSlice({
 			})
 			.addCase(deleteUser.fulfilled, (state, action: PayloadAction<string>) => {
 				state.status = 'fulfilled';
+				state.users = state.users.filter((user) => user._id !== action.payload);
 				
 				// reset the current user if it was deleted
 				if (state.user._id === action.payload) {
