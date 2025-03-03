@@ -35,9 +35,11 @@ public class Doctor {
 	private Practitioner practitioner;
 	
 	@ElementCollection
+	@OrderBy("date, startTime, endTime")
 	@CollectionTable(name = "availabilities", joinColumns = @JoinColumn(name = "doctor_id"))
 	private List<Availabilities> availabilities;
 	
+	@OrderBy("date, time")
 	@OneToMany(mappedBy = "doctorId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Appointments> appointments;
 	

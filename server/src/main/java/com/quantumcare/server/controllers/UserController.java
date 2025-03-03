@@ -51,7 +51,9 @@ public class UserController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateUser(@PathVariable UUID id, @RequestBody User user) {
+	public ResponseEntity<String> updateUser(
+		@PathVariable UUID id, @RequestBody User user
+	) {
 		try {
 			User currUser = getUserById(id);
 			userService.putUser(currUser, user);

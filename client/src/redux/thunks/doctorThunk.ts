@@ -58,7 +58,6 @@ export const saveAvailability = createAsyncThunk(
   }
 );
 
-
 export const deleteDoctor = createAsyncThunk(
 	'user/deleteDoctor',
 	async (id: string, { rejectWithValue }) => {

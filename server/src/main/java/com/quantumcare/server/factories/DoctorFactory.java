@@ -13,7 +13,9 @@ import java.util.stream.Collectors;
 @Component
 public class DoctorFactory {
 	public Doctor createDoctor(User user, Practitioner practitioner) {
-		return new Doctor(user, practitioner);
+		return new Doctor(
+			user, createPractitioner(practitioner)
+		);
 	}
 	
 	public List<Doctor.Availabilities> createAvailabilities(List<Doctor.Availabilities> reqAvailabilities) {
@@ -24,14 +26,14 @@ public class DoctorFactory {
 			.collect(Collectors.toList());
 	}
 	
-	public Practitioner createPractitioner(Practitioner reqPractitioner) {
+	private Practitioner createPractitioner(Practitioner reqPractitioner) {
 		return new Practitioner(
 			reqPractitioner.getLicenseNumber(), reqPractitioner.getSpecialization(), reqPractitioner.getYearsOfExperience(),
 			reqPractitioner.getLanguages(), createEducation(reqPractitioner)
 		);
 	}
 	
-	public Practitioner.Education createEducation(Practitioner reqPractitioner) {
+	private Practitioner.Education createEducation(Practitioner reqPractitioner) {
 		return Optional.ofNullable(reqPractitioner.getEducation())
 			.map((education) -> new Practitioner.Education(
 				education.getDegree(), education.getInstitution(), education.getGraduationYear()

@@ -10,7 +10,7 @@ export const DeleteAppointment = ({ id }: {
       variant={'destructive'}
       className={'shadow-none bg-transparent hover:bg-transparent text-red-600 hover:text-red-400'}
       onClick={() => {
-        // todo: this should delete the appointment
+        // todo: this should edit the appointment
         // deleteAppointment(id);
 	      console.log(id);
       }}

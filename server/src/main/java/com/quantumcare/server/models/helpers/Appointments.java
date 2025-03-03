@@ -1,14 +1,13 @@
 package com.quantumcare.server.models.helpers;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.quantumcare.server.models.Doctor;
-//import com.quantumcare.server.models.Patient;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -23,14 +22,12 @@ public class Appointments {
   private Long _id;
 	
 	@NonNull
-	@ManyToOne
-	@JoinColumn(name = "doctor_id", nullable = false)
-	Doctor doctorId;
+	@Column(name = "doctor_id", nullable = false)
+	private UUID doctorId;
 	
-//	@NonNull
-//	@ManyToOne
-//	@JoinColumn(name = "patient_id", nullable = false)
-//	Patient patientId;
+	@NonNull
+	@Column(name = "patient_id", nullable = false)
+	private UUID patientId;
 	
 	@NonNull
 	@Column(nullable = false)
@@ -46,12 +43,11 @@ public class Appointments {
 	@NotNull(message = "Appointment type must be specified")
 	private Type type;
 	
-	@NonNull
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	@NotNull(message = "Appointment status must be specified")
-	private Status status;
+	private Status status = Status.Scheduled;
 	
+	@NonNull
 	private String notes = "";
 	
 	

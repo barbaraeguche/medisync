@@ -32,33 +32,33 @@ export const savePatient = createAsyncThunk(
 	'patient/savePatient',
   async (patient: Partial<Patient>, { rejectWithValue }) => {
     try {
-      const response = await apiClient.put(`/${mainPath}/${patient._id}`, patient);
-      return response.data;
+      await apiClient.put(`/${mainPath}/${patient._id}`, patient);
+      return patient;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Failed to save patient');
     }
   }
 );
 
-export const saveHealthMetrics = createAsyncThunk(
-  'patient/saveHealthMetrics',
+export const createAppointment = createAsyncThunk(
+	'patient/createAppointment',
   async (
-    { id, healthMetrics }: { id: string, healthMetrics: Patient['healthMetrics'] },
-    { rejectWithValue }
-  ) => {
+		{ id, appointment }: { id: string, appointment: Appointments },
+		{ rejectWithValue }
+	) => {
     try {
-      const response = await apiClient.put(`/${mainPath}/${id}/healthMetrics`, healthMetrics);
+      const response = await apiClient.post(`/${mainPath}/${id}/appointments`, appointment);
       return response.data;
     } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || 'Failed to save health metrics');
+      return rejectWithValue(err.response?.data?.message || 'Failed to create appointment');
     }
   }
 );
 
 export const saveAppointment = createAsyncThunk(
-	'patient/saveAppointment',
+  'patient/saveAppointment',
   async (
-		{ id, appointment }: { id: string, appointment: Appointments[] },
+		{ id, appointment }: { id: string, appointment: Appointments },
 		{ rejectWithValue }
 	) => {
     try {
@@ -66,6 +66,18 @@ export const saveAppointment = createAsyncThunk(
       return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Failed to save appointment');
+    }
+  }
+);
+
+export const deletePatient = createAsyncThunk(
+  'user/deletePatient',
+  async (id: string, { rejectWithValue }) => {
+    try {
+      await apiClient.delete(`${mainPath}/${id}`);
+      return id;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || 'Failed to delete user');
     }
   }
 );

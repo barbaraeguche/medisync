@@ -43,7 +43,7 @@ export default function BookAppointment() {
 	
 	// filter appointments by doctorId (or include those without a specified doctor)
 	const getDoctorDetails = useMemo(() => {
-		return doctors.filter(({ _id }) => doctorId === _id)[0];
+		return doctors.find(({ _id }) => doctorId === _id);
 	}, [doctors, doctorId]);
 	
 	// find all dates available dates for the chosen doctor
@@ -68,7 +68,7 @@ export default function BookAppointment() {
 		if (!getDoctorDetails || !getDoctorDetails.availabilities?.length) return [];
 		const timeSet = new Set<string>();
 
-		const uniqueSlots =  getDoctorDetails.availabilities
+		const timeSlots =  getDoctorDetails.availabilities
 			.filter(({ date }) =>
 				formatDate(date, yyyy_MM_dd) === appointmentDate)
 			.filter(({ startTime }) => {
@@ -78,7 +78,7 @@ export default function BookAppointment() {
 			});
 
 		// generate the differences
-		return uniqueSlots.flatMap(({ startTime, endTime }) =>
+		return timeSlots.flatMap(({ startTime, endTime }) =>
 			generateTimeSlots(endTime, startTime));
 	}, [getDoctorDetails, appointmentDate]);
 	

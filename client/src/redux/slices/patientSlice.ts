@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-	fetchPatient, fetchPatients, savePatient, saveHealthMetrics, saveAppointment
+	fetchPatient, fetchPatients, savePatient, createAppointment, saveAppointment, deletePatient
 } from '@/redux/thunks/patientThunk';
 import { Appointments, Patient } from '@/lib/definitions';
 import { ThunkStatus, ThunkError } from '@/lib/types';
@@ -74,18 +74,15 @@ const patientSlice = createSlice({
 				state.error = action.payload as unknown as string;
 			})
 			
-			// saveHealthMetrics
-			.addCase(saveHealthMetrics.pending, (state) => {
+			// createAppointment
+			.addCase(createAppointment.pending, (state) => {
 				state.status = 'pending';
 			})
-			.addCase(saveHealthMetrics.fulfilled, (state, action: PayloadAction<Patient['healthMetrics']>) => {
+			.addCase(createAppointment.fulfilled, (state, action: PayloadAction<Appointments>) => {
 				state.status = 'fulfilled';
-				state.patient.healthMetrics = {
-					...state.patient.healthMetrics,
-					...action.payload
-				};
+				(state.patient.appointments ??= []).push(action.payload);
 			})
-			.addCase(saveHealthMetrics.rejected, (state, action) => {
+			.addCase(createAppointment.rejected, (state, action) => {
 				state.status = 'rejected';
 				state.error = action.payload as unknown as string;
 			})
@@ -94,14 +91,29 @@ const patientSlice = createSlice({
 			.addCase(saveAppointment.pending, (state) => {
 				state.status = 'pending';
 			})
-			.addCase(saveAppointment.fulfilled, (state, action: PayloadAction<NonNullable<Appointments[]>>) => {
+			.addCase(saveAppointment.fulfilled, (state, action: PayloadAction<Appointments[]>) => {
 				state.status = 'fulfilled';
-				state.patient.appointments = {
-					...state.patient.appointments,
-					...action.payload
-				};
+				state.patient.appointments = action.payload;
 			})
 			.addCase(saveAppointment.rejected, (state, action) => {
+				state.status = 'rejected';
+				state.error = action.payload as unknown as string;
+			})
+			
+			// deletePatient
+			.addCase(deletePatient.pending, (state) => {
+				state.status = 'pending';
+			})
+			.addCase(deletePatient.fulfilled, (state, action: PayloadAction<string>) => {
+				state.status = 'fulfilled';
+				state.patients = state.patients.filter((patient) => patient._id !== action.payload);
+				
+				// reset the current patient if it was deleted
+				if (state.patient._id === action.payload) {
+					state.patient = patientInitState;
+				}
+			})
+			.addCase(deletePatient.rejected, (state, action) => {
 				state.status = 'rejected';
 				state.error = action.payload as unknown as string;
 			})

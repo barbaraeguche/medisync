@@ -45,7 +45,9 @@ public class DoctorController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateDoctor(@PathVariable UUID id, @RequestBody Doctor doctor) {
+	public ResponseEntity<String> updateDoctor(
+		@PathVariable UUID id, @RequestBody Doctor doctor
+	) {
 		try {
 			Doctor currDoctor = getDoctorById(id);
 			doctorService.putDoctor(currDoctor, doctor);
@@ -56,10 +58,12 @@ public class DoctorController {
 	}
 	
 	@PutMapping("/{id}/availability")
-	public ResponseEntity<String> updateAvailability(@PathVariable UUID id, @Valid @RequestBody List<Doctor.Availabilities> availabilities) {
+	public ResponseEntity<String> updateAvailability(
+		@PathVariable UUID id, @Valid @RequestBody List<Doctor.Availabilities> availabilities
+	) {
 		try {
 			Doctor currDoctor = getDoctorById(id);
-			doctorService.updateAvailabilities(currDoctor, availabilities);
+			doctorService.putAvailabilities(currDoctor, availabilities);
 			return ResponseEntity.ok("Availability updated successfully");
 		} catch (Exception exp) {
 			return ResponseEntity.internalServerError().body("Failed to update availability: " + exp.getMessage());
@@ -71,7 +75,7 @@ public class DoctorController {
 		try {
 			Doctor currDoctor = getDoctorById(id);
 			doctorService.deleteDoctor(currDoctor);
-			return ResponseEntity.ok("Doctor updated successfully");
+			return ResponseEntity.ok("Doctor deleted successfully");
 		} catch (Exception exp) {
 			return ResponseEntity.internalServerError().body("Failed to delete doctor: " + exp.getMessage());
 		}
