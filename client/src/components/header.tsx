@@ -28,7 +28,7 @@ export default function Header() {
 					))}
 				</nav>
 				<div className={'flex items-center gap-4'}>
-					<Link to={'/auth/sign-in'}>
+					<Link to={'/auth/signin'}>
 						<Button
 							variant={'ghost'}
 							className={'hover:text-teal-600'}

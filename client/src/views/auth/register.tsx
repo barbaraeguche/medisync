@@ -266,7 +266,7 @@ export default function RegisterForm() {
 			<Card.Footer className={'mt-7 text-sm text-muted-foreground text-center'}>
 				Have an account? {' '}
 				<Link
-					to={'/auth/sign-in'}
+					to={'/auth/signin'}
 					aria-label={'Create an account'}
 					className={'text-primary underline-offset-4 hover:underline cursor-pointer'}
 				>

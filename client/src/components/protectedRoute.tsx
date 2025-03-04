@@ -18,7 +18,7 @@ export default function ProtectedRoute({ allowedRoles }: {
 	
 	// no session, redirect to sign in
 	if (!email) {
-		return <Navigate to={'/auth/sign-in'} replace/>
+		return <Navigate to={'/auth/signin'} replace/>
 	}
 
 	// check if the user has permission based on their role

@@ -31,7 +31,7 @@ export function UnAuthorized() {
 				<h1 className={'text-3xl font-bold tracking-tight text-primary'}>401 - Unauthorized</h1>
 				<p className={'text-lg text-muted-foreground'}>You don't have permission to access this page.</p>
 				<div className={'flex gap-4'}>
-					<Link to={'/auth/sign-in'}>
+					<Link to={'/auth/signin'}>
 						<Button
 							variant={'outline'}
 							className={'border-primary hover:bg-primary/10'}

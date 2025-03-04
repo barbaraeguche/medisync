@@ -87,7 +87,7 @@ const patientRoutes: SidebarRoutes[] = [
 
 const authRoutes: SidebarRoutes[] = [
 	{
-		path: '/auth/sign-in',
+		path: '/auth/signin',
 		component: SignInForm
 	},
 	{
