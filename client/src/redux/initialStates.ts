@@ -3,10 +3,10 @@ import {
 } from '@/lib/definitions';
 
 export const userInitState: User = {
-	_id: '',
+	_id: '1',
 	firstName: '',
 	lastName: '',
-	email: 'b',
+	email: '',
 	password: '',
 	phoneNumber: '',
 	gender: 'N/A',

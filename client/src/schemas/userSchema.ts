@@ -21,7 +21,6 @@ export const userSchema = z.object({
 	gender: z.enum(genders, { message: 'Select a gender' }),
 	role: z.enum(roles, { message: 'Select a role' })
 });
-export type UserType = z.infer<typeof userSchema>;
 
 export const addressSchema = z.object({
 	street: z.string().min(1, { message: 'Enter a valid street' })

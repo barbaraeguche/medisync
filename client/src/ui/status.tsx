@@ -12,7 +12,7 @@ export default function AppointmentStatus({ status }: {
 	}
 	
 	// get the correct icon component
-	const Icon = icons[status]
+	const Icon = icons[status];
 	
 	return (
 		<span

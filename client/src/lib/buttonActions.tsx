@@ -1,7 +1,7 @@
 import { Trash2 } from 'lucide-react';
 import { Button } from '@/ui/index';
 
-export const DeleteAppointment = ({ id }: {
+export const EditAppointment = ({ id }: {
 	id: number
 }) => {
 	return (
@@ -15,7 +15,7 @@ export const DeleteAppointment = ({ id }: {
 	      console.log(id);
       }}
     >
-      <span className={'sr-only'}>Delete Appointment</span>
+      <span className={'sr-only'}>Edit Appointment</span>
       <Trash2 className={'size-4'}/>
     </Button>
 	);

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { ColumnDef } from '@tanstack/react-table';
 import { categorizeAppointments } from '@/utils/utils';
 import { Appointments } from '@/lib/definitions';
-import { Card, Table } from '@/ui';
+import { Card, Table } from '@/ui/index';
 
 export default function AppointmentsTable({ appointments, columns }: {
 	appointments: Appointments[],

@@ -16,7 +16,7 @@ export function InputError({ id, message }: {
 	);
 }
 
-export function AuthError({ message }: {
+export function ServerError({ message }: {
 	message: string | undefined
 }) {
 	if (!message) return;

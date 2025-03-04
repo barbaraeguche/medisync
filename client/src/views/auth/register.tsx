@@ -8,7 +8,7 @@ import { PatientType } from '@/schemas/patientSchema';
 import {
 	genderOptions, roleOptions, bloodTypeOptions
 } from '@/utils/constants';
-import { AuthError } from '@/components/formError';
+import { ServerError } from '@/components/formError';
 import InputWrapper from '@/components/inputWrapper';
 import { Button, Card, Select } from '@/ui/index';
 
@@ -60,11 +60,8 @@ export default function RegisterForm() {
 				description={steps === 1 ? 'Enter your basic information, and select a role' : 'Complete your profile'}
 			/>
 			
-			<Card.Content className={'space-y-6'}>
-				<form
-					onSubmit={handleSubmit(onSubmit)}
-					className={'space-y-4'}
-				>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<Card.Content>
 					{/* user information */}
 					{steps === 1 && (
 						<>
@@ -122,7 +119,7 @@ export default function RegisterForm() {
 							<Select
 								conf={{
 									label: 'Gender',
-                  placeholder: 'Select your gender'
+									placeholder: 'Select your gender'
 								}}
 								name={'user.gender'}
 								control={control}
@@ -259,9 +256,9 @@ export default function RegisterForm() {
 					)}
 					
 					{/* error */}
-					<AuthError message={''}/> {/* todo: change this here, and in registration form */}
-				</form>
-			</Card.Content>
+					<ServerError message={''}/> {/* todo: change this here, and in registration form */}
+				</Card.Content>
+			</form>
 			
 			<Card.Footer className={'mt-7 text-sm text-muted-foreground text-center'}>
 				Have an account? {' '}

@@ -2,7 +2,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { isAfter, isToday } from 'date-fns';
 import { formatDate } from '@/utils/utils';
 import { Appointments } from '@/lib/definitions';
-import { DeleteAppointment } from '@/lib/buttonActions';
+import { EditAppointment } from '@/lib/buttonActions';
 import AppointmentStatus from '@/ui/status';
 
 const baseApptColumns: ColumnDef<Appointments>[] = [
@@ -58,7 +58,7 @@ patientApptColumn.splice(patientApptColumn.length, 0,
 			
 			return (
 				<>
-					{upcomingAppointment && <DeleteAppointment id={appointment._id}/>}
+					{upcomingAppointment && <EditAppointment id={appointment._id}/>}
 				</>
 			);
 		}

@@ -36,7 +36,7 @@ function CardContent({ children, className }: {
 	className?: string
 }) {
 	return (
-		<div className={cn('space-y-4', className)}>
+		<div className={cn('space-y-6', className)}>
 			{children}
 		</div>
 	);

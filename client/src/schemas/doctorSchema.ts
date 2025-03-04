@@ -20,12 +20,3 @@ export const educationSchema = z.object({
 		.optional().or(z.literal(''))
 });
 export type EducationType = z.infer<typeof educationSchema>;
-
-// TODO: might not need this, will see
-// export const AvailabilitySchema = z.array(z.object({
-// 	date: z.string().date('Date cannot be null'),
-// THIS CAN BE USED :=> time: z.string().length(5, { message: 'Select a valid time (e.g., 10:00)' }),
-//   startTime: z.string().min(5, { message: 'Enter a valid start time (e.g., 09:00 AM)' }),
-//   endTime: z.string().min(5, { message: 'Enter a valid end time (e.g., 10:00 AM)' })
-// }));
-// export type AvailabilityType = z.infer<typeof AvailabilitySchema>;

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, LoginType } from '@/schemas/authSchema';
-import { AuthError } from '@/components/formError';
+import { ServerError } from '@/components/formError';
 import InputWrapper from '@/components/inputWrapper';
 import { Button, Card } from '@/ui/index';
 
@@ -19,14 +19,14 @@ export default function SignInForm() {
   };
 	
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<Card>
-				<Card.Header
-					title={'Sign in'}
-					description={'Choose your preferred sign in method'}
-				/>
-				
-				<Card.Content className={'space-y-6'}>
+		<Card>
+			<Card.Header
+				title={'Sign in'}
+				description={'Choose your preferred sign in method'}
+			/>
+			
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<Card.Content>
 					{/* email */}
 					<InputWrapper
 						{...register('email')}
@@ -56,20 +56,20 @@ export default function SignInForm() {
 						Sign in
 					</Button>
 					
-					<AuthError message={''}/> {/* todo: change this here, and in registration form */}
+					<ServerError message={''}/> {/* todo: change this here, and in registration form */}
 				</Card.Content>
-				
-				<Card.Footer className={'text-sm text-muted-foreground text-center'}>
-					Don't have an account? {' '}
-					<Link
-						to={'/auth/register'}
-						aria-label={'Create an account'}
-						className={'text-primary underline-offset-4 hover:underline cursor-pointer'}
-					>
-						Create an account
-					</Link>
-				</Card.Footer>
-			</Card>
-		</form>
+			</form>
+			
+			<Card.Footer className={'text-sm text-muted-foreground text-center'}>
+				Don't have an account? {' '}
+				<Link
+					to={'/auth/register'}
+					aria-label={'Create an account'}
+					className={'text-primary underline-offset-4 hover:underline cursor-pointer'}
+				>
+					Create an account
+				</Link>
+			</Card.Footer>
+		</Card>
 	);
 }
