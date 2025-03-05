@@ -1,19 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-	fetchUser, fetchUsers, saveUser, deleteUser
+	signInUser, registerUser, logoutUser,
+	fetchUser, fetchUsers, saveUser
 } from '@/redux/thunks/userThunk';
 import { User } from '@/lib/definitions';
 import { ThunkStatus, ThunkError } from '@/lib/types';
 import { userInitState } from '@/redux/initialStates';
 
 interface UserState {
+	// auth related states
+	isAuthenticated: boolean;
 	user: User;
+	
+	// user management states
 	users: User[];
 	status: ThunkStatus;
 	error: ThunkError;
 }
 
 const initialState: UserState = {
+	isAuthenticated: false,
   user: userInitState,
   users: [],
 	status: 'idle',
@@ -24,29 +30,99 @@ const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
+		deleteUser: (state, action: PayloadAction<string>) => {
+			// reset the current user if it was deleted
+			if (state.user._id === action.payload) {
+				state.users = state.users.filter((user) => user._id !== action.payload);
+				
+				state.isAuthenticated = false;
+				state.user = userInitState;
+			}
+		},
 		resetStatus: (state) => {
 			state.status = 'idle';
 			state.error = null;
+		},
+		clearAuth: (state) => {
+			state.isAuthenticated = false;
+			state.user = userInitState;
 		}
 	},
 	extraReducers: (builder) => {
 		builder
+			// ---- authentication ---- //
+			// signInUser
+			.addCase(signInUser.pending, (state) => {
+				state.status = 'pending';
+				state.error = null;
+			})
+			.addCase(signInUser.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
+				state.status = 'fulfilled';
+				state.isAuthenticated = true;
+				state.user = action.payload.user;
+			})
+			.addCase(signInUser.rejected, (state, action) => {
+				state.status = 'rejected';
+				state.error = action.payload as string;
+				state.isAuthenticated = false;
+			})
+			
+			// registerUser
+			.addCase(registerUser.pending, (state) => {
+				state.status = 'pending';
+				state.error = null;
+			})
+			.addCase(registerUser.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
+				state.status = 'fulfilled';
+				state.isAuthenticated = true;
+				state.user = action.payload.user;
+			})
+			.addCase(registerUser.rejected, (state, action) => {
+				state.status = 'rejected';
+				state.error = action.payload as string;
+			})
+			
+			// logoutUser
+			.addCase(logoutUser.pending, (state) => {
+				state.status = 'pending';
+			})
+			.addCase(logoutUser.fulfilled, (state) => {
+				state.status = 'fulfilled';
+				state.isAuthenticated = false;
+				state.user = userInitState;
+			})
+			.addCase(logoutUser.rejected, (state, action) => {
+				state.status = 'rejected';
+				state.error = action.payload as string;
+				
+				// still clear the auth state even if the server-side logout fails
+				state.isAuthenticated = false;
+				state.user = userInitState;
+			})
+			
+			// ---- crud operations ---- //
 			// fetchUser
 			.addCase(fetchUser.pending, (state) => {
 				state.status = 'pending';
+				state.error = null;
 			})
 			.addCase(fetchUser.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
 				state.status = 'fulfilled';
-				state.user = action.payload.user;
+				
+				// only if this is the current user
+				if (state.user._id === action.payload.user._id) {
+					state.user = action.payload.user;
+				}
 			})
 			.addCase(fetchUser.rejected, (state, action) => {
 				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
+				state.error = action.payload as string;
 			})
 		
 			// fetchUsers
 			.addCase(fetchUsers.pending, (state) => {
 				state.status = 'pending';
+				state.error = null;
 			})
 			.addCase(fetchUsers.fulfilled, (state, action: PayloadAction<{ users: User[] }>) => {
 				state.status = 'fulfilled';
@@ -54,12 +130,13 @@ const userSlice = createSlice({
 			})
 			.addCase(fetchUsers.rejected, (state, action) => {
 				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
+				state.error = action.payload as string;
 			})
 			
 			// saveUser
 			.addCase(saveUser.pending, (state) => {
 				state.status = 'pending';
+				state.error = null;
 			})
 			.addCase(saveUser.fulfilled, (state, action: PayloadAction<Partial<User>>) => {
 				state.status = 'fulfilled';
@@ -70,28 +147,10 @@ const userSlice = createSlice({
 			})
 			.addCase(saveUser.rejected, (state, action) => {
 				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
-			})
-			
-			// deleteUser
-			.addCase(deleteUser.pending, (state) => {
-				state.status = 'pending';
-			})
-			.addCase(deleteUser.fulfilled, (state, action: PayloadAction<string>) => {
-				state.status = 'fulfilled';
-				state.users = state.users.filter((user) => user._id !== action.payload);
-				
-				// reset the current user if it was deleted
-				if (state.user._id === action.payload) {
-					state.user = userInitState;
-				}
-			})
-			.addCase(deleteUser.rejected, (state, action) => {
-				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
+				state.error = action.payload as string;
 			})
 	}
 });
 
-export const { resetStatus } = userSlice.actions;
+export const { clearAuth, deleteUser, resetStatus } = userSlice.actions;
 export default userSlice.reducer;
