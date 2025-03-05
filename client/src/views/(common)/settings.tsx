@@ -1,22 +1,18 @@
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	updateEmailSchema, updatePhoneNumberSchema, updatePasswordSchema,
 	UpdateEmailType, UpdatePhoneNumberType, UpdatePasswordType
 } from '@/schemas/userSchema';
-import { useAppSelector } from '@/hooks/useAppDispatch';
-import { useEditableState } from '@/hooks/useEditableState';
+import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch';
+import { saveUser } from '@/redux/thunks/userThunk';
 import { User } from '@/lib/definitions';
-import InputWrapper from '@/components/inputWrapper';
-import FormActionButtons from '@/components/formActionButtons';
-import { Card } from '@/ui';
+import { FieldConfig } from '@/lib/types';
+import GenericForm from '@/components/genericForm';
 
 export default function Settings() {
 	const user = useAppSelector((state) => state.userSlice.user);
 	
 	return (
 		<div className={'space-y-12 md:space-y-16'}>
-			{/* todo: insert previous values for email and phone number */}
 			<ChangeEmail user={user}/>
       <ChangePhoneNumber user={user}/>
       <ChangePassword/>
@@ -27,132 +23,88 @@ export default function Settings() {
 function ChangeEmail({ user }: {
 	user: User
 }) {
-	const { isEditing, setIsEditing } = useEditableState();
-	const {
-		register, handleSubmit, formState: { errors }, reset
-	} = useForm<UpdateEmailType>({
-		resolver: zodResolver(updateEmailSchema),
-		reValidateMode: 'onBlur',
-		values: { email: user.email }
-	});
+	const dispatch = useAppDispatch();
 	
-	const onSubmit: SubmitHandler<UpdateEmailType> = (data) => {
+	const handleSubmit = (data: UpdateEmailType) => {
 		console.log(data);
-		setIsEditing(false);
+		dispatch(saveUser(data));
 	};
 	
+	const emailField: FieldConfig[] = [
+		{
+			name: 'email',
+			label: 'New Email',
+			placeholder: 'jane.doe@example.com'
+		},
+	];
+	
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-	    <Card>
-		    <Card.Header title={'Change Email'}/>
-		    <Card.Content>
-			    <InputWrapper
-				    {...register('email')}
-						readOnly={!isEditing}
-				    conf={{
-					    label: 'New Email',
-					    placeholder: 'jane.doe@example.com'
-				    }}
-				    name={'email'}
-				    error={errors.email}
-			    />
-        </Card.Content>
-		    <Card.Footer>
-					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
-		    </Card.Footer>
-	    </Card>
-    </form>
+		<GenericForm
+			fields={emailField}
+			initialValues={user}
+			title={'Change Email'}
+			onSubmit={handleSubmit}
+			schema={updateEmailSchema}
+		/>
   );
 }
 
 function ChangePhoneNumber({ user }: {
 	user: User
 }) {
-	const { isEditing, setIsEditing } = useEditableState();
-	const {
-		register, handleSubmit, formState: { errors }, reset
-	} = useForm<UpdatePhoneNumberType>({
-		resolver: zodResolver(updatePhoneNumberSchema),
-		reValidateMode: 'onBlur',
-		values: { phoneNumber: user.phoneNumber }
-	});
+	const dispatch = useAppDispatch();
 	
-	const onSubmit: SubmitHandler<UpdatePhoneNumberType> = (data) => {
+	const handleSubmit = (data: UpdatePhoneNumberType) => {
 		console.log(data);
-		setIsEditing(false);
+		dispatch(saveUser(data));
 	};
 	
+	const phoneNumberField: FieldConfig[] = [
+		{
+			name: 'phoneNumber',
+			label: 'New Phone number',
+			placeholder: '(123) 456-7890'
+		},
+	];
+	
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<Card>
-				<Card.Header title={'Change Phone Number'}/>
-				<Card.Content>
-					<InputWrapper
-						{...register('phoneNumber')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'New Phone number',
-							placeholder: '(123) 456-7890'
-						}}
-						name={'phoneNumber'}
-						error={errors.phoneNumber}
-					/>
-				</Card.Content>
-				<Card.Footer>
-					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
-				</Card.Footer>
-			</Card>
-		</form>
+		<GenericForm
+			initialValues={user}
+			onSubmit={handleSubmit}
+			fields={phoneNumberField}
+			title={'Change Phone Number'}
+			schema={updatePhoneNumberSchema}
+		/>
 	);
 }
 
 function ChangePassword() {
-	const { isEditing, setIsEditing } = useEditableState();
-	const {
-		register, handleSubmit, formState: { errors }, reset
-	} = useForm<UpdatePasswordType>({
-		resolver: zodResolver(updatePasswordSchema),
-		reValidateMode: 'onBlur'
-	});
+	const dispatch = useAppDispatch();
 	
-	const onSubmit: SubmitHandler<UpdatePasswordType> = (data) => {
-    console.log(data);
-		setIsEditing(false);
-  };
+	const handleSubmit = (data: UpdatePasswordType) => {
+		console.log(data);
+		dispatch(saveUser(data));
+	};
+	
+	const passwordFields: FieldConfig[] = [
+		{
+			name: 'password',
+			label: 'New Password',
+			placeholder: '******'
+		},
+		{
+			name: 'confirmPassword',
+			label: 'Confirm Password',
+			placeholder: '******'
+		},
+	];
 	
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<Card>
-				<Card.Header title={'Change Password'}/>
-				<Card.Content>
-					{/* new password */}
-					<InputWrapper
-						{...register('password')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'New Password',
-							placeholder: '******'
-						}}
-						name={'newPassword'}
-						error={errors.password}
-					/>
-					
-					{/* confirmed password */}
-					<InputWrapper
-						{...register('confirmPassword')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Confirm Password',
-							placeholder: '******'
-						}}
-						name={'confirmPassword'}
-						error={errors.confirmPassword}
-					/>
-				</Card.Content>
-				<Card.Footer>
-					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
-				</Card.Footer>
-			</Card>
-		</form>
+		<GenericForm
+			onSubmit={handleSubmit}
+			fields={passwordFields}
+			title={'Change Password'}
+			schema={updatePasswordSchema}
+		/>
 	);
 }

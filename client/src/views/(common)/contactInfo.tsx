@@ -1,15 +1,12 @@
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	addressSchema, emergencyContactSchema, AddressType, EmergencyContactType
 } from '@/schemas/userSchema';
-import { useAppSelector } from '@/hooks/useAppDispatch';
-import { useEditableState } from '@/hooks/useEditableState';
+import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch';
+import { saveUser } from '@/redux/thunks/userThunk';
 import { provinceOptions } from '@/utils/constants';
 import { User } from '@/lib/definitions';
-import InputWrapper from '@/components/inputWrapper';
-import FormActionButtons from '@/components/formActionButtons';
-import { Card, Select } from '@/ui/index';
+import { FieldConfig } from '@/lib/types';
+import GenericForm from '@/components/genericForm';
 
 export default function ContactInfo() {
 	const user = useAppSelector((state) => state.userSlice.user);
@@ -25,161 +22,93 @@ export default function ContactInfo() {
 function Address({ user }: {
 	user: User
 }) {
-	const { isEditing, setIsEditing } = useEditableState();
-	const {
-		register, handleSubmit, formState: { errors }, control, reset
-	} = useForm<AddressType>({
-		resolver: zodResolver(addressSchema),
-		reValidateMode: 'onBlur',
-		values: user.address
-	});
-
-	const onSubmit: SubmitHandler<AddressType> = (data) => {
+	const dispatch = useAppDispatch();
+	
+	const handleSubmit = (data: AddressType) => {
 		console.log(data);
-		setIsEditing(false);
+		dispatch(saveUser({
+			'address': data
+		}));
 	};
-
+	
+	const addressFields: FieldConfig[] = [
+		{
+			name: 'street',
+			label: 'Street (Optional)',
+			placeholder: '123 Main St'
+		},
+		{
+			name: 'city',
+			label: 'City (Optional)',
+			placeholder: 'Vancouver'
+		},
+		{
+			name: 'province',
+			label: 'Province',
+			placeholder: 'Select your province',
+			isSelect: true,
+			options: provinceOptions
+		},
+		{
+			name: 'postalCode',
+			label: 'Postal Code',
+			placeholder: 'V6B 2K8'
+		},
+		{
+			name: 'country',
+			label: 'Country',
+			placeholder: 'Canada',
+		}
+	];
+	
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<Card>
-				<Card.Header title={'Address'}/>
-
-				<Card.Content>
-					{/* street */}
-					<InputWrapper
-						{...register('street')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Street (Optional)',
-							placeholder: '123 Main St'
-						}}
-						name={'street'}
-						error={errors.street}
-					/>
-	
-					{/* city */}
-					<InputWrapper
-						{...register('city')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'City (Optional)',
-							placeholder: 'Vancouver'
-						}}
-						name={'city'}
-						error={errors.city}
-					/>
-	
-					{/* province */}
-					<Select
-						disabled={!isEditing}
-						conf={{
-							label: 'Province',
-							placeholder: 'Select your province',
-							readOnly: !isEditing
-						}}
-						name={'province'}
-						control={control}
-						options={provinceOptions}
-						error={errors.province}
-					/>
-	
-					{/* postal code */}
-					<InputWrapper
-						{...register('postalCode')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Postal Code',
-							placeholder: 'V6B 2K8'
-						}}
-						name={'postalCode'}
-						error={errors.postalCode}
-					/>
-	
-					{/* country */}
-					<InputWrapper
-						{...register('country')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Country',
-							placeholder: 'Canada'
-						}}
-						name={'country'}
-						error={errors.country}
-					/>
-				</Card.Content>
-				
-				<Card.Footer>
-					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
-				</Card.Footer>
-			</Card>
-		</form>
+		<GenericForm
+			title={'Address'}
+			schema={addressSchema}
+			fields={addressFields}
+			onSubmit={handleSubmit}
+			initialValues={user.address}
+		/>
 	);
 }
 
 function EmergencyContact({ user }: {
 	user: User
 }) {
-	const { isEditing, setIsEditing } = useEditableState();
-	const {
-		register, handleSubmit, formState: { errors }, reset
-	} = useForm<EmergencyContactType>({
-		resolver: zodResolver(emergencyContactSchema),
-		reValidateMode: 'onBlur',
-		values: user.emergencyContact
-	});
-
-	const onSubmit: SubmitHandler<EmergencyContactType> = (data) => {
+	const dispatch = useAppDispatch();
+	
+	const handleSubmit = (data: EmergencyContactType) => {
 		console.log(data);
-		setIsEditing(false);
+		dispatch(saveUser({
+			'emergencyContact': data
+		}));
 	};
-
+	
+	const contactFields: FieldConfig[] = [
+		{
+			name: 'name',
+			label: 'Contact Name',
+			placeholder: 'Steve Dave'
+		},
+		{
+			name: 'relationship',
+			label: 'Relationship to User (Optional)',
+			placeholder: 'Spouse'
+		},
+		{
+			name: 'email',
+			label: 'Contact Email',
+			placeholder: 'steve.dave@example.com'
+		}
+	];
+	
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<Card>
-				<Card.Header title={'Emergency Contact'}/>
-
-				<Card.Content>
-					{/* name */}
-					<InputWrapper
-						{...register('name')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Contact Name',
-							placeholder: 'Steve Dave'
-						}}
-						name={'name'}
-						error={errors.name}
-					/>
-	
-					{/* relationship */}
-					<InputWrapper
-						{...register('relationship')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Relationship to User (Optional)',
-							placeholder: 'Spouse'
-						}}
-						name={'relationship'}
-						error={errors.relationship}
-					/>
-	
-					{/* email */}
-					<InputWrapper
-						{...register('email')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Contact Email',
-							placeholder: 'steve.dave@example.com'
-						}}
-						name={'email'}
-						error={errors.email}
-					/>
-				</Card.Content>
-				
-				<Card.Footer>
-					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
-        </Card.Footer>
-      </Card>
-		</form>
+		<GenericForm
+			fields={contactFields}
+			onSubmit={handleSubmit}
+			title={'Emergency Contact'}
+			schema={emergencyContactSchema}
+			initialValues={user.emergencyContact}
+		/>
 	);
 }

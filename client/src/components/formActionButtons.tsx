@@ -1,10 +1,10 @@
 import { FieldValues, UseFormReset } from 'react-hook-form';
 import { Button } from '@/ui/index';
 
-export default function FormActionButtons<T extends FieldValues>({ isEditing, setIsEditing, reset }: {
+export default function FormActionButtons<T extends FieldValues>({ reset, isEditing, setIsEditing }: {
+	reset: UseFormReset<T>
 	isEditing: boolean,
 	setIsEditing: (value: boolean) => void,
-	reset: UseFormReset<T>
 }) {
 	return (
 		<div className={'flex flex-col gap-2 sm:flex-row sm:justify-end'}>
