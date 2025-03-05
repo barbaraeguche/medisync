@@ -1,6 +1,6 @@
 import { userFullNameSchema, UserFullNameType } from '@/schemas/userSchema';
-import { saveUser } from '@/redux/thunks/userThunk';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
+import { saveUser } from '@/redux/thunks/userThunk';
 import { FieldConfig } from '@/lib/types';
 import GenericForm from '@/components/genericForm';
 

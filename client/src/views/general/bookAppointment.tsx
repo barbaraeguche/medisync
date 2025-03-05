@@ -13,6 +13,7 @@ import { Button, Card, Select } from '@/ui/index';
 
 export default function BookAppointment() {
 	const doctors = useAppSelector((state) => state.doctorSlice.doctors);
+	
 	const doctorOptions = useMemo(() => {
 		return doctors.map(({ _id, user: { firstName, lastName }}) =>
 			generateLabelValue(_id, `Dr. ${firstName} ${lastName}`));

@@ -1,16 +1,14 @@
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { parse } from 'date-fns';
 import {
 	noBloodTypeSchema, NoBloodType, healthMetricsSchema, HealthMetricsType
 } from '@/schemas/patientSchema';
-import { useAppSelector } from '@/hooks/useAppDispatch';
-import { useEditableState } from '@/hooks/useEditableState';
+import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
+import { savePatient } from '@/redux/thunks/patientThunk';
 import { formatDate } from '@/utils/utils';
 import { yyyy_MM_dd } from '@/utils/constants';
 import { Patient } from '@/lib/definitions';
-import InputWrapper from '@/components/inputWrapper';
-import FormActionButtons from '@/components/formActionButtons';
-import { Card } from '@/ui/index';
+import { FieldConfig } from '@/lib/types';
+import GenericForm from '@/components/genericForm';
 
 export default function PatientInfo() {
 	const patient = useAppSelector((state) => state.patientSlice.patient);
@@ -26,176 +24,103 @@ export default function PatientInfo() {
 function RoleInfo({ patient }: {
 	patient: Patient
 }) {
-	const { isEditing, setIsEditing } = useEditableState();
-	const {
-		register, handleSubmit, formState: { errors }, reset
-	} = useForm<NoBloodType>({
-		resolver: zodResolver(noBloodTypeSchema),
-		reValidateMode: 'onBlur',
-		values: {
-			...patient,
-			dateOfBirth: formatDate(patient.dateOfBirth, yyyy_MM_dd)
-		}
-	});
-	
-	const onSubmit: SubmitHandler<NoBloodType> = (data) => {
-		console.log(data);
-		setIsEditing(false);
+	const formatPatient = {
+		...patient,
+		dateOfBirth: formatDate(patient.dateOfBirth, yyyy_MM_dd)
 	};
-
+	const dispatch = useAppDispatch();
+	
+	const handleSubmit = (data: NoBloodType) => {
+		console.log(data);
+		dispatch(savePatient({
+			...data,
+			dateOfBirth: parse(data.dateOfBirth, yyyy_MM_dd, new Date())
+		}));
+	};
+	
+	const roleFields: FieldConfig[] = [
+		{
+			name: 'dateOfBirth',
+			label: 'Date of Birth',
+			placeholder: '1900-01-01'
+		},
+		{
+			name: 'allergies',
+			label: 'Allergies (Optional)',
+			placeholder: 'Peanuts, Milk'
+		},
+		{
+			name: 'bloodType',
+			label: 'Blood Type',
+			placeholder: 'AB+',
+			disabled: true
+		},
+		{
+			name: 'insuranceProvider',
+			label: 'Insurance Provider (Optional)',
+			placeholder: 'Sentinel Assurance Inc.'
+		},
+		{
+			name: 'insurancePolicyNumber',
+			label: 'Insurance Policy Number (Optional)',
+			placeholder: 'SA-9876543210'
+		},
+		{
+			name: 'chronicConditions',
+			label: 'Chronic Conditions (Optional)',
+			placeholder: 'Diabetes, Asthma'
+		}
+	];
+	
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<Card>
-				<Card.Header title={'Role Information'}/>
-
-				<Card.Content>
-					{/* date of birth */}
-					<InputWrapper
-						{...register('dateOfBirth')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Date of Birth',
-							placeholder: '1900-01-01'
-						}}
-						name={'dateOfBirth'}
-						error={errors.dateOfBirth}
-					/>
-	
-					{/* allergies */}
-					<InputWrapper
-						{...register('allergies')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Allergies (Optional)',
-							placeholder: 'Peanuts, Milk'
-						}}
-						name={'allergies'}
-						error={errors.allergies}
-					/>
-	
-					{/* blood type */}
-					<InputWrapper
-						disabled
-						readOnly={!isEditing}
-						conf={{
-							label: 'Blood Type',
-							placeholder: 'AB+'
-						}}
-						name={'bloodType'}
-					/>
-	
-					{/* insurance provider */}
-					<InputWrapper
-						{...register('insuranceProvider')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Insurance Provider (Optional)',
-							placeholder: 'Sentinel Assurance Inc.'
-						}}
-						name={'insuranceProvider'}
-						error={errors.insuranceProvider}
-					/>
-	
-					{/* insurance policy number */}
-					<InputWrapper
-						{...register('insurancePolicyNumber')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Insurance Policy Number (Optional)',
-							placeholder: 'SA-9876543210'
-						}}
-						name={'insurancePolicyNumber'}
-						error={errors.insurancePolicyNumber}
-					/>
-	
-					{/* chronic conditions */}
-					<InputWrapper
-						{...register('chronicConditions')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Chronic Conditions (Optional)',
-							placeholder: 'Diabetes, Asthma'
-						}}
-						name={'chronicConditions'}
-						error={errors.chronicConditions}
-					/>
-				</Card.Content>
-				
-				<Card.Footer>
-					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
-				</Card.Footer>
-			</Card>
-		</form>
+		<GenericForm
+			fields={roleFields}
+			onSubmit={handleSubmit}
+			title={'Role Information'}
+			schema={noBloodTypeSchema}
+			initialValues={formatPatient}
+			readOnlyFields={['bloodType']}
+		/>
 	);
 }
 
 function HealthMetrics({ patient }: {
 	patient: Patient
 }) {
-	const { isEditing, setIsEditing } = useEditableState();
-	const {
-		register, handleSubmit, formState: { errors }, reset
-	} = useForm<HealthMetricsType>({
-		resolver: zodResolver(healthMetricsSchema),
-		reValidateMode: 'onBlur',
-		values: patient.healthMetrics
-	});
-
-	const onSubmit: SubmitHandler<HealthMetricsType> = (data) => {
+	const dispatch = useAppDispatch();
+	
+	const handleSubmit = (data: HealthMetricsType) => {
 		console.log(data);
-		setIsEditing(false);
+		dispatch(savePatient({
+			'healthMetrics': data
+		}));
 	};
-
+	
+	const metricsFields: FieldConfig[] = [
+		{
+			name: 'height',
+			label: 'Height (cm)',
+			placeholder: '175'
+		},
+		{
+			name: 'weight',
+			label: 'Weight (lbs)',
+			placeholder: '75' // todo: find avg weight
+		},
+		{
+			name: 'heartRate',
+			label: 'Heart Rate (bpm)',
+			placeholder: '75'
+		}
+	];
+	
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<Card>
-				<Card.Header title={'Health Metrics'}/>
-				
-				<Card.Content>
-					{/* height */}
-					<InputWrapper
-						{...register('height')}
-						type={'number'}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Height (cm)',
-							placeholder: '175'
-						}}
-						name={'height'}
-						error={errors.height}
-					/>
-	
-					{/* weight */}
-					<InputWrapper
-						{...register('weight')}
-						type={'number'}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Weight (lbs)',
-							placeholder: '75' // todo: this was in kg, should be in lbs
-						}}
-						name={'weight'}
-						error={errors.weight}
-					/>
-	
-					{/* heart rate */}
-					<InputWrapper
-						{...register('heartRate')}
-						type={'number'}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Heart Rate (bpm)',
-							placeholder: '75'
-						}}
-						name={'heartRate'}
-						error={errors.heartRate}
-					/>
-				</Card.Content>
-			
-				<Card.Footer>
-					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
-				</Card.Footer>
-			</Card>
-		</form>
+		<GenericForm
+			fields={metricsFields}
+			onSubmit={handleSubmit}
+			title={'Health Metrics'}
+			schema={healthMetricsSchema}
+			initialValues={patient.healthMetrics}
+		/>
 	);
 }

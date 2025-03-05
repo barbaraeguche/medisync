@@ -10,7 +10,7 @@ export const userInitState: User = {
 	password: '',
 	phoneNumber: '',
 	gender: 'N/A',
-	role: 'Patient',
+	role: 'Doctor',
 	address: {
 		street: '',
 		city: '',

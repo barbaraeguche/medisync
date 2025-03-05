@@ -34,9 +34,9 @@ export default function MedicalHistory() {
 					>
 						<Card.Content>
 							{/* header */}
-							<div className={'text-sm font-medium flex justify-between items-center'}>
-								<span className={'text-gray-500'}>Medical Record</span>
-								<span className={'text-gray-500'}>ID: {history._id}</span>
+							<div className={'text-gray-500 text-sm font-medium flex justify-between items-center'}>
+								<span>Medical Record</span>
+								<span>ID: {history._id}</span>
 							</div>
 	
 							<div className={'space-y-6'}>
@@ -61,7 +61,7 @@ export default function MedicalHistory() {
 									{history.medications?.length ? (
 										<Medications history={history}/>
 									) : (
-										<p className={'text-sm '}>No medication prescribed.</p>
+										<p className={'text-sm'}>No medication prescribed.</p>
 									)}
 								</div>
 							</div>

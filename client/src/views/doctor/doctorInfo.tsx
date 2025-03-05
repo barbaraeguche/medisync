@@ -1,14 +1,11 @@
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	doctorSchema, educationSchema, DoctorType, EducationType
 } from '@/schemas/doctorSchema';
-import { useAppSelector } from '@/hooks/useAppDispatch';
-import { useEditableState } from '@/hooks/useEditableState';
+import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
+import { saveDoctor } from '@/redux/thunks/doctorThunk';
 import { Doctor } from '@/lib/definitions';
-import InputWrapper from '@/components/inputWrapper';
-import FormActionButtons from '@/components/formActionButtons';
-import { Card } from '@/ui/index';
+import { FieldConfig } from '@/lib/types';
+import GenericForm from '@/components/genericForm';
 
 export default function DoctorInfo() {
 	const doctor = useAppSelector((state) => state.doctorSlice.doctor);
@@ -24,148 +21,90 @@ export default function DoctorInfo() {
 function RoleInfo({ doctor }: {
 	doctor: Doctor
 }) {
-	const { isEditing, setIsEditing } = useEditableState();
-	const {
-		register, handleSubmit, formState: { errors }, reset
-	} = useForm<DoctorType>({
-		resolver: zodResolver(doctorSchema),
-		reValidateMode: 'onBlur',
-		values: doctor.practitioner
-	});
-
-	const onSubmit: SubmitHandler<DoctorType> = (data) => {
+	const dispatch = useAppDispatch();
+	
+	const handleSubmit = (data: DoctorType) => {
 		console.log(data);
-		setIsEditing(false);
+		dispatch(saveDoctor({
+			id: doctor._id,
+      practitioner: data
+		}));
 	};
-
+	
+	const doctorFields: FieldConfig[] = [
+		{
+			name: 'licenseNumber',
+			label: 'License Number',
+			placeholder: 'LX-8745-2931'
+		},
+		{
+			name: 'specialization',
+			label: 'Specialization',
+			placeholder: 'Cardiology, General Medicine'
+		},
+		{
+			name: 'yearsOfExperience',
+			label: 'Years of Experience (Optional)',
+			placeholder: '5'
+		},
+		{
+			name: 'languages',
+			label: 'Languages',
+			placeholder: 'English, French'
+		}
+	];
+	
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<Card>
-				<Card.Header title={'Role Information'}/>
-				
-				<Card.Content>
-					{/* license number */}
-					<InputWrapper
-						{...register('licenseNumber')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'License Number',
-							placeholder: 'LX-8745-2931'
-						}}
-						name={'licenseNumber'}
-						error={errors.licenseNumber}
-					/>
-	
-					{/* specialization */}
-					<InputWrapper
-						{...register('specialization')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Specialization',
-							placeholder: 'Cardiology, General Medicine'
-						}}
-						name={'specialization'}
-						error={errors.specialization}
-					/>
-	
-					{/* years of experience */}
-					<InputWrapper
-						{...register('yearsOfExperience')}
-						readOnly={!isEditing}
-						type={'number'}
-						conf={{
-							label: 'Years of Experience (Optional)',
-							placeholder: '5'
-						}}
-						name={'yearsOfExperience'}
-						error={errors.yearsOfExperience}
-					/>
-	
-					{/* languages */}
-					<InputWrapper
-						{...register('languages')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Languages',
-							placeholder: 'English, French'
-						}}
-						name={'languages'}
-						error={errors.languages}
-					/>
-				</Card.Content>
-				
-				<Card.Footer>
-					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
-				</Card.Footer>
-			</Card>
-		</form>
+		<GenericForm
+			schema={doctorSchema}
+			fields={doctorFields}
+			onSubmit={handleSubmit}
+			title={'Role Information'}
+			initialValues={doctor.practitioner}
+		/>
 	);
 }
 
 function Education({ doctor }: {
 	doctor: Doctor
 }) {
-	const { isEditing, setIsEditing } = useEditableState();
-	const {
-		register, handleSubmit, formState: { errors }, reset
-	} = useForm<EducationType>({
-		resolver: zodResolver(educationSchema),
-		reValidateMode: 'onBlur',
-		values: doctor.practitioner.education
-	});
-
-	const onSubmit: SubmitHandler<EducationType> = (data) => {
+	const dispatch = useAppDispatch();
+	
+	const handleSubmit = (data: EducationType) => {
 		console.log(data);
-		setIsEditing(false);
+		dispatch(saveDoctor({
+			id: doctor._id,
+			practitioner: {
+				'education': data
+			}
+		}));
 	};
-
+	
+	const educationFields: FieldConfig[] = [
+		{
+			name: 'degree',
+			label: 'Degree',
+			placeholder: 'Doctor of Medicine (MD)'
+		},
+		{
+			name: 'institution',
+			label: 'Institution',
+			placeholder: 'Harvard Medical School'
+		},
+		{
+			name: 'graduationYear',
+			label: 'Graduation Year (Optional)',
+			placeholder: '1990'
+		}
+	];
+	
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<Card>
-				<Card.Header title={'Education'}/>
-				
-				<Card.Content>
-					{/* degree */}
-					<InputWrapper
-						{...register('degree')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Degree',
-							placeholder: 'Doctor of Medicine (MD)'
-						}}
-						name={'degree'}
-						error={errors.degree}
-					/>
-	
-					{/*/!* institution *!/*/}
-					<InputWrapper
-						{...register('institution')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Institution',
-							placeholder: 'Harvard Medical School'
-						}}
-						name={'institution'}
-						error={errors.institution}
-					/>
-	
-					{/*/!* graduationYear *!/*/}
-					<InputWrapper
-						{...register('graduationYear')}
-						readOnly={!isEditing}
-						conf={{
-							label: 'Graduation Year (Optional)',
-							placeholder: '1990'
-						}}
-						name={'graduationYear'}
-						error={errors.graduationYear}
-					/>
-				</Card.Content>
-				
-				<Card.Footer>
-					<FormActionButtons isEditing={isEditing} setIsEditing={setIsEditing} reset={reset}/>
-				</Card.Footer>
-			</Card>
-		</form>
+		<GenericForm
+			title={'Education'}
+			onSubmit={handleSubmit}
+			schema={educationSchema}
+			fields={educationFields}
+			initialValues={doctor.practitioner.education}
+		/>
 	);
 }
