@@ -1,6 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { isAfter, isToday } from 'date-fns';
 import { formatDate } from '@/utils/utils';
+import { MMM_point_dd_yyyy } from '@/utils/constants';
 import { Appointments } from '@/lib/definitions';
 import { EditAppointment } from '@/lib/buttonActions';
 import AppointmentStatus from '@/ui/status';
@@ -14,7 +15,7 @@ const baseApptColumns: ColumnDef<Appointments>[] = [
 		accessorKey: 'date',
 		header: 'Date',
 		cell: ({ row }) => {
-			return <div>{formatDate(row.getValue('date'), 'MMM. dd yyyy')}</div>
+			return <div>{formatDate(row.getValue('date'), MMM_point_dd_yyyy)}</div>
 		}
 	},
 	{

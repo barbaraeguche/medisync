@@ -4,7 +4,7 @@ import {
 	format, parse, differenceInHours, parseISO, isBefore, isToday
 } from 'date-fns';
 import { enCA } from 'date-fns/locale';
-import { yyyy_MM_dd } from '@/utils/constants.ts';
+import { yyyy_MM_dd, EEEE_MMM_dd_yyyy } from '@/utils/constants.ts';
 
 export function cn(...args: ClassValue[]) {
 	return twMerge(clsx(args));
@@ -28,11 +28,15 @@ export const generatePagination = (currentPage: number, totalPages: number): (st
 	return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
 };
 
-export const formatDate = (date: string | Date, formatStr: string = 'EEEE, MMM dd. yyyy') => {
+export const formatDate = (date: string | Date, formatStr: string = yyyy_MM_dd) => {
 	const parsedDate = date instanceof Date ? date : parseISO(date);
 	return format(parsedDate, formatStr, {
 		locale: enCA
 	});
+};
+
+export const strToDate = (date: string, formatStr: string = yyyy_MM_dd) => {
+	return parse(date, formatStr, new Date());
 };
 
 const generateCurrentWeek = () => {
@@ -45,8 +49,8 @@ const generateCurrentWeek = () => {
 		date.setDate(date.getDate() + idx + 2);
 		
 		return {
-			date: formatDate(date, yyyy_MM_dd),
-			displayDate: formatDate(date)
+			date: formatDate(date),
+			displayDate: formatDate(date, EEEE_MMM_dd_yyyy)
 		};
 	});
 };
@@ -65,9 +69,10 @@ export const getCurrentWeek = () => {
 export const generateTimeSlots = (formerHr: string, latterHr: string) => {
 	// define a reference date (since we're only working with time)
 	const referenceDate = '1900-01-01';
+	const formatStr = 'yyyy-MM-dd HH:mm';
 	
-	const endTime = parse(`${referenceDate} ${formerHr}`, 'yyyy-MM-dd HH:mm', new Date());
-	const startTime = parse(`${referenceDate} ${latterHr}`, 'yyyy-MM-dd HH:mm', new Date());
+	const endTime = strToDate(`${referenceDate} ${formerHr}`, formatStr);
+	const startTime = strToDate(`${referenceDate} ${latterHr}`, formatStr);
 	
 	// get the number of hours between them
 	const difference = differenceInHours(endTime, startTime);

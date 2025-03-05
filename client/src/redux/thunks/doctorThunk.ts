@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiClient } from '@/utils/axiosConfig';
-import { Doctor, Practitioner } from '@/lib/definitions';
+import { Practitioner, Availabilities } from '@/lib/definitions';
 
 const mainPath = 'doctors';
 
@@ -46,7 +46,7 @@ export const saveDoctor = createAsyncThunk(
 export const saveAvailability = createAsyncThunk(
 	'doctor/saveAvailability',
   async (
-    { id, availability }: { id: string, availability: Doctor['availabilities'] },
+    { id, availability }: { id: string, availability: Availabilities[] },
     { rejectWithValue }
   ) => {
     try {

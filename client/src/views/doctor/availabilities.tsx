@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { getCurrentWeek } from '@/utils/utils';
+import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
+import { saveAvailability } from '@/redux/thunks/doctorThunk';
+import { formatDate, getCurrentWeek, strToDate } from '@/utils/utils';
 import { Button, Card } from '@/ui/index';
 
 interface DayAvailability {
@@ -14,11 +16,14 @@ const timeSlots = [
 	{ startTime: '09:00', endTime: '12:00' },
 	{ startTime: '13:00', endTime: '16:00' },
 	{ startTime: '17:00', endTime: '20:00' }
-]
+];
 
 export default function Availabilities() {
+	const dispatch = useAppDispatch();
+	const doctor = useAppSelector((state) => state.doctorSlice.doctor);
+	
 	const [availability, setAvailability] = useState<WeekAvailability>(() => {
-		const initial: WeekAvailability = {}
+		const initial: WeekAvailability = {};
 		
 		date.forEach((day) => {
 			initial[day] = {};
@@ -27,15 +32,16 @@ export default function Availabilities() {
 			});
 		});
 		
-		// TODO: set the initial availability if provided
-		// retrieved.forEach((app) => {
-		// 	const { date, startTime, endTime } = app;
-		// 	const timeSlot = `${startTime}-${endTime}`;
-		//
-		// 	if (initial[date] && timeSlot in initial[date]) {
-		// 		initial[date][timeSlot] = true;
-		// 	}
-		// });
+		// set the initial availability if provided
+		doctor.availabilities?.forEach((apt) => {
+			const { date, startTime, endTime } = apt;
+			const timeSlot = `${startTime}-${endTime}`;
+			const dateStr = formatDate(date);
+			
+			if (initial[dateStr] && timeSlot in initial[dateStr]) {
+				initial[dateStr][timeSlot] = true;
+			}
+		});
 		
 		return initial;
 	});
@@ -56,12 +62,19 @@ export default function Availabilities() {
 		for (const [date, slots] of Object.entries(availability)) {
 			for (const [timeSlot, isAvailable] of Object.entries(slots)) {
 				if (isAvailable) {
+					const strDate = strToDate(date);
 					const [startTime, endTime] = timeSlot.split('-');
-					savedAvailability.push({ date, startTime, endTime });
+					
+					savedAvailability.push({ date: strDate, startTime, endTime });
 				}
 			}
 		}
+		
 		console.log(savedAvailability)
+		dispatch(saveAvailability({
+			id: doctor._id,
+			availability: savedAvailability
+		}));
 	};
 	
 	return (
@@ -85,9 +98,9 @@ export default function Availabilities() {
 							>
 								<input
                   type={'checkbox'}
-                  className={'peer accent-background shadow-sm checked:shadow-none'}
                   id={`${date[idx]}-${slot.startTime}-${slot.endTime}`}
                   name={`${date[idx]}-${slot.startTime}-${slot.endTime}`}
+									className={'peer accent-background shadow-sm checked:shadow-none'}
                   checked={availability[date[idx]][`${slot.startTime}-${slot.endTime}`]}
                   onChange={() => handleCheckChange(date[idx], `${slot.startTime}-${slot.endTime}`)}
                 />

@@ -6,7 +6,7 @@ import { useAppSelector } from '@/hooks/useAppDispatch.ts';
 import {
 	formatDate, generateLabelValue, generateTimeSlots
 } from '@/utils/utils';
-import { yyyy_MM_dd } from '@/utils/constants';
+import { EEEE_MMM_dd_yyyy } from '@/utils/constants';
 import { appointmentTypeOptions } from '@/utils/constants';
 import InputWrapper from '@/components/inputWrapper';
 import { Button, Card, Select } from '@/ui/index';
@@ -54,14 +54,14 @@ export default function BookAppointment() {
 
 		return getDoctorDetails.availabilities
 			.filter(({ date }) => {
-				const formattedDate = formatDate(date, yyyy_MM_dd);
+				const formattedDate = formatDate(date);
 
 				if (dateSet.has(formattedDate)) return false;
 				dateSet.add(formattedDate);
 				return true;
 			})
 			.map(({ date }) =>
-				generateLabelValue(formatDate(date, yyyy_MM_dd), formatDate(date)));
+				generateLabelValue(formatDate(date), formatDate(date, EEEE_MMM_dd_yyyy)));
 	}, [getDoctorDetails]);
 
 	// find all time slots for the selected doctor & date
@@ -71,7 +71,7 @@ export default function BookAppointment() {
 
 		const timeSlots =  getDoctorDetails.availabilities
 			.filter(({ date }) =>
-				formatDate(date, yyyy_MM_dd) === appointmentDate)
+				formatDate(date) === appointmentDate)
 			.filter(({ startTime }) => {
 				if (timeSet.has(startTime)) return false;
 				timeSet.add(startTime);

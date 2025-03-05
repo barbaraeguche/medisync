@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAppSelector } from '@/hooks/useAppDispatch';
 import { formatDate } from '@/utils/utils';
+import { MMM_comma_dd_yyyy } from '@/utils/constants';
 import { MedicalHistory as MedicalHistoryType } from '@/lib/definitions';
 import { Card, Pagination, Accordion } from '@/ui/index';
 
@@ -50,7 +51,7 @@ export default function MedicalHistory() {
 										</div>
 										<div>
 											<p className={'text-sm text-gray-500'}>Diagnosis Date</p>
-											<p>{formatDate(history.diagnosisDate, 'MMM, dd yyyy')}</p>
+											<p>{formatDate(history.diagnosisDate, MMM_comma_dd_yyyy)}</p>
 										</div>
 									</div>
 								</div>

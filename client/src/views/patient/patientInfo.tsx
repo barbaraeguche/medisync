@@ -1,11 +1,9 @@
-import { parse } from 'date-fns';
 import {
 	noBloodTypeSchema, NoBloodType, healthMetricsSchema, HealthMetricsType
 } from '@/schemas/patientSchema';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { savePatient } from '@/redux/thunks/patientThunk';
-import { formatDate } from '@/utils/utils';
-import { yyyy_MM_dd } from '@/utils/constants';
+import { formatDate, strToDate } from '@/utils/utils';
 import { Patient } from '@/lib/definitions';
 import { FieldConfig } from '@/lib/types';
 import GenericForm from '@/components/genericForm';
@@ -26,7 +24,7 @@ function RoleInfo({ patient }: {
 }) {
 	const formatPatient = {
 		...patient,
-		dateOfBirth: formatDate(patient.dateOfBirth, yyyy_MM_dd)
+		dateOfBirth: formatDate(patient.dateOfBirth)
 	};
 	const dispatch = useAppDispatch();
 	
@@ -34,7 +32,7 @@ function RoleInfo({ patient }: {
 		console.log(data);
 		dispatch(savePatient({
 			...data,
-			dateOfBirth: parse(data.dateOfBirth, yyyy_MM_dd, new Date())
+			dateOfBirth: strToDate(data.dateOfBirth)
 		}));
 	};
 	
