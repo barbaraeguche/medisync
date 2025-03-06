@@ -6,7 +6,7 @@ import { patientSchema } from '@/schemas/patientSchema';
 // for authentication
 export const loginSchema = z.object({
 	...(userSchema.pick({ email: true })).shape,
-	password: z.string()
+	password: z.string().min(3, { message: 'Enter a password with at least 3 characters' })
 });
 export type LoginType = z.infer<typeof loginSchema>;
 

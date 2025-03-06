@@ -4,12 +4,12 @@ import { useAppSelector } from '@/hooks/useAppDispatch';
 export default function ProtectedRoute({ allowedRoles }: {
 	allowedRoles: string[]
 }) {
-	const { _id, role } = useAppSelector((state) => state.userSlice.user);
+	const { isAuthenticated, user: { role } } = useAppSelector((state) => state.userSlice);
 	
 	// if the user on an auth route
 	if (allowedRoles.includes('Auth')) {
-		// if the user is logged in, redirect to profile
-		if (_id) {
+		// if the user is signed in, redirect to profile
+		if (isAuthenticated) {
 			return <Navigate to={'/profile'} replace/>
 		}
 		// else proceed
@@ -17,7 +17,7 @@ export default function ProtectedRoute({ allowedRoles }: {
 	}
 	
 	// no session, redirect to sign in
-	if (!_id) {
+	if (!isAuthenticated) {
 		return <Navigate to={'/auth/signin'} replace/>
 	}
 

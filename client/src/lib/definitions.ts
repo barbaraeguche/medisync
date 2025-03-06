@@ -8,7 +8,7 @@ export interface User {
 	password: string;
 	phoneNumber: string;
 	gender: 'Male' | 'Female' | 'N/A';
-	role: 'Admin' | 'Doctor' | 'Patient';
+	role: 'Admin' | 'Doctor' | 'Patient' | 'N/A';
 	address?: {
 		street?: string;
 		city?: string;

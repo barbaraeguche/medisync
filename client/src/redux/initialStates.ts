@@ -3,14 +3,14 @@ import {
 } from '@/lib/definitions';
 
 export const userInitState: User = {
-	_id: '1',
+	_id: '',
 	firstName: '',
 	lastName: '',
 	email: '',
 	password: '',
 	phoneNumber: '',
 	gender: 'N/A',
-	role: 'Doctor',
+	role: 'N/A',
 	address: {
 		street: '',
 		city: '',
