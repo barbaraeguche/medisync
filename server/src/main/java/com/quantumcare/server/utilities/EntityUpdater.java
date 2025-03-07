@@ -1,4 +1,4 @@
-package com.quantumcare.server;
+package com.quantumcare.server.utilities;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
