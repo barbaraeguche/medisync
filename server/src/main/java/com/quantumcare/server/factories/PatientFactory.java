@@ -1,6 +1,6 @@
 package com.quantumcare.server.factories;
 
-import com.quantumcare.server.EntityUpdater;
+import com.quantumcare.server.utilities.EntityUpdater;
 import com.quantumcare.server.models.Patient;
 import com.quantumcare.server.models.User;
 import org.springframework.stereotype.Component;

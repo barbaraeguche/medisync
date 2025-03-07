@@ -1,6 +1,6 @@
 package com.quantumcare.server.factories;
 
-import com.quantumcare.server.EntityUpdater;
+import com.quantumcare.server.utilities.EntityUpdater;
 import com.quantumcare.server.models.Doctor;
 import com.quantumcare.server.models.User;
 import com.quantumcare.server.models.helpers.Practitioner;
