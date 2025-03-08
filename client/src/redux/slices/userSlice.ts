@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-	signInUser, registerUser, logoutUser, fetchUsers, saveUser
-} from '@/redux/thunks/userThunk';
+import { signInUser, registerUser, logoutUser } from '@/redux/thunks/authThunk';
+import { fetchUsers, saveUser } from '@/redux/thunks/userThunk';
 import { User } from '@/lib/definitions';
 import { ThunkStatus, ThunkError } from '@/lib/types';
 import { userInitState } from '@/redux/initialStates';

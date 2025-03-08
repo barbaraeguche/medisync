@@ -1,6 +1,7 @@
 package com.quantumcare.server.models;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -39,7 +40,6 @@ public class User {
 	@NotEmpty(message = "Password must be provided")
 	private String password;
 	
-	@NonNull
 	@Column(unique = true)
 	private String phoneNumber;
 	

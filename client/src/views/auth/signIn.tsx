@@ -2,11 +2,15 @@ import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, LoginType } from '@/schemas/authSchema';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { signInUser } from '@/redux/thunks/authThunk';
 import { ServerError } from '@/components/formError';
 import InputWrapper from '@/components/inputWrapper';
 import { Button, Card } from '@/ui/index';
 
 export default function SignInForm() {
+	const dispatch = useAppDispatch();
+	
 	const {
     register, handleSubmit, formState: { errors }
   } = useForm<LoginType>({
@@ -16,6 +20,7 @@ export default function SignInForm() {
 	
 	const onSubmit: SubmitHandler<LoginType> = (data) => {
     console.log(data);
+		dispatch(signInUser(data));
   };
 	
 	return (

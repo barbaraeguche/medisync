@@ -6,7 +6,7 @@ import { registerSchema, RegisterType } from '@/schemas/authSchema';
 import { DoctorType } from '@/schemas/doctorSchema';
 import { PatientType } from '@/schemas/patientSchema';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { registerUser } from '@/redux/thunks/userThunk';
+import { registerUser } from '@/redux/thunks/authThunk';
 import {
 	genderOptions, roleOptions, bloodTypeOptions
 } from '@/utils/constants';
@@ -37,16 +37,15 @@ export default function RegisterForm() {
 	const onSubmit: SubmitHandler<RegisterType> = (data) => {
 		const { role, user, ...rest } = data;
 		
-		const updatedUser: Partial<User> = {
-			...user, role,
-			phoneNumber: user.phoneNumber === '' ? null : user.phoneNumber
+		const updatedUser = {
+			...user, _id: '', role
 		};
 		const updatedData = role === 'Doctor'
 			? { user: updatedUser, practitioner: { ...rest } }
 			: { user: updatedUser, ...rest };
 		
 		console.log(updatedData);
-		dispatch(registerUser(updatedUser));
+		dispatch(registerUser(updatedData as unknown as User));
 	};
 	
 	// type guards for validation errors
@@ -101,16 +100,6 @@ export default function RegisterForm() {
 									placeholder: 'jane.doe@example.com'
 								}}
 								error={errors.user?.email}
-							/>
-							
-							{/* phone number */}
-							<InputWrapper
-								{...register('user.phoneNumber')}
-								conf={{
-									label: 'Phone number',
-									placeholder: '(123) 456-7890'
-								}}
-								error={errors.user?.phoneNumber}
 							/>
 							
 							{/* password */}

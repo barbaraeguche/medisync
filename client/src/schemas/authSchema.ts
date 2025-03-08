@@ -14,14 +14,14 @@ export const registerSchema = z.discriminatedUnion('role', [
 	// doctor schema
 	z.object({
 		role: z.literal('Doctor'),
-		user: userSchema.omit({ role: true }),
+		user: userSchema.omit({ role: true, phoneNumber: true }),
 		...doctorSchema.shape
 	}),
 	
 	// patient schema
 	z.object({
 		role: z.literal('Patient'),
-		user: userSchema.omit({ role: true }),
+		user: userSchema.omit({ role: true, phoneNumber: true }),
 		...patientSchema.shape
 	})
 ]);
