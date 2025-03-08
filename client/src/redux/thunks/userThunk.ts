@@ -78,8 +78,9 @@ export const saveUser = createAsyncThunk(
 	'user/saveUser',
   async (user: Partial<User>, { rejectWithValue }) => {
     try {
-			await apiClient.put(`/${userPath}/${user._id}`, user);
-			return user;
+			const response = await apiClient.put(`/${userPath}/${user._id}`, user);
+			
+			return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Failed to update user');
     }

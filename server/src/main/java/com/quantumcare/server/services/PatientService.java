@@ -36,11 +36,11 @@ public class PatientService {
 	}
 	
 	@Transactional
-	public void postPatient(Patient reqPatient) {
+	public Patient postPatient(Patient reqPatient) {
 		User user = userFactory.createUser(reqPatient.getUser());
 		Patient patient = patientFactory.createPatient(user, reqPatient);
 		
-		patientRepository.save(patient);
+		return patientRepository.save(patient);
 	}
 	
 	public void postAppointment(Patient reqPatient, Appointments reqAppointments) {

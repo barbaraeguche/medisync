@@ -35,16 +35,6 @@ public class PatientController {
 		return patientService.getAllPatients();
 	}
 	
-	@PostMapping
-	public ResponseEntity<String> createPatient(@Valid @RequestBody Patient patient) {
-		try {
-			patientService.postPatient(patient);
-			return ResponseEntity.ok("Patient created successfully");
-		} catch (Exception exp) {
-			return ResponseEntity.internalServerError().body("Failed to create patient: " + exp.getMessage());
-		}
-	}
-	
 	@PostMapping("/{id}/appointment")
 	public ResponseEntity<String> createAppointment(
 		@PathVariable UUID id, @Valid @RequestBody Appointments appointment

@@ -35,11 +35,11 @@ public class DoctorService {
 	}
 	
 	@Transactional
-	public void postDoctor(Doctor reqDoctor) {
+	public Doctor postDoctor(Doctor reqDoctor) {
 		User user = userFactory.createUser(reqDoctor.getUser());
 		Doctor doctor = doctorFactory.createDoctor(user, reqDoctor.getPractitioner());
 		
-		doctorRepository.save(doctor);
+		return doctorRepository.save(doctor);
 	}
 	
 	public void putDoctor(Doctor prevDoctor, Doctor currDoctor) {

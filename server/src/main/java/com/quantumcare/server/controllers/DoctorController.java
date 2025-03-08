@@ -34,16 +34,6 @@ public class DoctorController {
     return doctorService.getAllDoctors();
   }
 	
-	@PostMapping
-	public ResponseEntity<String> createDoctor(@Valid @RequestBody Doctor doctor) {
-		try {
-			doctorService.postDoctor(doctor);
-			return ResponseEntity.ok("Doctor created successfully");
-		} catch (Exception exp) {
-			return ResponseEntity.internalServerError().body("Failed to create doctor: " + exp.getMessage());
-		}
-	}
-	
 	@PutMapping("/{id}")
 	public ResponseEntity<String> updateDoctor(
 		@PathVariable UUID id, @RequestBody Doctor doctor

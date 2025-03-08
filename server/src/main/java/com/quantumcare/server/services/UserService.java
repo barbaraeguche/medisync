@@ -4,13 +4,18 @@ import com.quantumcare.server.models.User;
 import com.quantumcare.server.factories.UserFactory;
 import com.quantumcare.server.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 	
 	private final UserFactory userFactory;
 	private final UserRepository userRepository;
@@ -34,17 +39,23 @@ public class UserService {
 		return userRepository.findAll();
 	}
 	
-	public void postUser(User reqUser) {
-		User user = userFactory.createUser(reqUser);
-		userRepository.save(user);
-	}
-	
-	public void putUser(User prevUser, User currUser) {
+	public User putUser(User prevUser, User currUser) {
 		userFactory.updateUser(prevUser, currUser);
-		userRepository.save(prevUser);
+		return userRepository.save(prevUser);
 	}
 	
-	public void deleteUser(User reqUser) {
-    userRepository.delete(reqUser);
-  }
+	@Override
+	public UserDetails loadUserByUsername(String email) {
+		User user = findUserByEmail(email);
+		
+		if (user == null) {
+			throw new UsernameNotFoundException("User not found with email: " + email);
+		}
+		
+		return new org.springframework.security.core.userdetails.User(
+			user.getEmail(),
+			user.getPassword(),
+			Collections.singletonList(new SimpleGrantedAuthority(user.getRole().toString()))
+		);
+	}
 }

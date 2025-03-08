@@ -31,11 +31,14 @@ export default function RegisterForm() {
 	const prevStep = () => setSteps((prev) => Math.max(1, prev - 1));
 	
 	const onSubmit: SubmitHandler<RegisterType> = (data) => {
-		const { role, ...rest } = data;
+		const { role, user, ...rest } = data;
 		
-		const updatedData = {
-			...rest,
-			user: { ...data.user, role }
+		const updatedData = role === 'Doctor' ? {
+			user: { ...user, role },
+			practitioner: { ...rest }
+		} : {
+			user: { ...user, role },
+			...rest
 		};
 		
 		console.log(updatedData);

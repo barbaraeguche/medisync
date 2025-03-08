@@ -11,14 +11,18 @@ export const loginSchema = z.object({
 export type LoginType = z.infer<typeof loginSchema>;
 
 export const registerSchema = z.discriminatedUnion('role', [
+	// doctor schema
 	z.object({
 		role: z.literal('Doctor'),
 		user: userSchema.omit({ role: true }),
-	}).merge(doctorSchema), // merge doctor schema
+		...doctorSchema.shape
+	}),
 	
+	// patient schema
 	z.object({
 		role: z.literal('Patient'),
 		user: userSchema.omit({ role: true }),
-	}).merge(patientSchema), // merge patient schema
+		...patientSchema.shape
+	})
 ]);
 export type RegisterType = z.infer<typeof registerSchema>;
