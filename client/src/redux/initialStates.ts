@@ -40,7 +40,7 @@ export const practitionerInitState: Practitioner = {
 
 export const doctorInitState: Doctor = {
 	_id: '',
-  user: userInitState,
+  user: { ...userInitState },
   practitioner: practitionerInitState,
   availabilities: [],
   appointments: []
@@ -48,7 +48,7 @@ export const doctorInitState: Doctor = {
 
 export const patientInitState: Patient = {
 	_id: '',
-	user: userInitState,
+	user: { ...userInitState },
 	dateOfBirth: new Date('1900-01-01'),
   allergies: '',
   bloodType: 'N/A',

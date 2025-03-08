@@ -52,11 +52,18 @@ function ChangeEmail({ user }: {
 function ChangePhoneNumber({ user }: {
 	user: User
 }) {
+	const formatUser = {
+		...user,
+		phoneNumber: user.phoneNumber ?? ''
+	};
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: UpdatePhoneNumberType) => {
 		console.log(data);
-		dispatch(saveUser(data));
+		dispatch(saveUser({
+			...data,
+			phoneNumber: data.phoneNumber === '' ? null : data.phoneNumber
+		}));
 	};
 	
 	const phoneNumberField: FieldConfig[] = [
@@ -69,9 +76,9 @@ function ChangePhoneNumber({ user }: {
 	
 	return (
 		<GenericForm
-			initialValues={user}
 			onSubmit={handleSubmit}
 			fields={phoneNumberField}
+			initialValues={formatUser}
 			title={'Change Phone Number'}
 			schema={updatePhoneNumberSchema}
 		/>

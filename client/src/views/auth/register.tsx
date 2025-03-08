@@ -5,15 +5,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema, RegisterType } from '@/schemas/authSchema';
 import { DoctorType } from '@/schemas/doctorSchema';
 import { PatientType } from '@/schemas/patientSchema';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { registerUser } from '@/redux/thunks/userThunk';
 import {
 	genderOptions, roleOptions, bloodTypeOptions
 } from '@/utils/constants';
+import { User } from '@/lib/definitions';
 import { ServerError } from '@/components/formError';
 import InputWrapper from '@/components/inputWrapper';
 import { Button, Card, Select } from '@/ui/index';
 
 export default function RegisterForm() {
 	const [steps, setSteps] = useState(1);
+	const dispatch = useAppDispatch();
 	
 	const {
 		register, handleSubmit, formState: { errors }, control, watch, trigger
@@ -33,15 +37,16 @@ export default function RegisterForm() {
 	const onSubmit: SubmitHandler<RegisterType> = (data) => {
 		const { role, user, ...rest } = data;
 		
-		const updatedData = role === 'Doctor' ? {
-			user: { ...user, role },
-			practitioner: { ...rest }
-		} : {
-			user: { ...user, role },
-			...rest
+		const updatedUser: Partial<User> = {
+			...user, role,
+			phoneNumber: user.phoneNumber === '' ? null : user.phoneNumber
 		};
+		const updatedData = role === 'Doctor'
+			? { user: updatedUser, practitioner: { ...rest } }
+			: { user: updatedUser, ...rest };
 		
 		console.log(updatedData);
+		dispatch(registerUser(updatedUser));
 	};
 	
 	// type guards for validation errors

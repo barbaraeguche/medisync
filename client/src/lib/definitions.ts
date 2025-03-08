@@ -6,7 +6,7 @@ export interface User {
 	lastName: string;
 	email: string;
 	password: string;
-	phoneNumber: string;
+	phoneNumber: string | null;
 	gender: 'Male' | 'Female' | 'N/A';
 	role: 'Admin' | 'Doctor' | 'Patient' | 'N/A';
 	address?: {

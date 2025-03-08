@@ -55,10 +55,10 @@ const userSlice = createSlice({
 				state.status = 'pending';
 				state.error = null;
 			})
-			.addCase(signInUser.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
+			.addCase(signInUser.fulfilled, (state, action: PayloadAction<User>) => {
 				state.status = 'fulfilled';
 				state.isAuthenticated = true;
-				state.user = action.payload.user;
+				state.user = action.payload;
 			})
 			.addCase(signInUser.rejected, (state, action) => {
 				state.status = 'rejected';
@@ -71,10 +71,10 @@ const userSlice = createSlice({
 				state.status = 'pending';
 				state.error = null;
 			})
-			.addCase(registerUser.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
+			.addCase(registerUser.fulfilled, (state, action: PayloadAction<User>) => {
 				state.status = 'fulfilled';
 				state.isAuthenticated = true;
-				state.user = action.payload.user;
+				state.user = action.payload;
 			})
 			.addCase(registerUser.rejected, (state, action) => {
 				state.status = 'rejected';

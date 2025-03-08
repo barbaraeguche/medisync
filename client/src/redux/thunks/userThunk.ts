@@ -23,10 +23,10 @@ export const signInUser = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
 	'user/registerUser',
-	async (data: Doctor | Patient, { rejectWithValue }) => {
+	async (data: Partial<Doctor> | Partial<Patient>, { rejectWithValue }) => {
 		try {
 			// determine if registering a doctor or patient based on their role... admin would be me
-			const userRole = data.user.role;
+			const userRole = data.user!.role;
 			
 			const response = await apiClient.post(`${authPath}/register/${userRole}`, data);
 			return response.data;

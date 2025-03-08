@@ -39,6 +39,7 @@ public class User {
 	@NotEmpty(message = "Password must be provided")
 	private String password;
 	
+	@NonNull
 	@Column(unique = true)
 	private String phoneNumber;
 	
