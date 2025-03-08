@@ -48,8 +48,8 @@ public class PatientController {
 				"appointment", currAppointment,
 				"message", "Appointment created successfully"
 			));
-		} catch (Exception exp) {
-			return ResponseEntity.internalServerError().body("Failed to create appointment: " + exp.getMessage());
+		} catch (Exception _) {
+			return ResponseEntity.internalServerError().body("Database error. Failed to create appointment.");
 		}
 	}
 	
@@ -65,8 +65,8 @@ public class PatientController {
 				"patient", currPatient,
 				"message", "Patient updated successfully"
 			));
-		} catch (Exception exp) {
-			return ResponseEntity.internalServerError().body("Failed to update patient: " + exp.getMessage());
+		} catch (Exception _) {
+			return ResponseEntity.internalServerError().body("Database error. Failed to update patient.");
 		}
 	}
 	
@@ -82,8 +82,8 @@ public class PatientController {
 				"appointment", currAppointments,
 				"message", "Appointment updated successfully"
 			));
-		} catch (Exception exp) {
-			return ResponseEntity.internalServerError().body("Failed to update appointment: " + exp.getMessage());
+		} catch (Exception _) {
+			return ResponseEntity.internalServerError().body("Database error. Failed to update appointment.");
 		}
 	}
 	
@@ -93,8 +93,8 @@ public class PatientController {
 			Patient currPatient = getPatientById(id);
 			patientService.deletePatient(currPatient);
 			return ResponseEntity.ok("Patient deleted successfully");
-		} catch (Exception exp) {
-			return ResponseEntity.internalServerError().body("Failed to delete patient: " + exp.getMessage());
+		} catch (Exception _) {
+			return ResponseEntity.internalServerError().body("Database error. Failed to delete patient.");
 		}
 	}
 	

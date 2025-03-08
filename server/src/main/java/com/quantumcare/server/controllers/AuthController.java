@@ -84,9 +84,9 @@ public class AuthController {
 			
 			return ResponseEntity.ok(userObj);
 		} catch (BadCredentialsException _) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-		} catch (Exception exp) {
-			return ResponseEntity.internalServerError().body("Failed to authenticate user: " + exp.getMessage());
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
+		} catch (Exception _) {
+			return ResponseEntity.internalServerError().body("Database error. Failed to authenticate user.");
 		}
 	}
 	
@@ -131,8 +131,8 @@ public class AuthController {
 			Map<String, Object> userObj = Map.of("user", createdUser);
 			
 			return ResponseEntity.ok(userObj);
-		} catch (Exception exp) {
-			return ResponseEntity.internalServerError().body("Failed to register user: " + exp.getMessage());
+		} catch (Exception _) {
+			return ResponseEntity.internalServerError().body("Database error. Failed to register user.");
 		}
 	}
 	
@@ -188,12 +188,12 @@ public class AuthController {
 			
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
 				"valid", false,
-				"message", "Invalid or expired token"
+				"message", "Invalid or expired token."
 			));
-		} catch (Exception exp) {
+		} catch (Exception _) {
 			return ResponseEntity.internalServerError().body(Map.of(
 				"valid", false,
-				"message", "Failed to verify token: " + exp.getMessage()
+				"message", "Failed to verify token"
 			));
 		}
 	}

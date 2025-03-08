@@ -41,8 +41,8 @@ public class UserController {
 				"user", currUser,
 				"message", "User updated successfully"
 			));
-		} catch (Exception exp) {
-			return ResponseEntity.internalServerError().body("Failed to update user: " + exp.getMessage());
+		} catch (Exception _) {
+			return ResponseEntity.internalServerError().body("Database error. Failed to update user.");
 		}
 	}
 	

@@ -47,8 +47,8 @@ public class DoctorController {
 				"doctor", currDoctor,
 				"message", "Doctor updated successfully"
 			));
-		} catch (Exception exp) {
-			return ResponseEntity.internalServerError().body("Failed to update doctor: " + exp.getMessage());
+		} catch (Exception _) {
+			return ResponseEntity.internalServerError().body("Database error. Failed to update doctor.");
 		}
 	}
 	
@@ -63,8 +63,8 @@ public class DoctorController {
 				"availability", newAvailabilities,
 				"message", "Availability updated successfully"
 			));
-		} catch (Exception exp) {
-			return ResponseEntity.internalServerError().body("Failed to update availability: " + exp.getMessage());
+		} catch (Exception _) {
+			return ResponseEntity.internalServerError().body("Database error. Failed to update availability.");
 		}
 	}
 	
@@ -74,8 +74,8 @@ public class DoctorController {
 			Doctor currDoctor = getDoctorById(id);
 			doctorService.deleteDoctor(currDoctor);
 			return ResponseEntity.ok("Doctor deleted successfully");
-		} catch (Exception exp) {
-			return ResponseEntity.internalServerError().body("Failed to delete doctor: " + exp.getMessage());
+		} catch (Exception _) {
+			return ResponseEntity.internalServerError().body("Database error. Failed to delete doctor.");
 		}
 	}
 	
