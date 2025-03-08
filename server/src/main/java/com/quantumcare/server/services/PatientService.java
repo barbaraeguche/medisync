@@ -43,23 +43,25 @@ public class PatientService {
 		return patientRepository.save(patient);
 	}
 	
-	public void postAppointment(Patient reqPatient, Appointments reqAppointments) {
-		reqPatient.getAppointments().addFirst(reqAppointments);
+	public Appointments postAppointment(Patient reqPatient, Appointments reqAppointments) {
+		reqPatient.getAppointments().add(reqAppointments);
 		patientRepository.save(reqPatient);
+		return reqAppointments;
 	}
 	
-	public void putPatient(Patient prevPatient, Patient currPatient) {
+	public Patient putPatient(Patient prevPatient, Patient currPatient) {
     patientFactory.updatePatient(prevPatient, currPatient);
-    patientRepository.save(prevPatient);
+    return patientRepository.save(prevPatient);
   }
 	
-	public void putAppointment(Patient reqPatient, Appointments reqAppointments) {
+	public List<Appointments> putAppointment(Patient reqPatient, Appointments reqAppointments) {
 		List<Appointments> appointments = reqPatient.getAppointments();
 		
 		// remove old appointment if exists
 		appointments.removeIf((apt) -> apt.get_id().equals(reqAppointments.get_id()));
 		appointments.add(reqAppointments);
-		patientRepository.save(reqPatient);
+		
+		return patientRepository.save(reqPatient).getAppointments();
 	}
 	
 	// todo: work on openai medical history

@@ -42,16 +42,16 @@ public class DoctorService {
 		return doctorRepository.save(doctor);
 	}
 	
-	public void putDoctor(Doctor prevDoctor, Doctor currDoctor) {
+	public Doctor putDoctor(Doctor prevDoctor, Doctor currDoctor) {
 		doctorFactory.updateDoctor(prevDoctor, currDoctor);
-    doctorRepository.save(prevDoctor);
+    return doctorRepository.save(prevDoctor);
 	}
 	
-	public void putAvailabilities(Doctor reqDoctor, List<Doctor.Availabilities> newAvailabilities) {
+	public List<Doctor.Availabilities> putAvailabilities(Doctor reqDoctor, List<Doctor.Availabilities> newAvailabilities) {
 		List<Doctor.Availabilities> availabilities = doctorFactory.createAvailabilities(newAvailabilities);
 		
 		reqDoctor.setAvailabilities(availabilities);
-		doctorRepository.save(reqDoctor);
+		return doctorRepository.save(reqDoctor).getAvailabilities();
 	}
 	
 	public void deleteDoctor(Doctor reqDoctor) {

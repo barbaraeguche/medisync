@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -35,26 +36,33 @@ public class DoctorController {
   }
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateDoctor(
+	public ResponseEntity<?> updateDoctor(
 		@PathVariable UUID id, @RequestBody Doctor doctor
 	) {
 		try {
-			Doctor currDoctor = getDoctorById(id);
-			doctorService.putDoctor(currDoctor, doctor);
-			return ResponseEntity.ok("Doctor updated successfully");
+			Doctor prevDoctor = getDoctorById(id);
+			Doctor currDoctor = doctorService.putDoctor(prevDoctor, doctor);
+			
+			return ResponseEntity.ok(Map.of(
+				"doctor", currDoctor,
+				"message", "Doctor updated successfully"
+			));
 		} catch (Exception exp) {
 			return ResponseEntity.internalServerError().body("Failed to update doctor: " + exp.getMessage());
 		}
 	}
 	
 	@PutMapping("/{id}/availability")
-	public ResponseEntity<String> updateAvailability(
+	public ResponseEntity<?> updateAvailability(
 		@PathVariable UUID id, @Valid @RequestBody List<Doctor.Availabilities> availabilities
 	) {
 		try {
 			Doctor currDoctor = getDoctorById(id);
-			doctorService.putAvailabilities(currDoctor, availabilities);
-			return ResponseEntity.ok("Availability updated successfully");
+			List<Doctor.Availabilities> newAvailabilities = doctorService.putAvailabilities(currDoctor, availabilities);
+			return ResponseEntity.ok(Map.of(
+				"availability", newAvailabilities,
+				"message", "Availability updated successfully"
+			));
 		} catch (Exception exp) {
 			return ResponseEntity.internalServerError().body("Failed to update availability: " + exp.getMessage());
 		}

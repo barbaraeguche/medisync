@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-	signInUser, registerUser, logoutUser,
-	fetchUser, fetchUsers, saveUser
+	signInUser, registerUser, logoutUser, fetchUsers, saveUser
 } from '@/redux/thunks/userThunk';
 import { User } from '@/lib/definitions';
 import { ThunkStatus, ThunkError } from '@/lib/types';
@@ -101,32 +100,14 @@ const userSlice = createSlice({
 			})
 			
 			// ---- crud operations ---- //
-			// fetchUser
-			.addCase(fetchUser.pending, (state) => {
-				state.status = 'pending';
-				state.error = null;
-			})
-			.addCase(fetchUser.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
-				state.status = 'fulfilled';
-				
-				// only if this is the current user
-				if (state.user._id === action.payload.user._id) {
-					state.user = action.payload.user;
-				}
-			})
-			.addCase(fetchUser.rejected, (state, action) => {
-				state.status = 'rejected';
-				state.error = action.payload as string;
-			})
-		
 			// fetchUsers
 			.addCase(fetchUsers.pending, (state) => {
 				state.status = 'pending';
 				state.error = null;
 			})
-			.addCase(fetchUsers.fulfilled, (state, action: PayloadAction<{ users: User[] }>) => {
+			.addCase(fetchUsers.fulfilled, (state, action: PayloadAction<User[]>) => {
 				state.status = 'fulfilled';
-				state.users = action.payload.users;
+				state.users = action.payload;
 			})
 			.addCase(fetchUsers.rejected, (state, action) => {
 				state.status = 'rejected';
@@ -138,12 +119,9 @@ const userSlice = createSlice({
 				state.status = 'pending';
 				state.error = null;
 			})
-			.addCase(saveUser.fulfilled, (state, action: PayloadAction<Partial<User>>) => {
+			.addCase(saveUser.fulfilled, (state, action: PayloadAction<User>) => {
 				state.status = 'fulfilled';
-				state.user = {
-					...state.user,
-					...action.payload
-				};
+				state.user = action.payload;
 			})
 			.addCase(saveUser.rejected, (state, action) => {
 				state.status = 'rejected';

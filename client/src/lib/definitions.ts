@@ -27,7 +27,7 @@ export interface Doctor {
 	_id: string;
 	user: User;
 	practitioner: Practitioner;
-	availabilities?: Availabilities[];
+	availabilities?: Availabilities;
 	appointments?: Appointments[];
 }
 
@@ -35,7 +35,7 @@ export type Availabilities = {
 	date: Date;
 	startTime: string;
 	endTime: string;
-};
+}[];
 
 export interface Patient {
 	_id: string;

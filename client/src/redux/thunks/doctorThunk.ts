@@ -35,8 +35,8 @@ export const saveDoctor = createAsyncThunk(
 		{ rejectWithValue }
 	) => {
     try {
-      await apiClient.put(`/${mainPath}/${id}`, practitioner);
-      return practitioner;
+      const response = await apiClient.put(`/${mainPath}/${id}`, practitioner);
+      return response.data?.doctor;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Failed to save doctor role information');
     }
@@ -46,12 +46,12 @@ export const saveDoctor = createAsyncThunk(
 export const saveAvailability = createAsyncThunk(
 	'doctor/saveAvailability',
   async (
-    { id, availability }: { id: string, availability: Availabilities[] },
+    { id, availability }: { id: string, availability: Availabilities },
     { rejectWithValue }
   ) => {
     try {
-      await apiClient.put(`/${mainPath}/${id}/availability`, availability);
-      return availability;
+      const response = await apiClient.put(`/${mainPath}/${id}/availability`, availability);
+      return response.data?.availability;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Failed to save doctor availability');
     }

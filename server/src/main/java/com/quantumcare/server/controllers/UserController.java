@@ -35,10 +35,10 @@ public class UserController {
 			// if id is null or id does not exist in db, send a 404 error
 			validateUserId(id);
 			
-			User currUser = userService.getUserById(id);
-			User newUser = userService.putUser(currUser, user);
+			User prevUser = userService.getUserById(id);
+			User currUser = userService.putUser(prevUser, user);
 			return ResponseEntity.ok(Map.of(
-				"user", newUser,
+				"user", currUser,
 				"message", "User updated successfully"
 			));
 		} catch (Exception exp) {

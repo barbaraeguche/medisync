@@ -50,18 +50,6 @@ export const logoutUser = createAsyncThunk(
 );
 
 // user crud
-export const fetchUser = createAsyncThunk(
-	'user/fetchUser',
-	async (id: string, { rejectWithValue }) => {
-		try {
-			const response = await apiClient.get(`/${userPath}/${id}`);
-			return response.data;
-		} catch (err: any) {
-			return rejectWithValue(err.response?.data?.message || 'Failed to fetch user');
-		}
-	}
-);
-
 export const fetchUsers = createAsyncThunk(
 	'user/fetchUsers',
 	async (_, { rejectWithValue }) => {
@@ -79,8 +67,7 @@ export const saveUser = createAsyncThunk(
   async (user: Partial<User>, { rejectWithValue }) => {
     try {
 			const response = await apiClient.put(`/${userPath}/${user._id}`, user);
-			
-			return response.data;
+			return response.data?.user;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Failed to update user');
     }

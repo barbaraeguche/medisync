@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -36,39 +37,51 @@ public class PatientController {
 	}
 	
 	@PostMapping("/{id}/appointment")
-	public ResponseEntity<String> createAppointment(
+	public ResponseEntity<?> createAppointment(
 		@PathVariable UUID id, @Valid @RequestBody Appointments appointment
 	) {
 		try {
 			Patient patient = patientService.getPatientById(id);
-			patientService.postAppointment(patient, appointment);
-			return ResponseEntity.ok("Appointment created successfully");
+			Appointments currAppointment = patientService.postAppointment(patient, appointment);
+			
+			return ResponseEntity.ok(Map.of(
+				"appointment", currAppointment,
+				"message", "Appointment created successfully"
+			));
 		} catch (Exception exp) {
 			return ResponseEntity.internalServerError().body("Failed to create appointment: " + exp.getMessage());
 		}
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updatePatient(
+	public ResponseEntity<?> updatePatient(
 		@PathVariable UUID id, @RequestBody Patient patient
 	) {
 		try {
-			Patient currPatient = getPatientById(id);
-			patientService.putPatient(currPatient, patient);
-			return ResponseEntity.ok("Patient updated successfully");
+			Patient prevPatient = getPatientById(id);
+			Patient currPatient = patientService.putPatient(prevPatient, patient);
+			
+			return ResponseEntity.ok(Map.of(
+				"patient", currPatient,
+				"message", "Patient updated successfully"
+			));
 		} catch (Exception exp) {
 			return ResponseEntity.internalServerError().body("Failed to update patient: " + exp.getMessage());
 		}
 	}
 	
 	@PutMapping("/{id}/appointment")
-	public ResponseEntity<String> updateAppointment(
+	public ResponseEntity<?> updateAppointment(
 		@PathVariable UUID id, @Valid @RequestBody Appointments appointment
 	) {
 		try {
 			Patient patient = patientService.getPatientById(id);
-			patientService.putAppointment(patient, appointment);
-			return ResponseEntity.ok("Appointment updated successfully");
+			List<Appointments> currAppointments = patientService.putAppointment(patient, appointment);
+			
+			return ResponseEntity.ok(Map.of(
+				"appointment", currAppointments,
+				"message", "Appointment updated successfully"
+			));
 		} catch (Exception exp) {
 			return ResponseEntity.internalServerError().body("Failed to update appointment: " + exp.getMessage());
 		}

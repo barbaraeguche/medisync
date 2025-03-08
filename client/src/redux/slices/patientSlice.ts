@@ -36,9 +36,9 @@ const patientSlice = createSlice({
       .addCase(fetchPatient.pending, (state) => {
         state.status = 'pending';
       })
-      .addCase(fetchPatient.fulfilled, (state, action: PayloadAction<{ patient: Patient }>) => {
+      .addCase(fetchPatient.fulfilled, (state, action: PayloadAction<Patient>) => {
         state.status = 'fulfilled';
-        state.patient = action.payload.patient;
+        state.patient = action.payload;
       })
       .addCase(fetchPatient.rejected, (state, action) => {
         state.status = 'rejected';
@@ -49,9 +49,9 @@ const patientSlice = createSlice({
 			.addCase(fetchPatients.pending, (state) => {
 				state.status = 'pending';
 			})
-			.addCase(fetchPatients.fulfilled, (state, action: PayloadAction<{ patients: Patient[] }>) => {
+			.addCase(fetchPatients.fulfilled, (state, action: PayloadAction<Patient[]>) => {
 				state.status = 'fulfilled';
-				state.patients = action.payload.patients;
+				state.patients = action.payload;
 			})
 			.addCase(fetchPatients.rejected, (state, action) => {
 				state.status = 'rejected';
@@ -62,7 +62,7 @@ const patientSlice = createSlice({
 			.addCase(savePatient.pending, (state) => {
 				state.status = 'pending';
 			})
-			.addCase(savePatient.fulfilled, (state, action: PayloadAction<Partial<Patient>>) => {
+			.addCase(savePatient.fulfilled, (state, action: PayloadAction<Patient>) => {
 				state.status = 'fulfilled';
 				state.patient = {
 					...state.patient,

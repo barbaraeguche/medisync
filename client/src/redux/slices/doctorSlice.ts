@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
 	fetchDoctor, fetchDoctors, saveDoctor, saveAvailability, deleteDoctor
 } from '@/redux/thunks/doctorThunk';
-import { Doctor, Practitioner } from '@/lib/definitions';
+import { Availabilities, Doctor } from '@/lib/definitions';
 import { ThunkStatus, ThunkError } from '@/lib/types';
 import { doctorInitState } from '@/redux/initialStates';
 
@@ -35,55 +35,52 @@ const doctorSlice = createSlice({
 			.addCase(fetchDoctor.pending, (state) => {
 				state.status = 'pending';
 			})
-			.addCase(fetchDoctor.fulfilled, (state, action: PayloadAction<{ doctor: Doctor }>) => {
+			.addCase(fetchDoctor.fulfilled, (state, action: PayloadAction<Doctor>) => {
 				state.status = 'fulfilled';
-				state.doctor = action.payload.doctor;
+				state.doctor = action.payload;
 			})
 			.addCase(fetchDoctor.rejected, (state, action) => {
 				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
+				state.error = action.payload as string;
 			})
 			
 			// fetchDoctors
 			.addCase(fetchDoctors.pending, (state) => {
 				state.status = 'pending';
 			})
-			.addCase(fetchDoctors.fulfilled, (state, action: PayloadAction<{ doctors: Doctor[] }>) => {
+			.addCase(fetchDoctors.fulfilled, (state, action: PayloadAction<Doctor[]>) => {
 				state.status = 'fulfilled';
-				state.doctors = action.payload.doctors;
+				state.doctors = action.payload;
 			})
 			.addCase(fetchDoctors.rejected, (state, action) => {
 				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
+				state.error = action.payload as string;
 			})
 			
 			// saveDoctor
 			.addCase(saveDoctor.pending, (state) => {
 				state.status = 'pending';
 			})
-			.addCase(saveDoctor.fulfilled, (state, action: PayloadAction<Partial<Practitioner>>) => {
+			.addCase(saveDoctor.fulfilled, (state, action: PayloadAction<Doctor>) => {
 				state.status = 'fulfilled';
-				state.doctor.practitioner = {
-					...state.doctor.practitioner,
-          ...action.payload
-				}
+				state.doctor = action.payload;
 			})
 			.addCase(saveDoctor.rejected, (state, action) => {
 				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
+				state.error = action.payload as string;
 			})
 			
 			// saveAvailability
 			.addCase(saveAvailability.pending, (state) => {
 				state.status = 'pending';
 			})
-			.addCase(saveAvailability.fulfilled, (state, action: PayloadAction<Doctor['availabilities']>) => {
+			.addCase(saveAvailability.fulfilled, (state, action: PayloadAction<Availabilities>) => {
 				state.status = 'fulfilled';
 				state.doctor.availabilities = action.payload;
 			})
 			.addCase(saveAvailability.rejected, (state, action) => {
 				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
+				state.error = action.payload as string;
 			})
 			
 			// deleteDoctor

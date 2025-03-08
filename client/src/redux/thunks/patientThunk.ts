@@ -32,8 +32,8 @@ export const savePatient = createAsyncThunk(
 	'patient/savePatient',
   async (patient: Partial<Patient>, { rejectWithValue }) => {
     try {
-      await apiClient.put(`/${mainPath}/${patient._id}`, patient);
-      return patient;
+      const response = await apiClient.put(`/${mainPath}/${patient._id}`, patient);
+      return response.data?.patient;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Failed to save patient');
     }
@@ -48,7 +48,7 @@ export const createAppointment = createAsyncThunk(
 	) => {
     try {
       const response = await apiClient.post(`/${mainPath}/${id}/appointments`, appointment);
-      return response.data;
+      return response.data?.appointment;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Failed to create appointment');
     }
@@ -63,7 +63,7 @@ export const saveAppointment = createAsyncThunk(
 	) => {
     try {
       const response = await apiClient.put(`/${mainPath}/${id}/appointments`, appointment);
-      return response.data;
+      return response.data?.appointment;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Failed to save appointment');
     }
