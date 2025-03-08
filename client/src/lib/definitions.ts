@@ -32,7 +32,7 @@ export interface Doctor {
 }
 
 export type Availabilities = {
-	date: Date;
+	date: string;
 	startTime: string;
 	endTime: string;
 }[];
@@ -40,7 +40,7 @@ export type Availabilities = {
 export interface Patient {
 	_id: string;
 	user: User;
-	dateOfBirth: Date;
+	dateOfBirth: string;
 	allergies?: string;
 	bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | 'N/A';
 	insuranceProvider?: string;
@@ -72,7 +72,7 @@ export interface MedicalHistory {
 	_id: number;
 	patientId: string;
 	diagnosis: string;
-	diagnosisDate: Date;
+	diagnosisDate: string;
 	medications?: {
 		drugName: string;
 		dosage: string;
@@ -85,7 +85,7 @@ export interface Appointments {
 	_id: number;
 	doctorId: string;
 	patientId: string;
-	date: Date;
+	date: string;
 	time: string;
 	type: 'Checkup' | 'Follow Up' | 'Emergency' | 'Consultation' | 'N/A';
 	status: 'Scheduled' | 'Completed' | 'Cancelled' | 'N/A';

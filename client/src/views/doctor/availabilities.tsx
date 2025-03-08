@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { saveAvailability } from '@/redux/thunks/doctorThunk';
-import { formatDate, getCurrentWeek, strToDate } from '@/utils/utils';
+import { formatDate, getCurrentWeek } from '@/utils/utils';
 import { Button, Card } from '@/ui/index';
 
 interface DayAvailability {
@@ -62,10 +62,9 @@ export default function Availabilities() {
 		for (const [date, slots] of Object.entries(availability)) {
 			for (const [timeSlot, isAvailable] of Object.entries(slots)) {
 				if (isAvailable) {
-					const strDate = strToDate(date);
 					const [startTime, endTime] = timeSlot.split('-');
 					
-					savedAvailability.push({ date: strDate, startTime, endTime });
+					savedAvailability.push({ date, startTime, endTime });
 				}
 			}
 		}

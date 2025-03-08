@@ -49,7 +49,7 @@ export const doctorInitState: Doctor = {
 export const patientInitState: Patient = {
 	_id: '',
 	user: { ...userInitState },
-	dateOfBirth: new Date('1900-01-01'),
+	dateOfBirth: '1900-01-01',
   allergies: '',
   bloodType: 'N/A',
   insuranceProvider: '',
@@ -67,14 +67,14 @@ export const patientInitState: Patient = {
 export const medicalHistInitState: MedicalHistory = {
 	_id: 0,
   diagnosis: '',
-  diagnosisDate: new Date('1900-01-01'),
+  diagnosisDate: '1900-01-01',
   medications: [],
 	patientId: ''
 };
 
 export const appointmentInitState: Appointments = {
 	_id: 0,
-  date: new Date('1900-01-01'),
+  date: '1900-01-01',
   time: '',
   type: 'N/A',
   status: 'N/A',

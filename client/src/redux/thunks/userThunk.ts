@@ -14,7 +14,7 @@ export const signInUser = createAsyncThunk(
 	) => {
 		try {
 			const response = await apiClient.post(`${authPath}/signin`, data);
-			return response.data;
+			return response.data?.user;
 		} catch (err: any) {
 			return rejectWithValue(err.response?.data?.message || 'Login failed. Please try again.');
 		}
@@ -29,7 +29,7 @@ export const registerUser = createAsyncThunk(
 			const userRole = data.user!.role;
 			
 			const response = await apiClient.post(`${authPath}/register/${userRole}`, data);
-			return response.data;
+			return response.data?.user;
 		} catch (err: any) {
 			return rejectWithValue(err.response?.data?.message || 'Registration failed. Please try again.');
 		}

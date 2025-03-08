@@ -35,7 +35,7 @@ export const formatDate = (date: string | Date, formatStr: string = yyyy_MM_dd) 
 	});
 };
 
-export const strToDate = (date: string, formatStr: string = yyyy_MM_dd) => {
+const strToDate = (date: string, formatStr: string = yyyy_MM_dd) => {
 	return parse(date, formatStr, new Date());
 };
 

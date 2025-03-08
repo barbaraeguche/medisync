@@ -3,7 +3,6 @@ import {
 } from '@/schemas/patientSchema';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { savePatient } from '@/redux/thunks/patientThunk';
-import { formatDate, strToDate } from '@/utils/utils';
 import { Patient } from '@/lib/definitions';
 import { FieldConfig } from '@/lib/types';
 import GenericForm from '@/components/genericForm';
@@ -22,18 +21,11 @@ export default function PatientInfo() {
 function RoleInfo({ patient }: {
 	patient: Patient
 }) {
-	const formatPatient = {
-		...patient,
-		dateOfBirth: formatDate(patient.dateOfBirth)
-	};
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: NoBloodType) => {
 		console.log(data);
-		dispatch(savePatient({
-			...data,
-			dateOfBirth: strToDate(data.dateOfBirth)
-		}));
+		dispatch(savePatient(data));
 	};
 	
 	const roleFields: FieldConfig[] = [
@@ -74,9 +66,9 @@ function RoleInfo({ patient }: {
 		<GenericForm
 			fields={roleFields}
 			onSubmit={handleSubmit}
+			initialValues={patient}
 			title={'Role Information'}
 			schema={noBloodTypeSchema}
-			initialValues={formatPatient}
 			readOnlyFields={['bloodType']}
 		/>
 	);
