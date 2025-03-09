@@ -3,32 +3,38 @@ import {
 } from '@/schemas/userSchema';
 import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch';
 import { saveUser } from '@/redux/thunks/userThunk';
+import { resetStatus } from '@/redux/slices/userSlice';
+import { showToast } from '@/utils/toast';
 import { provinceOptions } from '@/utils/constants';
 import { User } from '@/lib/definitions';
-import { FieldConfig } from '@/lib/types';
+import { FieldConfig, ThunkError, ThunkStatus } from '@/lib/types';
 import GenericForm from '@/components/genericForm';
 
 export default function ContactInfo() {
-	const user = useAppSelector((state) => state.userSlice.user);
+	const { error, status, user } = useAppSelector((state) => state.userSlice);
 	
 	return (
 		<div className={'space-y-12 md:space-y-16'}>
-			<Address user={user}/>
-			<EmergencyContact user={user}/>
+			<Address user={user} error={error} status={status}/>
+			<EmergencyContact user={user} error={error} status={status}/>
 		</div>
 	);
 }
 
-function Address({ user }: {
-	user: User
+function Address({ user, error, status }: {
+	user: User,
+	error: ThunkError,
+	status: ThunkStatus
 }) {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: AddressType) => {
-		console.log(data);
 		dispatch(saveUser({
-			'address': data
+			id: user._id,
+			user: { 'address': data }
 		}));
+		showToast(error, status);
+		dispatch(resetStatus());
 	};
 	
 	const addressFields: FieldConfig[] = [
@@ -72,16 +78,19 @@ function Address({ user }: {
 	);
 }
 
-function EmergencyContact({ user }: {
-	user: User
+function EmergencyContact({ user, error, status }: {
+	user: User,
+	error: ThunkError,
+	status: ThunkStatus
 }) {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: EmergencyContactType) => {
-		console.log(data);
 		dispatch(saveUser({
-			'emergencyContact': data
+			id: user._id,
+			user: { 'emergencyContact': data }
 		}));
+		showToast(error, status);
 	};
 	
 	const contactFields: FieldConfig[] = [

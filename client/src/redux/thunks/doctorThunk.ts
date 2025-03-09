@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiClient } from '@/utils/axiosConfig';
+import { store } from '@/redux/store';
+import { deleteUser } from '@/redux/slices/userSlice';
 import { Practitioner, Availabilities } from '@/lib/definitions';
 
 const doctorPath = 'doctors';
@@ -63,6 +65,7 @@ export const deleteDoctor = createAsyncThunk(
 	async (id: string, { rejectWithValue }) => {
 		try {
 			await apiClient.delete(`${doctorPath}/${id}`);
+			store.dispatch(deleteUser(id));
 			return id;
 		} catch (err: any) {
 			return rejectWithValue(err.response?.data?.message || 'Failed to delete user');

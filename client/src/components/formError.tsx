@@ -17,7 +17,7 @@ export function InputError({ id, message }: {
 }
 
 export function ServerError({ message }: {
-	message: string | undefined
+	message: string | null | undefined
 }) {
 	if (!message) return;
 	

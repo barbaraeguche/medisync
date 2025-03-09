@@ -3,29 +3,34 @@ import {
 } from '@/schemas/patientSchema';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { savePatient } from '@/redux/thunks/patientThunk';
+import { resetStatus } from '@/redux/slices/patientSlice';
+import { showToast } from '@/utils/toast';
 import { Patient } from '@/lib/definitions';
-import { FieldConfig } from '@/lib/types';
+import { FieldConfig, ThunkError, ThunkStatus } from '@/lib/types';
 import GenericForm from '@/components/genericForm';
 
 export default function PatientInfo() {
-	const patient = useAppSelector((state) => state.patientSlice.patient);
+	const { error, patient, status } = useAppSelector((state) => state.patientSlice);
 	
 	return (
 		<div className={'space-y-12 md:space-y-16'}>
-			<RoleInfo patient={patient}/>
-			<HealthMetrics patient={patient}/>
+			<RoleInfo patient={patient} error={error} status={status}/>
+			<HealthMetrics patient={patient} error={error} status={status}/>
 		</div>
 	);
 }
 
-function RoleInfo({ patient }: {
-	patient: Patient
+function RoleInfo({ patient, error, status }: {
+	patient: Patient,
+	error: ThunkError,
+	status: ThunkStatus
 }) {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: NoBloodType) => {
-		console.log(data);
 		dispatch(savePatient(data));
+		showToast(error, status);
+		dispatch(resetStatus());
 	};
 	
 	const roleFields: FieldConfig[] = [
@@ -74,16 +79,18 @@ function RoleInfo({ patient }: {
 	);
 }
 
-function HealthMetrics({ patient }: {
-	patient: Patient
+function HealthMetrics({ patient, error, status }: {
+	patient: Patient,
+	error: ThunkError,
+	status: ThunkStatus
 }) {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: HealthMetricsType) => {
-		console.log(data);
 		dispatch(savePatient({
 			'healthMetrics': data
 		}));
+		showToast(error, status);
 	};
 	
 	const metricsFields: FieldConfig[] = [

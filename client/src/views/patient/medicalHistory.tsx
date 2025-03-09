@@ -7,7 +7,7 @@ import { Card, Pagination, Accordion } from '@/ui/index';
 
 export default function MedicalHistory() {
 	const itemsPerPage = 3;
-	const [currentPage, setCurrentPage] = useState<number>(1);
+	const [currentPage, setCurrentPage] = useState(1);
 	const { medicalHistory } = useAppSelector((state) => state.patientSlice.patient);
 	
 	const paginatedHistory = (medicalHistory ?? []).slice(

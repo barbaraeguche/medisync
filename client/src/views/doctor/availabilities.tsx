@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { saveAvailability } from '@/redux/thunks/doctorThunk';
-import { formatDate, getCurrentWeek } from '@/utils/utils';
+import { resetStatus } from '@/redux/slices/doctorSlice';
+import { showToast } from '@/utils/toast';
+import { getCurrentWeek } from '@/utils/utils';
 import { Button, Card } from '@/ui/index';
 
 interface DayAvailability {
@@ -20,7 +22,7 @@ const timeSlots = [
 
 export default function Availabilities() {
 	const dispatch = useAppDispatch();
-	const doctor = useAppSelector((state) => state.doctorSlice.doctor);
+	const { doctor, error, status } = useAppSelector((state) => state.doctorSlice);
 	
 	const [availability, setAvailability] = useState<WeekAvailability>(() => {
 		const initial: WeekAvailability = {};
@@ -36,10 +38,9 @@ export default function Availabilities() {
 		doctor.availabilities?.forEach((apt) => {
 			const { date, startTime, endTime } = apt;
 			const timeSlot = `${startTime}-${endTime}`;
-			const dateStr = formatDate(date);
 			
-			if (initial[dateStr] && timeSlot in initial[dateStr]) {
-				initial[dateStr][timeSlot] = true;
+			if (initial[date] && timeSlot in initial[date]) {
+				initial[date][timeSlot] = true;
 			}
 		});
 		
@@ -63,17 +64,17 @@ export default function Availabilities() {
 			for (const [timeSlot, isAvailable] of Object.entries(slots)) {
 				if (isAvailable) {
 					const [startTime, endTime] = timeSlot.split('-');
-					
 					savedAvailability.push({ date, startTime, endTime });
 				}
 			}
 		}
 		
-		console.log(savedAvailability)
 		dispatch(saveAvailability({
 			id: doctor._id,
 			availability: savedAvailability
 		}));
+		showToast(error, status);
+		dispatch(resetStatus());
 	};
 	
 	return (

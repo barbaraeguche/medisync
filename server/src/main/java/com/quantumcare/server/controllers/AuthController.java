@@ -102,17 +102,15 @@ public class AuthController {
 				Doctor doctor = objectMapper.convertValue(registerRequest, Doctor.class);
 				User userAsDoctor = doctor.getUser();
 				
-				// hash the password before storing
+				// hash the password before storing, and create the doctor record
 				userAsDoctor.setPassword(passwordEncoder.encode(userAsDoctor.getPassword()));
-				// create the doctor record
 				createdUser = doctorService.postDoctor(doctor).getUser();
 			} else if ("Patient".equals(role)) {
 				Patient patient = objectMapper.convertValue(registerRequest, Patient.class);
         User userAsPatient = patient.getUser();
         
-        // hash the password before storing
+        // hash the password before storing, and create the patient record
         userAsPatient.setPassword(passwordEncoder.encode(userAsPatient.getPassword()));
-        // create the patient record
         createdUser =  patientService.postPatient(patient).getUser();
 			} else {
 				return ResponseEntity.badRequest().body("Invalid role specified");

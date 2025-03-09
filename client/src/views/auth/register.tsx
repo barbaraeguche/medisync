@@ -5,8 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema, RegisterType } from '@/schemas/authSchema';
 import { DoctorType } from '@/schemas/doctorSchema';
 import { PatientType } from '@/schemas/patientSchema';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { registerUser } from '@/redux/thunks/authThunk';
+import { resetStatus } from '@/redux/slices/userSlice';
 import {
 	genderOptions, roleOptions, bloodTypeOptions
 } from '@/utils/constants';
@@ -17,7 +18,9 @@ import { Button, Card, Select } from '@/ui/index';
 
 export default function RegisterForm() {
 	const [steps, setSteps] = useState(1);
+	
 	const dispatch = useAppDispatch();
+	const { error } = useAppSelector((state) => state.userSlice);
 	
 	const {
 		register, handleSubmit, formState: { errors }, control, watch, trigger
@@ -27,12 +30,12 @@ export default function RegisterForm() {
 	});
 	const userRole = watch('role');
 	
+	const prevStep = () => setSteps((prev) => Math.max(1, prev - 1));
 	// validate before proceeding to the next step
 	const nextStep = async () => {
 		const isValid = await trigger('user');
 		if (isValid) setSteps((next) => Math.max(2, next + 1));
 	};
-	const prevStep = () => setSteps((prev) => Math.max(1, prev - 1));
 	
 	const onSubmit: SubmitHandler<RegisterType> = (data) => {
 		const { role, user, ...rest } = data;
@@ -44,8 +47,8 @@ export default function RegisterForm() {
 			? { user: updatedUser, practitioner: { ...rest } }
 			: { user: updatedUser, ...rest };
 		
-		console.log(updatedData);
 		dispatch(registerUser(updatedData as unknown as User));
+		dispatch(resetStatus());
 	};
 	
 	// type guards for validation errors
@@ -253,7 +256,7 @@ export default function RegisterForm() {
 					)}
 					
 					{/* error */}
-					<ServerError message={''}/> {/* todo: change this here, and in registration form */}
+					<ServerError message={error}/>
 				</Card.Content>
 			</form>
 			

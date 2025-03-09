@@ -2,14 +2,16 @@ import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, LoginType } from '@/schemas/authSchema';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { signInUser } from '@/redux/thunks/authThunk';
+import { resetStatus } from '@/redux/slices/userSlice';
 import { ServerError } from '@/components/formError';
 import InputWrapper from '@/components/inputWrapper';
 import { Button, Card } from '@/ui/index';
 
 export default function SignInForm() {
 	const dispatch = useAppDispatch();
+	const { error } = useAppSelector((state) => state.userSlice);
 	
 	const {
     register, handleSubmit, formState: { errors }
@@ -19,15 +21,15 @@ export default function SignInForm() {
   });
 	
 	const onSubmit: SubmitHandler<LoginType> = (data) => {
-    console.log(data);
 		dispatch(signInUser(data));
+		dispatch(resetStatus());
   };
 	
 	return (
 		<Card>
 			<Card.Header
 				title={'Sign in'}
-				description={'Choose your preferred sign in method'}
+				description={'Manage your account and appointments'}
 			/>
 			
 			<form onSubmit={handleSubmit(onSubmit)}>
@@ -61,7 +63,7 @@ export default function SignInForm() {
 						Sign in
 					</Button>
 					
-					<ServerError message={''}/> {/* todo: change this here, and in registration form */}
+					<ServerError message={error}/>
 				</Card.Content>
 			</form>
 			

@@ -16,17 +16,10 @@ import java.util.function.Function;
 @Component
 public class JwtUtils {
 	
-	@Value("${}")
-	private static final long accessValidity;
-	@Value("${}")
-	private static final long refreshValidity;
+	// token validity in milliseconds (1 hour)
+	private static final long JWT_TOKEN_VALIDITY = 3600 * 1000;
 	
-	// access token validity in milliseconds (30 minutes)
-	private static final long ACCESS_TOKEN_VALIDITY = 30 * 60 * 1000;
-	// refresh token validity in milliseconds (7 days)
-	private static final long REFRESH_TOKEN_VALIDITY = 7 * 24 * 60 * 60 * 1000;
-	
-//	@Value("${JWT_SECRET}") //todo: name jwt secret key this
+	//	@Value("${JWT_SECRET}") //todo: name jwt secret key this
 	private final String secret = Jwts.SIG.HS256.key().toString();
 	
 	private SecretKey getSignInKey() {
@@ -37,7 +30,7 @@ public class JwtUtils {
 	// retrieve email from JWT token
 	public String getEmailFromToken(String token) {
 		return getClaimFromToken(token, Claims::getSubject);
-  }
+	}
 	
 	// Retrieve expiration date from JWT token
 	public Date getExpDateFromToken(String token) {
@@ -72,7 +65,7 @@ public class JwtUtils {
 		} catch (Exception e) {
 			return false;
 		}
-  }
+	}
 	
 	// generate token for user
 	public String generateToken(User user) {

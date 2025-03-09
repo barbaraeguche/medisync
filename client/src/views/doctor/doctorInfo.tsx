@@ -3,32 +3,37 @@ import {
 } from '@/schemas/doctorSchema';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { saveDoctor } from '@/redux/thunks/doctorThunk';
+import { resetStatus } from '@/redux/slices/doctorSlice';
+import { showToast } from '@/utils/toast';
 import { Doctor } from '@/lib/definitions';
-import { FieldConfig } from '@/lib/types';
+import { FieldConfig, ThunkError, ThunkStatus } from '@/lib/types';
 import GenericForm from '@/components/genericForm';
 
 export default function DoctorInfo() {
-	const doctor = useAppSelector((state) => state.doctorSlice.doctor);
+	const { doctor, error, status } = useAppSelector((state) => state.doctorSlice);
 	
 	return (
 		<div className={'space-y-12 md:space-y-16'}>
-			<RoleInfo doctor={doctor}/>
-			<Education doctor={doctor}/>
+			<RoleInfo doctor={doctor} error={error} status={status}/>
+			<Education doctor={doctor} error={error} status={status}/>
 		</div>
 	);
 }
 
-function RoleInfo({ doctor }: {
-	doctor: Doctor
+function RoleInfo({ doctor, error, status }: {
+	doctor: Doctor,
+	error: ThunkError,
+	status: ThunkStatus
 }) {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: DoctorType) => {
-		console.log(data);
 		dispatch(saveDoctor({
 			id: doctor._id,
       practitioner: data
 		}));
+		showToast(error, status);
+		dispatch(resetStatus());
 	};
 	
 	const doctorFields: FieldConfig[] = [
@@ -65,19 +70,21 @@ function RoleInfo({ doctor }: {
 	);
 }
 
-function Education({ doctor }: {
-	doctor: Doctor
+function Education({ doctor, error, status }: {
+	doctor: Doctor,
+	error: ThunkError,
+	status: ThunkStatus
 }) {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: EducationType) => {
-		console.log(data);
 		dispatch(saveDoctor({
 			id: doctor._id,
 			practitioner: {
 				'education': data
 			}
 		}));
+		showToast(error, status);
 	};
 	
 	const educationFields: FieldConfig[] = [

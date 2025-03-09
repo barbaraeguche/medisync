@@ -26,8 +26,10 @@ function ChangeEmail({ user }: {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: UpdateEmailType) => {
-		console.log(data);
-		dispatch(saveUser(data));
+		dispatch(saveUser({
+			id: user._id,
+			user: data
+		}));
 	};
 	
 	const emailField: FieldConfig[] = [
@@ -59,10 +61,12 @@ function ChangePhoneNumber({ user }: {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: UpdatePhoneNumberType) => {
-		console.log(data);
 		dispatch(saveUser({
-			...data,
-			phoneNumber: data.phoneNumber === '' ? null : data.phoneNumber
+			id: user._id,
+			user: {
+				...data,
+				phoneNumber: data.phoneNumber === '' ? null : data.phoneNumber
+			}
 		}));
 	};
 	
@@ -86,11 +90,14 @@ function ChangePhoneNumber({ user }: {
 }
 
 function ChangePassword() {
-	const dispatch = useAppDispatch();
+	// const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: UpdatePasswordType) => {
 		console.log(data);
-		dispatch(saveUser(data));
+		// dispatch(saveUser({
+		// 	id: user._id,
+		// 	user: data
+		// }));
 	};
 	
 	const passwordFields: FieldConfig[] = [

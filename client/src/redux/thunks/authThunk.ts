@@ -1,7 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { store } from '@/redux/store';
 import { fetchDoctor } from '@/redux/thunks/doctorThunk';
+import { resetStatus as resetDoctorStatus } from '@/redux/slices/doctorSlice';
 import { fetchPatient } from '@/redux/thunks/patientThunk';
+import { resetStatus as resetPatientStatus } from '@/redux/slices/patientSlice';
 import { apiClient } from '@/utils/axiosConfig';
 import { Doctor, Patient, User } from '@/lib/definitions';
 
@@ -9,11 +11,14 @@ const authPath = 'auth';
 
 const doFetchAfterAuth = (user: User) => {
 	const { _id, role } = user;
+	const dispatch = store.dispatch;
 	
 	if (role == 'Doctor') {
-		store.dispatch(fetchDoctor(_id));
+		dispatch(fetchDoctor(_id));
+		dispatch(resetDoctorStatus());
 	} else if (role == 'Patient') {
-		store.dispatch(fetchPatient(_id));
+		dispatch(fetchPatient(_id));
+		dispatch(resetPatientStatus());
 	} else {
 		// todo: for admin, also in the backend registration, create base user
 	}

@@ -2,7 +2,9 @@ import { useEffect, useMemo } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { appointmentSchema, AppointmentType } from '@/schemas/appointmentSchema';
-import { useAppSelector } from '@/hooks/useAppDispatch.ts';
+import { createAppointment } from '@/redux/thunks/patientThunk';
+import { resetStatus } from '@/redux/slices/patientSlice';
+import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch.ts';
 import {
 	formatDate, generateLabelValue, generateTimeSlots
 } from '@/utils/utils';
@@ -10,9 +12,12 @@ import { EEEE_MMM_dd_yyyy } from '@/utils/constants';
 import { appointmentTypeOptions } from '@/utils/constants';
 import InputWrapper from '@/components/inputWrapper';
 import { Button, Card, Select } from '@/ui/index';
+import { showToast } from '@/utils/toast';
 
 export default function BookAppointment() {
+	const dispatch = useAppDispatch();
 	const doctors = useAppSelector((state) => state.doctorSlice.doctors);
+	const { error, patient, status } = useAppSelector((state) => state.patientSlice);
 	
 	const doctorOptions = useMemo(() => {
 		return doctors.map(({ _id, user: { firstName, lastName }}) =>
@@ -84,7 +89,12 @@ export default function BookAppointment() {
 	}, [getDoctorDetails, appointmentDate]);
 	
 	const onSubmit: SubmitHandler<AppointmentType> = (data) => {
-		console.log(data);
+		dispatch(createAppointment({
+			id: patient._id,
+			appointment: data
+		}));
+		showToast(error, status);
+		dispatch(resetStatus());
 	};
 	
 	return (
