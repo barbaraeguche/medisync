@@ -1,3 +1,7 @@
 .vercel
 *.log
 .DS_Store
+
+# Environment
+client/.env
+server/.env

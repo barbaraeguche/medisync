@@ -11,7 +11,6 @@ const doFetchAfterAuth = (user: User) => {
 	const { _id, role } = user;
 	
 	if (role == 'Doctor') {
-		console.log('Dispatch doctor')
 		store.dispatch(fetchDoctor(_id));
 	} else if (role == 'Patient') {
 		store.dispatch(fetchPatient(_id));
