@@ -4,36 +4,32 @@ import {
 import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch';
 import { saveUser } from '@/redux/thunks/userThunk';
 import { resetStatus } from '@/redux/slices/userSlice';
-import { showToast } from '@/utils/toast';
 import { provinceOptions } from '@/utils/constants';
 import { User } from '@/lib/definitions';
-import { FieldConfig, ThunkError, ThunkStatus } from '@/lib/types';
-import GenericForm from '@/components/genericForm';
+import { FieldConfig } from '@/lib/types';
+import GenericEditableForm from '@/components/genericEditableForm';
 
 export default function ContactInfo() {
-	const { error, status, user } = useAppSelector((state) => state.userSlice);
+	const { user } = useAppSelector((state) => state.userSlice);
 	
 	return (
 		<div className={'space-y-12 md:space-y-16'}>
-			<Address user={user} error={error} status={status}/>
-			<EmergencyContact user={user} error={error} status={status}/>
+			<Address user={user}/>
+			<EmergencyContact user={user}/>
 		</div>
 	);
 }
 
-function Address({ user, error, status }: {
-	user: User,
-	error: ThunkError,
-	status: ThunkStatus
+function Address({ user }: {
+	user: User
 }) {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: AddressType) => {
 		dispatch(saveUser({
 			id: user._id,
-			user: { 'address': data }
+			userInfo: { 'address': data }
 		}));
-		showToast(error, status);
 		dispatch(resetStatus());
 	};
 	
@@ -68,7 +64,7 @@ function Address({ user, error, status }: {
 	];
 	
 	return (
-		<GenericForm
+		<GenericEditableForm
 			title={'Address'}
 			schema={addressSchema}
 			fields={addressFields}
@@ -78,19 +74,17 @@ function Address({ user, error, status }: {
 	);
 }
 
-function EmergencyContact({ user, error, status }: {
-	user: User,
-	error: ThunkError,
-	status: ThunkStatus
+function EmergencyContact({ user }: {
+	user: User
 }) {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: EmergencyContactType) => {
 		dispatch(saveUser({
 			id: user._id,
-			user: { 'emergencyContact': data }
+			userInfo: { 'emergencyContact': data }
 		}));
-		showToast(error, status);
+		dispatch(resetStatus());
 	};
 	
 	const contactFields: FieldConfig[] = [
@@ -112,7 +106,7 @@ function EmergencyContact({ user, error, status }: {
 	];
 	
 	return (
-		<GenericForm
+		<GenericEditableForm
 			fields={contactFields}
 			onSubmit={handleSubmit}
 			title={'Emergency Contact'}

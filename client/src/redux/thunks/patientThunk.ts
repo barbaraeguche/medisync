@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiClient } from '@/utils/axiosConfig';
 import { store } from '@/redux/store';
 import { deleteUser } from '@/redux/slices/userSlice';
+import { showToast } from '@/utils/toast';
 import { Appointments, Patient } from '@/lib/definitions';
 
 const patientPath = 'patients';
@@ -13,7 +14,9 @@ export const fetchPatient = createAsyncThunk(
       const response = await apiClient.get(`${patientPath}/${id}`);
       return response.data;
     } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || 'Failed to fetch patient');
+      const errorMessage = err.response?.data?.message || 'Failed to fetch patient';
+      showToast(errorMessage, 'rejected');
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -25,19 +28,27 @@ export const fetchPatients = createAsyncThunk(
       const response = await apiClient.get(`${patientPath}`);
       return response.data;
     } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || 'Failed to fetch all patients');
+      const errorMessage = err.response?.data?.message || 'Failed to fetch all patients';
+      showToast(errorMessage, 'rejected');
+      return rejectWithValue(errorMessage);
     }
   }
 );
 
 export const savePatient = createAsyncThunk(
 	'patient/savePatient',
-  async (patient: Partial<Patient>, { rejectWithValue }) => {
+  async (
+    { id, patientInfo }: { id: string, patientInfo: Partial<Patient> },
+    { rejectWithValue }
+  ) => {
     try {
-      const response = await apiClient.put(`${patientPath}/${patient._id}`, patient);
-      return response.data?.patient;
+      const { patient, message } = (await apiClient.put(`${patientPath}/${id}`, patientInfo)).data;
+      showToast(message, 'fulfilled');
+      return patient;
     } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || 'Failed to save patient');
+      const errorMessage = err.response?.data?.message || 'Failed to update patient';
+      showToast(errorMessage, 'rejected');
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -45,14 +56,17 @@ export const savePatient = createAsyncThunk(
 export const createAppointment = createAsyncThunk(
 	'patient/createAppointment',
   async (
-		{ id, appointment }: { id: string, appointment: Partial<Appointments> },
+		{ id, appointmentInfo }: { id: string, appointmentInfo: Partial<Appointments> },
 		{ rejectWithValue }
 	) => {
     try {
-      const response = await apiClient.post(`${patientPath}/${id}/appointments`, appointment);
-      return response.data?.appointment;
+      const { appointment, message } = (await apiClient.post(`${patientPath}/${id}/appointments`, appointmentInfo)).data;
+      showToast(message, 'fulfilled');
+      return appointment;
     } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || 'Failed to create appointment');
+      const errorMessage = err.response?.data?.message || 'Failed to create appointment';
+      showToast(errorMessage, 'rejected');
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -60,14 +74,17 @@ export const createAppointment = createAsyncThunk(
 export const saveAppointment = createAsyncThunk(
   'patient/saveAppointment',
   async (
-		{ id, appointment }: { id: string, appointment: Appointments },
+		{ id, appointmentInfo }: { id: string, appointmentInfo: Appointments },
 		{ rejectWithValue }
 	) => {
     try {
-      const response = await apiClient.put(`${patientPath}/${id}/appointments`, appointment);
-      return response.data?.appointment;
+      const { appointment, message } = (await apiClient.put(`${patientPath}/${id}/appointments`, appointmentInfo)).data;
+      showToast(message, 'fulfilled');
+      return appointment;
     } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || 'Failed to save appointment');
+      const errorMessage = err.response?.data?.message || 'Failed to update appointment';
+      showToast(errorMessage, 'rejected');
+      return rejectWithValue(errorMessage);
     }
   }
 );
@@ -76,11 +93,14 @@ export const deletePatient = createAsyncThunk(
   'user/deletePatient',
   async (id: string, { rejectWithValue }) => {
     try {
-      await apiClient.delete(`${patientPath}/${id}`);
+      const response = (await apiClient.delete(`${patientPath}/${id}`)).data;
       store.dispatch(deleteUser(id));
+      showToast(response, 'fulfilled');
       return id;
     } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || 'Failed to delete user');
+      const errorMessage = err.response?.data?.message || 'Failed to delete user';
+      showToast(errorMessage, 'rejected');
+      return rejectWithValue(errorMessage);
     }
   }
 );

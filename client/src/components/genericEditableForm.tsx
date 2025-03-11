@@ -7,7 +7,7 @@ import FormActionButtons from '@/components/formActionButtons';
 import { Card, Select } from '@/ui/index';
 import { ZodSchema } from 'zod';
 
-interface GenericFormProps<T extends Record<string, any>> {
+interface GenericEditableFormProps<T extends Record<string, any>> {
 	title: string;
 	initialValues?: T;
 	schema: ZodSchema;
@@ -16,13 +16,13 @@ interface GenericFormProps<T extends Record<string, any>> {
 	readOnlyFields?: string[];
 }
 
-export default function GenericForm<T extends Record<string, any>>(
-	{ title, initialValues, schema, fields, onSubmit, readOnlyFields = [] }: GenericFormProps<T>
+export default function GenericEditableForm<T extends Record<string, any>>(
+	{ title, initialValues, schema, fields, onSubmit, readOnlyFields = [] }: GenericEditableFormProps<T>
 ) {
 	const { isEditing, setIsEditing } = useEditableState();
 	
 	const {
-		register, handleSubmit, formState: { errors }, control, reset
+		register, handleSubmit, formState: { errors, isDirty }, control, reset
 	} = useForm<T>({
 		resolver: zodResolver(schema),
 		reValidateMode: 'onBlur',
@@ -30,7 +30,9 @@ export default function GenericForm<T extends Record<string, any>>(
 	});
 	
 	const formSubmit: SubmitHandler<T> = (data) => {
-		onSubmit(data);
+		if (isDirty) {
+			onSubmit(data);
+		}
 		setIsEditing(false);
 	};
 	
@@ -59,7 +61,7 @@ export default function GenericForm<T extends Record<string, any>>(
 							<InputWrapper
 								key={field.name}
 								{...register(field.name as any)}
-								readOnly={!isEditing || readOnlyFields.includes(field.name)}
+								readOnly={!isEditing || readOnlyFields?.includes(field.name)}
 								disabled={field.disabled}
 								conf={{
 									label: field.label,

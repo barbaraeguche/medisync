@@ -4,9 +4,10 @@ import {
 } from '@/schemas/userSchema';
 import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch';
 import { saveUser } from '@/redux/thunks/userThunk';
+import { resetStatus } from '@/redux/slices/userSlice';
 import { User } from '@/lib/definitions';
 import { FieldConfig } from '@/lib/types';
-import GenericForm from '@/components/genericForm';
+import GenericEditableForm from '@/components/genericEditableForm';
 
 export default function Settings() {
 	const user = useAppSelector((state) => state.userSlice.user);
@@ -28,8 +29,9 @@ function ChangeEmail({ user }: {
 	const handleSubmit = (data: UpdateEmailType) => {
 		dispatch(saveUser({
 			id: user._id,
-			user: data
+			userInfo: data
 		}));
+		dispatch(resetStatus());
 	};
 	
 	const emailField: FieldConfig[] = [
@@ -41,7 +43,7 @@ function ChangeEmail({ user }: {
 	];
 	
 	return (
-		<GenericForm
+		<GenericEditableForm
 			fields={emailField}
 			initialValues={user}
 			title={'Change Email'}
@@ -63,11 +65,12 @@ function ChangePhoneNumber({ user }: {
 	const handleSubmit = (data: UpdatePhoneNumberType) => {
 		dispatch(saveUser({
 			id: user._id,
-			user: {
+			userInfo: {
 				...data,
 				phoneNumber: data.phoneNumber === '' ? null : data.phoneNumber
 			}
 		}));
+		dispatch(resetStatus());
 	};
 	
 	const phoneNumberField: FieldConfig[] = [
@@ -79,7 +82,7 @@ function ChangePhoneNumber({ user }: {
 	];
 	
 	return (
-		<GenericForm
+		<GenericEditableForm
 			onSubmit={handleSubmit}
 			fields={phoneNumberField}
 			initialValues={formatUser}
@@ -90,7 +93,7 @@ function ChangePhoneNumber({ user }: {
 }
 
 function ChangePassword() {
-	// const dispatch = useAppDispatch();
+	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: UpdatePasswordType) => {
 		console.log(data);
@@ -98,6 +101,7 @@ function ChangePassword() {
 		// 	id: user._id,
 		// 	user: data
 		// }));
+		dispatch(resetStatus());
 	};
 	
 	const passwordFields: FieldConfig[] = [
@@ -114,7 +118,7 @@ function ChangePassword() {
 	];
 	
 	return (
-		<GenericForm
+		<GenericEditableForm
 			onSubmit={handleSubmit}
 			fields={passwordFields}
 			title={'Change Password'}

@@ -4,32 +4,31 @@ import {
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { savePatient } from '@/redux/thunks/patientThunk';
 import { resetStatus } from '@/redux/slices/patientSlice';
-import { showToast } from '@/utils/toast';
 import { Patient } from '@/lib/definitions';
-import { FieldConfig, ThunkError, ThunkStatus } from '@/lib/types';
-import GenericForm from '@/components/genericForm';
+import { FieldConfig } from '@/lib/types';
+import GenericEditableForm from '@/components/genericEditableForm';
 
 export default function PatientInfo() {
-	const { error, patient, status } = useAppSelector((state) => state.patientSlice);
+	const { patient } = useAppSelector((state) => state.patientSlice);
 	
 	return (
 		<div className={'space-y-12 md:space-y-16'}>
-			<RoleInfo patient={patient} error={error} status={status}/>
-			<HealthMetrics patient={patient} error={error} status={status}/>
+			<RoleInfo patient={patient}/>
+			<HealthMetrics patient={patient}/>
 		</div>
 	);
 }
 
-function RoleInfo({ patient, error, status }: {
-	patient: Patient,
-	error: ThunkError,
-	status: ThunkStatus
+function RoleInfo({ patient }: {
+	patient: Patient
 }) {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: NoBloodType) => {
-		dispatch(savePatient(data));
-		showToast(error, status);
+		dispatch(savePatient({
+			id: patient._id,
+      patientInfo: data
+		}));
 		dispatch(resetStatus());
 	};
 	
@@ -68,7 +67,7 @@ function RoleInfo({ patient, error, status }: {
 	];
 	
 	return (
-		<GenericForm
+		<GenericEditableForm
 			fields={roleFields}
 			onSubmit={handleSubmit}
 			initialValues={patient}
@@ -79,18 +78,17 @@ function RoleInfo({ patient, error, status }: {
 	);
 }
 
-function HealthMetrics({ patient, error, status }: {
-	patient: Patient,
-	error: ThunkError,
-	status: ThunkStatus
+function HealthMetrics({ patient }: {
+	patient: Patient
 }) {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: HealthMetricsType) => {
 		dispatch(savePatient({
-			'healthMetrics': data
+			id: patient._id,
+			patientInfo: { 'healthMetrics': data }
 		}));
-		showToast(error, status);
+		dispatch(resetStatus());
 	};
 	
 	const metricsFields: FieldConfig[] = [
@@ -112,7 +110,7 @@ function HealthMetrics({ patient, error, status }: {
 	];
 	
 	return (
-		<GenericForm
+		<GenericEditableForm
 			fields={metricsFields}
 			onSubmit={handleSubmit}
 			title={'Health Metrics'}

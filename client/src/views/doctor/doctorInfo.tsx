@@ -4,26 +4,23 @@ import {
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { saveDoctor } from '@/redux/thunks/doctorThunk';
 import { resetStatus } from '@/redux/slices/doctorSlice';
-import { showToast } from '@/utils/toast';
 import { Doctor } from '@/lib/definitions';
-import { FieldConfig, ThunkError, ThunkStatus } from '@/lib/types';
-import GenericForm from '@/components/genericForm';
+import { FieldConfig } from '@/lib/types';
+import GenericEditableForm from '@/components/genericEditableForm';
 
 export default function DoctorInfo() {
-	const { doctor, error, status } = useAppSelector((state) => state.doctorSlice);
+	const { doctor } = useAppSelector((state) => state.doctorSlice);
 	
 	return (
 		<div className={'space-y-12 md:space-y-16'}>
-			<RoleInfo doctor={doctor} error={error} status={status}/>
-			<Education doctor={doctor} error={error} status={status}/>
+			<RoleInfo doctor={doctor}/>
+			<Education doctor={doctor}/>
 		</div>
 	);
 }
 
-function RoleInfo({ doctor, error, status }: {
-	doctor: Doctor,
-	error: ThunkError,
-	status: ThunkStatus
+function RoleInfo({ doctor }: {
+	doctor: Doctor
 }) {
 	const dispatch = useAppDispatch();
 	
@@ -32,7 +29,6 @@ function RoleInfo({ doctor, error, status }: {
 			id: doctor._id,
       practitioner: data
 		}));
-		showToast(error, status);
 		dispatch(resetStatus());
 	};
 	
@@ -60,7 +56,7 @@ function RoleInfo({ doctor, error, status }: {
 	];
 	
 	return (
-		<GenericForm
+		<GenericEditableForm
 			schema={doctorSchema}
 			fields={doctorFields}
 			onSubmit={handleSubmit}
@@ -70,21 +66,17 @@ function RoleInfo({ doctor, error, status }: {
 	);
 }
 
-function Education({ doctor, error, status }: {
-	doctor: Doctor,
-	error: ThunkError,
-	status: ThunkStatus
+function Education({ doctor }: {
+	doctor: Doctor
 }) {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: EducationType) => {
 		dispatch(saveDoctor({
 			id: doctor._id,
-			practitioner: {
-				'education': data
-			}
+			practitioner: { 'education': data }
 		}));
-		showToast(error, status);
+		dispatch(resetStatus());
 	};
 	
 	const educationFields: FieldConfig[] = [
@@ -106,7 +98,7 @@ function Education({ doctor, error, status }: {
 	];
 	
 	return (
-		<GenericForm
+		<GenericEditableForm
 			title={'Education'}
 			onSubmit={handleSubmit}
 			schema={educationSchema}

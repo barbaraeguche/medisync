@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { saveAvailability } from '@/redux/thunks/doctorThunk';
 import { resetStatus } from '@/redux/slices/doctorSlice';
-import { showToast } from '@/utils/toast';
 import { getCurrentWeek } from '@/utils/utils';
-import { Button, Card } from '@/ui/index';
+import { Button, Card } from '@/ui';
 
 interface DayAvailability {
 	[key: string]: boolean
@@ -22,7 +21,7 @@ const timeSlots = [
 
 export default function Availabilities() {
 	const dispatch = useAppDispatch();
-	const { doctor, error, status } = useAppSelector((state) => state.doctorSlice);
+	const { doctor } = useAppSelector((state) => state.doctorSlice);
 	
 	const [availability, setAvailability] = useState<WeekAvailability>(() => {
 		const initial: WeekAvailability = {};
@@ -71,9 +70,8 @@ export default function Availabilities() {
 		
 		dispatch(saveAvailability({
 			id: doctor._id,
-			availability: savedAvailability
+			freeTime: savedAvailability
 		}));
-		showToast(error, status);
 		dispatch(resetStatus());
 	};
 	

@@ -35,6 +35,7 @@ const patientSlice = createSlice({
       // fetchPatient
       .addCase(fetchPatient.pending, (state) => {
         state.status = 'pending';
+				state.error = null;
       })
       .addCase(fetchPatient.fulfilled, (state, action: PayloadAction<Patient>) => {
         state.status = 'fulfilled';
@@ -42,12 +43,13 @@ const patientSlice = createSlice({
       })
       .addCase(fetchPatient.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.payload as unknown as string;
+        state.error = action.payload as string;
       })
 			
       // fetchPatients
 			.addCase(fetchPatients.pending, (state) => {
 				state.status = 'pending';
+				state.error = null;
 			})
 			.addCase(fetchPatients.fulfilled, (state, action: PayloadAction<Patient[]>) => {
 				state.status = 'fulfilled';
@@ -55,28 +57,27 @@ const patientSlice = createSlice({
 			})
 			.addCase(fetchPatients.rejected, (state, action) => {
 				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
+				state.error = action.payload as string;
 			})
 			
 			// savePatient
 			.addCase(savePatient.pending, (state) => {
 				state.status = 'pending';
+				state.error = null;
 			})
 			.addCase(savePatient.fulfilled, (state, action: PayloadAction<Patient>) => {
 				state.status = 'fulfilled';
-				state.patient = {
-					...state.patient,
-          ...action.payload
-				};
+				state.patient = action.payload;
 			})
 			.addCase(savePatient.rejected, (state, action) => {
 				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
+				state.error = action.payload as string;
 			})
 			
 			// createAppointment
 			.addCase(createAppointment.pending, (state) => {
 				state.status = 'pending';
+				state.error = null;
 			})
 			.addCase(createAppointment.fulfilled, (state, action: PayloadAction<Appointments>) => {
 				state.status = 'fulfilled';
@@ -84,12 +85,13 @@ const patientSlice = createSlice({
 			})
 			.addCase(createAppointment.rejected, (state, action) => {
 				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
+				state.error = action.payload as string;
 			})
 			
 			// saveAppointment
 			.addCase(saveAppointment.pending, (state) => {
 				state.status = 'pending';
+				state.error = null;
 			})
 			.addCase(saveAppointment.fulfilled, (state, action: PayloadAction<Appointments[]>) => {
 				state.status = 'fulfilled';
@@ -97,12 +99,13 @@ const patientSlice = createSlice({
 			})
 			.addCase(saveAppointment.rejected, (state, action) => {
 				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
+				state.error = action.payload as string;
 			})
 			
 			// deletePatient
 			.addCase(deletePatient.pending, (state) => {
 				state.status = 'pending';
+				state.error = null;
 			})
 			.addCase(deletePatient.fulfilled, (state, action: PayloadAction<string>) => {
 				state.status = 'fulfilled';
@@ -115,7 +118,7 @@ const patientSlice = createSlice({
 			})
 			.addCase(deletePatient.rejected, (state, action) => {
 				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
+				state.error = action.payload as string;
 			})
 	}
 });

@@ -2,28 +2,20 @@ import { userFullNameSchema, UserFullNameType } from '@/schemas/userSchema';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { saveUser } from '@/redux/thunks/userThunk';
 import { resetStatus } from '@/redux/slices/userSlice';
-import { showToast } from '@/utils/toast';
 import { FieldConfig } from '@/lib/types';
-import GenericForm from '@/components/genericForm';
-import { useEffect } from 'react';
+import GenericEditableForm from '@/components/genericEditableForm';
 
 export default function UserInfo() {
 	const dispatch = useAppDispatch();
-	const { error, status, user } = useAppSelector((state) => state.userSlice);
-	
-	useEffect(() => {
-		console.log(status)
-	}, [status]);
+	const { user } = useAppSelector((state) => state.userSlice);
 	
 	const handleSubmit = (data: UserFullNameType) => {
 		dispatch(saveUser({
 			id: user._id,
-			user: data
+			userInfo: data
 		}));
-		showToast(error, status);
 		dispatch(resetStatus());
 	};
-	
 	const userFields: FieldConfig[] = [
 		{
 			name: 'firstName',
@@ -56,7 +48,7 @@ export default function UserInfo() {
 	];
 	
 	return (
-		<GenericForm
+		<GenericEditableForm
 			fields={userFields}
 			initialValues={user}
 			onSubmit={handleSubmit}

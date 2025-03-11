@@ -34,6 +34,7 @@ const doctorSlice = createSlice({
 			// fetchDoctor
 			.addCase(fetchDoctor.pending, (state) => {
 				state.status = 'pending';
+				state.error = null;
 			})
 			.addCase(fetchDoctor.fulfilled, (state, action: PayloadAction<Doctor>) => {
 				state.status = 'fulfilled';
@@ -47,6 +48,7 @@ const doctorSlice = createSlice({
 			// fetchDoctors
 			.addCase(fetchDoctors.pending, (state) => {
 				state.status = 'pending';
+				state.error = null;
 			})
 			.addCase(fetchDoctors.fulfilled, (state, action: PayloadAction<Doctor[]>) => {
 				state.status = 'fulfilled';
@@ -60,6 +62,7 @@ const doctorSlice = createSlice({
 			// saveDoctor
 			.addCase(saveDoctor.pending, (state) => {
 				state.status = 'pending';
+				state.error = null;
 			})
 			.addCase(saveDoctor.fulfilled, (state, action: PayloadAction<Doctor>) => {
 				state.status = 'fulfilled';
@@ -73,6 +76,7 @@ const doctorSlice = createSlice({
 			// saveAvailability
 			.addCase(saveAvailability.pending, (state) => {
 				state.status = 'pending';
+				state.error = null;
 			})
 			.addCase(saveAvailability.fulfilled, (state, action: PayloadAction<Availabilities>) => {
 				state.status = 'fulfilled';
@@ -86,6 +90,7 @@ const doctorSlice = createSlice({
 			// deleteDoctor
 			.addCase(deleteDoctor.pending, (state) => {
 				state.status = 'pending';
+				state.error = null;
 			})
 			.addCase(deleteDoctor.fulfilled, (state, action: PayloadAction<string>) => {
 				state.status = 'fulfilled';
@@ -98,7 +103,7 @@ const doctorSlice = createSlice({
 			})
 			.addCase(deleteDoctor.rejected, (state, action) => {
 				state.status = 'rejected';
-				state.error = action.payload as unknown as string;
+				state.error = action.payload as string;
 			})
 	}
 });

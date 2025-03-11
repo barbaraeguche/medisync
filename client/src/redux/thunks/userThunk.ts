@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiClient } from '@/utils/axiosConfig';
+import { showToast } from '@/utils/toast';
 import { User } from '@/lib/definitions';
 
 const userPath = 'users';
@@ -11,7 +12,9 @@ export const fetchUsers = createAsyncThunk(
 			const response = await apiClient.get(`${userPath}`);
 			return response.data;
 		} catch (err: any) {
-			return rejectWithValue(err.response?.data?.message || 'Failed to fetch all users');
+			const errorMessage = err.response?.data?.message || 'Failed to fetch all users';
+			showToast(errorMessage, 'rejected');
+			return rejectWithValue(errorMessage);
 		}
 	}
 );
@@ -19,14 +22,17 @@ export const fetchUsers = createAsyncThunk(
 export const saveUser = createAsyncThunk(
 	'user/saveUser',
   async (
-		{ id, user } : { id: string, user: Partial<User> },
+		{ id, userInfo } : { id: string, userInfo: Partial<User> },
 		{ rejectWithValue }
 	) => {
-    try {
-			const response = await apiClient.put(`${userPath}/${id}`, user);
-			return response.data?.user;
-    } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || 'Failed to update user');
-    }
+		try {
+			const { user, message } = (await apiClient.put(`${userPath}/${id}`, userInfo)).data;
+			showToast(message, 'fulfilled');
+			return user;
+		} catch (err: any) {
+			const errorMessage = err.response?.data?.message || 'Failed to update user';
+			showToast(errorMessage, 'rejected');
+			return rejectWithValue(errorMessage);
+		}
   }
 );

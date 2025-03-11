@@ -11,13 +11,12 @@ import {
 import { EEEE_MMM_dd_yyyy } from '@/utils/constants';
 import { appointmentTypeOptions } from '@/utils/constants';
 import InputWrapper from '@/components/inputWrapper';
-import { Button, Card, Select } from '@/ui/index';
-import { showToast } from '@/utils/toast';
+import { Button, Card, Select } from '@/ui';
 
 export default function BookAppointment() {
 	const dispatch = useAppDispatch();
-	const doctors = useAppSelector((state) => state.doctorSlice.doctors);
-	const { error, patient, status } = useAppSelector((state) => state.patientSlice);
+	const { doctors } = useAppSelector((state) => state.doctorSlice);
+	const { patient } = useAppSelector((state) => state.patientSlice);
 	
 	const doctorOptions = useMemo(() => {
 		return doctors.map(({ _id, user: { firstName, lastName }}) =>
@@ -91,9 +90,8 @@ export default function BookAppointment() {
 	const onSubmit: SubmitHandler<AppointmentType> = (data) => {
 		dispatch(createAppointment({
 			id: patient._id,
-			appointment: data
+			appointmentInfo: data
 		}));
-		showToast(error, status);
 		dispatch(resetStatus());
 	};
 	
