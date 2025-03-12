@@ -14,7 +14,7 @@ export const fetchDoctor = createAsyncThunk(
       const response = await apiClient.get(`${doctorPath}/${id}`);
       return response.data;
     } catch (err: any) {
-			const errorMessage = err.response?.data?.message || 'Failed to fetch doctor';
+			const errorMessage = err.response?.data || 'Failed to fetch doctor';
 			showToast(errorMessage, 'rejected');
 			return rejectWithValue(errorMessage);
     }
@@ -28,7 +28,7 @@ export const fetchDoctors = createAsyncThunk(
       const response = await apiClient.get(`${doctorPath}`);
       return response.data;
     } catch (err: any) {
-			const errorMessage = err.response?.data?.message || 'Failed to fetch all doctors';
+			const errorMessage = err.response?.data || 'Failed to fetch all doctors';
 			showToast(errorMessage, 'rejected');
 			return rejectWithValue(errorMessage);
     }
@@ -46,7 +46,7 @@ export const saveDoctor = createAsyncThunk(
 			showToast(message, 'fulfilled');
 			return doctor;
     } catch (err: any) {
-			const errorMessage = err.response?.data?.message || 'Failed to update doctor';
+			const errorMessage = err.response?.data || 'Failed to update doctor';
 			showToast(errorMessage, 'rejected');
 			return rejectWithValue(errorMessage);
     }
@@ -64,7 +64,7 @@ export const saveAvailability = createAsyncThunk(
 			showToast(message, 'fulfilled');
 			return availability;
     } catch (err: any) {
-			const errorMessage = err.response?.data?.message || 'Failed to update availability';
+			const errorMessage = err.response?.data || 'Failed to update availability';
 			showToast(errorMessage, 'rejected');
 			return rejectWithValue(errorMessage);
     }
@@ -80,7 +80,7 @@ export const deleteDoctor = createAsyncThunk(
 			showToast(response, 'fulfilled');
 			return id;
 		} catch (err: any) {
-			const errorMessage = err.response?.data?.message || 'Failed to delete user';
+			const errorMessage = err.response?.data || 'Failed to delete user';
 			showToast(errorMessage, 'rejected');
 			return rejectWithValue(errorMessage);
 		}

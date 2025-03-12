@@ -11,6 +11,12 @@ export const loginSchema = z.object({
 export type LoginType = z.infer<typeof loginSchema>;
 
 export const registerSchema = z.discriminatedUnion('role', [
+	// admin schema
+	z.object({
+		role: z.literal('Admin'),
+		user: userSchema.omit({ role: true, phoneNumber: true })
+	}),
+	
 	// doctor schema
 	z.object({
 		role: z.literal('Doctor'),

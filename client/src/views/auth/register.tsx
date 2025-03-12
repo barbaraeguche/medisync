@@ -11,7 +11,6 @@ import { resetStatus } from '@/redux/slices/userSlice';
 import {
 	genderOptions, roleOptions, bloodTypeOptions
 } from '@/utils/constants';
-import { User } from '@/lib/definitions';
 import { ServerError } from '@/components/formError';
 import InputWrapper from '@/components/inputWrapper';
 import { Button, Card, Select } from '@/ui/index';
@@ -32,9 +31,14 @@ export default function RegisterForm() {
 	
 	const prevStep = () => setSteps((prev) => Math.max(1, prev - 1));
 	// validate before proceeding to the next step
-	const nextStep = async () => {
+	const nextStep = async (isContinue: boolean) => {
 		const isValid = await trigger('user');
-		if (isValid) setSteps((next) => Math.max(2, next + 1));
+		if (isValid) {
+			if (!isContinue) return;
+			
+			dispatch(resetStatus()); // clear status on change of role from Admin
+			setSteps((next) => Math.max(2, next + 1));
+		}
 	};
 	
 	const onSubmit: SubmitHandler<RegisterType> = (data) => {
@@ -43,11 +47,13 @@ export default function RegisterForm() {
 		const updatedUser = {
 			...user, _id: '', role
 		};
-		const updatedData = role === 'Doctor'
-			? { user: updatedUser, practitioner: { ...rest } }
-			: { user: updatedUser, ...rest };
+		const updatedData = role === 'Admin'
+			? updatedUser
+			: role === 'Doctor'
+				? { user: updatedUser, practitioner: { ...rest } }
+				: { user: updatedUser, ...rest };
 		
-		dispatch(registerUser(updatedData as unknown as User));
+		dispatch(registerUser(updatedData));
 		dispatch(resetStatus());
 	};
 	
@@ -139,13 +145,24 @@ export default function RegisterForm() {
 								error={errors.role}
 							/>
 							
-							<Button
-								onClick={nextStep}
-								className={'mt-2 w-full'}
-								disabled={userRole === undefined}
-							>
-								Next Step
-							</Button>
+							{userRole === 'Admin' ? (
+								<Button
+									type={'submit'}
+									className={'mt-2 w-full'}
+									disabled={userRole === undefined}
+									onClick={() => nextStep(false)}
+								>
+									Create Account
+								</Button>
+							) : (
+								<Button
+									className={'mt-2 w-full'}
+									disabled={userRole === undefined}
+									onClick={() => nextStep(true)}
+								>
+									Next Step
+								</Button>
+							)}
 						</>
 					)}
 					

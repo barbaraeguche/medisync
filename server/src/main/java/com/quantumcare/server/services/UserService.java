@@ -39,6 +39,11 @@ public class UserService implements UserDetailsService {
 		return userRepository.findAll();
 	}
 	
+	public User postUser(User reqUser) {
+		User user = userFactory.createUser(reqUser);
+		return userRepository.save(user);
+	}
+	
 	public User putUser(User prevUser, User currUser) {
 		userFactory.updateUser(prevUser, currUser);
 		return userRepository.save(prevUser);

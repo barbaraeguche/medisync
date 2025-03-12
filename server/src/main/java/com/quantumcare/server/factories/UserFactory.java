@@ -10,8 +10,8 @@ import java.util.Optional;
 public class UserFactory {
 	public User createUser(User reqUser) {
 		return new User(
-			reqUser.getFirstName(), reqUser.getLastName(), reqUser.getEmail(), reqUser.getPassword(), reqUser.getGender(),
-			reqUser.getRole(), createAddress(reqUser), createEmergencyContact(reqUser)
+			reqUser.getFirstName(), reqUser.getLastName(), reqUser.getEmail().toLowerCase(), reqUser.getPassword(),
+			reqUser.getGender(), reqUser.getRole(), createAddress(reqUser), createEmergencyContact(reqUser)
 		);
 	}
 	

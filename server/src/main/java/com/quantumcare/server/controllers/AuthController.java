@@ -9,7 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -26,7 +28,6 @@ import java.util.Map;
 public class AuthController {
 	
 	private final JwtUtils jwtUtils;
-	private final JwtCookies jwtCookies;
 	private final ObjectMapper objectMapper;
 	private final PasswordEncoder passwordEncoder;
 	private final AuthenticationManager authenticationManager;
@@ -36,12 +37,11 @@ public class AuthController {
 	
 	@Autowired
 	public AuthController(
-		JwtUtils jwtUtils, JwtCookies jwtCookies, ObjectMapper objectMapper,
+		JwtUtils jwtUtils, ObjectMapper objectMapper,
 		PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager,
 		UserService userService, DoctorService doctorService, PatientService patientService
 	) {
 		this.jwtUtils = jwtUtils;
-		this.jwtCookies = jwtCookies;
 		this.objectMapper = objectMapper;
     this.passwordEncoder = passwordEncoder;
     this.authenticationManager = authenticationManager;
@@ -74,8 +74,8 @@ public class AuthController {
 			String token = jwtUtils.generateToken(user);
 			
 			// set the token as an HTTP-only cookie
-			Cookie jwtCookie = jwtCookies.createCookie("token", token);
-			jwtCookies.setCookieAttr(jwtCookie, 3600);
+			Cookie jwtCookie = JwtCookies.createCookie("token", token);
+			JwtCookies.setCookieAttr(jwtCookie, 3600);
 			response.addCookie(jwtCookie);
 			
 			// return user details (without the password)
@@ -112,6 +112,12 @@ public class AuthController {
         // hash the password before storing, and create the patient record
         userAsPatient.setPassword(passwordEncoder.encode(userAsPatient.getPassword()));
         createdUser =  patientService.postPatient(patient).getUser();
+			} else if ("Admin".endsWith(role)) {
+				User user = objectMapper.convertValue(registerRequest, User.class);
+				
+				// hash the password before storing, and create the admin record
+				user.setPassword(passwordEncoder.encode(user.getPassword()));
+				createdUser = userService.postUser(user);
 			} else {
 				return ResponseEntity.badRequest().body("Invalid role specified");
 			}
@@ -120,8 +126,8 @@ public class AuthController {
 			String token = jwtUtils.generateToken(createdUser);
 			
 			// set the token as an HTTP-only cookie
-			Cookie jwtCookie = jwtCookies.createCookie("token", token);
-			jwtCookies.setCookieAttr(jwtCookie, 3600);
+			Cookie jwtCookie = JwtCookies.createCookie("token", token);
+			JwtCookies.setCookieAttr(jwtCookie, 3600);
 			response.addCookie(jwtCookie);
 			
 			// return user details (without the password)
@@ -129,6 +135,10 @@ public class AuthController {
 			Map<String, Object> userObj = Map.of("user", createdUser);
 			
 			return ResponseEntity.ok(userObj);
+		} catch (DataIntegrityViolationException exp) {
+			// handle unique constraint violations
+			String errorMessage = DbErrorUtils.getErrorMessage(exp);
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
 		} catch (Exception _) {
 			return ResponseEntity.internalServerError().body("Database error. Failed to register user.");
 		}
@@ -137,8 +147,8 @@ public class AuthController {
 	@PostMapping("/logout")
 	public ResponseEntity<?>logoutUser(HttpServletResponse response) {
 		// set the token as an HTTP-only cookie
-		Cookie jwtCookie = jwtCookies.createCookie("token", null);
-		jwtCookies.setCookieAttr(jwtCookie, 0);
+		Cookie jwtCookie = JwtCookies.createCookie("token", null);
+		JwtCookies.setCookieAttr(jwtCookie, 0);
 		response.addCookie(jwtCookie);
 		
 		// clear security context

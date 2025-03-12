@@ -14,7 +14,7 @@ export const fetchPatient = createAsyncThunk(
       const response = await apiClient.get(`${patientPath}/${id}`);
       return response.data;
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Failed to fetch patient';
+      const errorMessage = err.response?.data || 'Failed to fetch patient';
       showToast(errorMessage, 'rejected');
       return rejectWithValue(errorMessage);
     }
@@ -28,7 +28,7 @@ export const fetchPatients = createAsyncThunk(
       const response = await apiClient.get(`${patientPath}`);
       return response.data;
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Failed to fetch all patients';
+      const errorMessage = err.response?.data || 'Failed to fetch all patients';
       showToast(errorMessage, 'rejected');
       return rejectWithValue(errorMessage);
     }
@@ -46,7 +46,7 @@ export const savePatient = createAsyncThunk(
       showToast(message, 'fulfilled');
       return patient;
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Failed to update patient';
+      const errorMessage = err.response?.data || 'Failed to update patient';
       showToast(errorMessage, 'rejected');
       return rejectWithValue(errorMessage);
     }
@@ -64,7 +64,7 @@ export const createAppointment = createAsyncThunk(
       showToast(message, 'fulfilled');
       return appointment;
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Failed to create appointment';
+      const errorMessage = err.response?.data || 'Failed to create appointment';
       showToast(errorMessage, 'rejected');
       return rejectWithValue(errorMessage);
     }
@@ -82,7 +82,7 @@ export const saveAppointment = createAsyncThunk(
       showToast(message, 'fulfilled');
       return appointment;
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Failed to update appointment';
+      const errorMessage = err.response?.data || 'Failed to update appointment';
       showToast(errorMessage, 'rejected');
       return rejectWithValue(errorMessage);
     }
@@ -98,7 +98,7 @@ export const deletePatient = createAsyncThunk(
       showToast(response, 'fulfilled');
       return id;
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Failed to delete user';
+      const errorMessage = err.response?.data || 'Failed to delete user';
       showToast(errorMessage, 'rejected');
       return rejectWithValue(errorMessage);
     }

@@ -12,7 +12,7 @@ export const fetchUsers = createAsyncThunk(
 			const response = await apiClient.get(`${userPath}`);
 			return response.data;
 		} catch (err: any) {
-			const errorMessage = err.response?.data?.message || 'Failed to fetch all users';
+			const errorMessage = err.response?.data || 'Failed to fetch all users';
 			showToast(errorMessage, 'rejected');
 			return rejectWithValue(errorMessage);
 		}
@@ -30,7 +30,7 @@ export const saveUser = createAsyncThunk(
 			showToast(message, 'fulfilled');
 			return user;
 		} catch (err: any) {
-			const errorMessage = err.response?.data?.message || 'Failed to update user';
+			const errorMessage = err.response?.data || 'Failed to update user';
 			showToast(errorMessage, 'rejected');
 			return rejectWithValue(errorMessage);
 		}

@@ -30,9 +30,9 @@ const userRoutes: SidebarRoutes[] = [
 		component: UserInfo
 	},
 	{
-		path: '/contact-details',
+		path: '/contacts',
 		icon: BookUser,
-		name: 'Contact Details',
+		name: 'Contacts',
 		component: ContactInfo
 	},
 	{
@@ -42,6 +42,28 @@ const userRoutes: SidebarRoutes[] = [
 		component: Settings
 	}
 ];
+
+const adminRoutes: SidebarRoutes[] = [ // todo: list of all user, doctors, and patients, with delete action button
+	{
+		path: '/users',
+		icon: User,
+		name: 'Profile',
+		component: UserInfo
+	},
+	{
+		path: '/doctors',
+		icon: BookUser,
+		name: 'Contact Details',
+		component: ContactInfo
+	},
+	{
+		path: '/patients',
+		icon: Cog,
+		name: 'Settings',
+		component: Settings
+	}
+];
+
 
 const doctorRoutes: SidebarRoutes[] = [
 	{
@@ -106,5 +128,5 @@ const commonRoutes: SidebarRoutes[] = [
 ];
 
 export {
-	userRoutes, doctorRoutes, patientRoutes, authRoutes, commonRoutes
+	authRoutes, adminRoutes, userRoutes, doctorRoutes, patientRoutes, commonRoutes
 };

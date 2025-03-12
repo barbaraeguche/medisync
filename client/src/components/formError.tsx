@@ -27,7 +27,7 @@ export function ServerError({ message }: {
 			aria-atomic={'true'}
 			className={'flex items-center gap-x-1 text-sm text-red-600'}
 		>
-			<ShieldX className={'size-5'}/> {message}
+			<ShieldX className={'size-4'}/> {message}
 		</p>
 	);
 }

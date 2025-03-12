@@ -13,7 +13,7 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "doctor")
+@Table(name = "doctors")
 @RequiredArgsConstructor
 public class Doctor {
 	

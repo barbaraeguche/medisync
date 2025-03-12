@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import {
-	authRoutes, userRoutes, doctorRoutes, patientRoutes
+	authRoutes, adminRoutes, userRoutes, doctorRoutes, patientRoutes
 } from '@/routes';
 import SiteLayout from '@/layouts/website';
 import AuthLayout from '@/layouts/auth';
@@ -30,6 +30,19 @@ export default function App() {
 					</Route>
 				</Route>
 				
+				{/* admin routes */}
+				<Route element={<ProtectedRoute allowedRoles={['Admin']}/>}>
+					<Route element={<DashboardLayout/>}>
+						{adminRoutes.map((route, idx) => {
+							const Component = route.component;
+							
+							return (
+								<Route key={idx} path={route.path} element={<Component/>}/>
+							);
+						})}
+					</Route>
+				</Route>
+				
 				{/* user routes */}
 				<Route element={<ProtectedRoute allowedRoles={['Admin', 'Doctor', 'Patient']}/>}>
 					<Route path={'/book-appointment'} element={<BookAppointment/>}/>
@@ -41,13 +54,6 @@ export default function App() {
 								<Route key={idx} path={route.path} element={<Component/>}/>
 							);
 						})}
-					</Route>
-				</Route>
-				
-				{/* admin routes */}
-				<Route element={<ProtectedRoute allowedRoles={['Admin']}/>}>
-					<Route element={<DashboardLayout/>}>
-						{/* todo */}
 					</Route>
 				</Route>
 				
