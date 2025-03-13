@@ -15,7 +15,7 @@ export default function App() {
 		<SiteLayout>
 			<Routes>
 				{/* public routes */}
-				<Route path={'/'} element={<HomePage/>}/>
+				<Route index element={<HomePage/>}/>
 				
 				{/* auth routes */}
 				<Route element={<ProtectedRoute allowedRoles={['Auth']}/>}>
@@ -51,7 +51,7 @@ export default function App() {
 							const Component = route.component;
 							
 							return (
-								<Route key={idx} path={route.path} element={<Component/>}/>
+								<Route key={idx} index={route.path === '/profile'} path={route.path} element={<Component/>}/>
 							);
 						})}
 					</Route>

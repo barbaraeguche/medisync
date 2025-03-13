@@ -7,13 +7,26 @@ export const showToast = (
 	const hasNotResponded = type === 'idle' || type === 'pending';
 	if (!message || hasNotResponded) return;
 	
+	// define colors - green for success, red for error
+	const colors = {
+		success: {
+			text: '#085d00', border: '#5cb85c', background: '#ebfdf0'
+		},
+		error: {
+			text: '#7f1d1d', border: '#ef4444', background: '#fef2f2'
+		}
+	};
+	
+	const colorSet = type === 'fulfilled' ? colors.success : colors.error;
+	
 	toast[type === 'fulfilled' ? 'success' : 'error'](message, {
-		duration: 7_000,
+		duration: 3_500,
 		style: {
-			color: '#000',
 			fontSize: 'small',
-			backgroundColor: type === 'fulfilled' ? 'oklch(0.982 0.018 155.826)' : 'oklch(0.971 0.013 17.38)',
-			border: `1px dashed ${type === 'fulfilled' ? 'oklch(0.925 0.084 155.995)' : 'oklch(0.885 0.062 18.334)'}`
+			color: colorSet.text,
+			borderRadius: '12px',
+			backgroundColor: colorSet.background,
+			border: `1px dashed ${colorSet.border}`
 		}
 	});
 }

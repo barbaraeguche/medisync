@@ -1,8 +1,12 @@
 import { Link, NavLink } from 'react-router-dom';
 import { Heart } from 'lucide-react';
+import { useAppSelector } from '@/hooks/useAppDispatch';
+import { LogoutButton, SignInButton } from '@/components/authButtons';
 import Button from '@/ui/button';
 
 export default function Header() {
+	const { isAuthenticated } = useAppSelector((state) => state.userSlice);
+	
 	return (
 		<header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
 			<div className={'container flex h-16 items-center justify-between'}>
@@ -28,14 +32,11 @@ export default function Header() {
 					))}
 				</nav>
 				<div className={'flex items-center gap-4'}>
-					<Link to={'/auth/signin'}>
-						<Button
-							variant={'ghost'}
-							className={'hover:text-teal-600'}
-						>
-							Sign In
-						</Button>
-					</Link>
+					{isAuthenticated ? (
+						<LogoutButton/>
+					) : (
+						<SignInButton/>
+					)}
 					<Link to={'/book-appointment'}>
 						<Button className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}>
 							Book Appointment

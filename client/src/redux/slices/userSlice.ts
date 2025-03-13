@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { signInUser, registerUser, logoutUser } from '@/redux/thunks/authThunk';
-import { fetchUsers, saveUser } from '@/redux/thunks/userThunk';
+import { fetchUsers, saveUser, savePassword } from '@/redux/thunks/userThunk';
 import { User } from '@/lib/definitions';
 import { ThunkStatus, ThunkError } from '@/lib/types';
 import { userInitState } from '@/redux/initialStates';
@@ -124,6 +124,19 @@ const userSlice = createSlice({
 				state.user = action.payload;
 			})
 			.addCase(saveUser.rejected, (state, action) => {
+				state.status = 'rejected';
+				state.error = action.payload as string;
+			})
+			
+			// savePassword
+			.addCase(savePassword.pending, (state) => {
+				state.status = 'pending';
+				state.error = null;
+			})
+			.addCase(savePassword.fulfilled, (state) => {
+				state.status = 'fulfilled';
+			})
+			.addCase(savePassword.rejected, (state, action) => {
 				state.status = 'rejected';
 				state.error = action.payload as string;
 			})

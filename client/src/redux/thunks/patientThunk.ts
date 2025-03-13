@@ -60,7 +60,8 @@ export const createAppointment = createAsyncThunk(
 		{ rejectWithValue }
 	) => {
     try {
-      const { appointment, message } = (await apiClient.post(`${patientPath}/${id}/appointments`, appointmentInfo)).data;
+      console.log(appointmentInfo)
+      const { appointment, message } = (await apiClient.post(`${patientPath}/${id}/appointment`, appointmentInfo)).data;
       showToast(message, 'fulfilled');
       return appointment;
     } catch (err: any) {
@@ -78,7 +79,7 @@ export const saveAppointment = createAsyncThunk(
 		{ rejectWithValue }
 	) => {
     try {
-      const { appointment, message } = (await apiClient.put(`${patientPath}/${id}/appointments`, appointmentInfo)).data;
+      const { appointment, message } = (await apiClient.put(`${patientPath}/${id}/appointment`, appointmentInfo)).data;
       showToast(message, 'fulfilled');
       return appointment;
     } catch (err: any) {

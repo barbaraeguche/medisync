@@ -11,7 +11,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -154,7 +153,7 @@ public class AuthController {
 		// clear security context
 		SecurityContextHolder.clearContext();
 		
-		return ResponseEntity.ok("Logged out successfully");
+		return ResponseEntity.ok("User logged out");
 	}
 	
 	@GetMapping("/verify")

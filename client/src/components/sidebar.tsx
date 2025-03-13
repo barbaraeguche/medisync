@@ -37,10 +37,12 @@ export default function Sidebar() {
 	const toggleSidebar = () => setIsOpen(!isOpen);
 	
 	return (
-		<div className={'relative flex h-full'}>
+		<div className={'relative flex h-full z-20'}>
 			{/* sidebar - always visible on md screens and up */}
-			<div className={`transition-all duration-300 ease-in-out ${
-				isOpen ? 'w-64 absolute inset-0': 'w-0'
+			<div className={`transition-all duration-300 ease-in-out h-full ${
+				isOpen ? 'w-64' : 'w-0 md:w-64'
+			} ${
+				window.innerWidth < 768 ? 'absolute left-0 top-0' : 'relative'
 			}`}>
 				<div className={'h-full bg-white border-r border-gray-200 overflow-hidden'}>
 					{/* menu close button - hidden on md screens and up */}

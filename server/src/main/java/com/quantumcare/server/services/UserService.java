@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -19,11 +20,13 @@ public class UserService implements UserDetailsService {
 	
 	private final UserFactory userFactory;
 	private final UserRepository userRepository;
+	PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	public UserService(UserFactory userFactory, UserRepository userRepository) {
+	public UserService(UserFactory userFactory, UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		this.userFactory = userFactory;
 		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 	
 	public User getUserById(UUID id) {
@@ -47,6 +50,11 @@ public class UserService implements UserDetailsService {
 	public User putUser(User prevUser, User currUser) {
 		userFactory.updateUser(prevUser, currUser);
 		return userRepository.save(prevUser);
+	}
+	
+	public void putPassword(User prevUser, String password) {
+		prevUser.setPassword(passwordEncoder.encode(password));
+		userRepository.save(prevUser);
 	}
 	
 	@Override

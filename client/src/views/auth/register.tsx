@@ -36,7 +36,7 @@ export default function RegisterForm() {
 		if (isValid) {
 			if (!isContinue) return;
 			
-			dispatch(resetStatus()); // clear status on change of role from Admin
+			dispatch(resetStatus()); // clear status if role is no longer `Admin`
 			setSteps((next) => Math.max(2, next + 1));
 		}
 	};

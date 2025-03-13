@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { appointmentSchema, AppointmentType } from '@/schemas/appointmentSchema';
+import { fetchDoctors } from '@/redux/thunks/doctorThunk';
 import { createAppointment } from '@/redux/thunks/patientThunk';
 import { resetStatus } from '@/redux/slices/patientSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch.ts';
@@ -17,6 +18,10 @@ export default function BookAppointment() {
 	const dispatch = useAppDispatch();
 	const { doctors } = useAppSelector((state) => state.doctorSlice);
 	const { patient } = useAppSelector((state) => state.patientSlice);
+	
+	useEffect(() => {
+		dispatch(fetchDoctors());
+	}, [dispatch]);
 	
 	const doctorOptions = useMemo(() => {
 		return doctors.map(({ _id, user: { firstName, lastName }}) =>
@@ -90,7 +95,10 @@ export default function BookAppointment() {
 	const onSubmit: SubmitHandler<AppointmentType> = (data) => {
 		dispatch(createAppointment({
 			id: patient._id,
-			appointmentInfo: data
+			appointmentInfo: {
+				...data,
+				patientId: patient._id
+			}
 		}));
 		dispatch(resetStatus());
 	};

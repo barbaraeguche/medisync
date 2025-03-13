@@ -27,8 +27,7 @@ public class PatientController {
 	@GetMapping("/{id}")
 	public Patient getPatientById(@PathVariable UUID id) {
 		// if id is null or id does not exist in doctor db, send a 404 error
-		validatePatientId(id);
-		return patientService.getPatientById(id);
+		return validatePatientId(id);
 	}
 	
 	@GetMapping
@@ -104,11 +103,15 @@ public class PatientController {
 	 * validates the given patient ID to ensure it is not empty and exists in the system.
 	 * @param id the unique identifier of the patient to validate
 	 * @throws EntityNotFound if the patient ID is not valid
+	 * @return patient if found.
 	 */
-	public void validatePatientId(UUID id) {
-		if (String.valueOf(id).isEmpty() || patientService.getPatientById(id) == null) {
+	public Patient validatePatientId(UUID id) {
+		Patient patient = patientService.getPatientById(id);
+		
+		if (String.valueOf(id).isEmpty() || patient == null) {
 			throw new EntityNotFound("Invalid Patient ID");
 		}
+		return patient;
 	}
 	// ---------------------- END HELPERS ---------------------- //
 }

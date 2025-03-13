@@ -3,20 +3,25 @@ import {
 	UpdateEmailType, UpdatePhoneNumberType, UpdatePasswordType
 } from '@/schemas/userSchema';
 import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch';
-import { saveUser } from '@/redux/thunks/userThunk';
+import { savePassword, saveUser } from '@/redux/thunks/userThunk';
 import { resetStatus } from '@/redux/slices/userSlice';
 import { User } from '@/lib/definitions';
 import { FieldConfig } from '@/lib/types';
 import GenericEditableForm from '@/components/genericEditableForm';
+import { DeleteEntity } from '@/components/deleteButtons';
 
 export default function Settings() {
 	const user = useAppSelector((state) => state.userSlice.user);
+	const role = user.role;
 	
 	return (
 		<div className={'space-y-12 md:space-y-16'}>
 			<ChangeEmail user={user}/>
       <ChangePhoneNumber user={user}/>
-      <ChangePassword/>
+      <ChangePassword user={user}/>
+			{(role === 'Doctor' || role === 'Patient') && (
+				<DeleteEntity id={user._id} role={role}/>
+			)}
 		</div>
 	);
 }
@@ -65,10 +70,7 @@ function ChangePhoneNumber({ user }: {
 	const handleSubmit = (data: UpdatePhoneNumberType) => {
 		dispatch(saveUser({
 			id: user._id,
-			userInfo: {
-				...data,
-				phoneNumber: data.phoneNumber === '' ? null : data.phoneNumber
-			}
+			userInfo: { phoneNumber: data.phoneNumber?.trim() || null }
 		}));
 		dispatch(resetStatus());
 	};
@@ -92,15 +94,16 @@ function ChangePhoneNumber({ user }: {
 	);
 }
 
-function ChangePassword() {
+function ChangePassword({ user }: {
+	user: User
+}) {
 	const dispatch = useAppDispatch();
 	
 	const handleSubmit = (data: UpdatePasswordType) => {
-		console.log(data);
-		// dispatch(saveUser({
-		// 	id: user._id,
-		// 	user: data
-		// }));
+		dispatch(savePassword({
+			id: user._id,
+			userInfo: data
+		}));
 		dispatch(resetStatus());
 	};
 	

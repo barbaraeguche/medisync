@@ -5,9 +5,11 @@ import { fetchPatient } from '@/redux/thunks/patientThunk';
 import { resetStatus as resetDoctorStatus } from '@/redux/slices/doctorSlice';
 import { resetStatus as resetPatientStatus } from '@/redux/slices/patientSlice';
 import { apiClient } from '@/utils/axiosConfig';
+import { showToast } from '@/utils/toast';
 import { Doctor, Patient, User } from '@/lib/definitions';
 
 const authPath = 'auth';
+type Entity = Partial<User | Doctor | Patient>;
 
 // fetch the newly created user based on their role and dispatch the corresponding action
 const doFetchAfterAuth = (user: User) => {
@@ -43,7 +45,7 @@ export const signInUser = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
 	'user/registerUser',
-	async (data: Partial<User | Doctor | Patient>, { rejectWithValue }) => {
+	async (data: Entity, { rejectWithValue }) => {
 		try {
 			let role;
 			
@@ -73,10 +75,13 @@ export const logoutUser = createAsyncThunk(
 	async (_, { rejectWithValue }) => {
 		try {
 			// send a request to the backend to log the user out
-			await apiClient.post(`${authPath}/logout`);
+			const response = (await apiClient.post(`${authPath}/logout`)).data;
+			showToast(response, 'fulfilled');
 			return null;
 		} catch (err: any) {
-			return rejectWithValue(err.response?.data || 'Logout failed. Please try again.');
+			const errorMessage = err.response?.data || 'Logout failed. Please try again.';
+			showToast(errorMessage, 'rejected');
+			return rejectWithValue(errorMessage);
 		}
 	}
 );

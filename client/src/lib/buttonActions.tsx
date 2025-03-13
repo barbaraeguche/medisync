@@ -1,22 +1,16 @@
-import { Trash2 } from 'lucide-react';
-import { Button } from '@/ui/index';
+import { Link } from 'react-router-dom';
+import { Pencil } from 'lucide-react';
 
 export const EditAppointment = ({ id }: {
 	id: number
 }) => {
 	return (
-		<Button
-      size={'icon'}
-      variant={'destructive'}
-      className={'shadow-none bg-transparent hover:bg-transparent text-red-600 hover:text-red-400'}
-      onClick={() => {
-        // todo: this should edit the appointment
-        // deleteAppointment(id);
-	      console.log(id);
-      }}
+		<Link
+			to={`/patient/appointments/${id}/edit`}
+      className={'shadow-none bg-transparent hover:bg-transparent text-gray-400 hover:text-gray-600'}
     >
       <span className={'sr-only'}>Edit Appointment</span>
-      <Trash2 className={'size-4'}/>
-    </Button>
+      <Pencil size={16}/>
+    </Link>
 	);
 };

@@ -6,6 +6,7 @@ import com.quantumcare.server.utilities.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -30,16 +31,14 @@ import java.util.List;
 public class WebSecurityConfig {
 	
 	private final JwtUtils jwtUtils;
-	private final UserService userService;
 	
 	@Autowired
-	public WebSecurityConfig(JwtUtils jwtUtils, UserService userService) {
+	public WebSecurityConfig(JwtUtils jwtUtils) {
 		this.jwtUtils = jwtUtils;
-		this.userService = userService;
 	}
 	
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, UserService userService) throws Exception {
 		httpSecurity
 			.csrf(AbstractHttpConfigurer::disable)
 			.cors((cors) -> cors.configurationSource(corsConfigurationSource()))
@@ -52,18 +51,26 @@ public class WebSecurityConfig {
 					// auth endpoints
 					.requestMatchers("/api/auth/**").permitAll()
 					.requestMatchers("/error").permitAll()
-				  // role specific
+					
+					// user endpoints
 					.requestMatchers("/api/users/**").hasAnyAuthority("Admin", "Doctor", "Patient")
+					
+					// get all doctors to book appointment
+					.requestMatchers(HttpMethod.GET, "/api/doctors").permitAll()
+					// all other doctors endpoints
 					.requestMatchers("/api/doctors/**").hasAnyAuthority("Admin", "Doctor")
+					
+					// patient endpoints
 					.requestMatchers("/api/patients/**").hasAnyAuthority("Admin", "Patient")
+					
 					// all other requests need authentication
-				  .anyRequest().authenticated()
+					.anyRequest().authenticated()
 			)
 			.addFilterBefore(
 				new JwtAuthorizationFilter(jwtUtils, userService), UsernamePasswordAuthenticationFilter.class
 			);
-			
-			return httpSecurity.build();
+		
+		return httpSecurity.build();
 	}
 	
 	@Bean

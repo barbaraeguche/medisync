@@ -13,6 +13,21 @@ export const apiClient: AxiosInstance = axios.create({
 	}
 });
 
+// add an interceptor to ensure null values are properly transmitted
+apiClient.interceptors.request.use(
+	(config) => {
+		// make sure config.data is defined and has a value
+		if (config.data) {
+			/*
+			* convert javascript null values to JSON null values explicitly
+			* this ensures null values aren't removed during serialization
+			*/
+			config.data = JSON.parse(JSON.stringify(config.data));
+		}
+		return config;
+	}
+);
+
 // response interceptor for API calls
 apiClient.interceptors.response.use(
 	(response) => response,
