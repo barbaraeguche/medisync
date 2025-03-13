@@ -60,7 +60,6 @@ export const createAppointment = createAsyncThunk(
 		{ rejectWithValue }
 	) => {
     try {
-      console.log(appointmentInfo)
       const { appointment, message } = (await apiClient.post(`${patientPath}/${id}/appointment`, appointmentInfo)).data;
       showToast(message, 'fulfilled');
       return appointment;

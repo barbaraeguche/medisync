@@ -1,5 +1,5 @@
 import {
-	User, Doctor, Patient, Practitioner, MedicalHistory, Appointments
+	User, Doctor, Patient, Practitioner
 } from '@/lib/definitions';
 
 export const userInitState: User = {
@@ -62,23 +62,4 @@ export const patientInitState: Patient = {
     weight: 0,
 	  heartRate: 0
   }
-};
-
-export const medicalHistInitState: MedicalHistory = {
-	_id: 0,
-  diagnosis: '',
-  diagnosisDate: '1900-01-01',
-  medications: [],
-	patientId: ''
-};
-
-export const appointmentInitState: Appointments = {
-	_id: 0,
-  date: '1900-01-01',
-  time: '',
-  type: 'N/A',
-  status: 'N/A',
-  notes: '',
-  doctorId: '',
-  patientId: ''
 };

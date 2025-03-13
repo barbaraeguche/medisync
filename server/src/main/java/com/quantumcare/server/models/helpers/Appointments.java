@@ -48,7 +48,9 @@ public class Appointments {
 	private Status status = Status.Scheduled;
 	
 	@NonNull
-	private String notes = "";
+	private String noteToDoctor = "";
+	@NonNull
+	private String statusNote = "";
 	
 	
 	// ------------------------ HELPERS ------------------------ //

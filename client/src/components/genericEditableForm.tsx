@@ -32,6 +32,7 @@ export default function GenericEditableForm<T extends Record<string, any>>(
 	const formSubmit: SubmitHandler<T> = (data) => {
 		if (isDirty) {
 			onSubmit(data);
+			reset();
 		}
 		setIsEditing(false);
 	};
@@ -60,6 +61,7 @@ export default function GenericEditableForm<T extends Record<string, any>>(
 						) : (
 							<InputWrapper
 								key={field.name}
+								type={field.type}
 								{...register(field.name as any)}
 								readOnly={!isEditing || readOnlyFields?.includes(field.name)}
 								disabled={field.disabled}

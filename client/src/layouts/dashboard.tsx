@@ -8,7 +8,7 @@ export default function DashboardLayout() {
 				<Sidebar/>
 			</div>
 			<main className={'grow flex-1 overflow-y-auto mb-40'}>
-				<div className={'container py-[2rem]'}>
+				<div className={'p-[2rem] xl:p-[4rem]'}>
 					<Outlet/>
 				</div>
 			</main>

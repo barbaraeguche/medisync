@@ -48,6 +48,7 @@ export default function SignInForm() {
 					{/* password */}
 					<InputWrapper
 						{...register('password')}
+						type={'password'}
 						conf={{
 							label: 'Password',
 							placeholder: '******'

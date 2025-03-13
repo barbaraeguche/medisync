@@ -28,7 +28,7 @@ export default function CustomSelect<T extends FieldValues>(props: CustomSelectP
 						'text-red-500': props.error
 					})}
 				>
-					{props.conf.label}
+					<sup>{props.conf.subscriptNum}</sup> {props.conf.label}
 				</label>
 			)}
 			

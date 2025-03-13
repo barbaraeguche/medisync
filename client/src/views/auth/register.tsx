@@ -36,7 +36,7 @@ export default function RegisterForm() {
 		if (isValid) {
 			if (!isContinue) return;
 			
-			dispatch(resetStatus()); // clear status if role is no longer `Admin`
+			dispatch(resetStatus()); // clear status if the role is no longer `Admin`
 			setSteps((next) => Math.max(2, next + 1));
 		}
 	};
@@ -114,6 +114,7 @@ export default function RegisterForm() {
 							{/* password */}
 							<InputWrapper
 								{...register('user.password')}
+								type={'password'}
 								conf={{
 									label: 'Password',
 									placeholder: '******'
@@ -125,6 +126,7 @@ export default function RegisterForm() {
 							<Select
 								conf={{
 									label: 'Gender',
+									subscriptNum: '1',
 									placeholder: 'Select your gender'
 								}}
 								name={'user.gender'}
@@ -137,6 +139,7 @@ export default function RegisterForm() {
 							<Select
 								conf={{
 									label: 'Role',
+									subscriptNum: '1',
 									placeholder: 'Select your role'
 								}}
 								name={'role'}
@@ -247,6 +250,7 @@ export default function RegisterForm() {
 							{/* blood type */}
 							<Select
 								conf={{
+									subscriptNum: '1',
 									label: 'Blood Type',
 									placeholder: 'Select your blood type'
 								}}
@@ -277,15 +281,21 @@ export default function RegisterForm() {
 				</Card.Content>
 			</form>
 			
-			<Card.Footer className={'mt-7 text-sm text-muted-foreground text-center'}>
-				Have an account? {' '}
-				<Link
-					to={'/auth/signin'}
-					aria-label={'Create an account'}
-					className={'text-primary underline-offset-4 hover:underline cursor-pointer'}
-				>
-					Sign in
-				</Link>
+			<Card.Footer className={'space-y-7 text-muted-foreground'}>
+				<p className={'text-xs space-x-2'}>
+					<span className={'underline underline-offset-2'}>Note:</span>
+					<sup>1</sup> Field cannot be changed after registration.
+				</p>
+				<div className={'text-sm text-center'}>
+					Have an account? {' '}
+					<Link
+						to={'/auth/signin'}
+						aria-label={'Create an account'}
+						className={'text-primary underline-offset-4 hover:underline cursor-pointer'}
+					>
+						Sign in
+					</Link>
+				</div>
 			</Card.Footer>
 		</Card>
 	);

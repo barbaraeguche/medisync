@@ -87,12 +87,12 @@ export const generateTimeSlots = (formerHr: string, latterHr: string) => {
 export const generateLabelValue = (itemValue: string, itemLabel?: string) =>
 	({ label: itemLabel ?? itemValue, value: itemValue });
 
-export const categorizeAppointments = <T extends { date: string | Date }>(appointments: T[]) => {
+export const categorizeAppointments = <T extends { date: string }>(appointments: T[]) => {
 	const now = new Date();
 	
 	return appointments.reduce<{ past: T[]; current: T[]; upcoming: T[] }>(
 		(accumulator, appointment) => {
-			const apptDate = typeof appointment.date === 'string' ? parseISO(appointment.date) : appointment.date;
+			const apptDate = appointment.date;
 			
 			if (isBefore(apptDate, now) && !isToday(apptDate)) {
 				accumulator.past.push(appointment);

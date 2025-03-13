@@ -6,7 +6,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 /**
- * component that creates case-insensitive indexes for email and license number fields.
+ * component that creates case-insensitive indexes for email and license number fields,
+ * and sets up triggers for appointment cancellation on doctor availability changes.
  * this runs after application initialization to ensure the database has the proper constraints.
  */
 @Component
@@ -20,9 +21,10 @@ public class DbIndexInitializer {
   }
 	
 	/**
-	 * create case-insensitive functional indexes after application startup.
+	 * create case-insensitive functional indexes and appointment triggers after application startup.
 	 * - for emails: convert to lowercase when storing to ensure case-insensitive uniqueness
 	 * - for license numbers: preserve original case but enforce case-insensitive uniqueness
+	 * - for appointments: cancel them when doctor availability changes
 	 */
 	@PostConstruct
 	public void createFunctionalIndexes() {

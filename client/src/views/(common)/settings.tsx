@@ -42,8 +42,9 @@ function ChangeEmail({ user }: {
 	const emailField: FieldConfig[] = [
 		{
 			name: 'email',
+			type: 'password',
 			label: 'New Email',
-			placeholder: 'jane.doe@example.com'
+			placeholder: 'jane.doe@example.com',
 		},
 	];
 	
@@ -110,13 +111,15 @@ function ChangePassword({ user }: {
 	const passwordFields: FieldConfig[] = [
 		{
 			name: 'password',
+			type: 'password',
+			placeholder: '******',
 			label: 'New Password',
-			placeholder: '******'
 		},
 		{
+			type: 'password',
+			placeholder: '******',
 			name: 'confirmPassword',
 			label: 'Confirm Password',
-			placeholder: '******'
 		},
 	];
 	

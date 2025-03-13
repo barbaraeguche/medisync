@@ -89,5 +89,6 @@ export interface Appointments {
 	time: string;
 	type: 'Checkup' | 'Follow Up' | 'Emergency' | 'Consultation' | 'N/A';
 	status: 'Scheduled' | 'Completed' | 'Cancelled' | 'N/A';
-	notes?: string;
+	noteToDoctor?: string;  // patient can add notes for the doctor to see
+	statusNote?: string;    // system-generated notes about status changes
 }

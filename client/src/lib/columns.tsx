@@ -32,18 +32,18 @@ const baseApptColumns: ColumnDef<Appointments>[] = [
 		cell: ({ row }) => (
 			<AppointmentStatus status={row.getValue('status')}/>
 		)
-	},
-	{
-		accessorKey: 'notes',
-		header: 'Notes',
-		cell: ({ row }) => {
-			return <div className={'truncate max-w-[250px]'}>{row.getValue('notes')}</div>
-		}
 	}
 ];
 
 export const patientApptColumn: ColumnDef<Appointments>[] = [...baseApptColumns];
 patientApptColumn.splice(patientApptColumn.length, 0,
+	{
+		accessorKey: 'statusNote',
+		header: 'Status Note',
+		cell: ({ row }) => {
+			return <div className={'truncate max-w-[250px]'}>{row.getValue('statusNote')}</div>
+		}
+	},
 	{
 		accessorKey: 'doctorId',
 		header: 'Doctor',
@@ -67,7 +67,16 @@ patientApptColumn.splice(patientApptColumn.length, 0,
 );
 
 export const doctorApptColumn: ColumnDef<Appointments>[] = [...baseApptColumns];
-doctorApptColumn.splice(1, 0, {
-	accessorKey: 'patientId',
-	header: 'Patient'
-});
+doctorApptColumn.splice(1, 0,
+	{
+		accessorKey: 'noteToDoctor',
+		header: 'Notes',
+		cell: ({ row }) => {
+			return <div className={'truncate max-w-[250px]'}>{row.getValue('noteToDoctor')}</div>
+		}
+	},
+	{
+		accessorKey: 'patientId',
+		header: 'Patient'
+	}
+);

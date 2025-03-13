@@ -3,8 +3,9 @@ import type { LucideIcon } from 'lucide-react';
 
 export type InputConfig = {
 	label?: string;
-	placeholder?: string;
 	readOnly?: boolean;
+	placeholder?: string;
+	subscriptNum?: string;
 };
 
 export type FieldConfig = {
