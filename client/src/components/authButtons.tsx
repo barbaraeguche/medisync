@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { DoorClosed, DoorOpen } from 'lucide-react';
 import { logoutUser } from '@/redux/thunks/authThunk';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import Button from '@/ui/button';
@@ -24,9 +25,10 @@ export const LogoutButton = () => {
 		<Button
 			variant={'ghost'}
 			onClick={handleLogout}
-      className={'bg-red-50 text-red-400 hover:text-red-600 hover:bg-red-100'}
+			aria-label={'Logout'}
+      className={'px-3 bg-red-50 text-red-400 hover:text-red-600 hover:bg-red-100'}
 		>
-			Logout
+			<DoorOpen size={22}/>
 		</Button>
 	);
 };
@@ -36,9 +38,10 @@ export const SignInButton = () => {
 		<Link to={'/auth/signin'}>
 			<Button
 				variant={'ghost'}
-				className={'hover:text-teal-600'}
+				aria-label={'Sign in'}
+				className={'px-3 hover:text-teal-600'}
 			>
-				Sign In
+				<DoorClosed size={22}/>
 			</Button>
 		</Link>
 	);

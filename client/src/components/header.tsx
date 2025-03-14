@@ -1,11 +1,11 @@
 import { Link, NavLink } from 'react-router-dom';
-import { Heart } from 'lucide-react';
+import { Heart, UserRoundPen } from 'lucide-react';
 import { useAppSelector } from '@/hooks/useAppDispatch';
 import { LogoutButton, SignInButton } from '@/components/authButtons';
 import Button from '@/ui/button';
 
 export default function Header() {
-	const { isAuthenticated } = useAppSelector((state) => state.userSlice);
+	const { isAuthenticated, user: { role } } = useAppSelector((state) => state.userSlice);
 	
 	return (
 		<header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -32,14 +32,28 @@ export default function Header() {
 					))}
 				</nav>
 				<div className={'flex items-center gap-4'}>
+					{/* appointments should only be shown to patients */}
+					{role === 'Patient' && (
+						<Link to={'/book-appointment'}>
+							<Button className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}>
+								Book Appointment
+							</Button>
+						</Link>
+					)}
 					{isAuthenticated ? (
 						<LogoutButton/>
 					) : (
 						<SignInButton/>
 					)}
-					<Link to={'/book-appointment'}>
-						<Button className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}>
-							Book Appointment
+					
+					{/* to profile page */}
+					<Link to={'/profile'}>
+						<Button
+							aria-label={'Profile'}
+							variant={'ghost'}
+							className={'shadow-none text-gray-600 hover:bg-gray-50 hover:text-gray-800'}
+						>
+							<UserRoundPen size={22}/>
 						</Button>
 					</Link>
 				</div>

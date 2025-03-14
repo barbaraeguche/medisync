@@ -64,6 +64,14 @@ public class PatientService {
 		return patientRepository.save(reqPatient).getAppointments();
 	}
 	
+	public List<Appointments> deleteAppointment(Patient reqPatient, Long reqAptId) {
+		List<Appointments> appointments = reqPatient.getAppointments();
+		
+		// delete appointment if exists
+		appointments.removeIf((apt) -> apt.get_id().equals(reqAptId));
+		return patientRepository.save(reqPatient).getAppointments();
+	}
+	
 	// todo: work on openai medical history
 	
 	public void deletePatient(Patient reqPatient) {

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-	fetchPatient, fetchPatients, savePatient, createAppointment, saveAppointment, deletePatient
+	fetchPatient, fetchPatients, savePatient, deletePatient,
+	createAppointment, saveAppointment, deleteAppointment
 } from '@/redux/thunks/patientThunk';
 import { Appointments, Patient } from '@/lib/definitions';
 import { ThunkStatus, ThunkError } from '@/lib/types';
@@ -98,6 +99,20 @@ const patientSlice = createSlice({
 				state.patient.appointments = action.payload;
 			})
 			.addCase(saveAppointment.rejected, (state, action) => {
+				state.status = 'rejected';
+				state.error = action.payload as string;
+			})
+			
+			// deleteAppointment
+			.addCase(deleteAppointment.pending, (state) => {
+				state.status = 'pending';
+				state.error = null;
+			})
+			.addCase(deleteAppointment.fulfilled, (state, action: PayloadAction<Appointments[]>) => {
+				state.status = 'fulfilled';
+				state.patient.appointments = action.payload;
+			})
+			.addCase(deleteAppointment.rejected, (state, action) => {
 				state.status = 'rejected';
 				state.error = action.payload as string;
 			})

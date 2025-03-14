@@ -3,7 +3,7 @@ import { isAfter, isToday } from 'date-fns';
 import { formatDate } from '@/utils/utils';
 import { MMM_point_dd_yyyy } from '@/utils/constants';
 import { Appointments, User } from '@/lib/definitions';
-import { EditAppointment } from '@/lib/buttonActions';
+import { DeleteAppointment, EditAppointment } from '@/lib/buttonActions';
 import AppointmentStatus from '@/ui/status';
 
 const baseApptColumns: ColumnDef<Appointments>[] = [
@@ -59,7 +59,12 @@ patientApptColumns.splice(patientApptColumns.length, 0,
 			
 			return (
 				<>
-					{upcomingAppointment && <EditAppointment id={appointment._id}/>}
+					{upcomingAppointment && (
+						<div className={'flex gap-x-1 items-center'}>
+							<EditAppointment id={appointment._id}/>
+							<DeleteAppointment id={appointment._id}/>
+						</div>
+					)}
 				</>
 			);
 		}

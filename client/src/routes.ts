@@ -11,8 +11,8 @@ import UserInfo from '@/views/(common)/userInfo';
 import ContactInfo from '@/views/(common)/contactInfo';
 import Settings from '@/views/(common)/settings';
 // admin
-import AllDoctors from '@/views/admin/AllDoctors';
-import AllPatients from '@/views/admin/AllPatients';
+import AllDoctors from '@/views/admin/allDoctors';
+import AllPatients from '@/views/admin/allPatients';
 // doctor
 import Availabilities from '@/views/doctor/availabilities';
 import DoctorAppointments from '@/views/doctor/appointments';

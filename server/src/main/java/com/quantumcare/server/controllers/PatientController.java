@@ -86,6 +86,23 @@ public class PatientController {
 		}
 	}
 	
+	@DeleteMapping("/{patientId}/appointment/{aptId}")
+	public ResponseEntity<?> deleteAppointment(
+		@PathVariable UUID patientId, @PathVariable Long aptId
+	) {
+		try {
+			Patient patient = patientService.getPatientById(patientId);
+			List<Appointments> currAppointments = patientService.deleteAppointment(patient, aptId);
+			
+			return ResponseEntity.ok(Map.of(
+				"appointment", currAppointments,
+				"message", "Appointment deleted successfully"
+			));
+		} catch (Exception _) {
+			return ResponseEntity.internalServerError().body("Database error. Failed to delete appointment.");
+		}
+	}
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletePatient(@PathVariable UUID id) {
 		try {

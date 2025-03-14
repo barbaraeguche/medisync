@@ -94,6 +94,24 @@ export const saveAppointment = createAsyncThunk(
   }
 );
 
+export const deleteAppointment = createAsyncThunk(
+  'patient/deleteAppointment',
+  async (
+    { patientId, aptId } : { patientId: string, aptId: number },
+    { rejectWithValue }
+  ) => {
+    try {
+      const { appointment, message } = (await apiClient.delete(`${patientPath}/${patientId}/appointment/${aptId}`)).data;
+      showToast(message, 'fulfilled');
+      return appointment;
+    } catch (err: any) {
+      const errorMessage = err.response?.data || 'Failed to delete appointment';
+      showToast(errorMessage, 'rejected');
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
 export const deletePatient = createAsyncThunk(
   'user/deletePatient',
   async (id: string, { rejectWithValue }) => {
