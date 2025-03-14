@@ -19,6 +19,8 @@ export default function ProtectedRoute({ allowedRoles }: {
 	// no session, redirect to sign in
 	if (!isAuthenticated) {
 		return <Navigate to={'/auth/signin'} replace/>
+		// return <Navigate to={'/auth/signin'} replace state={{ from: window.location.pathname }}/>
+		// todo: go to prev page before sign in
 	}
 
 	// check if the user has permission based on their role

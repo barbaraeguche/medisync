@@ -19,7 +19,6 @@ export default function FormActionButtons<T extends FieldValues>({ reset, isEdit
 					
 					<Button
 						variant={'outline'}
-						type={'button'}
 						onClick={() => {
 							reset(); // reset any edit done
 							setIsEditing(false);

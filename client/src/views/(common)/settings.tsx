@@ -8,7 +8,7 @@ import { resetStatus } from '@/redux/slices/userSlice';
 import { User } from '@/lib/definitions';
 import { FieldConfig } from '@/lib/types';
 import GenericEditableForm from '@/components/genericEditableForm';
-import { DeleteEntity } from '@/components/deleteButtons';
+import { DeleteEntity } from '@/components/deleteButton';
 
 export default function Settings() {
 	const user = useAppSelector((state) => state.userSlice.user);
@@ -42,7 +42,6 @@ function ChangeEmail({ user }: {
 	const emailField: FieldConfig[] = [
 		{
 			name: 'email',
-			type: 'password',
 			label: 'New Email',
 			placeholder: 'jane.doe@example.com',
 		},

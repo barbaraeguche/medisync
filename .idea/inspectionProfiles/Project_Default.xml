@@ -9,7 +9,7 @@
       <Languages>
         <language minSize="64" name="Java" />
         <language minSize="374" name="Python" />
-        <language minSize="286" name="TypeScript" />
+        <language minSize="340" name="TypeScript" />
       </Languages>
     </inspection_tool>
     <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />

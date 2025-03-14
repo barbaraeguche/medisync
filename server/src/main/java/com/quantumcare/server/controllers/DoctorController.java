@@ -58,12 +58,13 @@ public class DoctorController {
 		try {
 			Doctor currDoctor = getDoctorById(id);
 			List<Doctor.Availabilities> newAvailabilities = doctorService.putAvailabilities(currDoctor, availabilities);
+			
 			return ResponseEntity.ok(Map.of(
 				"availability", newAvailabilities,
 				"message", "Availability updated successfully"
 			));
-		} catch (Exception _) {
-			return ResponseEntity.internalServerError().body("Database error. Failed to update availability.");
+		} catch (Exception exp) {
+			return ResponseEntity.internalServerError().body(exp.getMessage());
 		}
 	}
 	

@@ -79,7 +79,7 @@ export const generateTimeSlots = (formerHr: string, latterHr: string) => {
 	
 	return Array.from({ length: difference }, (_, idx) => {
 		// generate hourly intervals
-		const time = `${startTime.getHours() + idx}:00`;
+		const time = `${startTime.getHours() + idx}:00`.padStart(5, '0');
 		return generateLabelValue(time);
 	});
 };

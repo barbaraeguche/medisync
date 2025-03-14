@@ -1,21 +1,33 @@
 import { useEffect, useMemo } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { isBefore } from 'date-fns';
+import clsx from 'clsx';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { appointmentSchema, AppointmentType } from '@/schemas/appointmentSchema';
 import { fetchDoctors } from '@/redux/thunks/doctorThunk';
-import { createAppointment } from '@/redux/thunks/patientThunk';
+import { createAppointment, saveAppointment } from '@/redux/thunks/patientThunk';
 import { resetStatus } from '@/redux/slices/patientSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch.ts';
 import {
 	formatDate, generateLabelValue, generateTimeSlots
 } from '@/utils/utils';
-import { EEEE_MMM_dd_yyyy } from '@/utils/constants';
-import { appointmentTypeOptions } from '@/utils/constants';
+import {
+	appointmentStatusOptions, appointmentTypeOptions, EEEE_MMM_dd_yyyy
+} from '@/utils/constants';
 import InputWrapper from '@/components/inputWrapper';
 import { Button, Card, Select } from '@/ui';
 
-export default function BookAppointment() {
+interface AppointmentFormProps {
+	mode: 'book' | 'edit';
+	appointmentId?: number;
+	appointmentData?: AppointmentType;
+	isCancelable?: boolean;
+	onCancel?: () => void;
+}
+
+export default function AppointmentsForm(
+	{ mode, appointmentId, appointmentData, isCancelable, onCancel }: AppointmentFormProps
+) {
 	const dispatch = useAppDispatch();
 	const { doctors } = useAppSelector((state) => state.doctorSlice);
 	const { patient } = useAppSelector((state) => state.patientSlice);
@@ -24,17 +36,13 @@ export default function BookAppointment() {
 		dispatch(fetchDoctors());
 	}, [dispatch]);
 	
-	const doctorOptions = useMemo(() => {
-		return doctors.map(({ _id, user: { firstName, lastName }}) =>
-			generateLabelValue(_id, `Dr. ${firstName} ${lastName}`));
-	}, [doctors]);
-	
 	const {
 		register, handleSubmit, formState: { errors }, control, watch, resetField, reset
 	} = useForm<AppointmentType>({
 		resolver: zodResolver(appointmentSchema),
-		reValidateMode: 'onBlur'
-	});
+		reValidateMode: 'onBlur',
+		values: appointmentData ?? undefined
+	})
 	
 	const [doctorId, appointmentDate] = watch(['doctorId', 'date']);
 	
@@ -49,6 +57,11 @@ export default function BookAppointment() {
 			resetField('time');
 		}
 	}, [appointmentDate, resetField]);
+	
+	const doctorOptions = useMemo(() => {
+		return doctors.map(({ _id, user: { firstName, lastName }}) =>
+			generateLabelValue(_id, `Dr. ${firstName} ${lastName}`));
+	}, [doctors]);
 	
 	// filter appointments by doctorId (or include those without a specified doctor)
 	const getDoctorDetails = useMemo(() => {
@@ -85,7 +98,7 @@ export default function BookAppointment() {
 			.map(({ date }) =>
 				generateLabelValue(formatDate(date), formatDate(date, EEEE_MMM_dd_yyyy)));
 	}, [getDoctorDetails]);
-
+	
 	// find all time slots for the selected doctor & date
 	const getTimeOptions = useMemo(() => {
 		if (!getDoctorDetails || !getDoctorDetails.availabilities?.length) return [];
@@ -110,18 +123,34 @@ export default function BookAppointment() {
 			?.filter(apt => formatDate(apt.date) === appointmentDate)
 			.map(apt => apt.time) || [];
 		
-		// Filter out already booked times
+		// filter out already booked times
 		return uniqueTimeSlots.filter(slot => !bookedTimes.includes(slot.value));
 	}, [getDoctorDetails, appointmentDate]);
 	
 	const onSubmit: SubmitHandler<AppointmentType> = (data) => {
-		dispatch(createAppointment({
-			id: patient._id,
-			appointmentInfo: {
-				...data,
-				patientId: patient._id
-			}
-		}));
+		if (mode === 'book') {
+			// when booking, we don't include the status field
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			const { status, ...bookingData } = data;
+			
+			dispatch(createAppointment({
+				id: patient._id,
+				appointmentInfo: {
+					...bookingData,
+					patientId: patient._id
+				}
+			}));
+		} else {
+			dispatch(saveAppointment({
+				id: patient._id,
+				appointmentInfo: {
+					...data,
+					_id: appointmentId!,
+					patientId: patient._id
+				}
+			}));
+		}
+		
 		reset(); // reset the form after submission
 		dispatch(resetStatus());
 	};
@@ -134,8 +163,11 @@ export default function BookAppointment() {
 			>
 				<Card className={'container max-w-[700px]'}>
 					<Card.Header
-						title={'Book an Appointment'}
-						description={'Select a doctor, date, and time for your appointment.'}
+						title={mode === 'book' ? 'Book an Appointment' : 'Edit Appointment'}
+						description={mode === 'book'
+							? 'Select a doctor, date, and time for your appointment'
+							: 'Update your appointment details'
+						}
 					/>
 					
 					<Card.Content>
@@ -189,25 +221,55 @@ export default function BookAppointment() {
 							error={errors.type}
 						/>
 						
-						{/* notes */}
+						{/* status - only show in edit mode */}
+						{mode === 'edit' && (
+							<Select
+								conf={{
+									label: 'Appointment Status',
+									placeholder: 'Choose a status'
+								}}
+								name={'status'}
+								control={control}
+								options={appointmentStatusOptions}
+								error={errors.status}
+							/>
+						)}
+						
+						{/* note to doctor */}
 						<InputWrapper
-							{...register('notesToDoctor')}
+							{...register('noteToDoctor')}
 							conf={{
 								label: 'Additional Notes (Optional)',
 								placeholder: 'Anything you want your doctor to know?'
 							}}
 							name={'notes'}
-							error={errors.notesToDoctor}
+							error={errors.noteToDoctor}
 						/>
 					</Card.Content>
 					
 					<Card.Footer>
-						<Button
-							type={'submit'}
-							className={'mt-5 w-full'}
-						>
-							Book Appointment
-						</Button>
+						<div className={'flex flex-col gap-2 sm:flex-row sm:justify-end'}>
+							<Button
+								type={'submit'}
+								className={clsx(
+									'mt-5 w-full',
+									{ 'w-fit': isCancelable }
+								)}
+							>
+								{mode === 'book' ? 'Book Appointment' : 'Update Appointment'}
+							</Button>
+						</div>
+						{isCancelable && onCancel && (
+							<Button
+								variant={'outline'}
+								onClick={() => {
+									reset();
+									onCancel();
+								}}
+							>
+								Cancel Changes
+							</Button>
+						)}
 					</Card.Footer>
 				</Card>
 			</form>

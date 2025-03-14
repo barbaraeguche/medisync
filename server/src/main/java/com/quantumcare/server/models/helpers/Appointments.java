@@ -1,5 +1,6 @@
 package com.quantumcare.server.models.helpers;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -35,6 +36,7 @@ public class Appointments {
 	
 	@NonNull
 	@Column(nullable = false)
+	@JsonFormat(pattern = "HH:mm")
 	private LocalTime time;
 	
 	@NonNull

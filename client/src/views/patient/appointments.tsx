@@ -1,5 +1,5 @@
 import { useAppSelector } from '@/hooks/useAppDispatch';
-import { patientApptColumn } from '@/lib/columns';
+import { patientApptColumns } from '@/lib/columns';
 import AppointmentsTable from '@/components/appointmentsTable';
 
 export default function PatientAppointments() {
@@ -8,7 +8,7 @@ export default function PatientAppointments() {
 	return (
 		<AppointmentsTable
 			appointments={appointments ?? []}
-			columns={patientApptColumn}
+			columns={patientApptColumns}
 		/>
 	);
 }

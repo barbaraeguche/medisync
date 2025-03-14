@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiClient } from '@/utils/axiosConfig';
 import { store } from '@/redux/store';
+import { fetchDoctors } from '@/redux/thunks/doctorThunk';
 import { deleteUser } from '@/redux/slices/userSlice';
 import { showToast } from '@/utils/toast';
 import { Appointments, Patient } from '@/lib/definitions';
@@ -61,6 +62,8 @@ export const createAppointment = createAsyncThunk(
 	) => {
     try {
       const { appointment, message } = (await apiClient.post(`${patientPath}/${id}/appointment`, appointmentInfo)).data;
+      store.dispatch(fetchDoctors());
+      
       showToast(message, 'fulfilled');
       return appointment;
     } catch (err: any) {
@@ -79,6 +82,8 @@ export const saveAppointment = createAsyncThunk(
 	) => {
     try {
       const { appointment, message } = (await apiClient.put(`${patientPath}/${id}/appointment`, appointmentInfo)).data;
+      store.dispatch(fetchDoctors());
+      
       showToast(message, 'fulfilled');
       return appointment;
     } catch (err: any) {

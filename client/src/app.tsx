@@ -7,7 +7,8 @@ import AuthLayout from '@/layouts/auth';
 import DashboardLayout from '@/layouts/dashboard';
 import ProtectedRoute from '@/components/protectedRoute';
 import HomePage from '@/views/general/home';
-import BookAppointment from '@/views/general/bookAppointment';
+import BookAppointment from '@/views/patient/bookAppointment';
+import EditAppointment from '@/views/patient/editAppointment';
 import { NotFound, UnAuthorized } from '@/views/auth/error';
 
 export default function App() {
@@ -45,7 +46,6 @@ export default function App() {
 				
 				{/* user routes */}
 				<Route element={<ProtectedRoute allowedRoles={['Admin', 'Doctor', 'Patient']}/>}>
-					<Route path={'/book-appointment'} element={<BookAppointment/>}/>
 					<Route element={<DashboardLayout/>}>
 						{userRoutes.map((route, idx) => {
 							const Component = route.component;
@@ -72,7 +72,10 @@ export default function App() {
 				
 				{/* patient routes */}
 				<Route element={<ProtectedRoute allowedRoles={['Admin', 'Patient']}/>}>
+					<Route path={'/book-appointment'} element={<BookAppointment/>}/>
+					
 					<Route element={<DashboardLayout/>}>
+						<Route path={'/patient/appointments/:id/edit'} element={<EditAppointment/>}/>
 						{patientRoutes.map((route, idx) => {
 							const Component = route.component;
 							

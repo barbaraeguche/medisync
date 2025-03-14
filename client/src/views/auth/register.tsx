@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,6 +17,12 @@ import { Button, Card, Select } from '@/ui/index';
 
 export default function RegisterForm() {
 	const [steps, setSteps] = useState(1);
+	
+	useEffect(() => {
+		// clear register error when switched to sign in form
+		dispatch(resetStatus());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	
 	const dispatch = useAppDispatch();
 	const { error } = useAppSelector((state) => state.userSlice);

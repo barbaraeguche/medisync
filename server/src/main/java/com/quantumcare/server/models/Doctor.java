@@ -1,5 +1,6 @@
 package com.quantumcare.server.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.quantumcare.server.models.helpers.Appointments;
 import com.quantumcare.server.models.helpers.Practitioner;
 import jakarta.persistence.*;
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,7 +53,9 @@ public class Doctor {
 	@AllArgsConstructor
 	public static class Availabilities {
 		private LocalDate date;
-		private String startTime, endTime;
+		
+		@JsonFormat(pattern = "HH:mm")
+		private LocalTime startTime, endTime;
 	}
 	// ---------------------- END HELPERS ---------------------- //
 }

@@ -87,8 +87,8 @@ export interface Appointments {
 	patientId: string;
 	date: string;
 	time: string;
-	type: 'Checkup' | 'Follow Up' | 'Emergency' | 'Consultation' | 'N/A';
-	status: 'Scheduled' | 'Completed' | 'Cancelled' | 'N/A';
+	type: 'Checkup' | 'Follow Up' | 'Emergency' | 'Consultation';
+	status: 'Scheduled' | 'Completed' | 'Cancelled';
 	noteToDoctor?: string;  // patient can add notes for the doctor to see
 	statusNote?: string;    // system-generated notes about status changes
 }

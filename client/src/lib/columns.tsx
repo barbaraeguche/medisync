@@ -2,7 +2,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { isAfter, isToday } from 'date-fns';
 import { formatDate } from '@/utils/utils';
 import { MMM_point_dd_yyyy } from '@/utils/constants';
-import { Appointments } from '@/lib/definitions';
+import { Appointments, User } from '@/lib/definitions';
 import { EditAppointment } from '@/lib/buttonActions';
 import AppointmentStatus from '@/ui/status';
 
@@ -35,8 +35,8 @@ const baseApptColumns: ColumnDef<Appointments>[] = [
 	}
 ];
 
-export const patientApptColumn: ColumnDef<Appointments>[] = [...baseApptColumns];
-patientApptColumn.splice(patientApptColumn.length, 0,
+export const patientApptColumns: ColumnDef<Appointments>[] = [...baseApptColumns];
+patientApptColumns.splice(patientApptColumns.length, 0,
 	{
 		accessorKey: 'statusNote',
 		header: 'Status Note',
@@ -66,17 +66,45 @@ patientApptColumn.splice(patientApptColumn.length, 0,
 	}
 );
 
-export const doctorApptColumn: ColumnDef<Appointments>[] = [...baseApptColumns];
-doctorApptColumn.splice(1, 0,
-	{
-		accessorKey: 'noteToDoctor',
-		header: 'Notes',
-		cell: ({ row }) => {
-			return <div className={'truncate max-w-[250px]'}>{row.getValue('noteToDoctor')}</div>
-		}
-	},
-	{
+export const doctorApptColumns: ColumnDef<Appointments>[] = [...baseApptColumns];
+doctorApptColumns.splice(1, 0, {
 		accessorKey: 'patientId',
 		header: 'Patient'
+});
+doctorApptColumns.splice(doctorApptColumns.length, 0, {
+	accessorKey: 'noteToDoctor',
+	header: 'Notes',
+	cell: ({ row }) => {
+		return <div className={'truncate max-w-[250px]'}>{row.getValue('noteToDoctor')}</div>
 	}
-);
+});
+
+// todo: either make a new file or refactor this
+// todo: list of all user, doctors, and patients, with delete action button
+
+export const entityColumns: ColumnDef<User>[] = [
+	{
+		accessorKey: '_id',
+		header: 'ID'
+	},
+	{
+		accessorKey: 'firstName',
+		header: 'First Name'
+	},
+	{
+		accessorKey: 'lastName',
+		header: 'Last Name'
+	},
+	{
+		accessorKey: 'email',
+		header: 'Email'
+	},
+	{
+		accessorKey: 'phoneNumber',
+		header: 'Phone Number'
+	},
+	{
+		accessorKey: 'gender',
+		header: 'Gender'
+	}
+];

@@ -1,7 +1,8 @@
 import {
-	User, BookUser, Cog,
-	CalendarClock, ClipboardList, Stethoscope,
-	Activity, FilePlus
+	User, BookUser, Cog, // user icons
+	BriefcaseMedical, PillBottle, // admin icons
+	CalendarClock, ClipboardList, Stethoscope, // doctor icons
+	Activity, FilePlus // patient icons
 } from 'lucide-react';
 import { SidebarRoutes } from '@/lib/types';
 
@@ -9,6 +10,9 @@ import { SidebarRoutes } from '@/lib/types';
 import UserInfo from '@/views/(common)/userInfo';
 import ContactInfo from '@/views/(common)/contactInfo';
 import Settings from '@/views/(common)/settings';
+// admin
+import AllDoctors from '@/views/admin/AllDoctors';
+import AllPatients from '@/views/admin/AllPatients';
 // doctor
 import Availabilities from '@/views/doctor/availabilities';
 import DoctorAppointments from '@/views/doctor/appointments';
@@ -16,7 +20,7 @@ import DoctorInfo from '@/views/doctor/doctorInfo';
 // patient
 import PatientAppointments from '@/views/patient/appointments';
 import MedicalHistory from '@/views/patient/medicalHistory';
-import PatientInfo from '@/views/patient/patientInfo.tsx';
+import PatientInfo from '@/views/patient/patientInfo';
 // authorization
 import SignInForm from '@/views/auth/signIn';
 import RegisterForm from '@/views/auth/register';
@@ -43,24 +47,18 @@ const userRoutes: SidebarRoutes[] = [
 	}
 ];
 
-const adminRoutes: SidebarRoutes[] = [ // todo: list of all user, doctors, and patients, with delete action button
+const adminRoutes: SidebarRoutes[] = [
 	{
-		path: '/users',
-		icon: User,
-		name: 'Profile',
-		component: UserInfo
+		path: '/registered-doctors',
+		icon: BriefcaseMedical,
+		name: 'Doctors',
+		component: AllDoctors
 	},
 	{
-		path: '/doctors',
-		icon: BookUser,
-		name: 'Contact Details',
-		component: ContactInfo
-	},
-	{
-		path: '/patients',
-		icon: Cog,
-		name: 'Settings',
-		component: Settings
+		path: '/registered-patients',
+		icon: PillBottle,
+		name: 'Patients',
+		component: AllPatients
 	}
 ];
 

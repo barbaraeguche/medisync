@@ -62,7 +62,8 @@ public class Patient {
 	
 	// ------------------------ HELPERS ------------------------ //
 	private enum BloodType {
-		A_POS("A+"), A_NEG("A-"), B_POS("B+"), B_NEG("B-"), AB_POS("AB+"), AB_NEG("AB-"), O_POS("O+"), O_NEG("O-");
+		A_POS("A+"), A_NEG("A-"), B_POS("B+"), B_NEG("B-"),
+		AB_POS("AB+"), AB_NEG("AB-"), O_POS("O+"), O_NEG("O-");
 		
 		private final String bloodType;
 		

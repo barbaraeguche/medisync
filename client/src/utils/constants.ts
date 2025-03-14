@@ -15,6 +15,7 @@ export const genders = [ 'Male', 'Female' ] as const;
 export const roles = [ 'Admin', 'Doctor', 'Patient' ] as const;
 export const bloodTypes = [ 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-' ] as const;
 export const appointmentTypes = [ 'Consultation', 'Checkup', 'Follow Up', 'Emergency' ] as const;
+export const appointmentStatus = [ 'Scheduled', 'Completed', 'Cancelled' ] as const;
 
 export const provinceOptions = provinces
 	.map((province) => generateLabelValue(province));
@@ -26,3 +27,6 @@ export const bloodTypeOptions = bloodTypes
 	.map((bloodType) => generateLabelValue(bloodType));
 export const appointmentTypeOptions = appointmentTypes
 	.map((appType) => generateLabelValue(appType));
+export const appointmentStatusOptions = appointmentStatus
+	.filter((status) => status !== 'Completed')
+	.map((status) => generateLabelValue(status));

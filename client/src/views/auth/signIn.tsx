@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,6 +13,12 @@ import { Button, Card } from '@/ui/index';
 export default function SignInForm() {
 	const dispatch = useAppDispatch();
 	const { error } = useAppSelector((state) => state.userSlice);
+	
+	useEffect(() => {
+		// clear sig in error when switched to register form
+		dispatch(resetStatus());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	
 	const {
     register, handleSubmit, formState: { errors }
