@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import {
-	authRoutes, adminRoutes, userRoutes, doctorRoutes, patientRoutes
+	authRoutes, adminRoutes, userRoutes, doctorRoutes, patientRoutes, commonRoutes
 } from '@/routes';
 import SiteLayout from '@/layouts/website';
 import AuthLayout from '@/layouts/auth';
@@ -19,6 +19,17 @@ export default function App() {
 				<Routes>
 					{/* public routes */}
 					<Route index element={<HomePage/>}/>
+					
+					{/* common routes */}
+					<Route>
+						{commonRoutes.map((route) => {
+							const Component = route.component;
+              
+              return (
+                <Route key={route.path} path={route.path} element={<Component/>}/>
+              );
+						})}
+					</Route>
 					
 					{/* auth routes */}
 					<Route element={<ProtectedRoute allowedRoles={['Auth']}/>}>

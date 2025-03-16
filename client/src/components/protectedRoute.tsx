@@ -30,7 +30,7 @@ export default function ProtectedRoute({ allowedRoles }: {
 	}
 
 	// check if the user has permission based on their role
-	const hasRequiredRole = allowedRoles.includes(role) || allowedRoles.includes('All');
+	const hasRequiredRole = allowedRoles.includes(role);
 	if (!hasRequiredRole) {
 		return <Navigate to={'/unauthorized'} replace/>
 	}

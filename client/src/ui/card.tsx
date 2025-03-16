@@ -16,7 +16,7 @@ export default function Card({ children, className }: {
 }
 
 function CardHeader({ title, description }: {
-	title: string,
+	title: string | ReactNode,
 	description?: string
 }) {
 	return (

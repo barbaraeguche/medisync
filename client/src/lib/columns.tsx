@@ -10,6 +10,11 @@ const baseApptColumns: ColumnDef<Appointments>[] = [
 	{
 		accessorKey: '_id',
 		header: 'ID',
+		cell: ({ row }) => {
+			const aptId = String(row.getValue('_id'));
+			
+			return <div>{aptId.padStart(5, '0')}</div>
+		}
 	},
 	{
 		accessorKey: 'date',

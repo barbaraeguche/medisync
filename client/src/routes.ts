@@ -25,6 +25,14 @@ import PatientInfo from '@/views/patient/patientInfo';
 import SignInForm from '@/views/auth/signIn';
 import RegisterForm from '@/views/auth/register';
 // general
+import Services from '@/pages/services';
+import HowItWorks from '@/pages/howItWorks';
+import OurDoctors from '@/pages/ourDoctors';
+import Contact from '@/pages/contact';
+// legal
+import TermsOfService from '@/pages/termsOfService';
+import Privacy from '@/pages/privacy';
+import Cookies from '@/pages/cookies';
 
 const userRoutes: SidebarRoutes[] = [
 	{
@@ -117,12 +125,34 @@ const authRoutes: SidebarRoutes[] = [
 ];
 
 const commonRoutes: SidebarRoutes[] = [
-	// todo: not in use
-	
-	// services
-	// how it works
-	// our doctors
-	// contact
+	{
+		path: '/services',
+		component: Services
+	},
+	{
+		path: '/how-it-works',
+		component: HowItWorks
+	},
+	{
+		path: '/our-doctors',
+		component: OurDoctors
+	},
+	{
+		path: '/contact',
+		component: Contact
+	},
+	{
+		path: '/terms',
+		component: TermsOfService
+	},
+	{
+		path: '/privacy',
+		component: Privacy
+	},
+	{
+		path: '/cookies',
+		component: Cookies
+	}
 ];
 
 export {

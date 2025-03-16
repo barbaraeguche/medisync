@@ -18,20 +18,35 @@ public class DoctorService {
 	private final UserFactory userFactory;
 	private final DoctorFactory doctorFactory;
 	private final DoctorRepository doctorRepository;
+	private final AppointmentNameService appointmentNameService;
 	
 	@Autowired
-	public DoctorService(UserFactory userFactory, DoctorFactory doctorFactory, DoctorRepository doctorRepository) {
+	public DoctorService(
+		UserFactory userFactory, DoctorFactory doctorFactory,
+		DoctorRepository doctorRepository, AppointmentNameService appointmentNameService
+	) {
 		this.userFactory = userFactory;
     this.doctorFactory = doctorFactory;
     this.doctorRepository = doctorRepository;
+		this.appointmentNameService = appointmentNameService;
 	}
 	
 	public Doctor getDoctorById(UUID id) {
-		return doctorRepository.findById(id).orElse(null);
+		Doctor doctor = doctorRepository.findById(id).orElse(null);
+		
+		if (doctor != null) {
+      appointmentNameService.setAppointmentNames(doctor.getAppointments());
+    }
+		return doctor;
 	}
 	
 	public List<Doctor> getAllDoctors() {
-		return doctorRepository.findAll();
+		List<Doctor> doctors =  doctorRepository.findAll();
+		
+		for (Doctor doctor : doctors) {
+      appointmentNameService.setAppointmentNames(doctor.getAppointments());
+    }
+		return doctors;
 	}
 	
 	@Transactional

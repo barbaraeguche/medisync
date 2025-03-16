@@ -5,7 +5,6 @@ import com.quantumcare.server.factories.UserFactory;
 import com.quantumcare.server.models.Patient;
 import com.quantumcare.server.models.User;
 import com.quantumcare.server.models.helpers.Appointments;
-import com.quantumcare.server.repositories.DoctorRepository;
 import com.quantumcare.server.repositories.PatientRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,26 +18,36 @@ public class PatientService {
 	
 	private final UserFactory userFactory;
 	private final PatientFactory patientFactory;
-	private final DoctorRepository doctorRepository;
 	private final PatientRepository patientRepository;
+	private final AppointmentNameService appointmentNameService;
 	
 	@Autowired
 	public PatientService(
 		UserFactory userFactory, PatientFactory patientFactory,
-		DoctorRepository doctorRepository, PatientRepository patientRepository
-	) {
+		PatientRepository patientRepository, AppointmentNameService appointmentNameService
+		) {
     this.userFactory = userFactory;
     this.patientFactory = patientFactory;
-		this.doctorRepository = doctorRepository;
     this.patientRepository = patientRepository;
+		this.appointmentNameService = appointmentNameService;
   }
 	
 	public Patient getPatientById(UUID id) {
-    return patientRepository.findById(id).orElse(null);
+		Patient patient = patientRepository.findById(id).orElse(null);
+		
+		if (patient != null) {
+			appointmentNameService.setAppointmentNames(patient.getAppointments());
+    }
+		return patient;
   }
 	
 	public List<Patient> getAllPatients() {
-		return patientRepository.findAll();
+		List<Patient> patients = patientRepository.findAll();
+		
+		for (Patient patient : patients) {
+			appointmentNameService.setAppointmentNames(patient.getAppointments());
+		}
+		return patients;
 	}
 	
 	@Transactional
@@ -83,15 +92,4 @@ public class PatientService {
 	public void deletePatient(Patient reqPatient) {
 		patientRepository.delete(reqPatient);
 	}
-	
-	
-	// ------------------------ HELPERS ------------------------ //
-	// sets the doctor and patient names for an appointment if they are not already set
-	private void setAppointmentNames(Appointments appointment) {
-		// set doctor name if not already set
-		
-		
-		// set patient name if not already set
-	}
-	// ---------------------- END HELPERS ---------------------- //
 }
