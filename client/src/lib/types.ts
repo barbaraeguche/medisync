@@ -1,6 +1,18 @@
 import { FC } from 'react';
 import type { LucideIcon } from 'lucide-react';
 
+
+export type ServiceType = {
+	title: string;
+	icon: LucideIcon;
+	link: string;
+	description: {
+		min: string;
+		exp: string;
+	};
+	servicesOffered: string[];
+};
+
 export type InputConfig = {
 	label?: string;
 	readOnly?: boolean;

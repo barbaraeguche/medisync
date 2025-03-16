@@ -15,7 +15,7 @@ export default function Privacy() {
 				
 				<h2 className={'text-2xl font-semibold mt-8 mb-2'}>1. Introduction</h2>
 				<p>
-					At TeleCare, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and
+					At QuantumCare, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and
 					safeguard your information when you use our telehealth platform. Please read this policy carefully to
 					understand our practices regarding your personal data.
 				</p>
@@ -106,7 +106,7 @@ export default function Privacy() {
 				<h2 className={'text-2xl font-semibold mt-8 mb-2'}>10. Contact Us</h2>
 				<p>If you have any questions about this Privacy Policy, please contact us at:</p>
 				<p className={'mb-8'}>
-					<strong>Email:</strong> privacy@quantum-care.ca
+					<strong>Email:</strong> privacy@quantumcare.ca
 					<br/>
 					<strong>Address:</strong> 123 Health Street, Vieux Medical, QC W4X 1U8
 				</p>

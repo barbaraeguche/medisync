@@ -89,7 +89,7 @@ export default function HomePage() {
 						</p>
 					</div>
 					<div className={'grid gap-8 md:grid-cols-2 lg:grid-cols-3'}>
-						{services.map((service) => {
+						{services.slice(0, 6).map((service) => {
 							const Icon = service.icon;
 							
 							return (
@@ -103,7 +103,7 @@ export default function HomePage() {
 											<Icon className={'h-6 w-6 text-teal-600'}/>
 										</div>
 										<h3 className={'text-xl font-bold'}>{service.title}</h3>
-										<p className={'text-gray-500 dark:text-gray-400'}>{service.description}</p>
+										<p className={'text-gray-500 dark:text-gray-400'}>{service.description.min}</p>
 										<Link
 											to={service.link}
 											className={'inline-flex items-center text-teal-600 hover:text-teal-600 transition-colors'}

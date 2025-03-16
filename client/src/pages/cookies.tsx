@@ -15,7 +15,7 @@ export default function Cookies() {
 				
 				<h2 className={'text-2xl font-semibold mt-8 mb-4'}>1. Introduction</h2>
 				<p>
-					This Cookie Policy explains how TeleCare uses cookies and similar technologies to recognize you when you visit
+					This Cookie Policy explains how QuantumCare uses cookies and similar technologies to recognize you when you visit
 					our website and use our services. It explains what these technologies are and why we use them, as well as your
 					rights to control our use of them.
 				</p>
@@ -27,7 +27,7 @@ export default function Cookies() {
 					to provide reporting information.
 				</p>
 				<p>
-					Cookies set by the website owner (in this case, TeleCare) are called 'first-party cookies.' Cookies set by
+					Cookies set by the website owner (in this case, QuantumCare) are called 'first-party cookies.' Cookies set by
 					parties other than the website owner are called 'third-party cookies.' Third-party cookies enable third-party
 					features or functionality to be provided on or through the website (e.g., advertising, interactive content,
 					and analytics).
@@ -101,7 +101,7 @@ export default function Cookies() {
 				<h2 className={'text-2xl font-semibold mt-8 mb-4'}>7. Contact Us</h2>
 				<p>If you have any questions about our use of cookies or this Cookie Policy, please contact us at:</p>
 				<p className={'mb-8'}>
-					<strong>Email:</strong> privacy@quantum-care.ca
+					<strong>Email:</strong> privacy@quantumcare.ca
 					<br/>
 					<strong>Address:</strong> 123 Health Street, Vieux Medical, QC W4X 1U8
 				</p>

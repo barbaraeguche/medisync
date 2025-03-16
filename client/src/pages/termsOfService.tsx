@@ -15,14 +15,14 @@ export default function TermsOfService() {
 				
 				<h2 className={'text-2xl font-semibold mt-8 mb-2'}>1. Introduction</h2>
 				<p>
-					Welcome to Quantum Care. These Terms of Service govern your use of our website, mobile application, and services.
-					By accessing or using Quantum Care, you agree to be bound by these Terms. If you disagree with any part of the
+					Welcome to QuantumCare. These Terms of Service govern your use of our website, mobile application, and services.
+					By accessing or using QuantumCare, you agree to be bound by these Terms. If you disagree with any part of the
 					terms, you may not access our services.
 				</p>
 				
 				<h2 className={'text-2xl font-semibold mt-8 mb-2'}>2. Definitions</h2>
 				<p>
-					<strong>'Service'</strong> refers to the Quantum Care website, mobile application, and telehealth services.
+					<strong>'Service'</strong> refers to the QuantumCare website, mobile application, and telehealth services.
 				</p>
 				<p>
 					<strong>'User'</strong> refers to individuals who access or use our Service, including patients and healthcare
@@ -35,7 +35,7 @@ export default function TermsOfService() {
 				
 				<h2 className={'text-2xl font-semibold mt-8 mb-2'}>3. Use of Service</h2>
 				<p>
-					Quantum Care provides a platform for telehealth consultations and healthcare management. Our Service is not
+					QuantumCare provides a platform for telehealth consultations and healthcare management. Our Service is not
 					intended to replace in-person medical care and should not be used in emergency situations. If you are
 					experiencing a medical emergency, please call your local emergency services immediately.
 				</p>
@@ -64,7 +64,7 @@ export default function TermsOfService() {
 				<h2 className={'text-2xl font-semibold mt-8 mb-2'}>6. User Content</h2>
 				<p>
 					You retain all rights to any content you submit, post, or display on or through the Service. By submitting
-					content, you grant Quantum Care a worldwide, non-exclusive, royalty-free license to use, reproduce, modify, and
+					content, you grant QuantumCare a worldwide, non-exclusive, royalty-free license to use, reproduce, modify, and
 					distribute your content for the purpose of providing and improving our Service.
 				</p>
 				
@@ -77,7 +77,7 @@ export default function TermsOfService() {
 				
 				<h2 className={'text-2xl font-semibold mt-8 mb-2'}>8. Limitation of Liability</h2>
 				<p>
-					To the maximum extent permitted by law, Quantum Care shall not be liable for any indirect, incidental, special,
+					To the maximum extent permitted by law, QuantumCare shall not be liable for any indirect, incidental, special,
 					consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or
 					indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from your use of our
 					Service.
@@ -93,7 +93,7 @@ export default function TermsOfService() {
 				<h2 className={'text-2xl font-semibold mt-8 mb-2'}>10. Contact Us</h2>
 				<p>If you have any questions about these Terms, please contact us at:</p>
 				<p className={'mb-8'}>
-					<strong>Email:</strong> legal@quantum-care.ca
+					<strong>Email:</strong> legal@quantumcare.ca
 					<br/>
 					<strong>Address:</strong> 123 Health Street, Vieux Medical, QC W4X 1U8
 				</p>

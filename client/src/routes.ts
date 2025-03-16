@@ -28,6 +28,7 @@ import RegisterForm from '@/views/auth/register';
 import Services from '@/pages/services';
 import HowItWorks from '@/pages/howItWorks';
 import OurDoctors from '@/pages/ourDoctors';
+import AboutUs from '@/pages/about';
 import Contact from '@/pages/contact';
 // legal
 import TermsOfService from '@/pages/termsOfService';
@@ -130,12 +131,20 @@ const commonRoutes: SidebarRoutes[] = [
 		component: Services
 	},
 	{
+		path: '/services/:serviceType',
+		component: Services
+	},
+	{
 		path: '/how-it-works',
 		component: HowItWorks
 	},
 	{
 		path: '/our-doctors',
 		component: OurDoctors
+	},
+	{
+		path: '/about',
+		component: AboutUs
 	},
 	{
 		path: '/contact',

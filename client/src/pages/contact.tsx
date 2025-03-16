@@ -6,7 +6,7 @@ import {
 
 export default function Contact() {
 	return (
-		<div className={'container max-w-7xl mx-auto py-12 px-4 text-justify'}>
+		<div className={'container max-w-7xl mx-auto py-12 px-4'}>
 			<div className={'text-center mb-16'}>
 				<h1 className={'text-4xl font-bold mb-4'}>Contact Us</h1>
 				<p className={'text-xl text-muted-foreground max-w-3xl mx-auto'}>
@@ -27,8 +27,8 @@ export default function Contact() {
 							<div>
 								<h3 className={'text-xl font-semibold mb-1'}>Email Us</h3>
 								<p className={'text-muted-foreground mb-2'}>For general inquiries and support</p>
-								<a href={'mailto:contact@quantum-care.ca'} className={'text-teal-800 underline underline-offset-2 font-medium'}>
-									contact@quantum-care.ca
+								<a href={'mailto:contact@quantumcare.ca'} className={'text-teal-800 underline underline-offset-2 font-medium'}>
+									contact@quantumcare.ca
 								</a>
 							</div>
 						</div>
@@ -84,12 +84,12 @@ export default function Contact() {
 				<div className={'relative h-[400px] rounded-lg overflow-hidden'}>
 					<img
 						src={'/placeholder.svg?height=400&width=600'}
-						alt={'Quantum Care Office Location'}
+						alt={'QuantumCare Office Location'}
 						className={'relative rounded-2xl object-cover shadow-2xl'}
 					/>
 					<div className={'absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end'}>
 						<div className={'p-6 text-white'}>
-							<h3 className={'text-xl font-semibold mb-1'}>Quantum Care Headquarters</h3>
+							<h3 className={'text-xl font-semibold mb-1'}>QuantumCare Headquarters</h3>
 							<p>123 Health Street, Medical City</p>
 						</div>
 					</div>
@@ -156,8 +156,8 @@ export default function Contact() {
 						<p className={'mb-4'}>
 							For media inquiries, partnership opportunities, or speaking engagements, please contact our PR team.
 						</p>
-						<a href={'mailto:media@Quantum Care.example.com'} className={'text-teal-800 underline underline-offset-2 font-medium'}>
-							media@Quantum Care.example.com
+						<a href={'mailto:media@quantumcare.ca'} className={'text-teal-800 underline underline-offset-2 font-medium'}>
+							media@quantumcare.ca
 						</a>
 					</Card.Content>
 				</Card>
