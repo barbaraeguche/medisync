@@ -65,6 +65,7 @@ function Address({ user }: {
 	
 	return (
 		<GenericEditableForm
+			slice={'user'}
 			title={'Address'}
 			schema={addressSchema}
 			fields={addressFields}
@@ -107,6 +108,7 @@ function EmergencyContact({ user }: {
 	
 	return (
 		<GenericEditableForm
+			slice={'user'}
 			fields={contactFields}
 			onSubmit={handleSubmit}
 			title={'Emergency Contact'}

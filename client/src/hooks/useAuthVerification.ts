@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { apiClient } from '@/utils/axiosConfig';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
-import { clearAuth, resetStatus } from '@/redux/slices/userSlice';
+import { setUser, clearAuth, resetStatus } from '@/redux/slices/userSlice';
+import { doFetchAfterAuth } from '@/redux/thunks/authThunk';
 
 export const useAuthVerification = () => {
 	const [isVerifying, setIsVerifying] = useState(true);
@@ -11,21 +12,17 @@ export const useAuthVerification = () => {
 	useEffect(() => {
 		const verifyToken = async () => {
 			try {
-				// if already authenticated in state, skip verification
-				if (isAuthenticated) {
-					setIsVerifying(false);
-					return;
-				}
+				/*
+				* always verify the token on page load/reload regardless of state
+				* try to verify token from cookie
+				*/
+				const { valid, user } = (await apiClient.get('auth/verify')).data;
 				
-				// try to verify token from cookie
-				const response = await apiClient.get('auth/verify');
-				
-				if (response.data.valid) {
+				if (valid) {
 					// if valid, update user state with user data from response
-					dispatch({
-						type: 'user/signInUser/fulfilled',
-						payload: { user: response.data.user }
-					});
+					dispatch(setUser(user));
+					// important: fetch role-specific data the same we do after /signin
+					doFetchAfterAuth(user);
 				} else {
 					// if invalid, clear auth state
 					dispatch(clearAuth());

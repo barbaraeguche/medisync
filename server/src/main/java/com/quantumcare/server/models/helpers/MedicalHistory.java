@@ -1,6 +1,5 @@
 package com.quantumcare.server.models.helpers;
 
-import com.quantumcare.server.models.Patient;
 import jakarta.persistence.*;
 import lombok.*;
 

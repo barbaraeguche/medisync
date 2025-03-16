@@ -68,6 +68,7 @@ function RoleInfo({ patient }: {
 	
 	return (
 		<GenericEditableForm
+			slice={'patient'}
 			fields={roleFields}
 			onSubmit={handleSubmit}
 			initialValues={patient}
@@ -111,6 +112,7 @@ function HealthMetrics({ patient }: {
 	
 	return (
 		<GenericEditableForm
+			slice={'patient'}
 			fields={metricsFields}
 			onSubmit={handleSubmit}
 			title={'Health Metrics'}

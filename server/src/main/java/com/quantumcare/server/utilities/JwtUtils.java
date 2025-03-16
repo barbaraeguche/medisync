@@ -4,7 +4,6 @@ import com.quantumcare.server.models.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -27,8 +26,8 @@ public class JwtUtils {
 		return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
 	}
 	
-	// retrieve email from JWT token
-	public String getEmailFromToken(String token) {
+	// retrieve user ID from JWT token
+	public String getIdFromToken(String token) {
 		return getClaimFromToken(token, Claims::getSubject);
 	}
 	
@@ -74,7 +73,7 @@ public class JwtUtils {
 			"role", user.getRole()
 		);
 		
-		return doGenerateToken(claims, user.getEmail());
+		return doGenerateToken(claims, user.get_id().toString());
 	}
 	
 	// generate token with specified claims and subject

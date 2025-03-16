@@ -84,11 +84,13 @@ export interface MedicalHistory {
 export interface Appointments {
 	_id: number;
 	doctorId: string;
+	doctorName: string;
 	patientId: string;
+	patientName: string;
 	date: string;
 	time: string;
 	type: 'Checkup' | 'Follow Up' | 'Emergency' | 'Consultation';
 	status: 'Scheduled' | 'Completed' | 'Cancelled';
-	noteToDoctor?: string;  // patient can add notes for the doctor to see
-	statusNote?: string;    // system-generated notes about status changes
+	noteToDoctor: string;  // patient can add notes for the doctor to see
+	statusNote: string;    // system-generated notes about status changes
 }

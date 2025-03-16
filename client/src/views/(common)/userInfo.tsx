@@ -16,6 +16,7 @@ export default function UserInfo() {
 		}));
 		dispatch(resetStatus());
 	};
+	
 	const userFields: FieldConfig[] = [
 		{
 			name: 'firstName',
@@ -49,6 +50,7 @@ export default function UserInfo() {
 	
 	return (
 		<GenericEditableForm
+			slice={'user'}
 			fields={userFields}
 			initialValues={user}
 			onSubmit={handleSubmit}

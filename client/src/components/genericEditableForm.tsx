@@ -6,9 +6,11 @@ import InputWrapper from '@/components/inputWrapper';
 import FormActionButtons from '@/components/formActionButtons';
 import { Card, Select } from '@/ui/index';
 import { ZodSchema } from 'zod';
+import { useRequestStatus } from '@/hooks/useRequestStatus';
 
 interface GenericEditableFormProps<T extends Record<string, any>> {
 	title: string;
+	slice: 'user' | 'doctor' | 'patient';
 	initialValues?: T;
 	schema: ZodSchema;
 	fields: FieldConfig[];
@@ -17,8 +19,9 @@ interface GenericEditableFormProps<T extends Record<string, any>> {
 }
 
 export default function GenericEditableForm<T extends Record<string, any>>(
-	{ title, initialValues, schema, fields, onSubmit, readOnlyFields = [] }: GenericEditableFormProps<T>
+	{ title, slice, initialValues, schema, fields, onSubmit, readOnlyFields = [] }: GenericEditableFormProps<T>
 ) {
+	const isPending = useRequestStatus(slice);
 	const { isEditing, setIsEditing } = useEditableState();
 	
 	const {
@@ -78,6 +81,7 @@ export default function GenericEditableForm<T extends Record<string, any>>(
 				
 				<Card.Footer>
 					<FormActionButtons<T>
+						isPending={isPending}
 						reset={reset}
 						isEditing={isEditing}
 						setIsEditing={setIsEditing}

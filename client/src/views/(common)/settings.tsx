@@ -49,6 +49,7 @@ function ChangeEmail({ user }: {
 	
 	return (
 		<GenericEditableForm
+			slice={'user'}
 			fields={emailField}
 			initialValues={user}
 			title={'Change Email'}
@@ -85,6 +86,7 @@ function ChangePhoneNumber({ user }: {
 	
 	return (
 		<GenericEditableForm
+			slice={'user'}
 			onSubmit={handleSubmit}
 			fields={phoneNumberField}
 			initialValues={formatUser}
@@ -125,6 +127,7 @@ function ChangePassword({ user }: {
 	return (
 		<GenericEditableForm
 			onSubmit={handleSubmit}
+			slice={'user'}
 			fields={passwordFields}
 			title={'Change Password'}
 			schema={updatePasswordSchema}

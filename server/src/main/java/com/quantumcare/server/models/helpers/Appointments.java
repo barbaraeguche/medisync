@@ -54,6 +54,9 @@ public class Appointments {
 	@NonNull
 	private String statusNote = "";
 	
+	@Transient
+	private String doctorName, patientName;
+	
 	
 	// ------------------------ HELPERS ------------------------ //
 	public enum Type {

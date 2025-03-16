@@ -12,7 +12,7 @@ const authPath = 'auth';
 type Entity = Partial<User | Doctor | Patient>;
 
 // fetch the newly created user based on their role and dispatch the corresponding action
-const doFetchAfterAuth = (user: User) => {
+export const doFetchAfterAuth = (user: User) => {
 	const { _id, role } = user;
 	const dispatch = store.dispatch;
 	

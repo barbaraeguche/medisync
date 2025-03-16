@@ -32,66 +32,30 @@ const doctorSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			// fetchDoctor
-			.addCase(fetchDoctor.pending, (state) => {
-				state.status = 'pending';
-				state.error = null;
-			})
 			.addCase(fetchDoctor.fulfilled, (state, action: PayloadAction<Doctor>) => {
 				state.status = 'fulfilled';
 				state.doctor = action.payload;
 			})
-			.addCase(fetchDoctor.rejected, (state, action) => {
-				state.status = 'rejected';
-				state.error = action.payload as string;
-			})
 			
 			// fetchDoctors
-			.addCase(fetchDoctors.pending, (state) => {
-				state.status = 'pending';
-				state.error = null;
-			})
 			.addCase(fetchDoctors.fulfilled, (state, action: PayloadAction<Doctor[]>) => {
 				state.status = 'fulfilled';
 				state.doctors = action.payload;
 			})
-			.addCase(fetchDoctors.rejected, (state, action) => {
-				state.status = 'rejected';
-				state.error = action.payload as string;
-			})
 			
 			// saveDoctor
-			.addCase(saveDoctor.pending, (state) => {
-				state.status = 'pending';
-				state.error = null;
-			})
 			.addCase(saveDoctor.fulfilled, (state, action: PayloadAction<Doctor>) => {
 				state.status = 'fulfilled';
 				state.doctor = action.payload;
 			})
-			.addCase(saveDoctor.rejected, (state, action) => {
-				state.status = 'rejected';
-				state.error = action.payload as string;
-			})
 			
 			// saveAvailability
-			.addCase(saveAvailability.pending, (state) => {
-				state.status = 'pending';
-				state.error = null;
-			})
 			.addCase(saveAvailability.fulfilled, (state, action: PayloadAction<Availabilities>) => {
 				state.status = 'fulfilled';
 				state.doctor.availabilities = action.payload;
 			})
-			.addCase(saveAvailability.rejected, (state, action) => {
-				state.status = 'rejected';
-				state.error = action.payload as string;
-			})
 			
 			// deleteDoctor
-			.addCase(deleteDoctor.pending, (state) => {
-				state.status = 'pending';
-				state.error = null;
-			})
 			.addCase(deleteDoctor.fulfilled, (state, action: PayloadAction<string>) => {
 				state.status = 'fulfilled';
 				state.doctors = state.doctors.filter((doctor) => doctor._id !== action.payload);
@@ -101,10 +65,23 @@ const doctorSlice = createSlice({
 					state.doctor = doctorInitState;
 				}
 			})
-			.addCase(deleteDoctor.rejected, (state, action) => {
-				state.status = 'rejected';
-				state.error = action.payload as string;
-			})
+			
+			// ---- general matchers ---- //
+			
+			.addMatcher(
+				(action) => action.type.endsWith('/pending'),
+				(state) => {
+					state.status = 'pending';
+					state.error = null;
+				}
+			)
+			.addMatcher(
+				(action) => action.type.endsWith('/rejected'),
+				(state, action: PayloadAction<string | undefined>) => {
+					state.status = 'rejected';
+					state.error = action.payload as string;
+				}
+			);
 	}
 });
 

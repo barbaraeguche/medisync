@@ -1,12 +1,10 @@
 package com.quantumcare.server.models;
 
 import com.fasterxml.jackson.annotation.JsonValue;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.UUID;
 

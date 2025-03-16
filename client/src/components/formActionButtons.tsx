@@ -1,7 +1,9 @@
 import { FieldValues, UseFormReset } from 'react-hook-form';
+import LoadingSpinner from '@/components/loading';
 import { Button } from '@/ui/index';
 
-export default function FormActionButtons<T extends FieldValues>({ reset, isEditing, setIsEditing }: {
+export default function FormActionButtons<T extends FieldValues>({ isPending, reset, isEditing, setIsEditing }: {
+	isPending: boolean,
 	reset: UseFormReset<T>
 	isEditing: boolean,
 	setIsEditing: (value: boolean) => void,
@@ -14,6 +16,7 @@ export default function FormActionButtons<T extends FieldValues>({ reset, isEdit
 						type={'submit'}
 						variant={'form'}
 					>
+						{isPending && <LoadingSpinner/>}
 						Save Changes
 					</Button>
 					

@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -181,8 +182,8 @@ public class AuthController {
 			
 			// validate token
 			if (jwtUtils.validateToken(token)) {
-				String email = jwtUtils.getEmailFromToken(token);
-				User user = userService.findUserByEmail(email);
+				String userId = jwtUtils.getIdFromToken(token);
+				User user = userService.getUserById(UUID.fromString(userId));
 				
 				if (user != null) {
 					user.setPassword("");

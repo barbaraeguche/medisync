@@ -5,6 +5,7 @@ import com.quantumcare.server.factories.UserFactory;
 import com.quantumcare.server.models.Patient;
 import com.quantumcare.server.models.User;
 import com.quantumcare.server.models.helpers.Appointments;
+import com.quantumcare.server.repositories.DoctorRepository;
 import com.quantumcare.server.repositories.PatientRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,17 @@ public class PatientService {
 	
 	private final UserFactory userFactory;
 	private final PatientFactory patientFactory;
+	private final DoctorRepository doctorRepository;
 	private final PatientRepository patientRepository;
 	
 	@Autowired
-	public PatientService(UserFactory userFactory, PatientFactory patientFactory, PatientRepository patientRepository) {
+	public PatientService(
+		UserFactory userFactory, PatientFactory patientFactory,
+		DoctorRepository doctorRepository, PatientRepository patientRepository
+	) {
     this.userFactory = userFactory;
     this.patientFactory = patientFactory;
+		this.doctorRepository = doctorRepository;
     this.patientRepository = patientRepository;
   }
 	
@@ -77,4 +83,15 @@ public class PatientService {
 	public void deletePatient(Patient reqPatient) {
 		patientRepository.delete(reqPatient);
 	}
+	
+	
+	// ------------------------ HELPERS ------------------------ //
+	// sets the doctor and patient names for an appointment if they are not already set
+	private void setAppointmentNames(Appointments appointment) {
+		// set doctor name if not already set
+		
+		
+		// set patient name if not already set
+	}
+	// ---------------------- END HELPERS ---------------------- //
 }

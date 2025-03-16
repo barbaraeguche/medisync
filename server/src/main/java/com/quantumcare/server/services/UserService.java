@@ -20,7 +20,7 @@ public class UserService implements UserDetailsService {
 	
 	private final UserFactory userFactory;
 	private final UserRepository userRepository;
-	PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	public UserService(UserFactory userFactory, UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -58,15 +58,22 @@ public class UserService implements UserDetailsService {
 	}
 	
 	@Override
-	public UserDetails loadUserByUsername(String email) {
-		User user = findUserByEmail(email);
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user;
+		
+		// check if username is a UUID or an email address
+		try {
+			user = getUserById(UUID.fromString(username));
+		} catch (IllegalArgumentException e) {
+			user = findUserByEmail(username); // not a UUID, so treat as email
+		}
 		
 		if (user == null) {
-			throw new UsernameNotFoundException("User not found with email: " + email);
+			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
 		
 		return new org.springframework.security.core.userdetails.User(
-			user.getEmail(),
+			user.get_id().toString(),
 			user.getPassword(),
 			Collections.singletonList(new SimpleGrantedAuthority(user.getRole().toString()))
 		);

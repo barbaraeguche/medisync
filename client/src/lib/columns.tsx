@@ -45,10 +45,10 @@ patientApptColumns.splice(patientApptColumns.length, 0,
 		}
 	},
 	{
-		accessorKey: 'doctorId',
+		accessorKey: 'doctorName',
 		header: 'Doctor',
 		cell: ({ row }) => {
-			return <div>Dr. {row.getValue('doctorId')}</div>;
+			return <div>{row.getValue('doctorName') || 'Unidentified'}</div>;
 		}
 	},
 	{
@@ -73,8 +73,11 @@ patientApptColumns.splice(patientApptColumns.length, 0,
 
 export const doctorApptColumns: ColumnDef<Appointments>[] = [...baseApptColumns];
 doctorApptColumns.splice(1, 0, {
-		accessorKey: 'patientId',
-		header: 'Patient'
+	accessorKey: 'patientName',
+	header: 'Patient',
+	cell: ({ row }) => {
+		return <div>{row.getValue('patientName') || 'Unidentified'}</div>;
+	}
 });
 doctorApptColumns.splice(doctorApptColumns.length, 0, {
 	accessorKey: 'noteToDoctor',
