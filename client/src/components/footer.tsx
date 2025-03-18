@@ -10,7 +10,7 @@ export default function Footer() {
 					<div className={'flex items-center space-x-2'}>
 						<Heart className={'size-6 text-teal-600'}/>
 						<span className={'text-xl font-bold bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent'}>
-					    Quantum Care
+					    QuantumCare
 						</span>
 					</div>
 					<p className={'text-sm text-gray-500 dark:text-gray-400 max-w-[300px]'}>
@@ -42,7 +42,7 @@ export default function Footer() {
 			<div className={'border-t'}>
 				<div className={'container flex flex-col gap-4 py-6 md:flex-row md:items-center md:justify-between'}>
 					<p className={'text-sm text-gray-500 dark:text-gray-400'}>
-						&copy; 2025 TeleCare. All rights reserved.
+						&copy; 2025 QuantumCare. All rights reserved.
 					</p>
 					<div className={'flex gap-4'}>
 						{['Terms', 'Privacy', 'Cookies'].map((item) => (

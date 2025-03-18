@@ -1,6 +1,6 @@
 import {
-	Baby, Brain, Clock, Droplets, Ear, Eye, Heart, Shield,
-	Smartphone, Stethoscope, Trees, TrendingUp, Users, Zap
+	Baby, Brain, Calendar, Clock, CreditCard, Droplets, Ear, Eye, Heart, MessageSquare,
+	Shield, Smartphone, Stethoscope, Trees, TrendingUp, UserPlus, Users, Video, Zap
 } from 'lucide-react';
 import { ServiceType } from '@/lib/types';
 
@@ -149,3 +149,53 @@ export const footerLinks = [
 		]
 	}
 ];
+
+export const steps = [
+	{
+		icon: UserPlus, title: 'Create Your Account',
+		description: 'Sign up for TeleCare by providing your basic information and creating secure login credentials.',
+	},
+	{
+		icon: Calendar, title: 'Book an Appointment',
+		description: 'Browse available doctors, select your preferred specialist, and choose a convenient time slot.',
+	},
+	{
+		icon: Video, title: 'Attend Virtual Consultation',
+		description: 'Connect with your doctor via secure video call at your scheduled appointment time.',
+	},
+	{
+		icon: MessageSquare, title: 'Receive Treatment Plan',
+		description: 'Get personalized treatment recommendations, prescriptions, and follow-up instructions.',
+	},
+	{
+		icon: CreditCard, title: 'Payment & Insurance',
+		description: 'Pay for your consultation securely online, with options for insurance coverage where applicable.',
+	},
+]
+
+export const faqs = [
+	{
+		question: 'How do I prepare for a telehealth appointment?',
+		answer: 'Find a quiet, private space with good internet connection. Test your camera and microphone beforehand. Have a list of your symptoms, medications, and questions ready. Keep a pen and paper handy to take notes during your consultation.',
+	},
+	{
+		question: 'What technology do I need for a virtual visit?',
+		answer: "You'll need a device with a camera and microphone (smartphone, tablet, or computer), a stable internet connection, and an up-to-date web browser. Our platform works best with Chrome, Firefox, Safari, or Edge.",
+	},
+	{
+		question: 'Are telehealth visits covered by insurance?',
+		answer: 'Many insurance providers now cover telehealth services. Coverage varies by plan and provider. We recommend checking with your insurance company before your appointment to confirm coverage details and any applicable co-payments.',
+	},
+	{
+		question: 'How secure is my medical information?',
+		answer: 'TeleCare is fully HIPAA-compliant and uses end-to-end encryption for all video consultations. Your medical information is stored securely, and we never share your data with third parties without your explicit consent.',
+	},
+	{
+		question: 'Can doctors prescribe medication during a telehealth visit?',
+		answer: 'Yes, doctors can prescribe many medications during telehealth visits. Prescriptions are sent electronically to your preferred pharmacy. However, certain controlled substances may require in-person visits according to state regulations.',
+	},
+	{
+		question: 'What if I need lab work or imaging?',
+		answer: 'If your doctor determines you need lab work or imaging, they will provide you with a requisition form. You can then visit a local lab or imaging center of your choice. Results will be sent to your doctor and discussed in a follow-up appointment.',
+	},
+]

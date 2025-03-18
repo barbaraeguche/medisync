@@ -16,4 +16,7 @@
       <module name="server" options="-parameters" />
     </option>
   </component>
+  <component name="TypeScriptCompiler">
+    <option name="nodeInterpreterTextField" value="$APPLICATION_CONFIG_DIR$/node/versions/22.14.0/bin/node" />
+  </component>
 </project>

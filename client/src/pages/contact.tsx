@@ -90,7 +90,7 @@ export default function Contact() {
 					<div className={'absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end'}>
 						<div className={'p-6 text-white'}>
 							<h3 className={'text-xl font-semibold mb-1'}>QuantumCare Headquarters</h3>
-							<p>123 Health Street, Medical City</p>
+							<p>123 Health Street, Vieux Medical</p>
 						</div>
 					</div>
 				</div>
