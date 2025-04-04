@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import type { LucideIcon } from 'lucide-react';
 
-
 export type ServiceType = {
 	title: string;
 	icon: LucideIcon;

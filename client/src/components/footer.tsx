@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Heart } from 'lucide-react';
-import { footerLinks } from '@/lib/homeUIData';
+import { footerLinks } from '@/lib/home-ui-data';
 
 export default function Footer() {
 	return (

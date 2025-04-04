@@ -1,10 +1,10 @@
 import { twMerge } from 'tailwind-merge';
 import { clsx, type ClassValue } from 'clsx';
 import {
-	format, parse, differenceInHours, parseISO, isBefore, isToday
+	differenceInHours, format, isBefore, isToday, parse, parseISO
 } from 'date-fns';
 import { enCA } from 'date-fns/locale';
-import { yyyy_MM_dd, EEEE_MMM_dd_yyyy } from '@/utils/constants.ts';
+import { EEEE_MMM_dd_yyyy, yyyy_MM_dd } from '@/utils/constants';
 
 export function cn(...args: ClassValue[]) {
 	return twMerge(clsx(args));
@@ -90,12 +90,12 @@ export const generateLabelValue = (itemValue: string, itemLabel?: string) =>
 export const categorizeAppointments = <T extends { date: string }>(appointments: T[]) => {
 	const now = new Date();
 	
-	return appointments.reduce<{ past: T[]; current: T[]; upcoming: T[] }>(
+	return appointments.reduce<{ previous: T[]; current: T[]; upcoming: T[] }>(
 		(accumulator, appointment) => {
 			const apptDate = appointment.date;
 			
 			if (isBefore(apptDate, now) && !isToday(apptDate)) {
-				accumulator.past.push(appointment);
+				accumulator.previous.push(appointment);
 			} else if (isToday(apptDate)) {
 				accumulator.current.push(appointment);
 			} else {
@@ -104,6 +104,6 @@ export const categorizeAppointments = <T extends { date: string }>(appointments:
 			
 			return accumulator;
 		},
-		{ past: [], current: [], upcoming: [] }
+		{ previous: [], current: [], upcoming: [] }
 	);
 };

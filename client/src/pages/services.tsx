@@ -2,8 +2,8 @@ import { ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Check, type LucideIcon } from 'lucide-react';
 import { ServiceType } from '@/lib/types';
-import { additionalServices, services } from '@/lib/homeUIData';
-import { Button, Card } from '@/ui';
+import { additionalServices, services } from '@/lib/home-ui-data';
+import { Button, Card } from '@/components/ui';
 
 export default function Services() {
 	const { serviceType } = useParams();

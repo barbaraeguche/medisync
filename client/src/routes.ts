@@ -7,31 +7,31 @@ import {
 import { SidebarRoutes } from '@/lib/types';
 
 // user
-import UserInfo from '@/views/(common)/userInfo';
-import ContactInfo from '@/views/(common)/contactInfo';
-import Settings from '@/views/(common)/settings';
+import UserInfo from '@/views/user/basic-info';
+import ContactInfo from '@/views/user/contact-info';
+import Settings from '@/views/user/settings';
 // admin
-import AllDoctors from '@/views/admin/allDoctors';
-import AllPatients from '@/views/admin/allPatients';
+import RegisteredDoctors from '@/views/admin/all-doctors';
+import RegisteredPatients from '@/views/admin/all-patients';
 // doctor
 import Availabilities from '@/views/doctor/availabilities';
 import DoctorAppointments from '@/views/doctor/appointments';
-import DoctorInfo from '@/views/doctor/doctorInfo';
+import DoctorInfo from '@/views/doctor/doctor-info';
 // patient
 import PatientAppointments from '@/views/patient/appointments';
-import MedicalHistory from '@/views/patient/medicalHistory';
-import PatientInfo from '@/views/patient/patientInfo';
+import MedicalHistory from '@/views/patient/medical-history';
+import PatientInfo from '@/views/patient/patient-info';
 // authorization
-import SignInForm from '@/views/auth/signIn';
+import SignInForm from '@/views/auth/sign-in';
 import RegisterForm from '@/views/auth/register';
 // general
 import Services from '@/pages/services';
-import HowItWorks from '@/pages/howItWorks';
-import OurDoctors from '@/pages/ourDoctors';
+import HowItWorks from '@/pages/how-it-works';
+import OurDoctors from '@/pages/our-doctors';
 import AboutUs from '@/pages/about';
 import Contact from '@/pages/contact';
 // legal
-import TermsOfService from '@/pages/termsOfService';
+import TermsOfService from '@/pages/terms-of-service';
 import Privacy from '@/pages/privacy';
 import Cookies from '@/pages/cookies';
 
@@ -61,13 +61,13 @@ const adminRoutes: SidebarRoutes[] = [
 		path: '/registered-doctors',
 		icon: BriefcaseMedical,
 		name: 'Doctors',
-		component: AllDoctors
+		component: RegisteredDoctors
 	},
 	{
 		path: '/registered-patients',
 		icon: PillBottle,
 		name: 'Patients',
-		component: AllPatients
+		component: RegisteredPatients
 	}
 ];
 

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Shield } from 'lucide-react';
-import { Button } from '@/ui';
+import { Button } from '@/components/ui';
 
 export default function Privacy() {
 	return (
@@ -119,7 +119,7 @@ export default function Privacy() {
 				<Link to={'/cookies'}>
 					<Button variant={'outline'}>Cookie Policy</Button>
 				</Link>
-				<Link to={'/'}>
+				<Link to={'/client/public'}>
 					<Button>Return Home</Button>
 				</Link>
 			</div>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Cookie } from 'lucide-react';
-import { Button } from '@/ui';
+import { Button } from '@/components/ui';
 
 export default function Cookies() {
 	return (
@@ -114,7 +114,7 @@ export default function Cookies() {
 				<Link to={'/privacy'}>
 					<Button variant={'outline'}>Privacy Policy</Button>
 				</Link>
-				<Link to={'/'}>
+				<Link to={'/client/public'}>
 					<Button>Return Home</Button>
 				</Link>
 			</div>

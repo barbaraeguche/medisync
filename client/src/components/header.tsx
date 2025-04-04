@@ -1,8 +1,8 @@
 import { Link, NavLink } from 'react-router-dom';
 import { Heart, UserRoundPen } from 'lucide-react';
 import { useAppSelector } from '@/hooks/useAppDispatch';
-import { LogoutButton, SignInButton } from '@/components/authButtons';
-import Button from '@/ui/button';
+import { LogoutButton, SignInButton } from '@/ui/auth-buttons';
+import Button from '@/components/ui/button';
 
 export default function Header() {
 	const { isAuthenticated, user: { role } } = useAppSelector((state) => state.userSlice);
@@ -11,7 +11,7 @@ export default function Header() {
 		<header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
 			<div className={'container flex h-16 items-center justify-between'}>
 				<Link
-					to={'/'}
+					to={'/client/public'}
 					className={'flex items-center gap-x-2'}
 				>
 					<Heart className={'size-6 text-teal-600 animate-pulse'}/>
@@ -22,8 +22,8 @@ export default function Header() {
 				<nav className={'hidden md:flex gap-6'}>
 					{['Services', 'How It Works', 'Our Doctors', 'Contact'].map((item) => (
 						<NavLink
-							to={item.toLowerCase().trim().replace(/\s+/g, '-')}
 							key={item}
+							to={item.toLowerCase().replace(/\s+/g, '-')}
 							className={'text-sm font-medium relative group hover:text-teal-600'}
 						>
 							{item}
@@ -33,7 +33,7 @@ export default function Header() {
 				</nav>
 				<div className={'flex items-center gap-4'}>
 					{/* appointments should only be shown to patients */}
-					{role === 'Patient' && (
+					{role !== 'Doctor' && (
 						<Link to={'/book-appointment'}>
 							<Button className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}>
 								Book Appointment

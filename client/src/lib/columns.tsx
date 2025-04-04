@@ -3,8 +3,8 @@ import { isAfter, isToday } from 'date-fns';
 import { formatDate } from '@/utils/utils';
 import { MMM_point_dd_yyyy } from '@/utils/constants';
 import { Appointments, User } from '@/lib/definitions';
-import { DeleteAppointment, EditAppointment } from '@/lib/buttonActions';
-import AppointmentStatus from '@/ui/status';
+import AppointmentStatus from '@/ui/appointments/status';
+import { DeleteAppointment, EditAppointment } from '@/ui/appointments/action-buttons';
 
 const baseApptColumns: ColumnDef<Appointments>[] = [
 	{
@@ -12,7 +12,6 @@ const baseApptColumns: ColumnDef<Appointments>[] = [
 		header: 'ID',
 		cell: ({ row }) => {
 			const aptId = String(row.getValue('_id'));
-			
 			return <div>{aptId.padStart(5, '0')}</div>
 		}
 	},
@@ -59,15 +58,15 @@ patientApptColumns.splice(patientApptColumns.length, 0,
 	{
 		id: 'actions',
 		cell: ({ row }) => {
-			const appointment = row.original;
-			const upcomingAppointment = !isToday(appointment.date) && isAfter(appointment.date, new Date());
+			const { _id, date } = row.original;
+			const upcomingAppointment = !isToday(date) && isAfter(date, new Date());
 			
 			return (
 				<>
 					{upcomingAppointment && (
 						<div className={'flex gap-x-1 items-center'}>
-							<EditAppointment id={appointment._id}/>
-							<DeleteAppointment id={appointment._id}/>
+							<EditAppointment id={_id}/>
+							<DeleteAppointment id={_id}/>
 						</div>
 					)}
 				</>
@@ -92,8 +91,7 @@ doctorApptColumns.splice(doctorApptColumns.length, 0, {
 	}
 });
 
-// todo: either make a new file or refactor this
-// todo: list of all user, doctors, and patients, with delete action button
+// --------------------- ADMIN COLUMN   --------------------- //
 
 export const entityColumns: ColumnDef<User>[] = [
 	{

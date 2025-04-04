@@ -2,24 +2,24 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema, RegisterType } from '@/schemas/authSchema';
-import { DoctorType } from '@/schemas/doctorSchema';
-import { PatientType } from '@/schemas/patientSchema';
+import { registerSchema, RegisterType } from '@/schemas/auth-schema';
+import { DoctorType } from '@/schemas/doctor-schema';
+import { PatientType } from '@/schemas/patient-schema';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
-import { registerUser } from '@/redux/thunks/authThunk';
-import { resetStatus } from '@/redux/slices/userSlice';
+import { registerUser } from '@/redux/thunks/auth-thunk';
+import { resetStatus } from '@/redux/slices/user-slice';
 import {
 	genderOptions, roleOptions, bloodTypeOptions
 } from '@/utils/constants';
-import { ServerError } from '@/components/formError';
-import InputWrapper from '@/components/inputWrapper';
-import { Button, Card, Select } from '@/ui/index';
+import InputWrapper from '@/components/input-wrapper';
+import { ServerError } from '@/components/errors/error-messages';
+import { Button, Card, Select } from '@/components/ui';
 
 export default function RegisterForm() {
 	const [steps, setSteps] = useState(1);
 	
 	useEffect(() => {
-		// clear register error when switched to sign in form
+		// clear register error when switched to the sign-in form
 		dispatch(resetStatus());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -53,11 +53,12 @@ export default function RegisterForm() {
 		const updatedUser = {
 			...user, _id: '', role
 		};
-		const updatedData = role === 'Admin'
-			? updatedUser
-			: role === 'Doctor'
-				? { user: updatedUser, practitioner: { ...rest } }
-				: { user: updatedUser, ...rest };
+		const updatedData =
+			role === 'Admin'
+				? updatedUser
+				: role === 'Doctor'
+					? { user: updatedUser, practitioner: { ...rest } }
+					: { user: updatedUser, ...rest };
 		
 		dispatch(registerUser(updatedData));
 		dispatch(resetStatus());
@@ -123,6 +124,7 @@ export default function RegisterForm() {
 								type={'password'}
 								conf={{
 									label: 'Password',
+									subscriptNum: '2',
 									placeholder: '******'
 								}}
 								error={errors.user?.password}
@@ -288,15 +290,16 @@ export default function RegisterForm() {
 			</form>
 			
 			<Card.Footer className={'space-y-7 text-muted-foreground'}>
-				<p className={'text-xs space-x-2'}>
+				<div className={'text-xs flex flex-col space-y-2'}>
 					<span className={'underline underline-offset-2'}>Note:</span>
 					<sup>1</sup> Field cannot be changed after registration.
-				</p>
+					<sup>2</sup> Special characters include `@`, `$`, `!`, `%`, `*`, `?`, and `&`
+				</div>
 				<div className={'text-sm text-center'}>
 					Have an account? {' '}
 					<Link
 						to={'/auth/signin'}
-						aria-label={'Create an account'}
+						aria-label={'Sign in to account'}
 						className={'text-primary underline-offset-4 hover:underline cursor-pointer'}
 					>
 						Sign in

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
-import { saveAvailability } from '@/redux/thunks/doctorThunk';
-import { resetStatus } from '@/redux/slices/doctorSlice';
+import { saveAvailability } from '@/redux/thunks/doctor-thunk';
+import { resetStatus } from '@/redux/slices/doctor-slice';
 import { getCurrentWeek } from '@/utils/utils';
-import { Button, Card } from '@/ui';
+import { Button, Card } from '@/components/ui';
 
 interface DayAvailability {
 	[key: string]: boolean
@@ -34,8 +34,8 @@ export default function Availabilities() {
 		});
 		
 		// set the initial availability if provided
-		doctor.availabilities?.forEach((apt) => {
-			const { date, startTime, endTime } = apt;
+		doctor.availabilities?.forEach((appt) => {
+			const { date, startTime, endTime } = appt;
 			const timeSlot = `${startTime}-${endTime}`;
 			
 			if (initial[date] && timeSlot in initial[date]) {
@@ -57,20 +57,20 @@ export default function Availabilities() {
 	};
 	
 	const handleSave = () => {
-		const savedAvailability = [];
+		const availabilities = [];
 		
 		for (const [date, slots] of Object.entries(availability)) {
 			for (const [timeSlot, isAvailable] of Object.entries(slots)) {
 				if (isAvailable) {
 					const [startTime, endTime] = timeSlot.split('-');
-					savedAvailability.push({ date, startTime, endTime });
+					availabilities.push({ date, startTime, endTime });
 				}
 			}
 		}
 		
 		dispatch(saveAvailability({
 			id: doctor._id,
-			freeTime: savedAvailability
+			freeTime: availabilities
 		}));
 		dispatch(resetStatus());
 	};
@@ -116,7 +116,6 @@ export default function Availabilities() {
 			
 			<Card.Footer>
 				<Button
-					// type={'submit'}
 					onClick={handleSave}
 					className={'mt-5 w-full'}
 				>

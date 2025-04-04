@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { apiClient } from '@/utils/axiosConfig';
+import { apiClient } from '@/utils/axios-config';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
-import { setUser, clearAuth, resetStatus } from '@/redux/slices/userSlice';
-import { doFetchAfterAuth } from '@/redux/thunks/authThunk';
+import { doFetchAfterAuth } from '@/redux/thunks/auth-thunk';
+import { clearAuth, resetStatus, setUser } from '@/redux/slices/user-slice';
 
 export const useAuthVerification = () => {
 	const [isVerifying, setIsVerifying] = useState(true);

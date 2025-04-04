@@ -5,12 +5,12 @@ import {
 import SiteLayout from '@/layouts/website';
 import AuthLayout from '@/layouts/auth';
 import DashboardLayout from '@/layouts/dashboard';
-import AuthWrapper from '@/components/authWrapper';
-import ProtectedRoute from '@/components/protectedRoute';
-import HomePage from '@/views/general/home';
-import BookAppointment from '@/views/patient/bookAppointment';
-import EditAppointment from '@/views/patient/editAppointment';
-import { NotFound, UnAuthorized } from '@/views/auth/error';
+import AuthWrapper from '@/components/auth-wrapper';
+import ProtectedRoute from '@/components/protected-route';
+import HomePage from '@/views/home';
+import BookAppointment from '@/views/patient/book-appointment';
+import EditAppointment from '@/views/patient/edit-appointment';
+import { NotFound, UnAuthorized } from '@/components/errors/error-screens';
 
 export default function App() {
 	return (
@@ -32,7 +32,7 @@ export default function App() {
 					</Route>
 					
 					{/* auth routes */}
-					<Route element={<ProtectedRoute allowedRoles={['Auth']}/>}>
+					<Route element={<ProtectedRoute onAuthRoute/>}>
 						<Route element={<AuthLayout/>}>
 							{authRoutes.map((route, idx) => {
 								const Component = route.component;

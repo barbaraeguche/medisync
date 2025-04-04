@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Button, Card } from '@/ui';
-import { 
+import {
 	Mail, Phone, MapPin, Clock, MessageSquare, HelpCircle
 } from 'lucide-react';
+import { Button, Card } from '@/components/ui';
 
 export default function Contact() {
 	return (

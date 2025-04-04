@@ -9,12 +9,8 @@ export const showToast = (
 	
 	// define colors - green for success, red for error
 	const colors = {
-		success: {
-			text: '#085d00', border: '#5cb85c', background: '#ebfdf0'
-		},
-		error: {
-			text: '#7f1d1d', border: '#ef4444', background: '#fef2f2'
-		}
+		success: { text: '#085d00', border: '#5cb85c', background: '#ebfdf0' },
+		error: { text: '#7f1d1d', border: '#ef4444', background: '#fef2f2' }
 	};
 	
 	const colorSet = type === 'fulfilled' ? colors.success : colors.error;
@@ -24,7 +20,7 @@ export const showToast = (
 		style: {
 			fontSize: 'small',
 			color: colorSet.text,
-			borderRadius: '12px',
+			borderRadius: '10px',
 			backgroundColor: colorSet.background,
 			border: `1px dashed ${colorSet.border}`
 		}

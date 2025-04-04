@@ -4,10 +4,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 import { store } from '@/redux/store';
-import './ui/global.css';
+import '@/index.css';
 import App from '@/app';
-import ErrorBoundary from '@/components/errorBoundary';
-import ScrollToTop from '@/components/scrollToTop';
+import ErrorBoundary from '@/components/errors/error-boundary';
+import ScrollToTop from '@/components/scroll-to-top';
 
 createRoot(document.getElementById('root')!).render(
   <ErrorBoundary>
