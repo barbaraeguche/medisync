@@ -1,7 +1,7 @@
-@import '../node_modules/.pnpm/tailwindcss@4.0.4/node_modules/tailwindcss/dist/lib.d.mts';
-@import '../node_modules/tailwindcss/utilities.css';
+@import 'tailwindcss';
+@import 'tailwindcss/utilities';
 @plugin 'tailwindcss-animate';
-@config '../../tailwind.config';
+@config '../tailwind.config.ts';
 
 @layer base {
 	:root {
