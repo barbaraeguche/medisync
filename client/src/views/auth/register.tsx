@@ -47,7 +47,7 @@ export default function RegisterForm() {
 		}
 	};
 	
-	const onSubmit: SubmitHandler<RegisterType> = (data) => {
+	const onSubmit: SubmitHandler<RegisterType> = async (data) => {
 		const { role, user, ...rest } = data;
 		
 		const updatedUser = {
@@ -60,7 +60,7 @@ export default function RegisterForm() {
 					? { user: updatedUser, practitioner: { ...rest } }
 					: { user: updatedUser, ...rest };
 		
-		dispatch(registerUser(updatedData as Entity));
+		await dispatch(registerUser(updatedData as Entity));
 		dispatch(resetStatus());
 	};
 	
@@ -290,11 +290,7 @@ export default function RegisterForm() {
 			</form>
 			
 			<Card.Footer className={'space-y-7 text-muted-foreground'}>
-				<div className={'text-xs flex flex-col space-y-2'}>
-					<span className={'underline underline-offset-2'}>Note:</span>
-					<sup>1</sup> Field cannot be changed after registration.
-					<sup>2</sup> Special characters include `@`, `$`, `!`, `%`, `*`, `?`, and `&`
-				</div>
+				<FootNotes/>
 				<div className={'text-sm text-center'}>
 					Have an account? {' '}
 					<Link
@@ -329,4 +325,20 @@ function PrevConfirmButtons({ prevClick }: {
 			</Button>
 		</div>
 	);
+}
+
+function FootNotes() {
+	return (
+		<div className={'text-xs space-y-2'}>
+			<p className={'underline underline-offset-2'}>Note:</p>
+			<div className={'flex flex-col space-y-0.5'}>
+				<span>
+					<sup>1</sup> Field cannot be changed after registration.
+				</span>
+				<span>
+					<sup>2</sup> Special characters include `@`, `$`, `!`, `%`, `*`, `?`, and `&`
+				</span>
+			</div>
+		</div>
+  );
 }

@@ -23,7 +23,7 @@ export default forwardRef<HTMLInputElement, InputWrapperProps>(
 							'text-red-500': props.error
 						})}
 					>
-						<sup>{props.conf.subscriptNum && props.conf.subscriptNum}</sup> {props.conf.label}
+						{props.conf.label} <sup>{props.conf.subscriptNum}</sup>
 					</label>
 				)}
 				
