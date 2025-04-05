@@ -153,7 +153,7 @@ export const footerLinks = [
 export const steps = [
 	{
 		icon: UserPlus, title: 'Create Your Account',
-		description: 'Sign up for TeleCare by providing your basic information and creating secure login credentials.',
+		description: 'Sign up for QuantumCare by providing your basic information and creating secure login credentials.',
 	},
 	{
 		icon: Calendar, title: 'Book an Appointment',
@@ -188,7 +188,7 @@ export const faqs = [
 	},
 	{
 		question: 'How secure is my medical information?',
-		answer: 'TeleCare is fully HIPAA-compliant and uses end-to-end encryption for all video consultations. Your medical information is stored securely, and we never share your data with third parties without your explicit consent.',
+		answer: 'QuantumCare is fully HIPAA-compliant and uses end-to-end encryption for all video consultations. Your medical information is stored securely, and we never share your data with third parties without your explicit consent.',
 	},
 	{
 		question: 'Can doctors prescribe medication during a telehealth visit?',

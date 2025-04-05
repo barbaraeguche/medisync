@@ -10,7 +10,7 @@ export default function HowItWorks() {
 	return (
 		<div className={'container mx-auto py-12 px-4'}>
 			<div className={'text-center mb-16'}>
-				<h1 className={'text-4xl font-bold mb-4'}>How TeleCare Works</h1>
+				<h1 className={'text-4xl font-bold mb-4'}>How QuantumCare Works</h1>
 				<p className={'text-xl text-muted-foreground max-w-3xl mx-auto'}>
 					Experience healthcare from the comfort of your home with our simple, secure, and convenient telehealth
 					platform.
@@ -48,7 +48,7 @@ export default function HowItWorks() {
 				<div className={'text-center mb-12'}>
 					<h2 className={'text-3xl font-bold mb-4'}>For Patients & Doctors</h2>
 					<p className={'text-lg text-muted-foreground max-w-2xl mx-auto'}>
-						TeleCare provides a seamless experience for both patients seeking care and healthcare providers delivering
+						QuantumCare provides a seamless experience for both patients seeking care and healthcare providers delivering
 						services.
 					</p>
 				</div>

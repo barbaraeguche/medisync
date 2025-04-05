@@ -162,7 +162,7 @@ export default function HomePage() {
 							<h2 className={'text-3xl font-bold tracking-tighter sm:text-5xl'}>Why Regular Check-ups are Crucial</h2>
 							<p className={'text-gray-500 dark:text-gray-400 text-lg'}>
 								Regular health check-ups are essential for maintaining your well-being and catching potential issues
-								early. With TeleCare, staying on top of your health has never been easier.
+								early. With QuantumCare, staying on top of your health has never been easier.
 							</p>
 							<ul className={'space-y-4'}>
 								{checkUpReasons.map((reason, idx) => (
