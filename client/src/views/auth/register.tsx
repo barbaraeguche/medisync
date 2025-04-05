@@ -14,6 +14,7 @@ import {
 import InputWrapper from '@/components/input-wrapper';
 import { ServerError } from '@/components/errors/error-messages';
 import { Button, Card, Select } from '@/components/ui';
+import { Entity } from '@/lib/types';
 
 export default function RegisterForm() {
 	const [steps, setSteps] = useState(1);
@@ -50,7 +51,7 @@ export default function RegisterForm() {
 		const { role, user, ...rest } = data;
 		
 		const updatedUser = {
-			...user, _id: '', role
+			...user, role
 		};
 		const updatedData =
 			role === 'Admin'
@@ -59,7 +60,7 @@ export default function RegisterForm() {
 					? { user: updatedUser, practitioner: { ...rest } }
 					: { user: updatedUser, ...rest };
 		
-		dispatch(registerUser(updatedData));
+		dispatch(registerUser(updatedData as Entity));
 		dispatch(resetStatus());
 	};
 	

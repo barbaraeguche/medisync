@@ -6,10 +6,10 @@ import { resetStatus as resetDoctorStatus } from '@/redux/slices/doctor-slice';
 import { resetStatus as resetPatientStatus } from '@/redux/slices/patient-slice';
 import { apiClient } from '@/utils/axios-config';
 import { showToast } from '@/utils/toast';
-import { Doctor, Patient, User } from '@/lib/definitions';
+import { User } from '@/lib/definitions';
+import { Entity } from '@/lib/types';
 
 const authPath = 'auth';
-type Entity = Partial<User | Doctor | Patient>;
 
 // fetch the newly created user based on their role and dispatch the corresponding action
 export const doFetchAfterAuth = async (user: User) => {
@@ -64,7 +64,7 @@ export const registerUser = createAsyncThunk(
 			const response = await apiClient.post(`${authPath}/register/${role}`, data);
 			const user: User = response.data.user;
 			
-			doFetchAfterAuth(user);
+			await doFetchAfterAuth(user);
 			return user;
 		} catch (err: any) {
 			const errorMessage = err.response?.data || 'Registration failed. Please try again.';

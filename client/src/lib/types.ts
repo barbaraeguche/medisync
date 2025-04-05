@@ -1,5 +1,8 @@
 import { FC } from 'react';
 import type { LucideIcon } from 'lucide-react';
+import { Doctor, Patient, User } from '@/lib/definitions';
+
+export type Entity = User | Doctor | Patient;
 
 export type ServiceType = {
 	title: string;
