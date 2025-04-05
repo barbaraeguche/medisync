@@ -23,14 +23,14 @@ export const userSchema = z.object({
 });
 
 export const addressSchema = z.object({
-	street: z.string().min(1, { message: 'Enter a valid street' })
-		.optional().or(z.literal('')),
-	city: z.string().min(1, { message: 'Enter a valid street' })
-		.optional().or(z.literal('')),
+	street: z.string().min(2, { message: 'Enter a valid street' })
+		.or(z.literal('')),
+	city: z.string().min(2, { message: 'Enter a valid street' })
+		.or(z.literal('')),
 	province: z.enum(provinces, { message: 'Select a province' }),
 	postalCode: z.string().regex(postalCodeRegex, {
 		message: 'Enter a valid Canadian postal code'
-	}).optional().or(z.literal('')),
+	}).or(z.literal('')),
 	country: z.string().refine((val) => val === 'Canada', {
 		message: 'Country must be Canada'
 	})
@@ -40,7 +40,7 @@ export type AddressType = z.infer<typeof addressSchema>;
 export const emergencyContactSchema = z.object({
 	name: z.string().min(1, { message: 'Enter a name' }),
 	relationship: z.string().min(2, { message: 'Enter the relationship type' })
-		.optional().or(z.literal('')),
+		.or(z.literal('')),
 	email: z.string().refine((val) => emailRegex.test(val), {
 		message: 'Enter a valid email address'
 	})

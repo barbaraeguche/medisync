@@ -1,13 +1,14 @@
 import { z } from 'zod';
 import { numFieldConstraints } from '@/utils/constants';
 
-export const doctorSchema = z.object({ // todo: optionality still does not work
+export const doctorSchema = z.object({
 	licenseNumber: z.string().min(5, { message: 'Enter your license number' }),
 	specialization: z.string().min(5, { message: 'Enter your specialization' }),
 	yearsOfExperience: z.union([
-		z.coerce.number().optional(),
+		z.literal('').transform(() => 0),
 		z.coerce.number()
 			.min(3, { message: `${numFieldConstraints[0]} 3` })
+			.max(50, { message: `${numFieldConstraints[1]} 50` })
 	]),
 	languages: z.string().min(1, { message: 'Enter your spoken languages' })
 });

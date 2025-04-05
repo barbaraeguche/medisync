@@ -44,6 +44,7 @@ function RoleInfo({ doctor }: {
 			placeholder: 'Cardiology, General Medicine'
 		},
 		{
+			type: 'number',
 			name: 'yearsOfExperience',
 			label: 'Years of Experience (Optional)',
 			placeholder: '5'

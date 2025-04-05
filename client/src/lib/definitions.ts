@@ -9,16 +9,16 @@ export interface User {
 	phoneNumber?: string | null;
 	gender: 'Male' | 'Female' | 'N/A';
 	role: 'Admin' | 'Doctor' | 'Patient' | 'N/A';
-	address?: {
-		street?: string;
-		city?: string;
+	address: {
+		street: string;
+		city: string;
 		province: (typeof provinces)[number];
-		postalCode?: string;
+		postalCode: string;
 		country: 'Canada';
 	};
-	emergencyContact?: {
+	emergencyContact: {
 		name: string;
-		relationship?: string;
+		relationship: string;
 		email: string;
 	};
 }
@@ -46,10 +46,10 @@ export interface Patient {
 	insuranceProvider?: string;
 	insurancePolicyNumber?: string;
 	chronicConditions?: string;
-	healthMetrics?: {
-		height?: number;
-		weight?: number;
-		heartRate?: number;
+	healthMetrics: {
+		height: number;
+		weight: number;
+		heartRate: number;
 	};
 	medicalHistory?: MedicalHistory[];
 	appointments?: Appointments[];

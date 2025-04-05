@@ -11,21 +11,21 @@ export const patientSchema = z.object({
 });
 export type PatientType = z.infer<typeof patientSchema>;
 
-export const healthMetricsSchema = z.object({ // todo: optionality still does not work
+export const healthMetricsSchema = z.object({
 	height: z.union([
-		z.coerce.number().optional(),
+		z.literal('').transform(() => 0),
 		z.coerce.number()
 			.min(5, { message: `${numFieldConstraints[0]} 5` })
 			.max(355, { message: `${numFieldConstraints[1]} 355` })
 	]),
 	weight: z.union([
-		z.coerce.number().optional(),
+		z.literal('').transform(() => 0),
 		z.coerce.number()
 			.min(5, { message: `${numFieldConstraints[0]} 5` })
-			.max(355, { message: `${numFieldConstraints[1]} 355` }),
+			.max(355, { message: `${numFieldConstraints[1]} 355` })
 	]),
 	heartRate: z.union([
-		z.coerce.number().optional(),
+		z.literal('').transform(() => 0),
 		z.coerce.number()
 			.min(54, { message: `${numFieldConstraints[0]} 54` })
 			.max(272, { message: `${numFieldConstraints[0]} 272` })

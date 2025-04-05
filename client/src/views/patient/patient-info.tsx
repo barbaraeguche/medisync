@@ -94,16 +94,19 @@ function HealthMetrics({ patient }: {
 	
 	const metricsFields: FieldConfig[] = [
 		{
+			type: 'number',
 			name: 'height',
 			label: 'Height (cm)',
 			placeholder: '175'
 		},
 		{
+			type: 'number',
 			name: 'weight',
 			label: 'Weight (lbs)',
 			placeholder: '135'
 		},
 		{
+			type: 'number',
 			name: 'heartRate',
 			label: 'Heart Rate (bpm)',
 			placeholder: '75'
