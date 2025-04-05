@@ -1,9 +1,9 @@
 import {
-	Table, TableBody, TableCell, TableHead, TableHeader, TableRow
-} from '@/components/ui/shadcn/table';
-import {
 	ColumnDef, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable
 } from '@tanstack/react-table';
+import {
+	Table, TableBody, TableCell, TableHead, TableHeader, TableRow
+} from '@/components/ui/shadcn/table';
 import { Button } from '@/components/ui/index';
 
 interface DataTableProps<TData, TValue> {

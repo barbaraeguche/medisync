@@ -32,8 +32,8 @@ function ChangeEmail({ user }: {
 }) {
 	const dispatch = useAppDispatch();
 	
-	const handleSubmit = (data: UpdateEmailType) => {
-		dispatch(saveUser({
+	const handleSubmit = async (data: UpdateEmailType) => {
+		await dispatch(saveUser({
 			id: user._id,
 			userInfo: data
 		}));
@@ -69,8 +69,8 @@ function ChangePhoneNumber({ user }: {
 	};
 	const dispatch = useAppDispatch();
 	
-	const handleSubmit = (data: UpdatePhoneNumberType) => {
-		dispatch(saveUser({
+	const handleSubmit = async (data: UpdatePhoneNumberType) => {
+		await dispatch(saveUser({
 			id: user._id,
 			userInfo: { phoneNumber: data.phoneNumber.trim() || null }
 		}));
@@ -102,8 +102,8 @@ function ChangePassword({ user }: {
 }) {
 	const dispatch = useAppDispatch();
 	
-	const handleSubmit = (data: UpdatePasswordType) => {
-		dispatch(savePassword({
+	const handleSubmit = async (data: UpdatePasswordType) => {
+		await dispatch(savePassword({
 			id: user._id,
 			userInfo: data
 		}));

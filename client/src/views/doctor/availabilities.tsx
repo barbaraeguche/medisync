@@ -56,7 +56,7 @@ export default function Availabilities() {
 		}));
 	};
 	
-	const handleSave = () => {
+	const handleSave = async () => {
 		const availabilities = [];
 		
 		for (const [date, slots] of Object.entries(availability)) {
@@ -68,9 +68,9 @@ export default function Availabilities() {
 			}
 		}
 		
-		dispatch(saveAvailability({
+		await dispatch(saveAvailability({
 			id: doctor._id,
-			freeTime: availabilities
+			availabilityInfo: availabilities
 		}));
 		dispatch(resetStatus());
 	};

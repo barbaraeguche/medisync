@@ -15,10 +15,9 @@ export default function SignInForm() {
 	const { error } = useAppSelector((state) => state.userSlice);
 	
 	useEffect(() => {
-		// clear sign-in error when switched to the register form
+		// clear registration error if exist
 		dispatch(resetStatus());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [dispatch]);
 	
 	const {
     register, handleSubmit, formState: { errors }
@@ -27,8 +26,8 @@ export default function SignInForm() {
 		reValidateMode: 'onBlur'
   });
 	
-	const onSubmit: SubmitHandler<LoginType> = (data) => {
-		dispatch(signInUser(data));
+	const onSubmit: SubmitHandler<LoginType> = async (data) => {
+		await dispatch(signInUser(data));
 		dispatch(resetStatus());
   };
 	

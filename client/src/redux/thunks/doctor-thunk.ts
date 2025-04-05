@@ -38,11 +38,11 @@ export const fetchDoctors = createAsyncThunk(
 export const saveDoctor = createAsyncThunk(
 	'doctor/saveDoctor',
   async (
-		{ id, practitioner }: { id: string, practitioner: Partial<Practitioner> },
+		{ id, doctorInfo }: { id: string, doctorInfo: Partial<Practitioner> },
 		{ rejectWithValue }
 	) => {
     try {
-      const { doctor, message } = (await apiClient.put(`${doctorPath}/${id}`, practitioner)).data;
+      const { doctor, message } = (await apiClient.put(`${doctorPath}/${id}`, doctorInfo)).data;
 			showToast(message, 'fulfilled');
 			return doctor;
     } catch (err: any) {
@@ -56,11 +56,11 @@ export const saveDoctor = createAsyncThunk(
 export const saveAvailability = createAsyncThunk(
 	'doctor/saveAvailability',
   async (
-    { id, freeTime }: { id: string, freeTime: Availabilities },
+    { id, availabilityInfo }: { id: string, availabilityInfo: Availabilities },
     { rejectWithValue }
   ) => {
     try {
-      const { availability, message } = (await apiClient.put(`${doctorPath}/${id}/availability`, freeTime)).data;
+      const { availability, message } = (await apiClient.put(`${doctorPath}/${id}/availability`, availabilityInfo)).data;
 			showToast(message, 'fulfilled');
 			return availability;
     } catch (err: any) {

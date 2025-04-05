@@ -114,7 +114,7 @@ export default function Cookies() {
 				<Link to={'/privacy'}>
 					<Button variant={'outline'}>Privacy Policy</Button>
 				</Link>
-				<Link to={'/client/public'}>
+				<Link to={'/'}>
 					<Button>Return Home</Button>
 				</Link>
 			</div>

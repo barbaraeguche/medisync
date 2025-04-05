@@ -2,9 +2,13 @@ package com.quantumcare.server.controllers;
 
 import com.quantumcare.server.exceptions.EntityNotFound;
 import com.quantumcare.server.models.Doctor;
+import com.quantumcare.server.models.helpers.Practitioner;
 import com.quantumcare.server.services.DoctorService;
+import com.quantumcare.server.utilities.DbErrorUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,17 +40,24 @@ public class DoctorController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateDoctor(
-		@PathVariable UUID id, @RequestBody Doctor doctor
+		@PathVariable UUID id, @RequestBody Practitioner practitioner
 	) {
 		try {
 			Doctor prevDoctor = getDoctorById(id);
-			Doctor currDoctor = doctorService.putDoctor(prevDoctor, doctor);
+			Doctor currDoctor = doctorService.putDoctor(prevDoctor, practitioner);
+			
+			// reset password before sending to frontend
+			currDoctor.getUser().setPassword("");
 			
 			return ResponseEntity.ok(Map.of(
 				"doctor", currDoctor,
 				"message", "Doctor updated successfully"
 			));
-		} catch (Exception _) {
+		} catch (DataIntegrityViolationException exp) {
+			// handle unique constraint violations
+			String errorMessage = DbErrorUtils.getErrorMessage(exp);
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
+		} catch (Exception exp) {
 			return ResponseEntity.internalServerError().body("Database error. Failed to update doctor.");
 		}
 	}

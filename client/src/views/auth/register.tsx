@@ -18,14 +18,13 @@ import { Button, Card, Select } from '@/components/ui';
 export default function RegisterForm() {
 	const [steps, setSteps] = useState(1);
 	
-	useEffect(() => {
-		// clear register error when switched to the sign-in form
-		dispatch(resetStatus());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-	
 	const dispatch = useAppDispatch();
 	const { error } = useAppSelector((state) => state.userSlice);
+	
+	useEffect(() => {
+		// clear sign in error if exist
+		dispatch(resetStatus());
+	}, [dispatch]);
 	
 	const {
 		register, handleSubmit, formState: { errors }, control, watch, trigger

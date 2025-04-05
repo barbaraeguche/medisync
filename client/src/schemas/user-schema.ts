@@ -30,7 +30,7 @@ export const addressSchema = z.object({
 	province: z.enum(provinces, { message: 'Select a province' }),
 	postalCode: z.string().regex(postalCodeRegex, {
 		message: 'Enter a valid Canadian postal code'
-	}),
+	}).optional().or(z.literal('')),
 	country: z.string().refine((val) => val === 'Canada', {
 		message: 'Country must be Canada'
 	})

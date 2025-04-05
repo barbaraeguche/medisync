@@ -94,16 +94,16 @@ const userSlice = createSlice({
 			// ---- general matchers ---- //
 			
 			.addMatcher(
-				(action) => action.type.endsWith('/fulfilled'),
-        (state) => {
-          state.status = 'fulfilled';
-        }
-			)
-			.addMatcher(
 				(action) => action.type.endsWith('/pending'),
 				(state) => {
 					state.status = 'pending';
 					state.error = null;
+				}
+			)
+			.addMatcher(
+				(action) => action.type.endsWith('/fulfilled'),
+				(state) => {
+					state.status = 'fulfilled';
 				}
 			)
 			.addMatcher(

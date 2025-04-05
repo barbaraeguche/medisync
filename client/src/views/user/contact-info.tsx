@@ -25,8 +25,8 @@ function Address({ user }: {
 }) {
 	const dispatch = useAppDispatch();
 	
-	const handleSubmit = (data: AddressType) => {
-		dispatch(saveUser({
+	const handleSubmit = async (data: AddressType) => {
+		await dispatch(saveUser({
 			id: user._id,
 			userInfo: { 'address': data }
 		}));
@@ -53,7 +53,7 @@ function Address({ user }: {
 		},
 		{
 			name: 'postalCode',
-			label: 'Postal Code',
+			label: 'Postal Code (Optional)',
 			placeholder: 'V6B 2K8'
 		},
 		{
@@ -80,8 +80,8 @@ function EmergencyContact({ user }: {
 }) {
 	const dispatch = useAppDispatch();
 	
-	const handleSubmit = (data: EmergencyContactType) => {
-		dispatch(saveUser({
+	const handleSubmit = async (data: EmergencyContactType) => {
+		await dispatch(saveUser({
 			id: user._id,
 			userInfo: { 'emergencyContact': data }
 		}));

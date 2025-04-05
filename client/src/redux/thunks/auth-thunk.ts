@@ -12,15 +12,15 @@ const authPath = 'auth';
 type Entity = Partial<User | Doctor | Patient>;
 
 // fetch the newly created user based on their role and dispatch the corresponding action
-export const doFetchAfterAuth = (user: User) => {
+export const doFetchAfterAuth = async (user: User) => {
 	const { _id, role } = user;
 	const dispatch = store.dispatch;
 	
 	if (role == 'Doctor') {
-		dispatch(fetchDoctor(_id));
+		await dispatch(fetchDoctor(_id));
 		dispatch(resetDoctorStatus());
 	} else if (role == 'Patient') {
-		dispatch(fetchPatient(_id));
+		await dispatch(fetchPatient(_id));
 		dispatch(resetPatientStatus());
 	} else return;
 };
@@ -35,7 +35,7 @@ export const signInUser = createAsyncThunk(
 			const response = await apiClient.post(`${authPath}/signin`, data);
 			const user: User = response.data.user;
 			
-			doFetchAfterAuth(user);
+			await doFetchAfterAuth(user);
 			return user;
 		} catch (err: any) {
 			const errorMessage = err.response?.data || 'Login failed. Please try again.';

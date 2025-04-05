@@ -15,6 +15,7 @@ export default function FormButton<T extends FieldValues>({ reset, isPending, is
 					<Button
 						type={'submit'}
 						variant={'form'}
+						disabled={isPending}
 					>
 						{isPending && <Spinner/>}
 						Save Changes

@@ -9,8 +9,8 @@ export default function UserInfo() {
 	const dispatch = useAppDispatch();
 	const { user } = useAppSelector((state) => state.userSlice);
 	
-	const handleSubmit = (data: UserFullNameType) => {
-		dispatch(saveUser({
+	const handleSubmit = async (data: UserFullNameType) => {
+		await dispatch(saveUser({
 			id: user._id,
 			userInfo: data
 		}));

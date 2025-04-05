@@ -24,8 +24,8 @@ function RoleInfo({ patient }: {
 }) {
 	const dispatch = useAppDispatch();
 	
-	const handleSubmit = (data: NoBloodType) => {
-		dispatch(savePatient({
+	const handleSubmit = async (data: NoBloodType) => {
+		await dispatch(savePatient({
 			id: patient._id,
       patientInfo: data
 		}));
@@ -84,8 +84,8 @@ function HealthMetrics({ patient }: {
 }) {
 	const dispatch = useAppDispatch();
 	
-	const handleSubmit = (data: HealthMetricsType) => {
-		dispatch(savePatient({
+	const handleSubmit = async (data: HealthMetricsType) => {
+		await dispatch(savePatient({
 			id: patient._id,
 			patientInfo: { 'healthMetrics': data }
 		}));

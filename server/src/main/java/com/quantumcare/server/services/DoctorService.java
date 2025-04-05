@@ -4,6 +4,7 @@ import com.quantumcare.server.factories.DoctorFactory;
 import com.quantumcare.server.factories.UserFactory;
 import com.quantumcare.server.models.Doctor;
 import com.quantumcare.server.models.User;
+import com.quantumcare.server.models.helpers.Practitioner;
 import com.quantumcare.server.repositories.DoctorRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +58,8 @@ public class DoctorService {
 		return doctorRepository.save(doctor);
 	}
 	
-	public Doctor putDoctor(Doctor prevDoctor, Doctor currDoctor) {
-		doctorFactory.updateDoctor(prevDoctor, currDoctor);
+	public Doctor putDoctor(Doctor prevDoctor, Practitioner currPractitioner) {
+		doctorFactory.updateDoctor(prevDoctor.getPractitioner(), currPractitioner);
     return doctorRepository.save(prevDoctor);
 	}
 	

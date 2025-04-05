@@ -43,7 +43,7 @@ public class DoctorFactory {
 	
 	// ---------------------------------------------------------------- //
 	
-	public void updateDoctor(Doctor prevDoctor, Doctor currDoctor) {
-		EntityUpdater.updateNonNullProperties(currDoctor, prevDoctor);
+	public void updateDoctor(Practitioner prevPractitioner, Practitioner currPractitioner) {
+		EntityUpdater.updateNonNullProperties(currPractitioner, prevPractitioner);
 	}
 }

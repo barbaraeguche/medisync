@@ -113,21 +113,24 @@ export default function AppointmentsForm(
 		return uniqueTimeSlots.filter((slot) => !bookedTimes.includes(slot.value));
 	}, [getDoctor, apptDate]);
 
-	const onSubmit: SubmitHandler<AppointmentType> = (data) => {
+	const onSubmit: SubmitHandler<AppointmentType> = async (data) => {
 		if (isBooking) {
 			// when booking, we don't include the status field
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const { status, ...rest } = data;
 
-			dispatch(createAppointment({
+			await dispatch(createAppointment({
 				id: patient._id,
 				appointmentInfo: {
 					...rest,
 					patientId: patient._id
 				}
 			}));
+			
+			// reset the form after submission
+			reset();
 		} else {
-			dispatch(saveAppointment({
+			await dispatch(saveAppointment({
 				id: patient._id,
 				appointmentInfo: {
 					...data,
@@ -136,9 +139,9 @@ export default function AppointmentsForm(
 				}
 			}));
 		}
-
-		reset(); // reset the form after submission
-		// dispatch(fetchDoctors()); // todo: check if this is needed
+		
+		// re-fetch the doctor's list and clear status
+		dispatch(fetchDoctors());
 		dispatch(resetStatus());
 	};
 

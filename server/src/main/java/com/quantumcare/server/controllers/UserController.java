@@ -39,6 +39,9 @@ public class UserController {
 			User prevUser = validateUserId(id);
 			User currUser = userService.putUser(prevUser, user);
 			
+			// reset password before sending to frontend
+			currUser.setPassword("");
+			
 			return ResponseEntity.ok(Map.of(
 				"user", currUser,
 				"message", "User updated successfully"
@@ -60,7 +63,7 @@ public class UserController {
 			String password = updatedPassword.get("password");
 			String confirmPassword = updatedPassword.get("confirmPassword");
 			
-			if (!password.equals(confirmPassword)) {
+			if (!confirmPassword.equals(password)) {
 				return ResponseEntity.badRequest().body("Passwords do not match");
 			}
 			

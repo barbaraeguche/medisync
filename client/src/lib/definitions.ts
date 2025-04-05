@@ -13,7 +13,7 @@ export interface User {
 		street?: string;
 		city?: string;
 		province: (typeof provinces)[number];
-		postalCode: string;
+		postalCode?: string;
 		country: 'Canada';
 	};
 	emergencyContact?: {

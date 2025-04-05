@@ -11,7 +11,7 @@ export function NotFound() {
 				</div>
 				<h1 className={'text-3xl font-bold tracking-tight text-primary'}>404 - Not Found</h1>
 				<p className={'text-lg text-muted-foreground'}>The page you're looking for doesn't exist.</p>
-				<Link to={'/client/public'}>
+				<Link to={'/'}>
 					<Button className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}>
 						Return Home
 					</Button>
@@ -40,7 +40,7 @@ export function UnAuthorized() {
 						</Button>
 					</Link>
 					
-					<Link to={'/client/public'}>
+					<Link to={'/'}>
 						<Button className={'bg-gradient-to-r from-primary to-teal-600 hover:opacity-90'}>
 							Return Home
 						</Button>

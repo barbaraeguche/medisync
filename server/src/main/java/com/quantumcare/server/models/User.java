@@ -50,8 +50,8 @@ public class User {
 	
 	@NonNull
 	@Enumerated(EnumType.STRING)
-	@NotNull(message = "Role must be specified")
 	@Column(updatable = false, nullable = false)
+	@NotNull(message = "Role must be specified")
 	private Role role;
 	
 	@NonNull

@@ -106,7 +106,7 @@ export default function TermsOfService() {
 				<Link to={'/cookies'}>
 					<Button variant={'outline'}>Cookie Policy</Button>
 				</Link>
-				<Link to={'/client/public'}>
+				<Link to={'/'}>
 					<Button>Return Home</Button>
 				</Link>
 			</div>

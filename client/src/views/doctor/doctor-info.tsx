@@ -24,10 +24,10 @@ function RoleInfo({ doctor }: {
 }) {
 	const dispatch = useAppDispatch();
 	
-	const handleSubmit = (data: DoctorType) => {
-		dispatch(saveDoctor({
+	const handleSubmit = async (data: DoctorType) => {
+		await dispatch(saveDoctor({
 			id: doctor._id,
-      practitioner: data
+			doctorInfo: data
 		}));
 		dispatch(resetStatus());
 	};
@@ -72,10 +72,10 @@ function Education({ doctor }: {
 }) {
 	const dispatch = useAppDispatch();
 	
-	const handleSubmit = (data: EducationType) => {
-		dispatch(saveDoctor({
+	const handleSubmit = async (data: EducationType) => {
+		await dispatch(saveDoctor({
 			id: doctor._id,
-			practitioner: { 'education': data }
+			doctorInfo: { 'education': data }
 		}));
 		dispatch(resetStatus());
 	};
@@ -102,8 +102,8 @@ function Education({ doctor }: {
 		<EditableForm
 			slice={'doctor'}
 			title={'Education'}
-			fields={educationFields}
 			onSubmit={handleSubmit}
+			fields={educationFields}
 			schema={educationSchema}
 			initialValues={doctor.practitioner.education}
 		/>
