@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Check, type LucideIcon } from 'lucide-react';
 import { ServiceType } from '@/lib/types';
-import { additionalServices, services } from '@/lib/home-ui-data';
+import { additionalServices, services } from '@/lib/placeholders';
 import { Button, Card } from '@/components/ui';
 
 export default function Services() {
@@ -14,7 +14,7 @@ export default function Services() {
 	return (
 		<div className={'container max-w-7xl mx-auto py-12 px-4'}>
 			<div className={'text-center mb-16'}>
-				<h1 className={'text-4xl font-bold mb-4'}>Our Medical Services</h1>
+				<h1 className={'text-4xl font-bold mb-4 tracking-tighter'}>Our Medical Services</h1>
 				<p className={'text-xl text-muted-foreground max-w-3xl mx-auto'}>
 					Quantum Care offers a comprehensive range of telehealth services across multiple specialties, providing quality
 					healthcare from the comfort of your home.

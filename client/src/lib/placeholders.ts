@@ -170,8 +170,8 @@ export const steps = [
 	{
 		icon: CreditCard, title: 'Payment & Insurance',
 		description: 'Pay for your consultation securely online, with options for insurance coverage where applicable.',
-	},
-]
+	}
+];
 
 export const faqs = [
 	{
@@ -197,5 +197,96 @@ export const faqs = [
 	{
 		question: 'What if I need lab work or imaging?',
 		answer: 'If your doctor determines you need lab work or imaging, they will provide you with a requisition form. You can then visit a local lab or imaging center of your choice. Results will be sent to your doctor and discussed in a follow-up appointment.',
+	}
+];
+
+export const boardDoctors = [
+	{
+		name: 'Dr. Sarah Johnson',
+		specialty: 'Cardiology',
+		image: '/placeholder.svg?height=300&width=300',
+		rating: 4.9,
+		reviewCount: 127,
+		education: 'Harvard Medical School',
+		experience: '15+ years',
+		languages: 'English, Spanish',
+		bio: 'Dr. Johnson is a board-certified cardiologist specializing in preventive cardiology and heart disease management. She has extensive experience in treating complex cardiac conditions and is committed to patient-centered care.',
 	},
-]
+	{
+		name: 'Dr. Michael Chen',
+		specialty: 'General Medicine',
+		image: '/placeholder.svg?height=300&width=300',
+		rating: 4.8,
+		reviewCount: 203,
+		education: 'Johns Hopkins University',
+		experience: '12+ years',
+		languages: 'English, Mandarin',
+		bio: 'Dr. Chen is a dedicated primary care physician focused on preventive care and chronic disease management. He believes in building strong doctor-patient relationships and empowering patients through education.',
+	},
+	{
+		name: 'Dr. Amara Patel',
+		specialty: 'Neurology',
+		image: '/placeholder.svg?height=300&width=300',
+		rating: 4.9,
+		reviewCount: 156,
+		education: 'Stanford University',
+		experience: '10+ years',
+		languages: 'English, Hindi, Gujarati',
+		bio: "Dr. Patel is a neurologist specializing in headache disorders, stroke management, and neurodegenerative diseases. She combines cutting-edge research with compassionate care to improve her patients' quality of life.",
+	},
+	{
+		name: 'Dr. James Wilson',
+		specialty: 'Pulmonology',
+		image: '/placeholder.svg?height=300&width=300',
+		rating: 4.7,
+		reviewCount: 118,
+		education: 'Yale School of Medicine',
+		experience: '18+ years',
+		languages: 'English, French',
+		bio: 'Dr. Wilson is a pulmonologist with expertise in asthma, COPD, and sleep disorders. He is dedicated to helping patients manage respiratory conditions and improve their breathing and overall health.',
+	},
+	{
+		name: 'Dr. Maria Rodriguez',
+		specialty: 'Pediatrics',
+		image: '/placeholder.svg?height=300&width=300',
+		rating: 4.9,
+		reviewCount: 215,
+		education: 'University of California, San Francisco',
+		experience: '14+ years',
+		languages: 'English, Spanish',
+		bio: 'Dr. Rodriguez is a compassionate pediatrician dedicated to providing comprehensive care for children from birth through adolescence. She specializes in developmental pediatrics and preventive care.',
+	},
+	{
+		name: 'Dr. Robert Kim',
+		specialty: 'Dermatology',
+		image: '/placeholder.svg?height=300&width=300',
+		rating: 4.8,
+		reviewCount: 142,
+		education: 'Columbia University',
+		experience: '11+ years',
+		languages: 'English, Korean',
+		bio: 'Dr. Kim is a board-certified dermatologist specializing in medical and cosmetic dermatology. He is passionate about skin health and helping patients address concerns ranging from acne to complex skin conditions.',
+	},
+	{
+		name: 'Dr. Emily Taylor',
+		specialty: 'Psychiatry',
+		image: '/placeholder.svg?height=300&width=300',
+		rating: 4.9,
+		reviewCount: 189,
+		education: 'University of Pennsylvania',
+		experience: '13+ years',
+		languages: 'English',
+		bio: "Dr. Taylor is a psychiatrist specializing in mood disorders, anxiety, and trauma. She takes a holistic approach to mental health, combining medication management with therapeutic techniques to support her patients' wellbeing.",
+	},
+	{
+		name: 'Dr. David Nguyen',
+		specialty: 'Ophthalmology',
+		image: '/placeholder.svg?height=300&width=300',
+		rating: 4.7,
+		reviewCount: 131,
+		education: 'Duke University',
+		experience: '16+ years',
+		languages: 'English, Vietnamese',
+		bio: "Dr. Nguyen is an ophthalmologist with expertise in comprehensive eye care, including the diagnosis and management of eye diseases. He is committed to preserving and improving his patients' vision and eye health.",
+	},
+];

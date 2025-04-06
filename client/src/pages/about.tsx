@@ -2,7 +2,7 @@ export default function AboutUs() {
 	return (
 		<div className={'container mx-auto py-16 px-4'}>
 			<div className={'text-center mb-16'}>
-				<h1 className={'text-4xl font-bold mb-4'}>About QuantumCare</h1>
+				<h1 className={'text-4xl font-bold mb-4 tracking-tighter'}>About QuantumCare</h1>
 				<p className={'text-xl text-muted-foreground max-w-3xl mx-auto'}>
 					Revolutionizing healthcare through technology and compassion
 				</p>

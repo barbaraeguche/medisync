@@ -8,7 +8,7 @@ export default function Contact() {
 	return (
 		<div className={'container max-w-7xl mx-auto py-12 px-4'}>
 			<div className={'text-center mb-16'}>
-				<h1 className={'text-4xl font-bold mb-4'}>Contact Us</h1>
+				<h1 className={'text-4xl font-bold mb-4 tracking-tighter'}>Contact Us</h1>
 				<p className={'text-xl text-muted-foreground max-w-3xl mx-auto'}>
 					Have questions or need assistance? Our team is here to help you with any inquiries about our telehealth
 					services.

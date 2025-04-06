@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import { CheckCircle2, HelpCircle } from 'lucide-react';
-import { faqs, steps } from '@/lib/home-ui-data';
+import { faqs, steps } from '@/lib/placeholders';
 import { Button, Card } from '@/components/ui';
 
 export default function HowItWorks() {
@@ -10,7 +10,7 @@ export default function HowItWorks() {
 	return (
 		<div className={'container mx-auto py-12 px-4'}>
 			<div className={'text-center mb-16'}>
-				<h1 className={'text-4xl font-bold mb-4'}>How QuantumCare Works</h1>
+				<h1 className={'text-4xl font-bold mb-4 tracking-tighter'}>How QuantumCare Works</h1>
 				<p className={'text-xl text-muted-foreground max-w-3xl mx-auto'}>
 					Experience healthcare from the comfort of your home with our simple, secure, and convenient telehealth
 					platform.
