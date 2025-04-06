@@ -70,7 +70,7 @@ public class DoctorService {
 		return doctorRepository.save(reqDoctor).getAvailabilities();
 	}
 	
-	public void deleteDoctor(Doctor reqDoctor) {
-		doctorRepository.delete(reqDoctor);
+	public void deleteDoctor(UUID doctorId) {
+		doctorRepository.deleteById(doctorId);
 	}
 }

@@ -24,8 +24,8 @@ export const DeleteAppointment = ({ id }: {
 	const dispatch = useAppDispatch();
 	const { _id } = useAppSelector((state) => state.userSlice.user);
 	
-	const handleDelete = () => {
-		dispatch(deleteAppointment({
+	const handleDelete = async () => {
+		await dispatch(deleteAppointment({
 			patientId: _id,
       aptId: id
 		}));

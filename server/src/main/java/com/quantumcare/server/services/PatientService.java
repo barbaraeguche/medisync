@@ -5,6 +5,7 @@ import com.quantumcare.server.factories.UserFactory;
 import com.quantumcare.server.models.Patient;
 import com.quantumcare.server.models.User;
 import com.quantumcare.server.models.helpers.Appointments;
+import com.quantumcare.server.repositories.AppointmentRepository;
 import com.quantumcare.server.repositories.PatientRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,18 @@ public class PatientService {
 	private final UserFactory userFactory;
 	private final PatientFactory patientFactory;
 	private final PatientRepository patientRepository;
+	private final AppointmentRepository appointmentRepository;
 	private final AppointmentNameService appointmentNameService;
 	
 	@Autowired
 	public PatientService(
-		UserFactory userFactory, PatientFactory patientFactory,
-		PatientRepository patientRepository, AppointmentNameService appointmentNameService
+		UserFactory userFactory, PatientFactory patientFactory, PatientRepository patientRepository,
+		AppointmentRepository appointmentRepository, AppointmentNameService appointmentNameService
 		) {
     this.userFactory = userFactory;
     this.patientFactory = patientFactory;
     this.patientRepository = patientRepository;
+		this.appointmentRepository = appointmentRepository;
 		this.appointmentNameService = appointmentNameService;
   }
 	
@@ -79,17 +82,16 @@ public class PatientService {
 		return patientRepository.save(reqPatient).getAppointments();
 	}
 	
-	public List<Appointments> deleteAppointment(Patient reqPatient, Long reqAptId) {
-		List<Appointments> appointments = reqPatient.getAppointments();
-		
-		// delete appointment if exists
-		appointments.removeIf((apt) -> apt.get_id().equals(reqAptId));
-		return patientRepository.save(reqPatient).getAppointments();
+	public List<Appointments> deleteAppointment(UUID patientId, Long reqAptId) {
+		// remove appointment from table itself
+		appointmentRepository.deleteById(reqAptId);
+		// return all remaining appointments for the patient
+		return appointmentRepository.findByPatientId(patientId);
 	}
 	
 	// todo: work on openai medical history
 	
-	public void deletePatient(Patient reqPatient) {
-		patientRepository.delete(reqPatient);
+	public void deletePatient(UUID patientId) {
+		patientRepository.deleteById(patientId);
 	}
 }

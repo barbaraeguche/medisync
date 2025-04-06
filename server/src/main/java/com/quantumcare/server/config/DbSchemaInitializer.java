@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
  * this runs after application initialization to ensure the database has the proper constraints.
  */
 @Component
-public class DbIndexInitializer {
+public class DbSchemaInitializer {
 	
 	private final JdbcTemplate jdbcTemplate;
 	
 	@Autowired
-	public DbIndexInitializer(JdbcTemplate jdbcTemplate) {
+	public DbSchemaInitializer(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
   }
 	
@@ -31,12 +31,10 @@ public class DbIndexInitializer {
 	public void createFunctionalIndexes() {
 		try {
 			/* ----------------------------- INDICES -----------------------------    */
-			
 			// create case-insensitive index for email in user's table
 			jdbcTemplate.execute(
 				"create unique index if not exists idx_users_email_lower on users (lower(email))"
 			);
-			
 			// create case-insensitive index for license_number in doctor's table
 			jdbcTemplate.execute(
 				"create unique index if not exists idx_doctors_license_number_lower on practitioner (lower(license_number))"
@@ -44,7 +42,6 @@ public class DbIndexInitializer {
 			
 			
 			/* ----------------------------- TRIGGERS -----------------------------    */
-			
 			// create function to handle cancellation of appointments when doctor availability changes
 			jdbcTemplate.execute(
 				"create or replace function cancel_conflicting_appointments() " +
@@ -54,7 +51,7 @@ public class DbIndexInitializer {
 					"  update appointments " +
 					"  set " +
 					"    status = 'Cancelled', " +
-					"    status_note = coalesce(status_note, '') || E'\\nDoctor changed availability on ' || now() " +
+					"    status_note = coalesce(status_note, '') || 'Cancelled as doctor changed availability' " +
 					"  where " +
 					"    doctor_id = new.doctor_id " +
 					"    and status = 'Scheduled' " +
@@ -73,7 +70,6 @@ public class DbIndexInitializer {
 					"end; " +
 					"$$ language plpgsql;"
 			);
-			
 			// create trigger for INSERT operations on availabilities
 			jdbcTemplate.execute(
 				"drop trigger if exists trigger_cancel_appointments_on_availability_insert on availabilities; " +
@@ -91,11 +87,10 @@ public class DbIndexInitializer {
 					"  /* update status to 'Completed' for any scheduled appointments that have passed */ " +
 					"  update appointments " +
 					"  set " +
-					"    status = 'Completed', " +
-					"    status_note = coalesce(status_note, '') || E'\\nAppointment completed' " +
+					"    status = 'Completed' " +
 					"  where " +
 					"    status = 'Scheduled' " +
-					"    and (date < current_date or (date = current_date AND time < current_time)); " +
+					"    and date < current_date; " +
 					"end; " +
 					"$$ language plpgsql;"
 			);
@@ -105,12 +100,37 @@ public class DbIndexInitializer {
 				"create or replace function delete_old_availabilities() " +
 					"returns void as $$ " +
 					"begin " +
-					"  /* delete availabilities older than 2 weeks */ " +
+					"  /* delete availabilities older than 3 days */ " +
 					"  delete from availabilities " +
-					"  where date < current_date - interval '2 weeks'; " +
+					"  where date < current_date - interval '3 days'; " +
 					"end; " +
 					"$$ language plpgsql;"
 			);
+			
+			// create a function to delete old appointments
+			jdbcTemplate.execute(
+				"create or replace function delete_old_appointments() " +
+					"returns void as $$ " +
+					"begin " +
+					"  /* delete appointments older than 30 days */ " +
+					"  delete from appointments " +
+					"  where date < current_date - interval '30 days'; " +
+					"end; " +
+					"$$ language plpgsql;"
+			);
+			
+			// create a function to delete old medical histories
+			jdbcTemplate.execute(
+				"create or replace function delete_old_medical_history() " +
+					"returns void as $$ " +
+					"begin " +
+					"  /* delete medical histories older than 2 weeks */ " +
+					"  delete from medical_history " +
+					"  where diagnosis_date < current_date - interval '2 weeks'; " +
+					"end; " +
+					"$$ language plpgsql;"
+			);
+			
 			
 			/* ----------------------------- SCHEDULES -----------------------------    */
 			// use pg_cron extension to run every 2 weeks
@@ -118,14 +138,21 @@ public class DbIndexInitializer {
 				"create extension if not exists pg_cron;"
 			);
 			
-			// schedule the function to run every 14 hours
+			// schedule the function to run every midnight
 			jdbcTemplate.execute(
-				"select cron.schedule('delete-old-availabilities', '0 0 */14 * *', 'select delete_old_availabilities()');"
+				"select cron.schedule('mark-completed-appointments-job', '0 0 * * *', $$select mark_completed_appointments();$$);"
 			);
-			
-			// schedule the function to run daily at midnight
+			// schedule the function to run every week
 			jdbcTemplate.execute(
-				"select cron.schedule('mark-completed-appointments', '0 0 * * *', 'select mark_completed_appointments()');"
+				"select cron.schedule('delete-old-availabilities-job', '59 23 * * 0', $$select delete_old_availabilities();$$);"
+			);
+			// schedule the function to run every week
+			jdbcTemplate.execute(
+				"select cron.schedule('delete-old-appointments-job', '59 23 * * 0', $$select delete_old_appointments();$$);"
+			);
+			// schedule the function to run every week
+			jdbcTemplate.execute(
+				"select cron.schedule('delete-old-medical-history-job', '59 23 * * 0', $$select delete_old_medical_history();$$);"
 			);
 		} catch (Exception _) {}
 	}

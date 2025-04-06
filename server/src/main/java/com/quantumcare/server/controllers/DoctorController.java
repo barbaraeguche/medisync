@@ -82,8 +82,7 @@ public class DoctorController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteDoctor(@PathVariable UUID id) {
 		try {
-			Doctor currDoctor = getDoctorById(id);
-			doctorService.deleteDoctor(currDoctor);
+			doctorService.deleteDoctor(id);
 			return ResponseEntity.ok("Doctor deleted successfully");
 		} catch (Exception _) {
 			return ResponseEntity.internalServerError().body("Database error. Failed to delete doctor.");

@@ -101,9 +101,7 @@ public class PatientController {
 		@PathVariable UUID patientId, @PathVariable Long aptId
 	) {
 		try {
-			Patient patient = patientService.getPatientById(patientId);
-			List<Appointments> currAppointments = patientService.deleteAppointment(patient, aptId);
-			
+			List<Appointments> currAppointments = patientService.deleteAppointment(patientId, aptId);
 			return ResponseEntity.ok(Map.of(
 				"appointment", currAppointments,
 				"message", "Appointment deleted successfully"
@@ -116,8 +114,7 @@ public class PatientController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletePatient(@PathVariable UUID id) {
 		try {
-			Patient currPatient = getPatientById(id);
-			patientService.deletePatient(currPatient);
+			patientService.deletePatient(id);
 			return ResponseEntity.ok("Patient deleted successfully");
 		} catch (Exception _) {
 			return ResponseEntity.internalServerError().body("Database error. Failed to delete patient.");
@@ -132,7 +129,7 @@ public class PatientController {
 	 * @throws EntityNotFound if the patient ID is not valid
 	 * @return patient if found.
 	 */
-	public Patient validatePatientId(UUID id) {
+	private Patient validatePatientId(UUID id) {
 		Patient patient = patientService.getPatientById(id);
 		
 		if (String.valueOf(id).isEmpty() || patient == null) {
