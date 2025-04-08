@@ -8,11 +8,13 @@ import '@/index.css';
 import App from '@/app';
 import ErrorBoundary from '@/components/errors/error-boundary';
 import ScrollToTop from '@/components/scroll-to-top';
+import OneTimeBanner from '@/components/one-time-banner';
 
 createRoot(document.getElementById('root')!).render(
   <ErrorBoundary>
     <BrowserRouter>
       <StrictMode>
+        <OneTimeBanner/>
         <Toaster position={'top-center'}/>
         <ScrollToTop/>
         <Provider store={store}>

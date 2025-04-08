@@ -210,14 +210,16 @@ export default function HomePage() {
 							Join thousands of satisfied patients who have chosen our telehealth platform.
 						</p>
 						<div className={'flex flex-col gap-4 sm:flex-row'}>
-							<Button
-								size={'lg'}
-								variant={'secondary'}
-								className={'bg-white text-teal-600 hover:bg-white/90 group'}
-							>
-								<Phone className={'mr-2 h-4 w-4 text-teal-600 group-hover:rotate-6'}/>
-								Schedule a Call
-							</Button>
+							<Link to={'/contact'}>
+								<Button
+									size={'lg'}
+									variant={'secondary'}
+									className={'bg-white text-teal-600 hover:bg-white/90 group'}
+								>
+									<Phone className={'mr-2 h-4 w-4 group-hover:rotate-6'}/>
+									Schedule a Call
+								</Button>
+              </Link>
 							<Button
 								size={'lg'}
 								variant={'outline'}
