@@ -147,7 +147,7 @@ function SingleService({ service }: {
 	service: ServiceType
 }) {
 	return (
-		<div className={'mx-auto w-[70%]'}>
+		<div className={'mx-auto w-[90vw] max-w-3xl'}>
 			<ServiceBase title={service.title}>
 				<div className={'md:grid md:grid-cols-2 gap-12'}>
 					<div>

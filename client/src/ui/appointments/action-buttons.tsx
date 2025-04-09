@@ -9,6 +9,7 @@ export const EditAppointment = ({ id }: {
 }) => {
 	return (
 		<Link
+			aria-label={'Edit Appointment'}
 			to={`/patient/appointments/${id}/edit`}
       className={'p-2 rounded-md text-gray-400 hover:bg-gray-100 hover:text-gray-800'}
     >
@@ -35,6 +36,7 @@ export const DeleteAppointment = ({ id }: {
 	return (
 		<button
 			onClick={handleDelete}
+			aria-label={'Delete Appointment'}
 			className={'p-2 rounded-md text-red-400 hover:bg-red-100 hover:text-red-800 cursor-pointer'}
 		>
 			<span className={'sr-only'}>Delete Appointment</span>

@@ -16,6 +16,7 @@ export default function FormButton<T extends FieldValues>({ reset, isPending, is
 						type={'submit'}
 						variant={'form'}
 						disabled={isPending}
+						aria-label={'Save Changes'}
 					>
 						{isPending && <Spinner/>}
 						Save Changes
@@ -27,6 +28,7 @@ export default function FormButton<T extends FieldValues>({ reset, isPending, is
 							reset(); // reset any edit done
 							setIsEditing(false);
 						}}
+						aria-label={'Cancel Changes'}
 					>
 						Cancel
 					</Button>
@@ -38,6 +40,7 @@ export default function FormButton<T extends FieldValues>({ reset, isPending, is
 						e.preventDefault(); // to stop dispatch
 						setIsEditing(true);
 					}}
+					aria-label={'Make Changes'}
 				>
           Edit Details
         </Button>

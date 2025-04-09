@@ -6,7 +6,7 @@ export default function Sidebar() {
 	
 	return (
 		<div className={'w-64 h-full border-r border-gray-200 overflow-hidden'}>
-			<nav>
+			<nav aria-label={'Navigation Menu'}>
 				<NavItems title={'User'} navArr={userNav}/>
 				<NavItems title={role} navArr={roleNav}/>
 			</nav>

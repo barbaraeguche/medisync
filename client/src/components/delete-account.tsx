@@ -49,6 +49,7 @@ export const DeleteAccount = ({ userId, role }: {
 					className={'w-full'}
 					onClick={handleDelete}
 					variant={'destructive'}
+					aria-label={'Delete Account'}
 				>
 					Delete Account
 				</Button>

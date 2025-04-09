@@ -17,6 +17,7 @@ export default function NavItems({ title, navArr }: {
 					<NavLink
 						key={idx}
 						to={item.path}
+						aria-label={item.name}
 						className={({ isActive }) =>
 							`flex items-center px-4 py-2 text-sm font-medium rounded-md ${
 								isActive

@@ -150,6 +150,7 @@ export default function AppointmentsForm(
 			<form
 				className={'w-full'}
 				onSubmit={handleSubmit(onSubmit)}
+				aria-label={'Appointment Booking Form'}
 			>
 				<Card className={'container max-w-[700px]'}>
 					<Card.Header

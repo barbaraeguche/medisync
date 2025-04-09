@@ -14,6 +14,7 @@ export default forwardRef<HTMLInputElement, InputProps>(
 				<input
 					{...props}
 					ref={ref}
+					autoComplete={props.autoComplete ?? props.name}
 					type={isPassword && showPassword ? 'text' : props.type}
 					className={cn(
 						'w-full rounded-md p-2 border text-sm shadow-xs placeholder:text-xs placeholder:text-gray-500 ' +

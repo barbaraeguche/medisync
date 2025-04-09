@@ -18,7 +18,7 @@ export default function MedicalHistory() {
 	return (
 		<Card className={'max-w-[800px]'}>
 			<div className={'flex justify-between m-0'}>
-				<Card.Header title={'Medical History'}/>
+				<Card.Header title={medicalHistory?.length === 0 ? 'No Medical History' : 'Medical History'}/>
 				<Pagination
 					itemsPerPage={itemsPerPage}
 					currentPage={currentPage}
@@ -78,7 +78,7 @@ function Medications({ history }: {
 	history: MedicalHistoryType
 }) {
 	return (
-		<Accordion type={'single'} collapsible>
+		<Accordion type={'single'} collapsible aria-label={'Medications'}>
 			{history.medications!.map((med, idx) => (
 				<Accordion.Item
 					key={idx}

@@ -17,16 +17,12 @@ export default function EditAppointment() {
 		return (<NotFound/>);
 	}
 	
-	const handleCancel = () => {
-		navigate('/patient/appointments');
-	};
-	
 	return (
 		<AppointmentsForm
 			mode={'edit'}
-			onCancel={handleCancel}
 			data={appointmentToEdit}
 			id={appointmentToEdit._id}
+			onCancel={() => navigate(-1)}
 		/>
 	);
 }

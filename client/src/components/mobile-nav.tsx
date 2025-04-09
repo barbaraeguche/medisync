@@ -19,7 +19,7 @@ export default function MobileNav() {
 					<Menu size={24}/>
 				</Button>
 			</Sheet.Trigger>
-			<Sheet.Content aria-description={'Navigation Menu'} className={'flex flex-col justify-between h-full w-[95vw]'}>
+			<Sheet.Content aria-label={'Navigation Menu'} className={'flex flex-col justify-between h-full w-[95vw]'}>
 				<div className={'mt-7'}>
 					{/* nav seen from >= lg */}
 					<nav className={'space-y-1 px-2 py-4'}>
@@ -30,6 +30,7 @@ export default function MobileNav() {
 							return (
 								<NavLink
 									key={idx}
+									aria-label={item}
 									onClick={() => setOpen(false)}
 									to={item.toLowerCase().replace(/\s+/g, '-')}
 									className={({ isActive }) =>

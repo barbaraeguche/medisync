@@ -26,24 +26,18 @@ public class AppointmentNameService {
 	public void setAppointmentNames(List<Appointments> appointments) {
 		if (appointments != null) {
 			for (Appointments appointment : appointments) {
-				// set doctor name if not already set
-				if (appointment.getDoctorName() == null) {
-					Optional<Doctor> doctorOpt = doctorRepository.findById(appointment.getDoctorId());
-					
-					if (doctorOpt.isPresent()) {
-						User doctorUser = doctorOpt.get().getUser();
-						appointment.setDoctorName("Dr. " + doctorUser.getFirstName() + " " + doctorUser.getLastName());
-					}
+				// set doctor name
+				Optional<Doctor> doctorOpt = doctorRepository.findById(appointment.getDoctorId());
+				if (doctorOpt.isPresent()) {
+					User doctorUser = doctorOpt.get().getUser();
+					appointment.setDoctorName("Dr. " + doctorUser.getFirstName() + " " + doctorUser.getLastName());
 				}
 				
-				// set patient name if not already set
-				if (appointment.getPatientName() == null) {
-					Optional<Patient> patientOpt = patientRepository.findById(appointment.getPatientId());
-					
-					if (patientOpt.isPresent()) {
-						User patientUser = patientOpt.get().getUser();
-						appointment.setPatientName(patientUser.getFirstName() + " " + patientUser.getLastName());
-					}
+				// set patient name
+				Optional<Patient> patientOpt = patientRepository.findById(appointment.getPatientId());
+				if (patientOpt.isPresent()) {
+					User patientUser = patientOpt.get().getUser();
+					appointment.setPatientName(patientUser.getFirstName() + " " + patientUser.getLastName());
 				}
 			}
 		}
