@@ -138,8 +138,8 @@ function EntityContent({ entity, entityBenefits }: {
 		<div>
 			<h3 className={'text-2xl font-bold mb-4'}>{entity} Benefits</h3>
 			<ul className={'space-y-4'}>
-				{entityBenefits.map((pb) => (
-					<li className={'flex items-center'}>
+				{entityBenefits.map((pb, idx) => (
+					<li key={idx} className={'flex items-center'}>
 						<CheckCircle2 className={'h-6 w-6 text-primary mr-2 flex-shrink-0 mt-0.5'}/>
 						<span>{pb}</span>
 					</li>

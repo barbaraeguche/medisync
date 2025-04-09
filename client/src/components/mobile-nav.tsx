@@ -71,9 +71,9 @@ export default function MobileNav() {
 				</div>
 				
 				<div className={'px-4 pb-4 mt-auto'}>
-					<button onClick={() => setOpen(false)} className={'w-full'}>
+					<div onClick={() => setOpen(false)} className={'w-full'}>
 						{isAuthenticated ? <SignOutButton/> : <SignInButton/>}
-					</button>
+					</div>
 				</div>
 			</Sheet.Content>
 		</Sheet>

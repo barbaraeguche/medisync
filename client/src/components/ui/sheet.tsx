@@ -1,9 +1,9 @@
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { VisuallyHidden } from 'radix-ui';
 import {
 	DialogContentProps, DialogProps, DialogTriggerProps
 } from '@radix-ui/react-dialog';
 import {
-	Sheet, SheetContent, SheetDescription, SheetHeader, SheetTrigger
+	Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger
 } from '@/components/ui/shadcn/sheet';
 
 export default function CustomSheet({ children, ...props }: DialogProps) {
@@ -25,11 +25,10 @@ function CustomSheetTrigger({ children, ...props }: DialogTriggerProps) {
 function CustomSheetContent({ children, ...props }: DialogContentProps) {
 	return (
 		<SheetContent {...props}>
-			<VisuallyHidden>
-				<SheetHeader>
-					<SheetDescription>Navigation Menu Description</SheetDescription>
-				</SheetHeader>
-			</VisuallyHidden>
+			<VisuallyHidden.Root>
+				<SheetTitle/>
+				<SheetDescription/>
+			</VisuallyHidden.Root>
 			{children}
 		</SheetContent>
 	);
