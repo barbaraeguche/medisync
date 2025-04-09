@@ -5,3 +5,4 @@ export { default as Card } from '@/components/ui/card';
 export { default as Pagination } from '@/components/ui/pagination';
 export { default as Accordion } from '@/components/ui/accordion';
 export { default as Table } from '@/components/ui/table';
+export { default as Sheet } from '@/components/ui/sheet';

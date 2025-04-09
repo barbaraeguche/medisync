@@ -84,12 +84,12 @@ function Medications({ history }: {
 					key={idx}
 					value={`medication${idx}`}
 				>
-					<Accordion.Button>
+					<Accordion.Trigger>
 						<div className={'flex justify-between items-center w-full pr-4'}>
 							<span className={'font-medium'}>{med.drugName}</span>
 							<span className={'text-sm text-gray-500'}>{med.dosage}</span>
 						</div>
-          </Accordion.Button>
+          </Accordion.Trigger>
 					<Accordion.Content>
 						<div className={'grid grid-cols-2 gap-4 p-4'}>
 							<div>

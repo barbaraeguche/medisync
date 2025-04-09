@@ -39,5 +39,5 @@ function CustomAccordionContent({ children, ...props }: AccordionContentProps) {
 }
 
 CustomAccordion.Item = CustomAccordionItem;
-CustomAccordion.Button = CustomAccordionTrigger;
+CustomAccordion.Trigger = CustomAccordionTrigger;
 CustomAccordion.Content = CustomAccordionContent;

@@ -4,7 +4,7 @@ import Sidebar from '@/components/sidebar';
 export default function DashboardLayout() {
 	return (
 		<div className={'flex h-full bg-background'}>
-			<div className={'min-h-dvh'}>
+			<div className={'min-h-dvh hidden lg:block'}>
 				<Sidebar/>
 			</div>
 			<main className={'grow flex-1 overflow-y-auto mb-40'}>

@@ -2,9 +2,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { DoorClosed, DoorOpen } from 'lucide-react';
 import { logoutUser } from '@/redux/thunks/auth-thunk';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui';
 
-export const LogoutButton = () => {
+export const SignOutButton = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	
@@ -26,9 +26,10 @@ export const LogoutButton = () => {
 			variant={'ghost'}
 			aria-label={'Log out'}
 			onClick={handleLogout}
-      className={'px-3 bg-red-50 text-red-400 hover:text-red-600 hover:bg-red-100'}
+      className={'w-full px-3 bg-red-50 text-red-400 hover:text-red-600 hover:bg-red-100'}
 		>
-			<DoorOpen size={22}/>
+			<span className={'hidden lg:block'}><DoorOpen size={22}/></span>
+			<span className={'block lg:hidden'}>Sign Out</span>
 		</Button>
 	);
 };
@@ -39,9 +40,10 @@ export const SignInButton = () => {
 			<Button
 				variant={'ghost'}
 				aria-label={'Sign in'}
-				className={'px-3 hover:text-teal-600'}
+				className={'w-full px-3 hover:text-teal-600'}
 			>
-				<DoorClosed size={22}/>
+				<span className={'hidden lg:block'}><DoorClosed size={22}/></span>
+				<span className={'block lg:hidden'}>Sign In</span>
 			</Button>
 		</Link>
 	);

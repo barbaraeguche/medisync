@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Calendar, Check, Phone } from 'lucide-react';
 import { stats, services, whyChooseUs, checkUpReasons } from '@/lib/placeholders';
-import Button from '@/components/ui/button';
+import { Button } from '@/components/ui';
 
 export default function HomePage() {
 	return (
