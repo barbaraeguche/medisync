@@ -13,13 +13,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class MedicalHistoryGenerator {
+public class MedicalHistoryGeneratorService {
 	
 	private final AppointmentRepository appointmentRepository;
 	private final MedicalHistoryRepository medicalHistoryRepository;
 	
 	@Autowired
-	public MedicalHistoryGenerator(
+	public MedicalHistoryGeneratorService(
 		AppointmentRepository appointmentRepository, MedicalHistoryRepository medicalHistoryRepository
 	) {
 		this.appointmentRepository = appointmentRepository;
