@@ -4,7 +4,6 @@ import com.quantumcare.server.utilities.EntityUpdater;
 import com.quantumcare.server.models.Patient;
 import com.quantumcare.server.models.User;
 import org.springframework.stereotype.Component;
-//import com.quantumcare.server.models.helpers.MedicalHistory;
 
 import java.util.Optional;
 
@@ -19,23 +18,11 @@ public class PatientFactory {
 	
 	private Patient.HealthMetrics createHealthMetrics(Patient reqPatient) {
 		return Optional.ofNullable(reqPatient.getHealthMetrics())
-			.map((healthMetrics) -> new Patient.HealthMetrics(
-        healthMetrics.getHeight(), healthMetrics.getWeight(), healthMetrics.getHeartRate()
+			.map((metrics) -> new Patient.HealthMetrics(
+        metrics.getHeight(), metrics.getWeight(), metrics.getHeartRate()
       ))
       .orElse(new Patient.HealthMetrics());
 	}
-	
-//	public MedicalHistory createMedicalHistory() {
-//.  todo: come back here
-//	}
-//
-//	public MedicalHistory.Medications createMedications(
-//		String drugName, String dosage, String frequency, String duration
-//		) {
-//		return new MedicalHistory.Medications(
-//			drugName, dosage, frequency, duration
-//		);
-//	}
 	
 	// ---------------------------------------------------------------- //
 	

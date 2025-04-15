@@ -89,8 +89,6 @@ public class PatientService {
 		return appointmentRepository.findByPatientId(patientId);
 	}
 	
-	// todo: work on openai medical history
-	
 	public void deletePatient(UUID patientId) {
 		patientRepository.deleteById(patientId);
 	}
