@@ -17,7 +17,7 @@ export type DoctorType = z.infer<typeof doctorSchema>;
 export const educationSchema = z.object({
 	degree: z.string().min(1, { message: 'Enter your degree name' }),
 	institution: z.string().min(1, { message: 'Enter your institution name' }),
-	graduationYear: z.string().min(1, { message: 'Enter your graduation year' })
-		.optional().or(z.literal(''))
+	graduationYear: z.string().length(4, { message: 'Enter your 4-digit graduation year' })
+		.or(z.literal(''))
 });
 export type EducationType = z.infer<typeof educationSchema>;
