@@ -18,7 +18,7 @@ export default function HowItWorks() {
 			</div>
 			
 			<div className={'relative mb-20'}>
-				<div className={'absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-1 bg-primary/20 hidden md:block bg-teal-800 rounded-full'}/>
+				<div className={'absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[3px] hidden md:block bg-teal-800 rounded-full'}/>
 				<div className={'space-y-8 relative'}>
 					{steps.map((step, idx) => {
 						const Icon = step.icon;

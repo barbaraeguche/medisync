@@ -70,10 +70,10 @@ export default function Contact() {
 							<div>
 								<h3 className={'text-xl font-semibold mb-1'}>Hours of Operation</h3>
 								<p className={'text-muted-foreground mb-2'}>When you can reach our team</p>
-								<div className={'grid grid-cols-2 gap-x-4'}>
-									<div>Monday - Saturday:</div>
-									<div>8:00 AM - 8:00 PM EST</div>
-									<div>Sunday:</div>
+								<div className={'grid grid-cols-2'}>
+									<div>Weekdays:</div>
+									<div>09:00 - 20:00 EST</div>
+									<div>Weekends:</div>
 									<div>Closed</div>
 								</div>
 							</div>
