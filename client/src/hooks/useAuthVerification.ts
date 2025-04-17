@@ -22,7 +22,7 @@ export const useAuthVerification = () => {
 					// if valid, update user state with user data from response
 					dispatch(setUser(user));
 					// important: fetch role-specific data the same we do after /signin
-					doFetchAfterAuth(user);
+					await doFetchAfterAuth(user);
 				} else {
 					// if invalid, clear auth state
 					dispatch(clearAuth());

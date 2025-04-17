@@ -41,11 +41,11 @@ export interface Patient {
 	_id: string;
 	user: User;
 	dateOfBirth: string;
-	allergies?: string;
+	allergies: string;
 	bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | 'N/A';
-	insuranceProvider?: string;
-	insurancePolicyNumber?: string;
-	chronicConditions?: string;
+	insuranceProvider: string;
+	insurancePolicyNumber: string;
+	chronicConditions: string;
 	healthMetrics: {
 		height: number;
 		weight: number;
@@ -61,10 +61,10 @@ export interface Practitioner {
 	specialization: string;
 	yearsOfExperience: number;
 	languages: string;
-	education?: {
+	education: {
 		degree: string;
 		institution: string;
-		graduationYear?: string;
+		graduationYear: string;
 	};
 }
 
