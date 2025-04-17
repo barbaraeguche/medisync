@@ -39,13 +39,15 @@ export default function HomePage() {
 										Book Consultation
 									</Button>
 								</Link>
-								<Button
-									size={'lg'}
-									variant={'outline'}
-									className={'border-primary hover:bg-primary/10'}
-								>
-									Learn More
-								</Button>
+								<Link to={'/how-it-works'}>
+									<Button
+										size={'lg'}
+										variant={'outline'}
+										className={'border-primary hover:bg-primary/10'}
+									>
+										Learn More
+									</Button>
+								</Link>
 							</div>
 							<div className={'grid grid-cols-3 gap-4 pt-8'}>
 								{stats.map((stat) => (

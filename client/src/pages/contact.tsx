@@ -111,7 +111,7 @@ export default function Contact() {
 						<p className={'mb-4'}>
 							Our virtual support team is available 24/7 for urgent medical questions through our telehealth platform.
 						</p>
-						<Link to={'/auth/signin'}>
+						<Link to={'#'}>
 							<Button variant={'outline'} className={'w-full'}>
 								Log in for Support
 							</Button>
