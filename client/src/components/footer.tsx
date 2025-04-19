@@ -13,7 +13,7 @@ export default function Footer() {
 					    QuantumCare
 						</span>
 					</div>
-					<p className={'text-sm text-gray-500 dark:text-gray-400 max-w-[300px]'}>
+					<p className={'text-sm text-gray-500 max-w-[300px]'}>
 						Transforming healthcare delivery through innovative telehealth solutions.
 					</p>
 				</div>
@@ -29,7 +29,7 @@ export default function Footer() {
 									<Link
 										to={link.href}
 										key={link.title}
-										className={'text-sm text-gray-500 hover:text-teal-600 dark:text-gray-400'}
+										className={'text-sm text-gray-500 hover:text-teal-600'}
 									>
 										{link.title}
 									</Link>
@@ -41,7 +41,7 @@ export default function Footer() {
 			</div>
 			<div className={'border-t'}>
 				<div className={'container flex flex-col gap-4 py-6 md:flex-row md:items-center md:justify-between'}>
-					<p className={'text-sm text-gray-500 dark:text-gray-400'}>
+					<p className={'text-sm text-gray-500'}>
 						&copy; 2025 QuantumCare. All rights reserved.
 					</p>
 					<div className={'flex gap-4'}>
@@ -49,7 +49,7 @@ export default function Footer() {
 							<Link
 								to={`/${item.toLowerCase()}`}
 								key={item}
-								className={'text-sm text-gray-500 hover:text-teal-600 dark:text-gray-400'}
+								className={'text-sm text-gray-500 hover:text-teal-600'}
 							>
 								{item}
 							</Link>

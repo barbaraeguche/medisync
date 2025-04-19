@@ -24,7 +24,7 @@ export default function HomePage() {
 									<br/>
 									at your <i>Fingertips</i>
 								</h1>
-								<p className={'max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400'}>
+								<p className={'max-w-[600px] text-gray-500 md:text-xl'}>
 									Experience the next generation of medical care. Connect with top healthcare professionals instantly,
 									anytime, anywhere.
 								</p>
@@ -58,7 +58,7 @@ export default function HomePage() {
 										<div className={'text-3xl font-bold bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent'}>
 											{stat.value}
 										</div>
-										<p className={'text-sm text-gray-500 dark:text-gray-400'}>{stat.title}</p>
+										<p className={'text-sm text-gray-500'}>{stat.title}</p>
 									</div>
 								))}
 							</div>
@@ -76,9 +76,7 @@ export default function HomePage() {
 			</section>
 			
 			{/* services */}
-			<section id={'services'}
-			         className={'relative py-20 md:py-32'}
-			>
+			<section id={'services'} className={'relative py-20 md:py-32'}>
 				<div className={'absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background -z-10'}/>
 				<div className={'container px-4'}>
 					<div className={'flex flex-col items-center justify-center space-y-4 text-center mb-12'}>
@@ -86,7 +84,7 @@ export default function HomePage() {
 							Our Services
 						</div>
 						<h2 className={'text-3xl font-bold tracking-tighter sm:text-5xl'}>Comprehensive Care Solutions</h2>
-						<p className={'max-w-[900px] text-gray-500 md:text-xl/relaxed dark:text-gray-400'}>
+						<p className={'max-w-[900px] text-gray-500 md:text-xl/relaxed'}>
 							Expert healthcare services tailored to your needs
 						</p>
 					</div>
@@ -105,7 +103,7 @@ export default function HomePage() {
 											<Icon className={'h-6 w-6 text-teal-600'}/>
 										</div>
 										<h3 className={'text-xl font-bold'}>{service.title}</h3>
-										<p className={'text-gray-500 dark:text-gray-400'}>{service.description.min}</p>
+										<p className={'text-gray-500'}>{service.description.min}</p>
 										<Link
 											to={service.link}
 											className={'inline-flex items-center text-teal-600 hover:text-teal-600 transition-colors'}
@@ -128,7 +126,7 @@ export default function HomePage() {
 							Why Choose Quantum Care
 						</div>
 						<h2 className={'text-3xl font-bold tracking-tighter sm:text-5xl'}>Revolutionizing Healthcare Access</h2>
-						<p className={'max-w-[800px] text-gray-500 md:text-xl/relaxed dark:text-gray-400'}>
+						<p className={'max-w-[800px] text-gray-500 md:text-xl/relaxed'}>
 							Experience the future of healthcare with our cutting-edge telehealth platform
 						</p>
 					</div>
@@ -139,13 +137,13 @@ export default function HomePage() {
 							return (
 								<div
 									key={idx}
-									className={'flex flex-col items-center text-center space-y-4 p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg transition-transform hover:scale-105'}
+									className={'flex flex-col items-center text-center space-y-4 p-6 bg-white rounded-2xl shadow-lg transition-transform hover:scale-105'}
 								>
 									<div className={'p-3 bg-primary/10 rounded-full'}>
 										<Icon className={'h-8 w-8 text-teal-600'}/>
 									</div>
 									<h3 className={'text-xl font-bold'}>{reason.title}</h3>
-									<p className={'text-gray-500 dark:text-gray-400'}>{reason.description}</p>
+									<p className={'text-gray-500'}>{reason.description}</p>
 								</div>
 							);
 						})}
@@ -162,7 +160,7 @@ export default function HomePage() {
 								Health Matters
 							</div>
 							<h2 className={'text-3xl font-bold tracking-tighter sm:text-5xl'}>Why Regular Check-ups are Crucial</h2>
-							<p className={'text-gray-500 dark:text-gray-400 text-lg'}>
+							<p className={'text-gray-500 text-lg'}>
 								Regular health check-ups are essential for maintaining your well-being and catching potential issues
 								early. With QuantumCare, staying on top of your health has never been easier.
 							</p>
@@ -175,7 +173,7 @@ export default function HomePage() {
 										<div className={'shrink-0 w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center'}>
 											<Check className={'w-4 h-4 text-teal-600'}/>
 										</div>
-										<span className={'text-gray-700 dark:text-gray-300'}>{reason}</span>
+										<span className={'text-gray-700'}>{reason}</span>
 									</li>
 								))}
 							</ul>

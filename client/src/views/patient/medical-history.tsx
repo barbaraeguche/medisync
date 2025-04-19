@@ -28,7 +28,7 @@ export default function MedicalHistory() {
 			</div>
 
 			<Card.Content className={'space-y-4 overflow-y-auto'}>
-				{paginatedHistory.map((history) => (
+				{paginatedHistory.length ? paginatedHistory.map((history) => (
 					<Card
 						key={history._id}
 						className={'max-w-full bg-white border'}
@@ -68,7 +68,9 @@ export default function MedicalHistory() {
 							</div>
 						</Card.Content>
 					</Card>
-				))}
+				)) : (
+					<p className={'text-sm'}>No medical history yet.</p>
+				)}
 			</Card.Content>
 		</Card>
 	);

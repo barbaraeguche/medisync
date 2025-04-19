@@ -22,7 +22,7 @@ export const showToast = (
 			color: colorSet.text,
 			borderRadius: '10px',
 			backgroundColor: colorSet.background,
-			border: `1px dashed ${colorSet.border}`
+			border: `1px solid ${colorSet.border}`
 		}
 	});
 }

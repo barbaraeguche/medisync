@@ -55,7 +55,7 @@ public class DoctorController {
 			));
 		} catch (DataIntegrityViolationException exp) {
 			// handle unique constraint violations
-			String errorMessage = DbErrorUtils.getErrorMessage(exp);
+			String errorMessage = DbErrorUtils.getErrorMessage(exp, true);
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
 		} catch (Exception exp) {
 			return ResponseEntity.internalServerError().body("Database error. Failed to update doctor.");

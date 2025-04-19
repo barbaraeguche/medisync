@@ -2,9 +2,9 @@
 
 
 ## tech stack ✨
-- **frontend:** built with vite + react, tailwind css, framer motion, and redux for state management.
+- **frontend:** built with vite + react, tailwindcss, and redux for state management.
 - **backend:** powered by spring boot and postgresql for database management.
-- **deployment:** frontend hosted on vercel; backend deployed on render.
+- **deployment:** frontend hosted on vercel; backend deployed on aws.
 
 ## features 👾
 - **title:** description
@@ -20,7 +20,7 @@
 - tanstack table
 - pagination
 - availability form
-- string back to date without getting previous date ie parseIso date-fns
+- string back to date without getting previous date i.e., parseIso date-fns
 
 ## limitations 🚨
 - **title:** description
@@ -28,6 +28,7 @@
 ## improvements 🌱
 - **title:** description
 - add reviews for each doctor
+- AI prescribing medications based on user profile
 
 ## .env file & application.properties 📄
 

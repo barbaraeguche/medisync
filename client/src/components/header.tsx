@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Heart, UserRoundPen } from 'lucide-react';
+import { Heart, UserRound } from 'lucide-react';
 import { useAppSelector } from '@/hooks/useAppDispatch';
 import MobileNav from '@/components/mobile-nav';
 import { Button } from '@/components/ui';
-import { SignOutButton, SignInButton } from '@/ui/auth-buttons';
+import { SignOutButton } from '@/ui/auth-buttons';
 
 export default function Header() {
 	const [isMobile, setIsMobile] = useState(true);
@@ -50,7 +50,7 @@ export default function Header() {
 								</NavLink>
 							))}
 						</nav>
-						<div className={'flex items-center gap-4'}>
+						<div className={'flex items-center gap-2'}>
 							{/* appointments should only be shown to patients */}
 							{role !== 'Doctor' && (
 								<Link to={'/book-appointment'}>
@@ -59,7 +59,6 @@ export default function Header() {
 									</Button>
 								</Link>
 							)}
-							{isAuthenticated ? <SignOutButton/> : <SignInButton/>}
 							
 							{/* to profile page */}
 							<Link to={'/profile'}>
@@ -68,9 +67,12 @@ export default function Header() {
 									variant={'ghost'}
 									className={'shadow-none text-gray-600 hover:bg-gray-50 hover:text-gray-800'}
 								>
-									<UserRoundPen size={22}/>
+									<UserRound size={22}/>
 								</Button>
 							</Link>
+							
+							{/* sign out button */}
+							{isAuthenticated && <SignOutButton/>}
 						</div>
 					</>
 				)}

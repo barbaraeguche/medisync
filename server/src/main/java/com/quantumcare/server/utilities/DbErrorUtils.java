@@ -9,8 +9,12 @@ import java.util.regex.Pattern;
  * utility class for handling database errors and generating user-friendly error messages.
  */
 public class DbErrorUtils {
-	public static String getErrorMessage(DataIntegrityViolationException exp) {
+	public static String getErrorMessage(DataIntegrityViolationException exp, boolean isMakingChanges) {
 		String errorMessage = "Registration failed: ";
+		
+		if (isMakingChanges) {
+			errorMessage = "Changes failed: ";
+		}
 		
 		try {
 			if (exp.getCause() == null) return errorMessage + "Duplicate entry detected.";

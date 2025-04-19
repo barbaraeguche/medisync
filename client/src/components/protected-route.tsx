@@ -28,7 +28,7 @@ export default function ProtectedRoute({ allowedRoles, onAuthRoute = false }: {
 	
 	// no session, redirect to sign in with current location
 	if (!isAuthenticated) {
-		return <Navigate to={'/auth/signin'} replace state={{ from: location.pathname }} />
+		return <Navigate to={'/auth/signin'} replace state={{ from: location.pathname }}/>
 	}
 
 	// check if the user has permission based on their role

@@ -28,7 +28,7 @@ export default function HowItWorks() {
 								className={`flex flex-col md:flex-row gap-8 md:gap-16 items-center ${idx % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
 							>
 								<div className={'md:w-1/2 flex justify-center'}>
-									<div className={'relative z-10 bg-white dark:bg-gray-950 p-4 rounded-full'}>
+									<div className={'relative z-10 bg-white p-4 rounded-full'}>
 										<Icon className={'size-10 text-primary'}/>
 									</div>
 								</div>

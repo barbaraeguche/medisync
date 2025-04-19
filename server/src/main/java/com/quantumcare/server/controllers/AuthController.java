@@ -137,7 +137,7 @@ public class AuthController {
 			return ResponseEntity.ok(userObj);
 		} catch (DataIntegrityViolationException exp) {
 			// handle unique constraint violations
-			String errorMessage = DbErrorUtils.getErrorMessage(exp);
+			String errorMessage = DbErrorUtils.getErrorMessage(exp, false);
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
 		} catch (Exception _) {
 			return ResponseEntity.internalServerError().body("Database error. Failed to register user.");

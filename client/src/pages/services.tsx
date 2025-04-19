@@ -94,7 +94,7 @@ function ServiceList({ servicesOffered }: {
 						<div className={'shrink-0 w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center'}>
 							<Check className={'w-4 h-4 text-teal-600'}/>
 						</div>
-						<span className={'text-gray-700 dark:text-gray-300'}>{reason}</span>
+						<span className={'text-gray-700'}>{reason}</span>
 					</li>
 				))}
 			</ul>
@@ -134,7 +134,7 @@ function AllServices({ services }: {
 				<ServiceBase key={idx} title={service.title}>
 					<ServiceIcon icon={service.icon}/>
 					<h3 className={'text-xl font-bold mt-4'}>{service.title}</h3>
-					<p className={'text-gray-500 dark:text-gray-400 mt-4 mb-6'}>{service.description.exp}</p>
+					<p className={'text-gray-500 mt-4 mb-6'}>{service.description.exp}</p>
 					
 					<ServiceList servicesOffered={service.servicesOffered}/>
 					<ServiceCTAButton/>
@@ -153,7 +153,7 @@ function SingleService({ service }: {
 					<div>
 						<ServiceIcon icon={service.icon}/>
 						<h3 className={'text-xl font-bold mt-4'}>{service.title}</h3>
-						<p className={'text-gray-500 dark:text-gray-400 mt-4 mb-6'}>{service.description.exp}</p>
+						<p className={'text-gray-500 mt-4 mb-6'}>{service.description.exp}</p>
 					</div>
 					<div>
 						<ServiceList servicesOffered={service.servicesOffered}/>

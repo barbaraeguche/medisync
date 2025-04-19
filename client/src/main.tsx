@@ -15,7 +15,7 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <StrictMode>
         <OneTimeBanner/>
-        <Toaster position={'top-center'}/>
+        <Toaster position={'top-right'}/>
         <ScrollToTop/>
         <Provider store={store}>
           <App/>
