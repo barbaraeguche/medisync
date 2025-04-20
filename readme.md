@@ -1,5 +1,7 @@
-# quantum care 🩺 
-
+# quantumcare 🩺
+a comprehensive healthcare management platform designed to streamline the interaction between patients and healthcare 
+providers. the system features appointment scheduling, secure authentication, prescription management, and role-based 
+access for patients, doctors, and administrators.
 
 ## tech stack ✨
 - **frontend:** built with vite + react, tailwindcss, and redux for state management.
@@ -7,31 +9,55 @@
 - **deployment:** frontend hosted on vercel; backend deployed on aws.
 
 ## features 👾
-- **title:** description
+- **appointment booking system:** schedule and manage healthcare appointments with preferred doctors.
+- **secure authentication:** role-based access control with jwt token implementation.
+- **comprehensive security:** spring security implementation with proper authorization flows.
+- **account management:** complete user lifecycle including account creation and deletion.
+- **centralized state management:** redux implementation for consistent application state.
+- **appointment tracking:** detailed history of past and upcoming medical visits.
+- **automated scheduling:** system triggers to free up appointments when doctor availability changes and mark past appointments as completed.
+- **prescription management:** medication system with follow-up logic (50% chance for regular appointments, 100% for emergency cases).
+
 
 ## challenges faced 💢
-- **title:** description
-- getting zod to validate an optional number input
+- **complex form validation:** implementing zod validation for optional numerical inputs in appointment forms.
+- **reusable component architecture:** creating the `EditableForm` components to prevent repetitive state management.
+- **security configuration:** establishing proper spring security setup with jwt authentication.
+- **multi-role data access:** implementing appropriate permissions for admin, patient, and doctor roles.
+- **sensitive data protection:** ensuring medical information is properly secured and accessed only by authorized users.
 
 ## what I learned 💭
-- **title:** description
-- react hook forms
-- custom input wrapper to display label, input field and error
-- tanstack table
-- pagination
-- availability form
-- string back to date without getting previous date i.e., parseIso date-fns
+- **advanced form handling:** implementing react hook forms with comprehensive validation.
+- **ui component architecture:** building custom input wrappers for consistent interface elements.
+- **data table implementation:** integrating tanstack table with shadcn.
+- **efficient data loading:** creating pagination systems for handling large datasets.
+- **date handling techniques:** properly using `parseIso` from date-fns to avoid timezone issues.
+- **global state architecture:** implementing redux for application-wide state management.
+- **ui library customization:** adapting shadcn components to match project requirements.
+- **role-based authorization:** managing different user types with appropriate access controls.
+- **api security implementation:** configuring spring boot security for protected endpoints.
 
 ## limitations 🚨
-- **title:** description
+- **static medication database:** medications are pre-defined rather than dynamically sourced.
+- **limited authentication options:** no support for third-party providers like github or google.
+- **basic analytics capabilities:** minimal reporting tools for administrative oversight.
+- **notification system constraints:** lack of real-time alerts for appointments and updates.
+- **isolated ecosystem:** no integration with external healthcare information systems.
 
 ## improvements 🌱
-- **title:** description
-- add reviews for each doctor
-- AI prescribing medications based on user profile
+- **doctor review system:** implement a rating and feedback mechanism for healthcare providers.
+- **ai-powered recommendations:** develop intelligent medication suggestions based on patient profiles.
+- **communication platform:** add real-time messaging between patients and medical staff.
+- **mobile application support:** create native mobile experiences for ios and android.
+- **telehealth integration:** implement video consultation capabilities for remote appointments.
+- **expanded analytics dashboard:** develop comprehensive reporting tools for administrators.
+- **health record integration:** connect with external electronic health record systems.
+- **appointment optimization:** implement intelligent scheduling based on doctor availability patterns.
 
 ## .env file & application.properties 📄
-
+this project requires `.env` files for both the server and client, located in their respective folders. rename the 
+`.env.example` file in each folder to `.env`, and update it with the necessary values. ensure these files are 
+configured properly and not committed to version control.
 
 ## running the project 🏁
 to get the project up and running on your local machine, follow these steps:
@@ -52,14 +78,13 @@ cd quantumcare
    ```bash
    cd server
    ```
-   2. **install and activate virtual environment:**
+   2. **build the project with maven wrapper:**
    ```bash
-   python3 -m venv venv
-   source ./venv/bin/activate
+   ./mvnw clean compile install
    ```
-   3. **run the flask app:**
+   3. **run the spring boot application:**
    ```bash
-   python3 app.py
+   ./mvnw spring-boot:run
    ```
    4. open [http://localhost:8080](http://localhost:8080) with your browser.
 

@@ -91,6 +91,7 @@ public class DbSchemaInitializer {
 					"  where " +
 					"    status = 'Scheduled' " +
 					"    and date < current_date; " +
+					"  return new; " +
 					"end; " +
 					"$$ language plpgsql;"
 			);

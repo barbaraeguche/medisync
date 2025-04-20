@@ -14,8 +14,8 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "patients")
 @RequiredArgsConstructor
+@Table(name = "patients")
 public class Patient {
 	
 	@Id
