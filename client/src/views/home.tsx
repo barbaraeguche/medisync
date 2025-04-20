@@ -64,11 +64,11 @@ export default function HomePage() {
 							</div>
 						</div>
 						<div className={'relative lg:mt-0'}>
-							<div className={'absolute inset-0 bg-gradient-to-tr from-primary to-teal-600 rounded-full blur-3xl opacity-20'}/>
+							<div className={'absolute inset-0 bg-gradient-to-tr from-primary to-teal-600 rounded-2xl blur-2xl opacity-20 transform rotate-3'}/>
 							<img
-								src={'/placeholder.svg?height=600&width=600'}
+								src={'/home-hero.jpg'}
 								alt={'Telehealth consultation'}
-								className={'relative rounded-2xl object-cover shadow-2xl'}
+								className={'relative rounded-2xl object-cover shadow-2xl grayscale h-[500px] w-dvw'}
 							/>
 						</div>
 					</div>
@@ -189,9 +189,9 @@ export default function HomePage() {
 						<div className={'lg:w-1/2 relative'}>
 							<div className={'absolute inset-0 bg-gradient-to-tr from-primary to-teal-600 rounded-2xl blur-2xl opacity-20 transform rotate-3'}/>
 							<img
-								src={'/placeholder.svg?height=600&width=600'}
+								src={'/home-health.jpg'}
 								alt={'Doctor consultation'}
-								className={'relative rounded-2xl object-cover shadow-2xl'}
+								className={'relative rounded-2xl object-cover shadow-2xl grayscale h-[500px] w-dvw'}
 							/>
 						</div>
 					</div>

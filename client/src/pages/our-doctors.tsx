@@ -27,8 +27,8 @@ export default function OurDoctors() {
 				<div className={'grid md:grid-cols-2 lg:grid-cols-3 gap-8'}>
 					{visibleBoardDoctors.map((doctor, idx) => (
 						<Card key={idx} className={'overflow-hidden'}>
-							<div className={'relative h-64'}>
-								<img alt={doctor.name} src={doctor.image} className={'object-cover'}/>
+							<div className={'relative h-fit'}>
+								<img alt={doctor.name} src={doctor.image} className={'object-cover object-top h-[290px] w-dvw'}/>
 							</div>
 							
 							<div className={'flex justify-between items-start'}>

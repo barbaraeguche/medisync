@@ -8,12 +8,12 @@ export default function AboutUs() {
 				</p>
 			</div>
 			
-			<div className={'grid md:grid-cols-2 gap-12 items-center mb-16'}>
-				<div className={'relative h-[500px] rounded-lg overflow-hidden'}>
+			<div className={'grid lg:grid-cols-2 gap-12 items-center mb-16'}>
+				<div className={'relative h-fit rounded-lg overflow-hidden'}>
 					<img
-						src={'/placeholder.svg?height=500&width=600'}
+						src={'/about-brain.jpg'}
 						alt={'QuantumCare Mission'}
-						className={'object-cover'}
+						className={'object-cover shadow-xl lg:grayscale h-[550px]'}
 					/>
 				</div>
 				

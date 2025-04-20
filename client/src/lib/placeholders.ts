@@ -204,7 +204,7 @@ export const boardDoctors = [
 	{
 		name: 'Dr. Sarah Johnson',
 		specialty: 'Cardiology',
-		image: '/placeholder.svg?height=300&width=300',
+		image: '/board-doctors/sarah-johnson.jpg',
 		rating: 4.9,
 		reviewCount: 127,
 		education: 'Harvard Medical School',
@@ -215,7 +215,7 @@ export const boardDoctors = [
 	{
 		name: 'Dr. Michael Chen',
 		specialty: 'General Medicine',
-		image: '/placeholder.svg?height=300&width=300',
+		image: '/board-doctors/michael-chen.jpg',
 		rating: 4.8,
 		reviewCount: 203,
 		education: 'Johns Hopkins University',
@@ -226,7 +226,7 @@ export const boardDoctors = [
 	{
 		name: 'Dr. Amara Patel',
 		specialty: 'Neurology',
-		image: '/placeholder.svg?height=300&width=300',
+		image: '/board-doctors/amara-patel.jpg',
 		rating: 4.9,
 		reviewCount: 156,
 		education: 'Stanford University',
@@ -237,7 +237,7 @@ export const boardDoctors = [
 	{
 		name: 'Dr. James Wilson',
 		specialty: 'Pulmonology',
-		image: '/placeholder.svg?height=300&width=300',
+		image: '/board-doctors/james-wilson.jpg',
 		rating: 4.7,
 		reviewCount: 118,
 		education: 'Yale School of Medicine',
@@ -248,7 +248,7 @@ export const boardDoctors = [
 	{
 		name: 'Dr. Maria Rodriguez',
 		specialty: 'Pediatrics',
-		image: '/placeholder.svg?height=300&width=300',
+		image: '/board-doctors/maria-rodriguez.jpg',
 		rating: 4.9,
 		reviewCount: 215,
 		education: 'University of California, San Francisco',
@@ -259,7 +259,7 @@ export const boardDoctors = [
 	{
 		name: 'Dr. Robert Kim',
 		specialty: 'Dermatology',
-		image: '/placeholder.svg?height=300&width=300',
+		image: '/board-doctors/robert-kim.jpg',
 		rating: 4.8,
 		reviewCount: 142,
 		education: 'Columbia University',
@@ -270,7 +270,7 @@ export const boardDoctors = [
 	{
 		name: 'Dr. Emily Taylor',
 		specialty: 'Psychiatry',
-		image: '/placeholder.svg?height=300&width=300',
+		image: '/board-doctors/emily-taylor.jpg',
 		rating: 4.9,
 		reviewCount: 189,
 		education: 'University of Pennsylvania',
@@ -281,7 +281,7 @@ export const boardDoctors = [
 	{
 		name: 'Dr. David Nguyen',
 		specialty: 'Ophthalmology',
-		image: '/placeholder.svg?height=300&width=300',
+		image: '/board-doctors/david-nguyen.jpg',
 		rating: 4.7,
 		reviewCount: 131,
 		education: 'Duke University',

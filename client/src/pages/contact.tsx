@@ -81,11 +81,11 @@ export default function Contact() {
 					</div>
 				</div>
 				
-				<div className={'relative h-[400px] rounded-lg overflow-hidden'}>
+				<div className={'relative h-[550px] rounded-lg overflow-hidden'}>
 					<img
-						src={'/placeholder.svg?height=400&width=600'}
+						src={'/hospital-building.jpg'}
 						alt={'QuantumCare Office Location'}
-						className={'relative rounded-2xl object-cover shadow-2xl'}
+						className={'relative rounded-2xl object-fill shadow-2xl -translate-y-20 md:-translate-y-0 lg:-translate-y-20'}
 					/>
 					<div className={'absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end'}>
 						<div className={'p-6 text-white'}>
