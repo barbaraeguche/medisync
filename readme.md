@@ -106,3 +106,5 @@ cd quantumcare
    4. open [http://localhost:5173](http://localhost:5173/) with your browser to see the result.
 
 ## preview 📸
+**erd diagram:**
+![quantumcare](https://github.com/user-attachments/assets/fb58831e-8119-4b5c-8dc7-849fc4d97030)
