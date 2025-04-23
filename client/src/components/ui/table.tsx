@@ -29,7 +29,7 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
 	            className={'bg-inherit hover:bg-inherit'}
 						>
 							{headerGroup.headers.map((header) => (
-								<TableHead key={header.id}>
+								<TableHead key={header.id} className={'whitespace-nowrap'}>
 									{header.isPlaceholder
 										? null
 										: flexRender(

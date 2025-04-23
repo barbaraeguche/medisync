@@ -38,9 +38,9 @@ export const SignInButton = () => {
 	return (
 		<Link to={'/auth/signin'}>
 			<Button
-				variant={'ghost'}
+				variant={'form'}
 				aria-label={'Sign in'}
-				className={'w-full px-3 hover:text-teal-600'}
+				className={'w-full px-3 text-teal-600'}
 			>
 				<span className={'hidden lg:block'}><DoorClosed size={22}/></span>
 				<span className={'block lg:hidden'}>Sign In</span>
