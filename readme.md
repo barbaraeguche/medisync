@@ -23,6 +23,7 @@ access for patients, doctors, and administrators.
 - **complex form validation:** implementing zod validation for optional numerical inputs in appointment forms.
 - **reusable component architecture:** creating the `EditableForm` components to prevent repetitive state management.
 - **security configuration:** establishing proper spring security setup with jwt authentication.
+- **environment configuration:** integrating `.env` file into `.yml` file with spring boot.
 - **multi-role data access:** implementing appropriate permissions for admin, patient, and doctor roles.
 - **sensitive data protection:** ensuring medical information is properly secured and accessed only by authorized users.
 
