@@ -4,6 +4,7 @@ import com.quantumcare.server.security.JwtAuthorizationFilter;
 import com.quantumcare.server.services.UserService;
 import com.quantumcare.server.utilities.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -29,6 +30,9 @@ import java.util.List;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
+	
+	@Value("${frontend.url}")
+	private String frontendUrl;
 	
 	private final JwtUtils jwtUtils;
 	
@@ -77,7 +81,7 @@ public class WebSecurityConfig {
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		
-		corsConfiguration.setAllowedOrigins(List.of("http://localhost:5173/")); //todo: vercel frontend to be loaded from environment
+		corsConfiguration.setAllowedOrigins(List.of(frontendUrl, "http://localhost:5173/")); //todo: vercel frontend to be loaded from environment
 		corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
 		corsConfiguration.setAllowCredentials(true);

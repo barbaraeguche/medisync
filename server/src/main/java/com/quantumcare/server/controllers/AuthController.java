@@ -75,7 +75,7 @@ public class AuthController {
 			
 			// set the token as an HTTP-only cookie
 			Cookie jwtCookie = JwtCookies.createCookie("token", token);
-			JwtCookies.setCookieAttr(jwtCookie, 3600);
+			JwtCookies.setCookieAttr(jwtCookie, null);
 			response.addCookie(jwtCookie);
 			
 			// return user details (without the password)
@@ -127,7 +127,7 @@ public class AuthController {
 			
 			// set the token as an HTTP-only cookie
 			Cookie jwtCookie = JwtCookies.createCookie("token", token);
-			JwtCookies.setCookieAttr(jwtCookie, 3600);
+			JwtCookies.setCookieAttr(jwtCookie, null);
 			response.addCookie(jwtCookie);
 			
 			// return user details (without the password)
