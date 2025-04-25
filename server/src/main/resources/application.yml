@@ -1,5 +1,5 @@
 server:
-  port: ${PORT}
+  port: ${SPRING_PORT}
 
 spring:
   application:
@@ -7,12 +7,9 @@ spring:
 
   # database
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-#    url: jdbc:postgresql://localhost:5433/quantumcare
-#    username: postgres
-#    password: p3ac3123.
+    url: jdbc:postgresql://${SPRING_DS_HOSTNAME}:${SPRING_DS_PORT}/${SPRING_DS_DBNAM}
+    username: ${SPRING_DS_USERNAME}
+    password: ${SPRING_DS_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   # hibernate configuration (JPA)
