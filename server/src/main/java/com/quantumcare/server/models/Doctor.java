@@ -36,13 +36,13 @@ public class Doctor {
 	@NotNull(message = "Practitioner details must be provided")
 	private Practitioner practitioner;
 	
-	@ElementCollection
 	@OrderBy("date, startTime, endTime")
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "availabilities", joinColumns = @JoinColumn(name = "doctor_id"))
 	private List<Availabilities> availabilities;
 	
 	@OrderBy("date, time")
-	@OneToMany(mappedBy = "doctorId", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "doctorId", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Appointments> appointments;
 	
 	

@@ -52,11 +52,11 @@ public class Patient {
 	private HealthMetrics healthMetrics;
 	
 	@OrderBy("diagnosisDate desc")
-	@OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "patientId", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MedicalHistory> medicalHistory;
 	
 	@OrderBy("date, time")
-	@OneToMany(mappedBy = "patientId", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "patientId", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Appointments> appointments;
 	
 	
