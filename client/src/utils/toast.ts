@@ -18,6 +18,8 @@ export const showToast = (
 	toast[type === 'fulfilled' ? 'success' : 'error'](message, {
 		duration: 3_500,
 		style: {
+			width: '100vw',
+			maxWidth: '550px',
 			fontSize: 'small',
 			color: colorSet.text,
 			borderRadius: '10px',
