@@ -1,4 +1,4 @@
-# Stage 1: Build
+# stage 1: build
 FROM openjdk:23-jdk AS build
 WORKDIR /app
 
@@ -7,9 +7,11 @@ COPY mvnw .
 COPY .mvn .mvn
 COPY src src
 
+# make sure .env.properties exists for the build
+RUN touch src/main/resources/.env.properties
 RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
-# Stage 2: Runtime
+# stage 2: runtime
 FROM openjdk:23-jdk-slim
 WORKDIR /app
 
