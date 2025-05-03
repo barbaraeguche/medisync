@@ -98,28 +98,33 @@ public class AuthController {
 			User createdUser;
 			
 			// register based on the chosen role
-			if ("Doctor".equals(role)) {
-				Doctor doctor = objectMapper.convertValue(registerRequest, Doctor.class);
-				User userAsDoctor = doctor.getUser();
-				
-				// hash the password before storing, and create the doctor record
-				userAsDoctor.setPassword(passwordEncoder.encode(userAsDoctor.getPassword()));
-				createdUser = doctorService.postDoctor(doctor).getUser();
-			} else if ("Patient".equals(role)) {
-				Patient patient = objectMapper.convertValue(registerRequest, Patient.class);
-        User userAsPatient = patient.getUser();
-        
-        // hash the password before storing, and create the patient record
-        userAsPatient.setPassword(passwordEncoder.encode(userAsPatient.getPassword()));
-        createdUser =  patientService.postPatient(patient).getUser();
-			} else if ("Admin".endsWith(role)) {
-				User user = objectMapper.convertValue(registerRequest, User.class);
-				
-				// hash the password before storing, and create the admin record
-				user.setPassword(passwordEncoder.encode(user.getPassword()));
-				createdUser = userService.postUser(user);
-			} else {
-				return ResponseEntity.badRequest().body("Invalid role specified");
+			switch (role) {
+				case "Doctor" -> {
+					Doctor doctor = objectMapper.convertValue(registerRequest, Doctor.class);
+					User userAsDoctor = doctor.getUser();
+					
+					// hash the password before storing, and create the doctor record
+					userAsDoctor.setPassword(passwordEncoder.encode(userAsDoctor.getPassword()));
+					createdUser = doctorService.postDoctor(doctor).getUser();
+				}
+				case "Patient" -> {
+					Patient patient = objectMapper.convertValue(registerRequest, Patient.class);
+					User userAsPatient = patient.getUser();
+					
+					// hash the password before storing, and create the patient record
+					userAsPatient.setPassword(passwordEncoder.encode(userAsPatient.getPassword()));
+					createdUser = patientService.postPatient(patient).getUser();
+				}
+				case "Admin" -> {
+					User user = objectMapper.convertValue(registerRequest, User.class);
+					
+					// hash the password before storing, and create the admin record
+					user.setPassword(passwordEncoder.encode(user.getPassword()));
+					createdUser = userService.postUser(user);
+				}
+				case null, default -> {
+					return ResponseEntity.badRequest().body("Invalid role specified");
+				}
 			}
 			
 			// generate JWT token
