@@ -1,6 +1,5 @@
 server:
   port: ${SPRING_PORT}
-#  forward-headers-strategy: native
 
 spring:
   application:
