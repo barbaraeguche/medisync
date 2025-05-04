@@ -32,7 +32,7 @@ spring:
 
   # env properties
   config:
-    import: classpath:.env.properties # ensure the .env stays in the resources folder
+    import: optional:classpath:.env.properties # ensure the .env stays in the resources folder
 
 # jwt configuration
 jwt:

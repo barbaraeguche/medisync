@@ -43,11 +43,11 @@ public class PatientController {
 		@PathVariable UUID id, @Valid @RequestBody Appointments appointment
 	) {
 		try {
-			Patient patient = patientService.getPatientById(id);
-			Appointments currAppointment = patientService.postAppointment(patient, appointment);
+			Patient patient = getPatientById(id);
+			List<Appointments> currAppointments = patientService.postAppointment(patient.get_id(), appointment);
 			
 			return ResponseEntity.ok(Map.of(
-				"appointment", currAppointment,
+				"appointment", currAppointments,
 				"message", "Appointment created successfully"
 			));
 		} catch (Exception _) {
@@ -84,8 +84,8 @@ public class PatientController {
 		@PathVariable UUID id, @Valid @RequestBody Appointments appointment
 	) {
 		try {
-			Patient patient = patientService.getPatientById(id);
-			List<Appointments> currAppointments = patientService.putAppointment(patient, appointment);
+			Patient patient = getPatientById(id);
+			List<Appointments> currAppointments = patientService.putAppointment(patient.get_id(), appointment);
 			
 			return ResponseEntity.ok(Map.of(
 				"appointment", currAppointments,
@@ -96,12 +96,14 @@ public class PatientController {
 		}
 	}
 	
-	@DeleteMapping("/{patientId}/appointment/{aptId}")
+	@DeleteMapping("/{id}/appointment/{aptId}")
 	public ResponseEntity<?> deleteAppointment(
-		@PathVariable UUID patientId, @PathVariable Long aptId
+		@PathVariable UUID id, @PathVariable Long aptId
 	) {
 		try {
-			List<Appointments> currAppointments = patientService.deleteAppointment(patientId, aptId);
+			Patient patient = getPatientById(id);
+			List<Appointments> currAppointments = patientService.deleteAppointment(patient.get_id(), aptId);
+			
 			return ResponseEntity.ok(Map.of(
 				"appointment", currAppointments,
 				"message", "Appointment deleted successfully"
@@ -114,7 +116,8 @@ public class PatientController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletePatient(@PathVariable UUID id) {
 		try {
-			patientService.deletePatient(id);
+			Patient patient = getPatientById(id);
+			patientService.deletePatient(patient.get_id());
 			return ResponseEntity.ok("Patient deleted successfully");
 		} catch (Exception _) {
 			return ResponseEntity.internalServerError().body("Database error. Failed to delete patient.");

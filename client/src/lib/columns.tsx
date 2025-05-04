@@ -66,7 +66,7 @@ patientApptColumns.splice(patientApptColumns.length, 0,
 					{upcomingAppointment && (
 						<div className={'flex gap-x-1 items-center'}>
 							<EditAppointment id={_id}/>
-							<DeleteAppointment id={_id}/>
+							<DeleteAppointment aptId={_id}/>
 						</div>
 					)}
 				</>

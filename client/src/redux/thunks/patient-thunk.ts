@@ -92,11 +92,11 @@ export const saveAppointment = createAsyncThunk(
 export const deleteAppointment = createAsyncThunk(
   'patient/deleteAppointment',
   async (
-    { patientId, aptId } : { patientId: string, aptId: number },
+    { id, aptId } : { id: string, aptId: number },
     { rejectWithValue }
   ) => {
     try {
-      const { appointment, message } = (await apiClient.delete(`${patientPath}/${patientId}/appointment/${aptId}`)).data;
+      const { appointment, message } = (await apiClient.delete(`${patientPath}/${id}/appointment/${aptId}`)).data;
       showToast(message, 'fulfilled');
       return appointment;
     } catch (err: any) {

@@ -35,11 +35,15 @@ public class PatientService {
 		this.appointmentNameService = appointmentNameService;
   }
 	
+	private void setAppointmentNameService(List<Appointments> appointments) {
+		appointmentNameService.setAppointmentNames(appointments);
+	}
+	
 	public Patient getPatientById(UUID id) {
 		Patient patient = patientRepository.findById(id).orElse(null);
 		
 		if (patient != null) {
-			appointmentNameService.setAppointmentNames(patient.getAppointments());
+			setAppointmentNameService(patient.getAppointments());
     }
 		return patient;
   }
@@ -48,7 +52,7 @@ public class PatientService {
 		List<Patient> patients = patientRepository.findAll();
 		
 		for (Patient patient : patients) {
-			appointmentNameService.setAppointmentNames(patient.getAppointments());
+			setAppointmentNameService(patient.getAppointments());
 		}
 		return patients;
 	}
@@ -61,10 +65,15 @@ public class PatientService {
 		return patientRepository.save(patient);
 	}
 	
-	public Appointments postAppointment(Patient reqPatient, Appointments reqAppointments) {
-		reqPatient.getAppointments().add(reqAppointments);
-		patientRepository.save(reqPatient);
-		return reqAppointments;
+	public List<Appointments> postAppointment(UUID patientId, Appointments reqAppointments) {
+		appointmentRepository.save(reqAppointments);
+		
+		// set the doctor and patient names
+		List<Appointments> appointments = appointmentRepository.findByPatientId(patientId);
+		setAppointmentNameService(appointments);
+		
+		// return all appointments
+		return appointments;
 	}
 	
 	public Patient putPatient(Patient prevPatient, Patient currPatient) {
@@ -72,14 +81,15 @@ public class PatientService {
     return patientRepository.save(prevPatient);
   }
 	
-	public List<Appointments> putAppointment(Patient reqPatient, Appointments reqAppointments) {
-		List<Appointments> appointments = reqPatient.getAppointments();
+	@Transactional
+	public List<Appointments> putAppointment(UUID patientId, Appointments reqAppointments) {
+		// remove appointment from table itself
+		appointmentRepository.deleteById(reqAppointments.get_id());
+		// set the appointment id to null
+		reqAppointments.set_id(null);
 		
-		// remove old appointment if exists
-		appointments.removeIf((apt) -> apt.get_id().equals(reqAppointments.get_id()));
-		appointments.add(reqAppointments);
-		
-		return patientRepository.save(reqPatient).getAppointments();
+		// return all remaining appointments for the patient
+		return postAppointment(patientId, reqAppointments);
 	}
 	
 	public List<Appointments> deleteAppointment(UUID patientId, Long reqAptId) {

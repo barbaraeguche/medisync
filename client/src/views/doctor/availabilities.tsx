@@ -26,7 +26,8 @@ export default function Availabilities() {
 	
 	const isSubmitting = status === 'pending';
 	
-	const [availability, setAvailability] = useState<WeekAvailability>(() => {
+	// create the initial availability state
+	const createInitialAvailability = () => {
 		const initial: WeekAvailability = {};
 		
 		date.forEach((day) => {
@@ -47,7 +48,29 @@ export default function Availabilities() {
 		});
 		
 		return initial;
-	});
+	};
+	
+	const [initialAvailability] = useState<WeekAvailability>(createInitialAvailability);
+	const [availability, setAvailability] = useState<WeekAvailability>(createInitialAvailability);
+	
+	// check if there are any changes compared to initial state
+	const hasChanges = () => {
+		for (const date in availability) {
+			// check if the date exists in both objects
+			if (!initialAvailability[date]) {
+				return true;
+			}
+			
+			for (const timeSlot in availability[date]) {
+				if (availability[date][timeSlot] != initialAvailability[date][timeSlot]) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	};
+	
 	
 	const handleCheckChange = (date: string, timeSlot: string) => {
 		setAvailability((prev) => ({
@@ -120,9 +143,9 @@ export default function Availabilities() {
 			<Card.Footer>
 				<Button
 					onClick={handleSave}
-					disabled={isSubmitting}
 					className={'mt-5 w-full'}
 					aria-label={'Save Availability'}
+					disabled={isSubmitting || !hasChanges()}
 				>
 					{isSubmitting && <Spinner/>}
 					Save Availability

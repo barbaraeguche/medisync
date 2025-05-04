@@ -6,18 +6,15 @@ access for patients, doctors, and administrators.
 ## tech stack ✨
 - **frontend:** built with vite + react, tailwindcss, and redux for state management.
 - **backend:** powered by spring boot and postgresql for database management.
-- **deployment:** frontend hosted on vercel; backend deployed on aws.
+- **deployment:** frontend hosted on vercel; backend deployed on render.
 
 ## features 👾
 - **appointment booking system:** schedule and manage healthcare appointments with preferred doctors.
-- **secure authentication:** role-based access control with jwt token implementation.
-- **comprehensive security:** spring security implementation with proper authorization flows.
-- **account management:** complete user lifecycle including account creation and deletion.
+- **secure authentication and access control:** spring security with jwt-based roles, full authorization flow, and complete user account lifecycle.
 - **centralized state management:** redux implementation for consistent application state.
 - **appointment tracking:** detailed history of past and upcoming medical visits.
 - **automated scheduling:** system triggers to free up appointments when doctor availability changes and mark past appointments as completed.
 - **prescription management:** medication system with follow-up logic (50% chance for regular appointments, 100% for emergency cases).
-
 
 ## challenges faced 💢
 - **complex form validation:** implementing zod validation for optional numerical inputs in appointment forms.
@@ -25,16 +22,13 @@ access for patients, doctors, and administrators.
 - **security configuration:** establishing proper spring security setup with jwt authentication.
 - **environment configuration:** integrating `.env` file into `.yml` file with spring boot.
 - **multi-role data access:** implementing appropriate permissions for admin, patient, and doctor roles.
-- **sensitive data protection:** ensuring medical information is properly secured and accessed only by authorized users.
 
 ## what I learned 💭
 - **advanced form handling:** implementing react hook forms with comprehensive validation.
-- **ui component architecture:** building custom input wrappers for consistent interface elements.
 - **data table implementation:** integrating tanstack table with shadcn.
 - **efficient data loading:** creating pagination systems for handling large datasets.
 - **date handling techniques:** properly using `parseIso` from date-fns to avoid timezone issues.
 - **global state architecture:** implementing redux for application-wide state management.
-- **ui library customization:** adapting shadcn components to match project requirements.
 - **role-based authorization:** managing different user types with appropriate access controls.
 - **api security implementation:** configuring spring boot security for protected endpoints.
 
@@ -46,7 +40,6 @@ access for patients, doctors, and administrators.
 - **isolated ecosystem:** no integration with external healthcare information systems.
 
 ## improvements 🌱
-- **doctor review system:** implement a rating and feedback mechanism for healthcare providers.
 - **ai-powered recommendations:** develop intelligent medication suggestions based on patient profiles.
 - **communication platform:** add real-time messaging between patients and medical staff.
 - **mobile application support:** create native mobile experiences for ios and android.
@@ -57,8 +50,8 @@ access for patients, doctors, and administrators.
 
 ## .env file & application.properties 📄
 this project requires `.env` files for both the server and client, located in their respective folders. rename the 
-`.env.example` file in each folder to `.env`, and update it with the necessary values. ensure these files are 
-configured properly and not committed to version control.
+`.env.example` (or `.env.properties.example`) file in each folder by removing the `.example` suffix, and update it with 
+the necessary values. ensure these files are configured properly and not committed to version control.
 
 ## running the project 🏁
 to get the project up and running on your local machine, follow these steps:

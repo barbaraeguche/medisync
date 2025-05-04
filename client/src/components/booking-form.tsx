@@ -139,6 +139,7 @@ export default function AppointmentsForm(
 					patientId: patient._id
 				}
 			}));
+			if (onCancel) onCancel();
 		}
 		
 		// re-fetch the doctor's list and clear status
@@ -147,126 +148,127 @@ export default function AppointmentsForm(
 	};
 
 	return (
-		<div className={'flex items-center justify-center min-h-screen'}>
 			<form
-				className={'w-full'}
+				className={clsx(
+					'', {
+						'flex items-center justify-center px-2 py-10': isBooking
+					}
+				)}
 				onSubmit={handleSubmit(onSubmit)}
 				aria-label={'Appointment Booking Form'}
-			>
-				<Card className={'container max-w-[700px]'}>
-					<Card.Header
-						title={isBooking ? 'Book an Appointment' : 'Edit Appointment'}
-						description={isBooking
-							? 'Select a doctor, date, and time for your appointment'
-							: 'Update your appointment details'
-						}
+		>
+			<Card className={clsx(
+				'max-w-[700px]', {
+					'container': isBooking
+				}
+			)}>
+				<Card.Header
+					title={isBooking ? 'Book an Appointment' : 'Edit Appointment'}
+					description={isBooking
+						? 'Select a doctor, date, and time for your appointment'
+						: 'Update your appointment details'
+					}
+				/>
+
+				<Card.Content>
+					{/* doctor */}
+					<Select
+						conf={{
+							label: 'Preferred Doctor',
+							placeholder: 'Select a doctor'
+						}}
+						name={'doctorId'}
+						control={control}
+						options={doctorOptions}
+						error={errors.doctorId}
 					/>
 
-					<Card.Content>
-						{/* doctor */}
+					{/* date */}
+					<Select
+						disabled={!doctorId}
+						conf={{
+							label: 'Preferred Date',
+							placeholder: 'Select a date'
+						}}
+						name={'date'}
+						control={control}
+						options={dateOptions}
+						error={errors.date}
+					/>
+
+					{/* time */}
+					<Select
+						disabled={!apptDate}
+						conf={{
+							label: 'Preferred Time',
+							placeholder: 'Select a time'
+						}}
+						name={'time'}
+						control={control}
+						options={timeOptions}
+						error={errors.time}
+					/>
+
+					{/* type */}
+					<Select
+						conf={{
+							label: 'Appointment Type',
+							placeholder: 'Choose a type'
+						}}
+						name={'type'}
+						control={control}
+						options={appointmentTypeOptions}
+						error={errors.type}
+					/>
+
+					{/* status - only show in edit mode */}
+					{!isBooking && (
 						<Select
 							conf={{
-								label: 'Preferred Doctor',
-								placeholder: 'Select a doctor'
+								label: 'Appointment Status',
+								placeholder: 'Choose a status'
 							}}
-							name={'doctorId'}
+							name={'status'}
 							control={control}
-							options={doctorOptions}
-							error={errors.doctorId}
+							options={appointmentStatusOptions}
+							error={errors.status}
 						/>
+					)}
 
-						{/* date */}
-						<Select
-							disabled={!doctorId}
-							conf={{
-								label: 'Preferred Date',
-								placeholder: 'Select a date'
+					{/* note to doctor */}
+					<InputWrapper
+						{...register('noteToDoctor')}
+						conf={{
+							label: 'Additional Notes (Optional)',
+							placeholder: 'Anything you want your doctor to know?'
+						}}
+						name={'notes'}
+						error={errors.noteToDoctor}
+					/>
+				</Card.Content>
+				
+				<Card.Footer className={'flex flex-col gap-2 sm:flex-row sm:justify-end mt-5'}>
+					<Button
+						type={'submit'}
+						disabled={isSubmitting}
+						className={isBooking ? 'w-full' : ''}
+					>
+						{isSubmitting && <Spinner/>}
+						{isBooking ? 'Book Appointment' : 'Save Appointment'}
+					</Button>
+					{!isBooking && onCancel && (
+						<Button
+							variant={'outline'}
+							onClick={() => {
+								reset();
+								onCancel();
 							}}
-							name={'date'}
-							control={control}
-							options={dateOptions}
-							error={errors.date}
-						/>
-
-						{/* time */}
-						<Select
-							disabled={!apptDate}
-							conf={{
-								label: 'Preferred Time',
-								placeholder: 'Select a time'
-							}}
-							name={'time'}
-							control={control}
-							options={timeOptions}
-							error={errors.time}
-						/>
-
-						{/* type */}
-						<Select
-							conf={{
-								label: 'Appointment Type',
-								placeholder: 'Choose a type'
-							}}
-							name={'type'}
-							control={control}
-							options={appointmentTypeOptions}
-							error={errors.type}
-						/>
-
-						{/* status - only show in edit mode */}
-						{!isBooking && (
-							<Select
-								conf={{
-									label: 'Appointment Status',
-									placeholder: 'Choose a status'
-								}}
-								name={'status'}
-								control={control}
-								options={appointmentStatusOptions}
-								error={errors.status}
-							/>
-						)}
-
-						{/* note to doctor */}
-						<InputWrapper
-							{...register('noteToDoctor')}
-							conf={{
-								label: 'Additional Notes (Optional)',
-								placeholder: 'Anything you want your doctor to know?'
-							}}
-							name={'notes'}
-							error={errors.noteToDoctor}
-						/>
-					</Card.Content>
-
-					<Card.Footer>
-						<div className={'flex flex-col gap-2 sm:flex-row sm:justify-end'}>
-							<Button
-								type={'submit'}
-								disabled={isSubmitting}
-								className={clsx(
-									'mt-5 w-full',
-									{ 'w-fit': !isBooking }
-								)}
-							>
-								{isSubmitting && <Spinner/>}
-								{isBooking ? 'Book Appointment' : 'Edit Appointment'}
-							</Button>
-						</div>
-						{!isBooking && onCancel && (
-							<Button
-								variant={'outline'}
-								onClick={() => {
-									reset();
-									onCancel();
-								}}
-							>
-								Cancel Changes
-							</Button>
-						)}
-					</Card.Footer>
-				</Card>
-			</form>
-		</div>
+						>
+							Cancel Changes
+						</Button>
+					)}
+				</Card.Footer>
+			</Card>
+		</form>
 	);
 }

@@ -19,8 +19,8 @@ export const EditAppointment = ({ id }: {
 	);
 };
 
-export const DeleteAppointment = ({ id }: {
-	id: number
+export const DeleteAppointment = ({ aptId }: {
+	aptId: number
 }) => {
 	const dispatch = useAppDispatch();
 	
@@ -29,8 +29,8 @@ export const DeleteAppointment = ({ id }: {
 	
 	const handleDelete = async () => {
 		await dispatch(deleteAppointment({
-			patientId: _id,
-      aptId: id
+			id: _id,
+      aptId: aptId
 		}));
 		dispatch(resetStatus());
 	};

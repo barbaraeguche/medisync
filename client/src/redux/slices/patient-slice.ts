@@ -49,8 +49,8 @@ const patientSlice = createSlice({
 			})
 			
 			// createAppointment
-			.addCase(createAppointment.fulfilled, (state, action: PayloadAction<Appointments>) => {
-				(state.patient.appointments ??= []).push(action.payload);
+			.addCase(createAppointment.fulfilled, (state, action: PayloadAction<Appointments[]>) => {
+				state.patient.appointments = action.payload;
 			})
 			
 			// saveAppointment
