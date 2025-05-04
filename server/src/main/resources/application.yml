@@ -12,6 +12,14 @@ spring:
     password: ${SPRING_DS_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
+    hikari:
+      max-lifetime: 300000
+      connection-test-query: select 1
+      minimum-idle: 5
+      maximum-pool-size: 15
+      idle-timeout: 120000
+      leak-detection-threshold: 60000
+
   # hibernate configuration (JPA)
   jpa:
     hibernate:
