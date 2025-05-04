@@ -22,6 +22,6 @@ public final class JwtCookies {
 		cookieAttr.setSecure(true);
 		cookieAttr.setHttpOnly(true);
 		cookieAttr.setMaxAge(maxAge == null ? jwtTokenValidity : maxAge);
-		cookieAttr.setAttribute("SameSite", "Strict");
+		cookieAttr.setAttribute("SameSite", "None");
 	}
 }
