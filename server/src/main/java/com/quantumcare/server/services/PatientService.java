@@ -95,6 +95,7 @@ public class PatientService {
 		return postAppointment(patientId, reqAppointments);
 	}
 	
+	@Transactional
 	public List<Appointments> deleteAppointment(UUID patientId, Long reqAptId) {
 		// remove appointment from table itself
 		appointmentRepository.deleteById(reqAptId);
