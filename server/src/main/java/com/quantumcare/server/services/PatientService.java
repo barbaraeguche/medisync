@@ -39,6 +39,14 @@ public class PatientService {
 		appointmentNameService.setAppointmentNames(appointments);
 	}
 	
+	private List<Appointments> fetchAndUpdateAppointmentNames(UUID patientId) {
+		// set the doctor and patient names
+		List<Appointments> appointments = appointmentRepository.findByPatientId(patientId);
+		setAppointmentNameService(appointments);
+		
+		return appointments;
+	}
+	
 	public Patient getPatientById(UUID id) {
 		Patient patient = patientRepository.findById(id).orElse(null);
 		
@@ -67,13 +75,8 @@ public class PatientService {
 	
 	public List<Appointments> postAppointment(UUID patientId, Appointments reqAppointments) {
 		appointmentRepository.save(reqAppointments);
-		
-		// set the doctor and patient names
-		List<Appointments> appointments = appointmentRepository.findByPatientId(patientId);
-		setAppointmentNameService(appointments);
-		
 		// return all appointments
-		return appointments;
+		return fetchAndUpdateAppointmentNames(patientId);
 	}
 	
 	public Patient putPatient(Patient prevPatient, Patient currPatient) {
@@ -96,7 +99,7 @@ public class PatientService {
 		// remove appointment from table itself
 		appointmentRepository.deleteById(reqAptId);
 		// return all remaining appointments for the patient
-		return appointmentRepository.findByPatientId(patientId);
+		return fetchAndUpdateAppointmentNames(patientId);
 	}
 	
 	public void deletePatient(UUID patientId) {
