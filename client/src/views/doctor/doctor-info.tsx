@@ -58,7 +58,6 @@ function RoleInfo({ doctor }: {
 	
 	return (
 		<EditableForm
-			slice={'doctor'}
 			fields={doctorFields}
 			schema={doctorSchema}
 			onSubmit={handleSubmit}
@@ -101,7 +100,6 @@ function Education({ doctor }: {
 	
 	return (
 		<EditableForm
-			slice={'doctor'}
 			title={'Education'}
 			onSubmit={handleSubmit}
 			fields={educationFields}

@@ -13,6 +13,7 @@ import {
 	appointmentStatusOptions, appointmentTypeOptions, EEEE_MMM_dd_yyyy
 } from '@/utils/constants';
 import InputWrapper from '@/components/input-wrapper';
+import Spinner from '@/components/spinner';
 import { Button, Card, Select } from '@/components/ui';
 
 interface AppointmentFormProps {
@@ -30,19 +31,19 @@ export default function AppointmentsForm(
 	const dispatch = useAppDispatch();
 	const { doctors } = useAppSelector((state) => state.doctorSlice);
 	const { patient } = useAppSelector((state) => state.patientSlice);
-
+	
 	useEffect(() => {
 		dispatch(fetchDoctors());
 	}, [dispatch]);
 
 	const {
-		register, handleSubmit, formState: { errors }, control, watch, resetField, reset
+		register, handleSubmit, formState: { errors, isSubmitting }, control, watch, resetField, reset
 	} = useForm<AppointmentType>({
 		resolver: zodResolver(appointmentSchema),
 		reValidateMode: 'onBlur',
 		values: data
 	})
-
+	
 	const [doctorId, apptDate] = watch(['doctorId', 'date']);
 
 	useEffect(() => {
@@ -141,7 +142,7 @@ export default function AppointmentsForm(
 		}
 		
 		// re-fetch the doctor's list and clear status
-		dispatch(fetchDoctors());
+		await dispatch(fetchDoctors());
 		dispatch(resetStatus());
 	};
 
@@ -242,11 +243,13 @@ export default function AppointmentsForm(
 						<div className={'flex flex-col gap-2 sm:flex-row sm:justify-end'}>
 							<Button
 								type={'submit'}
+								disabled={isSubmitting}
 								className={clsx(
 									'mt-5 w-full',
 									{ 'w-fit': !isBooking }
 								)}
 							>
+								{isSubmitting && <Spinner/>}
 								{isBooking ? 'Book Appointment' : 'Edit Appointment'}
 							</Button>
 						</div>

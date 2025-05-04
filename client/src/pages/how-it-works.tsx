@@ -168,6 +168,7 @@ function PatientTab() {
 				<EntityContent entity={'Patient'} entityBenefits={patientBenefits}/>
 				<div className={'relative h-[400px] rounded-lg overflow-hidden'}>
 					<img
+						loading={'lazy'}
 						src={'/how-patients.jpg'}
 						alt={'Patient using telehealth service'}
 						className={'relative object-cover shadow-2xl -translate-y-52'}
@@ -191,6 +192,7 @@ function DoctorTab() {
 			<div className={'grid md:grid-cols-2 gap-8 items-center'}>
 				<div className={'order-2 md:order-1 relative h-[400px] rounded-lg overflow-hidden'}>
 					<img
+						loading={'lazy'}
 						src={'/how-doctors.jpg'}
 						alt={'Doctor using telehealth service'}
 						className={'relative object-cover shadow-2xl'}

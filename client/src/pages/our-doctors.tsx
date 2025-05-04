@@ -28,7 +28,12 @@ export default function OurDoctors() {
 					{visibleBoardDoctors.map((doctor, idx) => (
 						<Card key={idx} className={'overflow-hidden'}>
 							<div className={'relative h-fit'}>
-								<img alt={doctor.name} src={doctor.image} className={'object-cover object-top h-[290px] w-dvw'}/>
+								<img
+									loading={'eager'}
+									alt={doctor.name}
+									src={doctor.image}
+									className={'object-cover object-top h-[290px] w-dvw'}
+								/>
 							</div>
 							
 							<div className={'flex justify-between items-start'}>

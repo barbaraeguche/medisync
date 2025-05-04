@@ -50,7 +50,6 @@ export default function UserInfo() {
 	
 	return (
 		<EditableForm
-			slice={'user'}
 			fields={userFields}
 			initialValues={user}
 			onSubmit={handleSubmit}

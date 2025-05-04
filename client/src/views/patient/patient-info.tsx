@@ -68,7 +68,6 @@ function RoleInfo({ patient }: {
 	
 	return (
 		<EditableForm
-			slice={'patient'}
 			fields={roleFields}
 			onSubmit={handleSubmit}
 			initialValues={patient}
@@ -115,7 +114,6 @@ function HealthMetrics({ patient }: {
 	
 	return (
 		<EditableForm
-			slice={'patient'}
 			fields={metricsFields}
 			onSubmit={handleSubmit}
 			title={'Health Metrics'}

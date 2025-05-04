@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { signInUser } from '@/redux/thunks/auth-thunk';
 import { resetStatus } from '@/redux/slices/user-slice';
 import InputWrapper from '@/components/input-wrapper';
+import Spinner from '@/components/spinner';
 import { ServerError } from '@/components/errors/error-messages';
 import { Button, Card } from '@/components/ui';
 
@@ -20,7 +21,7 @@ export default function SignInForm() {
 	}, [dispatch]);
 	
 	const {
-    register, handleSubmit, formState: { errors }
+    register, handleSubmit, formState: { errors, isSubmitting }
   } = useForm<LoginType>({
     resolver: zodResolver(loginSchema),
 		reValidateMode: 'onBlur'
@@ -66,7 +67,9 @@ export default function SignInForm() {
 					<Button
 						type={'submit'}
 						className={'w-full'}
+						disabled={isSubmitting}
 					>
+						{isSubmitting && <Spinner/>}
 						Sign in
 					</Button>
 					

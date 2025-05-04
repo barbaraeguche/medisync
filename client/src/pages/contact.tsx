@@ -83,6 +83,7 @@ export default function Contact() {
 				
 				<div className={'relative h-[550px] rounded-lg overflow-hidden'}>
 					<img
+						loading={'lazy'}
 						src={'/hospital-building.jpg'}
 						alt={'QuantumCare Office Location'}
 						className={'relative rounded-2xl object-fill shadow-2xl -translate-y-20 md:-translate-y-0 lg:-translate-y-20'}

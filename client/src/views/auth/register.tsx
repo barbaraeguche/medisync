@@ -12,6 +12,7 @@ import {
 	genderOptions, roleOptions, bloodTypeOptions
 } from '@/utils/constants';
 import InputWrapper from '@/components/input-wrapper';
+import Spinner from '@/components/spinner';
 import { ServerError } from '@/components/errors/error-messages';
 import { Button, Card, Select } from '@/components/ui';
 import { Entity } from '@/lib/types';
@@ -28,7 +29,7 @@ export default function RegisterForm() {
 	}, [dispatch]);
 	
 	const {
-		register, handleSubmit, formState: { errors }, control, watch, trigger
+		register, handleSubmit, formState: { errors, isSubmitting }, control, watch, trigger
 	} = useForm<RegisterType>({
 		resolver: zodResolver(registerSchema),
 		reValidateMode: 'onBlur'
@@ -226,7 +227,7 @@ export default function RegisterForm() {
 							/>
 							
 							{/* navigation buttons */}
-							<PrevConfirmButtons prevClick={prevStep}/>
+							<PrevConfirmButtons prevClick={prevStep} isSubmitting={isSubmitting}/>
 						</>
 					)}
 					
@@ -280,7 +281,7 @@ export default function RegisterForm() {
 							/>
 							
 							{/* navigation buttons */}
-							<PrevConfirmButtons prevClick={prevStep}/>
+							<PrevConfirmButtons prevClick={prevStep} isSubmitting={isSubmitting}/>
 						</>
 					)}
 					
@@ -306,8 +307,9 @@ export default function RegisterForm() {
 	);
 }
 
-function PrevConfirmButtons({ prevClick }: {
-	prevClick: () => void
+function PrevConfirmButtons({ prevClick, isSubmitting }: {
+	prevClick: () => void,
+	isSubmitting: boolean
 }) {
 	return (
 		<div className={'flex justify-between'}>
@@ -321,6 +323,7 @@ function PrevConfirmButtons({ prevClick }: {
 				type={'submit'}
 				className={'mt-2 w-1/3'}
 			>
+				{isSubmitting && <Spinner/>}
 				Create Account
 			</Button>
 		</div>

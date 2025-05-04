@@ -1,12 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { DoorClosed, DoorOpen } from 'lucide-react';
 import { logoutUser } from '@/redux/thunks/auth-thunk';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { Button } from '@/components/ui';
 
 export const SignOutButton = () => {
-	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	
+	const dispatch = useAppDispatch();
+	const status = useAppSelector((state) => state.userSlice.status);
 	
 	const handleLogout = async () => {
 		try {
@@ -26,6 +28,7 @@ export const SignOutButton = () => {
 			variant={'ghost'}
 			aria-label={'Log out'}
 			onClick={handleLogout}
+			disabled={status === 'pending'}
       className={'w-full px-3 bg-red-50 text-red-400 hover:text-red-600 hover:bg-red-100'}
 		>
 			<span className={'hidden lg:block'}><DoorOpen size={22}/></span>

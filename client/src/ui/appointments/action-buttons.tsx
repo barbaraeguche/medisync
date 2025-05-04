@@ -23,7 +23,9 @@ export const DeleteAppointment = ({ id }: {
 	id: number
 }) => {
 	const dispatch = useAppDispatch();
+	
 	const { _id } = useAppSelector((state) => state.userSlice.user);
+	const status = useAppSelector((state) => state.patientSlice.status);
 	
 	const handleDelete = async () => {
 		await dispatch(deleteAppointment({
@@ -36,6 +38,7 @@ export const DeleteAppointment = ({ id }: {
 	return (
 		<button
 			onClick={handleDelete}
+			disabled={status === 'pending'}
 			aria-label={'Delete Appointment'}
 			className={'p-2 rounded-md text-red-400 hover:bg-red-100 hover:text-red-800 cursor-pointer'}
 		>

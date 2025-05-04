@@ -50,7 +50,6 @@ function ChangeEmail({ user }: {
 	
 	return (
 		<EditableForm
-			slice={'user'}
 			fields={emailField}
 			initialValues={user}
 			title={'Change Email'}
@@ -87,7 +86,6 @@ function ChangePhoneNumber({ user }: {
 	
 	return (
 		<EditableForm
-			slice={'user'}
 			onSubmit={handleSubmit}
 			fields={phoneNumberField}
 			initialValues={formatUser}
@@ -127,7 +125,6 @@ function ChangePassword({ user }: {
 	
 	return (
 		<EditableForm
-			slice={'user'}
 			fields={passwordFields}
 			onSubmit={handleSubmit}
 			title={'Change Password'}

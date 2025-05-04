@@ -11,6 +11,7 @@ export default function AboutUs() {
 			<div className={'grid lg:grid-cols-2 gap-12 items-center mb-16'}>
 				<div className={'relative h-fit rounded-lg overflow-hidden'}>
 					<img
+						loading={'lazy'}
 						src={'/about-brain.jpg'}
 						alt={'QuantumCare Mission'}
 						className={'object-cover shadow-xl lg:grayscale h-[550px]'}

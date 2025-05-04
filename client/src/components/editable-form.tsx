@@ -6,11 +6,9 @@ import { FieldConfig } from '@/lib/types';
 import InputWrapper from '@/components/input-wrapper';
 import FormButton from '@/components/form-button';
 import { Card, Select } from '@/components/ui';
-import { useRequestStatus } from '@/hooks/useRequestStatus';
 
 interface EditableFormProps<T extends Record<string, any>> {
 	title: string;
-	slice: 'user' | 'doctor' | 'patient';
 	initialValues?: T;
 	schema: ZodSchema;
 	fields: FieldConfig[];
@@ -19,24 +17,26 @@ interface EditableFormProps<T extends Record<string, any>> {
 }
 
 export default function EditableForm<T extends Record<string, any>>(
-	{ title, slice, initialValues, schema, fields, onSubmit, readOnlyFields = [] }: EditableFormProps<T>
+	{ title, initialValues, schema, fields, onSubmit, readOnlyFields = [] }: EditableFormProps<T>
 ) {
-	const isPending = useRequestStatus(slice);
 	const { isEditing, setIsEditing } = useEditableState();
 	
 	const {
-		register, handleSubmit, formState: { errors, isDirty }, control, reset
+		register, handleSubmit, formState: {
+			errors, isDirty, isSubmitting
+		}, control, reset
 	} = useForm<T>({
 		resolver: zodResolver(schema),
 		reValidateMode: 'onBlur',
 		values: initialValues
 	});
 	
-	const formSubmit: SubmitHandler<T> = (data) => {
-		if (isDirty) {
-			onSubmit(data);
-			reset();
-		}
+	const formSubmit: SubmitHandler<T> = async (data) => {
+		if (!isDirty) return;
+		
+		// if any changes were made
+		await onSubmit(data);
+		reset(data);
 		setIsEditing(false);
 	};
 	
@@ -82,8 +82,8 @@ export default function EditableForm<T extends Record<string, any>>(
 				<Card.Footer>
 					<FormButton<T>
 						reset={reset}
-						isPending={isPending}
 						isEditing={isEditing}
+						isPending={isSubmitting}
 						setIsEditing={setIsEditing}
 					/>
 				</Card.Footer>

@@ -65,7 +65,6 @@ function Address({ user }: {
 	
 	return (
 		<EditableForm
-			slice={'user'}
 			title={'Address'}
 			fields={addressFields}
 			schema={addressSchema}
@@ -108,7 +107,6 @@ function EmergencyContact({ user }: {
 	
 	return (
 		<EditableForm
-			slice={'user'}
 			fields={contactFields}
 			onSubmit={handleSubmit}
 			title={'Emergency Contact'}

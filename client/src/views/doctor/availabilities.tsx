@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { saveAvailability } from '@/redux/thunks/doctor-thunk';
 import { resetStatus } from '@/redux/slices/doctor-slice';
 import { getCurrentWeek } from '@/utils/utils';
+import Spinner from '@/components/spinner';
 import { Button, Card } from '@/components/ui';
 
 interface DayAvailability {
@@ -21,7 +22,9 @@ const timeSlots = [
 
 export default function Availabilities() {
 	const dispatch = useAppDispatch();
-	const { doctor } = useAppSelector((state) => state.doctorSlice);
+	const { doctor, status } = useAppSelector((state) => state.doctorSlice);
+	
+	const isSubmitting = status === 'pending';
 	
 	const [availability, setAvailability] = useState<WeekAvailability>(() => {
 		const initial: WeekAvailability = {};
@@ -117,8 +120,11 @@ export default function Availabilities() {
 			<Card.Footer>
 				<Button
 					onClick={handleSave}
+					disabled={isSubmitting}
 					className={'mt-5 w-full'}
+					aria-label={'Save Availability'}
 				>
+					{isSubmitting && <Spinner/>}
 					Save Availability
 				</Button>
 			</Card.Footer>
