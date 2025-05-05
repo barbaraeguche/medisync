@@ -105,8 +105,12 @@ cd quantumcare
 
 **admin:**
 
+https://github.com/user-attachments/assets/6d892c71-632d-4178-a24c-0f29ef2fad37
 
 **doctor:**
 
+https://github.com/user-attachments/assets/ba343ab8-980f-49dc-af28-3c59ac552649
 
 **patient:**
+
+https://github.com/user-attachments/assets/d73ac358-862a-42b8-becc-9f5730fd3eb6
