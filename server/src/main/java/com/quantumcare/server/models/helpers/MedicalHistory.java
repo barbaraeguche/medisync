@@ -29,8 +29,15 @@ public class MedicalHistory {
 	@NonNull
 	private LocalDate diagnosisDate;
 	
-	@ElementCollection
-	@CollectionTable(name = "medications", joinColumns = @JoinColumn(name = "medical_history_id"))
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(
+		name = "medications",
+		joinColumns = @JoinColumn(name = "medical_history_id"),
+		foreignKey = @ForeignKey(
+			name = "fk_medications_medical_history",
+			foreignKeyDefinition = "foreign key (medical_history_id) references medical_history(_id) on delete cascade"
+		)
+	)
 	private List<Medications> medications;
 	
 	

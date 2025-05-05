@@ -51,7 +51,7 @@ public class Patient {
 	@Embedded
 	private HealthMetrics healthMetrics;
 	
-	@OrderBy("diagnosisDate desc")
+	@OrderBy("diagnosisDate desc, _id")
 	@OneToMany(mappedBy = "patientId", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MedicalHistory> medicalHistory;
 	

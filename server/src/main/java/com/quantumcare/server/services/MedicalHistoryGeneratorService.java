@@ -45,10 +45,10 @@ public class MedicalHistoryGeneratorService {
 	);
 	
 	/**
-	 * this scheduled task runs every night at 12 AM to generate medical history
+	 * this scheduled task runs every night at 21:00 to generate medical history
 	 * for new appointments that meet the criteria.
 	 */
-		@Scheduled(cron = "0 59 20 * * *")
+		@Scheduled(cron = "0 0 21 * * *")
 		public void generateMedicalHistoriesForAppointments() {
 			// find all scheduled appointments that don't have medical history yet
 			List<Appointments> appointments = appointmentRepository.findByStatusAndCurrentDate(Appointments.Status.Scheduled);

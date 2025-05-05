@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * component that creates case-insensitive indexes for email and license number fields,
- * sets up triggers for appointment cancellation on doctor availability changes, and
- * deletes doctor availabilities less than 2 weeks old.
  * this runs after application initialization to ensure the database has the proper constraints.
  */
 @Component
@@ -21,12 +19,6 @@ public class DbSchemaInitializer {
     this.jdbcTemplate = jdbcTemplate;
   }
 	
-	/**
-	 * create case-insensitive functional indexes and appointment triggers after application startup.
-	 * - for emails: convert to lowercase when storing to ensure case-insensitive uniqueness
-	 * - for license numbers: preserve original case but enforce case-insensitive uniqueness
-	 * - for appointments: cancel them when doctor availability changes
-	 */
 	@PostConstruct
 	public void createFunctionalIndexes() {
 		try {
@@ -77,83 +69,6 @@ public class DbSchemaInitializer {
 					"after insert on availabilities " +
 					"for each row " +
 					"execute function cancel_conflicting_appointments();"
-			);
-			
-			// create function to mark past appointments as completed
-			jdbcTemplate.execute(
-				"create or replace function mark_completed_appointments() " +
-					"returns trigger as $$ " +
-					"begin " +
-					"  /* update status to 'Completed' for any scheduled appointments that have passed */ " +
-					"  update appointments " +
-					"  set " +
-					"    status = 'Completed' " +
-					"  where " +
-					"    status = 'Scheduled' " +
-					"    and date < current_date; " +
-					"  return new; " +
-					"end; " +
-					"$$ language plpgsql;"
-			);
-			
-			// create a function to delete old availabilities
-			jdbcTemplate.execute(
-				"create or replace function delete_old_availabilities() " +
-					"returns void as $$ " +
-					"begin " +
-					"  /* delete availabilities older than 3 days */ " +
-					"  delete from availabilities " +
-					"  where date < current_date - interval '3 days'; " +
-					"end; " +
-					"$$ language plpgsql;"
-			);
-			
-			// create a function to delete old appointments
-			jdbcTemplate.execute(
-				"create or replace function delete_old_appointments() " +
-					"returns void as $$ " +
-					"begin " +
-					"  /* delete appointments older than 30 days */ " +
-					"  delete from appointments " +
-					"  where date < current_date - interval '30 days'; " +
-					"end; " +
-					"$$ language plpgsql;"
-			);
-			
-			// create a function to delete old medical histories
-			jdbcTemplate.execute(
-				"create or replace function delete_old_medical_history() " +
-					"returns void as $$ " +
-					"begin " +
-					"  /* delete medical histories older than 2 weeks */ " +
-					"  delete from medical_history " +
-					"  where diagnosis_date < current_date - interval '2 weeks'; " +
-					"end; " +
-					"$$ language plpgsql;"
-			);
-			
-			
-			/* ----------------------------- SCHEDULES -----------------------------    */
-			// use pg_cron extension to run every 2 weeks
-			jdbcTemplate.execute(
-				"create extension if not exists pg_cron;"
-			);
-			
-			// schedule the function to run every midnight
-			jdbcTemplate.execute(
-				"select cron.schedule('mark-completed-appointments-job', '0 0 * * *', $$select mark_completed_appointments();$$);"
-			);
-			// schedule the function to run every week
-			jdbcTemplate.execute(
-				"select cron.schedule('delete-old-availabilities-job', '59 23 * * 0', $$select delete_old_availabilities();$$);"
-			);
-			// schedule the function to run every week
-			jdbcTemplate.execute(
-				"select cron.schedule('delete-old-appointments-job', '59 23 * * 0', $$select delete_old_appointments();$$);"
-			);
-			// schedule the function to run every week
-			jdbcTemplate.execute(
-				"select cron.schedule('delete-old-medical-history-job', '59 23 * * 0', $$select delete_old_medical_history();$$);"
 			);
 		} catch (Exception _) {}
 	}
