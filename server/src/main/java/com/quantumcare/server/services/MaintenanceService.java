@@ -33,7 +33,7 @@ public class MaintenanceService {
 	 * deletes availabilities older than 3 days.
 	 * runs weekly on sunday at 23:59.
 	 */
-	@Scheduled(cron = "0 59 23 * * 0")
+	@Scheduled(cron = "0 59 23 ? * SUN")
 	public void deleteOldAvailabilities() {
 		jdbcTemplate.execute(
 			"delete from availabilities avail " +
@@ -45,7 +45,7 @@ public class MaintenanceService {
 	 * deletes appointments older than 30 days.
 	 * runs weekly on sunday at 23:59.
 	 */
-	@Scheduled(cron = "0 59 23 * * 0")
+	@Scheduled(cron = "0 59 23 ? * SUN")
 	public void deleteOldAppointments() {
 		jdbcTemplate.execute(
 			"delete from appointments appt " +
@@ -57,7 +57,7 @@ public class MaintenanceService {
 	 * deletes medical histories older than 2 weeks.
 	 * runs weekly on sunday at 23:59.
 	 */
-	@Scheduled(cron = "0 59 23 * * 0")
+	@Scheduled(cron = "0 59 23 ? * SUN")
 	public void deleteOldMedicalHistory() {
 		jdbcTemplate.execute(
 			"delete from medical_history " +
