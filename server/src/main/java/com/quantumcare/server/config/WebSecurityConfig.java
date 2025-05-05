@@ -52,6 +52,10 @@ public class WebSecurityConfig {
 			.authorizeHttpRequests((requests) ->
 				requests
 					.requestMatchers("/").permitAll()
+					
+					// cron.org ping check
+					.requestMatchers("/api/health").permitAll()
+					
 					// auth endpoints
 					.requestMatchers("/api/auth/**").permitAll()
 					.requestMatchers("/error").permitAll()
