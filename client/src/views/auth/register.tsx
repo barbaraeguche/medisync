@@ -321,6 +321,7 @@ function PrevConfirmButtons({ prevClick, isSubmitting }: {
 			</Button>
 			<Button
 				type={'submit'}
+				disabled={isSubmitting}
 				className={'mt-2 w-1/3'}
 			>
 				{isSubmitting && <Spinner/>}

@@ -1,7 +1,7 @@
 # quantumcare 🩺
-a comprehensive healthcare management platform designed to streamline the interaction between patients and healthcare 
-providers. the system features appointment scheduling, secure authentication, prescription management, and role-based 
-access for patients, doctors, and administrators.
+a comprehensive healthcare management platform designed to manage patient appointments and doctor schedules. the system
+features appointment scheduling, secure authentication, prescription management, and role-based access for patients, 
+doctors, administrators, and cron scheduling.
 
 ## tech stack ✨
 - **frontend:** built with vite + react, tailwindcss, and redux for state management.
@@ -102,3 +102,11 @@ cd quantumcare
 ## preview 📸
 **erd diagram:**
 ![quantumcare](https://github.com/user-attachments/assets/fb58831e-8119-4b5c-8dc7-849fc4d97030)
+
+**admin:**
+
+
+**doctor:**
+
+
+**patient:**

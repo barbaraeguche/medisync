@@ -31,11 +31,11 @@ export default function EditableForm<T extends Record<string, any>>(
 		values: initialValues
 	});
 	
-	const formSubmit: SubmitHandler<T> = async (data) => {
+	const formSubmit: SubmitHandler<T> = (data) => {
 		if (!isDirty) return;
 		
 		// if any changes were made
-		await onSubmit(data);
+		onSubmit(data);
 		reset(data);
 		setIsEditing(false);
 	};
