@@ -124,7 +124,7 @@ export default function HomePage() {
 				<div className={'container px-4'}>
 					<div className={'flex flex-col items-center justify-center space-y-4 text-center mb-12'}>
 						<div className={'inline-block rounded-full bg-teal-600/10 px-4 py-1.5 text-sm font-medium text-teal-600'}>
-							Why Choose Quantum Care
+							Why Choose MediSync
 						</div>
 						<h2 className={'text-3xl font-bold tracking-tighter sm:text-5xl'}>Revolutionizing Healthcare Access</h2>
 						<p className={'max-w-[800px] text-gray-500 md:text-xl/relaxed'}>
@@ -163,7 +163,7 @@ export default function HomePage() {
 							<h2 className={'text-3xl font-bold tracking-tighter sm:text-5xl'}>Why Regular Check-ups are Crucial</h2>
 							<p className={'text-gray-500 text-lg'}>
 								Regular health check-ups are essential for maintaining your well-being and catching potential issues
-								early. With QuantumCare, staying on top of your health has never been easier.
+								early. With MediSync, staying on top of your health has never been easier.
 							</p>
 							<ul className={'space-y-4'}>
 								{checkUpReasons.map((reason, idx) => (

@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: quantumcare-server
+    name: medisync-server
 
   # database
   datasource:

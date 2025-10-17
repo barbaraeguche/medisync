@@ -29,7 +29,7 @@ export default function Header() {
 				>
 					<Heart className={'size-6 text-teal-600 animate-pulse'}/>
 					<span className={'text-xl font-bold bg-gradient-to-r from-primary to-teal-600 bg-clip-text text-transparent'}>
-						QuantumCare
+						MediSync
 					</span>
 				</Link>
 				

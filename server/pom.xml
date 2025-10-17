@@ -8,10 +8,10 @@
     <version>3.4.1</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
-  <groupId>com.quantumcare</groupId>
+  <groupId>com.medisync</groupId>
   <artifactId>server</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>quantumcare</name>
+  <name>medisync</name>
   <description>a healthcare appointment management system built with react(vite) &amp; spring boot.</description>
   <url/>
   <licenses>

@@ -16,7 +16,7 @@ export default function Services() {
 			<div className={'text-center mb-16'}>
 				<h1 className={'text-4xl font-bold mb-4 tracking-tighter'}>Our Medical Services</h1>
 				<p className={'text-xl text-muted-foreground max-w-3xl mx-auto'}>
-					Quantum Care offers a comprehensive range of telehealth services across multiple specialties, providing quality
+					MediSync offers a comprehensive range of telehealth services across multiple specialties, providing quality
 					healthcare from the comfort of your home.
 				</p>
 			</div>

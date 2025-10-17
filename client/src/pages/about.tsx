@@ -2,7 +2,7 @@ export default function AboutUs() {
 	return (
 		<div className={'container mx-auto py-16 px-4'}>
 			<div className={'text-center mb-16'}>
-				<h1 className={'text-4xl font-bold mb-4 tracking-tighter'}>About QuantumCare</h1>
+				<h1 className={'text-4xl font-bold mb-4 tracking-tighter'}>About MediSync</h1>
 				<p className={'text-xl text-muted-foreground max-w-3xl mx-auto'}>
 					Revolutionizing healthcare through technology and compassion
 				</p>
@@ -13,7 +13,7 @@ export default function AboutUs() {
 					<img
 						loading={'lazy'}
 						src={'/about-brain.jpg'}
-						alt={'QuantumCare Mission'}
+						alt={'MediSync Mission'}
 						className={'object-cover shadow-xl lg:grayscale h-[550px]'}
 					/>
 				</div>
@@ -25,7 +25,7 @@ export default function AboutUs() {
 							Our Mission
 						</h2>
 						<p className={'text-md'}>
-							At QuantumCare, our mission is to democratize access to quality healthcare by leveraging cutting-edge
+							At MediSync, our mission is to democratize access to quality healthcare by leveraging cutting-edge
 							technology. We believe that everyone deserves timely, personalized medical attention regardless of their
 							location or circumstances. Through our telehealth platform, we're breaking down geographical barriers and
 							connecting patients with expert healthcare providers at the touch of a button.
@@ -52,7 +52,7 @@ export default function AboutUs() {
 							Why We Started
 						</h2>
 						<p className={'text-md'}>
-							QuantumCare was born from a simple observation: too many people were delaying or foregoing medical care
+							MediSync was born from a simple observation: too many people were delaying or foregoing medical care
 							due to accessibility challenges. Our founders, a team of healthcare professionals and technology experts,
 							witnessed firsthand the gaps in traditional healthcare delivery. They envisioned a future where technology
 							could bridge these gaps, making quality healthcare available to everyone. What began as a solution to
@@ -67,7 +67,7 @@ export default function AboutUs() {
 				<h2 className={'text-3xl font-bold mb-4'}>Join Us in Transforming Healthcare</h2>
 				<p className={'text-lg max-w-3xl mx-auto'}>
 					Whether you're a patient seeking convenient care or a healthcare provider looking to expand your reach,
-					QuantumCare is building the future of healthcare—one virtual consultation at a time.
+					MediSync is building the future of healthcare—one virtual consultation at a time.
 				</p>
 			</div>
 		</div>

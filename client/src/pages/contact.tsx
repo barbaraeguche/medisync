@@ -27,8 +27,8 @@ export default function Contact() {
 							<div>
 								<h3 className={'text-xl font-semibold mb-1'}>Email Us</h3>
 								<p className={'text-muted-foreground mb-2'}>For general inquiries and support</p>
-								<a href={'mailto:contact@quantumcare.ca'} className={'text-teal-800 underline underline-offset-2 font-medium'}>
-									contact@quantumcare.ca
+								<a href={'mailto:contact@medisync.ca'} className={'text-teal-800 underline underline-offset-2 font-medium'}>
+									contact@medisync.ca
 								</a>
 							</div>
 						</div>
@@ -85,12 +85,12 @@ export default function Contact() {
 					<img
 						loading={'lazy'}
 						src={'/hospital-building.jpg'}
-						alt={'QuantumCare Office Location'}
+						alt={'MediSync Office Location'}
 						className={'relative rounded-2xl object-fill shadow-2xl -translate-y-20 md:-translate-y-0 lg:-translate-y-20'}
 					/>
 					<div className={'absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end'}>
 						<div className={'p-6 text-white'}>
-							<h3 className={'text-xl font-semibold mb-1'}>QuantumCare Headquarters</h3>
+							<h3 className={'text-xl font-semibold mb-1'}>MediSync Headquarters</h3>
 							<p>123 Health Street, Vieux Medical</p>
 						</div>
 					</div>
@@ -157,8 +157,8 @@ export default function Contact() {
 						<p className={'mb-4'}>
 							For media inquiries, partnership opportunities, or speaking engagements, please contact our PR team.
 						</p>
-						<a href={'mailto:media@quantumcare.ca'} className={'text-teal-800 underline underline-offset-2 font-medium'}>
-							media@quantumcare.ca
+						<a href={'mailto:media@medisync.ca'} className={'text-teal-800 underline underline-offset-2 font-medium'}>
+							media@medisync.ca
 						</a>
 					</Card.Content>
 				</Card>

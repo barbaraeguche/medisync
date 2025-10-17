@@ -36,9 +36,9 @@ export const DeleteAccount = ({ userId, role }: {
 			<Card.Content>
 				<p className={'text-sm'}>
 					{role === 'Doctor'
-						? 'Deleting your account will remove your provider profile and patient relationships from QuantumCare.' +
+						? 'Deleting your account will remove your provider profile and patient relationships from MediSync.' +
 						' Ensure patient care continuity before proceeding.'
-						: 'Deleting your account will permanently remove your health records and appointment data from QuantumCare.' +
+						: 'Deleting your account will permanently remove your health records and appointment data from MediSync.' +
 						' Consider downloading your records first.'
 					}
 				</p>

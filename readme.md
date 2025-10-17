@@ -1,4 +1,4 @@
-# quantumcare 🩺
+# medisync 🩺
 a comprehensive healthcare management platform designed to manage patient appointments and doctor schedules. the system
 features appointment scheduling, secure authentication, prescription management, and role-based access for patients, 
 doctors, administrators, and cron scheduling.
@@ -59,12 +59,12 @@ to get the project up and running on your local machine, follow these steps:
 - **ensure [node.js](https://nodejs.org/en) and [jdk](https://www.oracle.com/java/technologies/downloads/) are installed:** this project uses node v22 and jdk v23
 1. **clone the repository:**
 ```bash
-git clone https://github.com/barbaraeguche/quantumcare.git
+git clone https://github.com/barbaraeguche/medisync.git
 ```
 
 2. **navigate to the project directory:**
 ```bash
-cd quantumcare
+cd medisync
 ```
 
 3. **run the backend:**
@@ -101,7 +101,7 @@ cd quantumcare
 
 ## preview 📸
 **erd diagram:**
-![quantumcare](https://github.com/user-attachments/assets/fb58831e-8119-4b5c-8dc7-849fc4d97030)
+![medisync](https://github.com/user-attachments/assets/fb58831e-8119-4b5c-8dc7-849fc4d97030)
 
 **admin:**
 
