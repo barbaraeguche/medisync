@@ -17,4 +17,5 @@ WORKDIR /app
 
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# keep total JVM memory under Render's 512Mi limit
+ENTRYPOINT ["java", "-XX:+UseSerialGC", "-XX:MaxRAMPercentage=40", "-Xss512k", "-XX:MaxMetaspaceSize=192m", "-XX:ReservedCodeCacheSize=64m", "-XX:TieredStopAtLevel=1", "-jar", "app.jar"]
