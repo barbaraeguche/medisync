@@ -1,5 +1,5 @@
 # stage 1: build
-FROM openjdk:23-jdk AS build
+FROM eclipse-temurin:23-jdk AS build
 WORKDIR /app
 
 COPY pom.xml .
@@ -12,7 +12,7 @@ RUN touch src/main/resources/.env.properties
 RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
 # stage 2: runtime
-FROM openjdk:23-jdk-slim
+FROM eclipse-temurin:23-jre
 WORKDIR /app
 
 COPY --from=build /app/target/*.jar app.jar
